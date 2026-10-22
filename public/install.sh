@@ -7,54 +7,62 @@
 set -e
 
 echo ""
-echo "  \033[38;2;6;182;212m╔══════════════════════════════════════════════════════════╗\033[0m"
-echo "  \033[38;2;6;182;212m║\033[0m  \033[1;37mCREWLOOM SOVEREIGN AI AGENT — INSTALLER v1.0.0\033[0m        \033[38;2;6;182;212m║\033[0m"
-echo "  \033[38;2;6;182;212m║\033[0m  \033[38;2;16;185;129mDual Bicultural Core · Zero-Destruction Guaranteed\033[0m     \033[38;2;6;182;212m║\033[0m"
-echo "  \033[38;2;6;182;212m╚══════════════════════════════════════════════════════════╝\033[0m"
+echo "  ╔══════════════════════════════════════════════════════════╗"
+echo "  ║  CREWLOOM SOVEREIGN AI AGENT — INSTALLER v2.1.0        ║"
+echo "  ║  Dual Bicultural Core · Zero-Destruction Guaranteed     ║"
+echo "  ╚══════════════════════════════════════════════════════════╝"
 echo ""
 
 # Check Node.js
 if ! command -v node >/dev/null 2>&1; then
-    echo "  \033[31m[ERROR]\033[0m Node.js is required but not installed."
+    echo "  [ERROR] Node.js is required but not installed."
     echo "  Please install Node.js (v18+) from https://nodejs.org or via brew:"
     echo "    brew install node"
     exit 1
 fi
 
 NODE_VER=$(node -v)
-echo "  \033[32m✓\033[0m Detected Node.js: \033[1m$NODE_VER\033[0m"
+echo "  ✓ Detected Node.js: $NODE_VER"
 
 # Install global CLI wrapper
 INSTALL_DIR="$HOME/.local/bin"
 mkdir -p "$INSTALL_DIR"
 
-echo "  \033[36m▶\033[0m Linking global CLI executable..."
+echo "  ▶ Linking global CLI executable..."
 
 cat << 'EOF' > "$INSTALL_DIR/crewloom"
 #!/usr/bin/env bash
-if [ -d "/Volumes/data/projects/crewloom/agent" ]; then
+if [ -f "/Volumes/data/rumuze-edit/dist/index.js" ]; then
+    exec node --no-warnings /Volumes/data/rumuze-edit/dist/index.js "$@"
+elif [ -f "/Volumes/data/projects/crewloom/bridge/dist/index.js" ]; then
+    exec node --no-warnings /Volumes/data/projects/crewloom/bridge/dist/index.js "$@"
+elif [ -f "/Volumes/data/projects/crewloom/agent/dist/index.js" ]; then
     exec node --no-warnings /Volumes/data/projects/crewloom/agent/dist/index.js "$@"
 else
-    npx -y @crewloom/cli "$@"
+    exec npx -y agentgram "$@"
 fi
 EOF
 
 chmod +x "$INSTALL_DIR/crewloom"
 
-echo "  \033[32m✓\033[0m Crewloom CLI installed to: \033[1m$INSTALL_DIR/crewloom\033[0m"
+# Also symlink cl-bridge and crewloom-bridge
+ln -sf "$INSTALL_DIR/crewloom" "$INSTALL_DIR/crewloom-bridge" 2>/dev/null || true
+ln -sf "$INSTALL_DIR/crewloom" "$INSTALL_DIR/cl-bridge" 2>/dev/null || true
+
+echo "  ✓ Crewloom CLI installed to: $INSTALL_DIR/crewloom"
 
 # Check PATH
 case ":$PATH:" in
     *":$INSTALL_DIR:"*) ;;
     *)
         echo ""
-        echo "  \033[33m[NOTE]\033[0m Please add $INSTALL_DIR to your PATH:"
+        echo "  [NOTE] Please add $INSTALL_DIR to your PATH:"
         echo "    echo 'export PATH=\"\$HOME/.local/bin:\$PATH\"' >> ~/.zshrc"
         echo "    source ~/.zshrc"
         ;;
 esac
 
 echo ""
-echo "  \033[32m🎉 Success! Crewloom is ready to launch.\033[0m"
-echo "  Run: \033[1;36mcrewloom --help\033[0m or \033[1;36mcrewloom studio --open\033[0m"
+echo "  🎉 Success! Crewloom is ready to launch."
+echo "  Run: crewloom --help or crewloom init"
 echo ""
