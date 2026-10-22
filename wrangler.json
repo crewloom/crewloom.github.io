@@ -1,0 +1,11 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "crewloom-github-io",
+  "compatibility_date": "2026-10-22",
+  "assets": {
+    "directory": "./out"
+  },
+  "build": {
+    "command": "npm run build"
+  }
+}

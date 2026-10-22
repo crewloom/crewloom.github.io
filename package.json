@@ -6,7 +6,11 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "postinstall": "node scripts/install-shim.cjs"
+  },
+  "bin": {
+    "opennextjs-cloudflare": "./scripts/cloudflare-build.cjs"
   },
   "repository": {
     "type": "git",
