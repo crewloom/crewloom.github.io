@@ -3,10 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Crewloom Agent Studio — استوديو وكيل كرو لوم</title>
+  <title>Crewloom — الوكيل البرمجي السيادي ثنائي النواة | Sovereign Dual-Core AI Agent</title>
+  <meta name="description" content="Crewloom is an autonomous sovereign AI coding agent with a dual Arabic/English core, 44 specialist roles, absolute Zero-Destruction guarantee, and omni-channel bridge mediation.">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2306b6d4'><path d='M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5'/></svg>">
+
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <!-- Lucide & FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
   <script>
     tailwind.config = {
       darkMode: 'class',
@@ -14,286 +19,504 @@
         extend: {
           colors: {
             brand: {
-              50: '#ecfeff',
               400: '#22d3ee',
               500: '#06b6d4',
               600: '#0891b2',
-              900: '#164e63',
+              700: '#0e7490',
             },
-            dark: {
-              bg: '#0a0e17',
-              card: '#111827',
-              border: '#1f2937',
-              hover: '#1e293b',
+            space: {
+              950: '#05070d',
+              900: '#0a0e17',
+              850: '#0f1523',
+              800: '#161e31',
+              700: '#1f2b45',
             }
+          },
+          fontFamily: {
+            arabic: ['Cairo', 'sans-serif'],
+            latin: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
           }
         }
       }
     }
   </script>
+
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=JetBrains+Mono:wght@400;600&family=Inter:wght@400;500;600;700&display=swap');
-    body { font-family: 'Cairo', 'Inter', sans-serif; }
-    code, pre { font-family: 'JetBrains Mono', monospace; }
-    .custom-scrollbar::-webkit-scrollbar { width: 6px; }
-    .custom-scrollbar::-webkit-scrollbar-track { background: #0a0e17; }
-    .custom-scrollbar::-webkit-scrollbar-thumb { background: #1f2937; border-radius: 4px; }
+    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+    
+    :root {
+      --glow-color: rgba(6, 182, 212, 0.15);
+    }
+    
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: #05070d;
+      color: #e2e8f0;
+      overflow-x: hidden;
+    }
+
+    .font-ar { font-family: 'Cairo', sans-serif; }
+    .font-en { font-family: 'Inter', sans-serif; }
+    .font-code { font-family: 'JetBrains Mono', monospace; }
+
+    .glow-mesh {
+      background-image: 
+        radial-gradient(at 20% 15%, rgba(6, 182, 212, 0.12) 0px, transparent 50%),
+        radial-gradient(at 80% 85%, rgba(16, 185, 129, 0.08) 0px, transparent 50%),
+        radial-gradient(at 50% 50%, rgba(14, 116, 144, 0.05) 0px, transparent 60%);
+    }
+
+    .glass-card {
+      background: rgba(15, 21, 35, 0.7);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .glass-card-hover:hover {
+      border-color: rgba(6, 182, 212, 0.4);
+      box-shadow: 0 0 30px rgba(6, 182, 212, 0.12);
+      transform: translateY(-2px);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .terminal-cursor::after {
+      content: '▋';
+      animation: blink 1s step-start infinite;
+      color: #22d3ee;
+    }
+
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
   </style>
 </head>
-<body class="bg-dark-bg text-gray-100 h-screen flex flex-col overflow-hidden">
+<body class="font-ar antialiased selection:bg-cyan-500/30 selection:text-cyan-200 glow-mesh min-h-screen flex flex-col justify-between">
 
-  <!-- Header -->
-  <header class="h-16 border-b border-dark-border bg-dark-card/80 backdrop-blur px-6 flex items-center justify-between z-10">
-    <div class="flex items-center gap-3">
-      <div class="w-10 h-10 rounded-lg bg-gradient-to-tr from-cyan-600 to-teal-400 flex items-center justify-center shadow-lg shadow-cyan-500/20">
-        <i class="fa-solid fa-network-wired text-white text-lg"></i>
-      </div>
-      <div>
-        <div class="flex items-center gap-2">
-          <h1 class="font-bold text-lg text-white tracking-wide">Crewloom Agent</h1>
-          <span class="text-xs bg-cyan-950 text-cyan-400 border border-cyan-800 px-2 py-0.5 rounded-full font-mono">v1.0.0</span>
-          <span class="text-xs bg-emerald-950 text-emerald-400 border border-emerald-800 px-2 py-0.5 rounded-full">PROPRIETARY</span>
+  <!-- Top Announcement Bar -->
+  <div class="bg-gradient-to-r from-cyan-950/80 via-space-900 to-emerald-950/80 border-b border-cyan-800/30 px-4 py-2 text-center text-xs text-gray-300 flex items-center justify-center gap-2">
+    <span class="inline-block w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+    <span id="announcementText" class="font-medium">مبادرة وطنية تقنية مفتوحة المصدر بقيادة رموز (Rumuze) — الإصدار السيادي v1.0.0 متاح الآن</span>
+    <a href="https://github.com/crewloom" target="_blank" class="text-cyan-400 hover:text-cyan-300 font-bold underline ml-1 inline-flex items-center gap-1">
+      <span id="announcementLink">استكشف المستودعات</span>
+      <i class="fa-solid fa-arrow-left text-[10px] transform rotate-180"></i>
+    </a>
+  </div>
+
+  <!-- Main Navigation Header -->
+  <header class="sticky top-0 z-50 glass-card border-b border-white/5 px-6 lg:px-12 py-4">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      
+      <!-- Logo & Branding -->
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-600 via-cyan-500 to-emerald-400 flex items-center justify-center shadow-lg shadow-cyan-500/20 group-hover:scale-105 transition">
+          <i class="fa-solid fa-layer-group text-space-950 text-lg"></i>
         </div>
-        <p class="text-xs text-gray-400">Initiative by Rumuze (رموز) · Dual Bilingual Core</p>
-      </div>
-    </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="font-black text-xl text-white tracking-wider">CREWLOOM</span>
+            <span class="text-[10px] bg-cyan-950 text-cyan-400 border border-cyan-800/60 px-2 py-0.5 rounded-full font-mono font-semibold">SOVEREIGN</span>
+          </div>
+          <span class="text-[11px] text-gray-400 tracking-tight block">كرو لوم · الذكاء البرمجي المستقل</span>
+        </div>
+      </a>
 
-    <!-- Status Badges & Language Switcher -->
-    <div class="flex items-center gap-3">
-      <div class="hidden md:flex items-center gap-2 bg-dark-bg px-3 py-1.5 rounded-lg border border-dark-border text-xs">
-        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-        <span class="text-gray-300">حارس عدم الهدم: نشط</span>
+      <!-- Navigation Links -->
+      <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-gray-300">
+        <a href="#features" class="hover:text-cyan-400 transition" data-i18n="nav_features">المزايا السيادية</a>
+        <a href="#architecture" class="hover:text-cyan-400 transition" data-i18n="nav_arch">المعمارية</a>
+        <a href="#roles" class="hover:text-cyan-400 transition" data-i18n="nav_roles">الـ 44 خبيراً</a>
+        <a href="#constitution" class="hover:text-cyan-400 transition" data-i18n="nav_constitution">ميثاق عدم الهدم</a>
+        <a href="#install" class="hover:text-cyan-400 transition" data-i18n="nav_install">التثبيت والتشغيل</a>
+      </nav>
+
+      <!-- Language Toggle & CTA -->
+      <div class="flex items-center gap-3">
+        <button id="langSwitcher" class="px-3.5 py-1.5 rounded-lg bg-space-800 border border-white/10 hover:border-cyan-500 text-xs font-bold text-cyan-300 flex items-center gap-2 transition">
+          <i class="fa-solid fa-globe text-cyan-400"></i>
+          <span id="langBtnText">English</span>
+        </button>
+
+        <a href="https://github.com/crewloom" target="_blank" class="hidden sm:inline-flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-teal-400 hover:from-cyan-400 hover:to-teal-300 text-space-950 px-4 py-2 rounded-lg font-bold text-xs shadow-md shadow-cyan-500/20 transition transform hover:-translate-y-0.5">
+          <i class="fa-brands fa-github text-sm"></i>
+          <span data-i18n="btn_github">GitHub Org</span>
+        </a>
       </div>
-      <div class="hidden md:flex items-center gap-2 bg-dark-bg px-3 py-1.5 rounded-lg border border-dark-border text-xs">
-        <i class="fa-brands fa-telegram text-sky-400"></i>
-        <span class="text-gray-300">التحكم عن بعد: متصل</span>
-      </div>
-      <button id="langToggle" class="px-3 py-1.5 rounded-lg bg-dark-hover border border-dark-border hover:border-cyan-500 transition text-xs font-semibold flex items-center gap-2">
-        <i class="fa-solid fa-language text-cyan-400"></i>
-        <span id="langLabel">English</span>
-      </button>
+
     </div>
   </header>
 
-  <!-- Main Container -->
-  <div class="flex-1 flex overflow-hidden">
-
-    <!-- Sidebar: Specialist Roles (44 Roles) -->
-    <aside class="w-80 border-l border-dark-border bg-dark-card flex flex-col custom-scrollbar">
-      <div class="p-4 border-b border-dark-border">
-        <div class="flex items-center justify-between mb-2">
-          <h2 class="font-bold text-sm text-gray-300 flex items-center gap-2">
-            <i class="fa-solid fa-user-gear text-cyan-400"></i>
-            الأدوار التخصصية (44 خبيراً)
-          </h2>
-          <span id="roleCountBadge" class="text-xs bg-gray-800 text-cyan-300 px-2 py-0.5 rounded">44</span>
+  <!-- Hero Section -->
+  <main class="flex-1">
+    <section class="relative pt-20 pb-28 px-6 lg:px-12 overflow-hidden">
+      <div class="max-w-6xl mx-auto text-center relative z-10">
+        
+        <!-- Badge -->
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-950/60 border border-cyan-800/50 text-cyan-400 text-xs font-semibold mb-8 backdrop-blur shadow-inner">
+          <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+          <span data-i18n="hero_badge">المعمارية ثنائية النواة: مفتوحة الأدوار ومحكمة المحرك</span>
         </div>
-        <div class="relative">
-          <input type="text" id="roleSearch" placeholder="بحث في الأدوار..." class="w-full bg-dark-bg border border-dark-border rounded-lg px-3 py-2 text-xs text-gray-200 focus:outline-none focus:border-cyan-500 pr-8">
-          <i class="fa-solid fa-search absolute left-3 top-2.5 text-gray-500 text-xs"></i>
+
+        <!-- Main Title -->
+        <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black text-white tracking-tight leading-tight mb-6">
+          <span class="block" data-i18n="hero_title_1">الوكيل البرمجي السيادي الفائق</span>
+          <span class="bg-gradient-to-r from-cyan-400 via-teal-300 to-emerald-400 bg-clip-text text-transparent" data-i18n="hero_title_2">
+            بدقة كوديكس وحرية الأنظمة المستقلة
+          </span>
+        </h1>
+
+        <!-- Subtitle -->
+        <p class="max-w-3xl mx-auto text-lg sm:text-xl text-gray-400 leading-relaxed mb-10 font-medium" data-i18n="hero_desc">
+          أول بيئة عمل برمجية تجمع بين <strong class="text-gray-200">44 خبيراً تخصصياً مفتوح المصدر</strong> ومحرك مغلق فائق الانضباط، مع <strong class="text-cyan-300">ميثاق عدم الهدم المطلق</strong> وغرفة عمليات شاملة تتحكم بها من التليجرام أو التطبيق المكتبي أو الطرفية.
+        </p>
+
+        <!-- CTA Action Buttons -->
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
+          <a href="#install" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-cyan-500 via-teal-400 to-emerald-400 text-space-950 font-black text-base shadow-xl shadow-cyan-500/25 hover:shadow-cyan-500/40 transition transform hover:-translate-y-0.5 flex items-center justify-center gap-3">
+            <i class="fa-solid fa-terminal"></i>
+            <span data-i18n="hero_cta_install">تثبيت أمر الطرفية والتطبيق</span>
+          </a>
+
+          <a href="https://github.com/crewloom/bridge" target="_blank" class="w-full sm:w-auto px-8 py-4 rounded-xl glass-card hover:bg-space-800 border border-white/10 text-white font-bold text-base transition flex items-center justify-center gap-3">
+            <i class="fa-brands fa-telegram text-sky-400"></i>
+            <span data-i18n="hero_cta_bridge">غرفة التحكم عن بعد</span>
+          </a>
         </div>
-      </div>
 
-      <div id="rolesList" class="flex-1 overflow-y-auto p-2 space-y-1.5 custom-scrollbar">
-        <!-- Roles will be injected here via JavaScript -->
-      </div>
-
-      <div class="p-3 border-t border-dark-border bg-dark-bg/60 text-xs text-gray-400 flex items-center justify-between">
-        <span>المستودع: <span class="text-cyan-400 font-mono">crewloom/core</span></span>
-        <i class="fa-solid fa-shield-halved text-emerald-400" title="Zero-Destruction Enforced"></i>
-      </div>
-    </aside>
-
-    <!-- Center: Chat & Interactive Studio -->
-    <main class="flex-1 flex flex-col bg-dark-bg">
-
-      <!-- Active Role Banner -->
-      <div class="h-12 border-b border-dark-border px-6 flex items-center justify-between bg-dark-card/30">
-        <div class="flex items-center gap-2 text-xs text-gray-300">
-          <span class="text-gray-500">الدور النشط:</span>
-          <span id="activeRoleName" class="font-bold text-cyan-400 bg-cyan-950/60 border border-cyan-800/80 px-2 py-0.5 rounded">معماري النظم الموزعة</span>
-          <span id="activeRoleTier" class="text-gray-400 text-[10px] bg-gray-800 px-1.5 py-0.5 rounded">ARCHITECTURE</span>
-        </div>
-        <div class="text-xs text-gray-500">
-          النموذج: <span class="text-gray-300 font-mono">DeepSeek V3 / R1 Reasoner</span>
-        </div>
-      </div>
-
-      <!-- Messages View -->
-      <div id="messagesContainer" class="flex-1 overflow-y-auto p-6 space-y-4 custom-scrollbar">
-        <!-- Welcome Message -->
-        <div class="flex gap-4 max-w-3xl">
-          <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-cyan-600 to-teal-400 flex-shrink-0 flex items-center justify-center text-white text-sm shadow">
-            <i class="fa-solid fa-robot"></i>
+        <!-- Terminal Showcase -->
+        <div class="max-w-4xl mx-auto rounded-2xl glass-card border border-cyan-500/20 shadow-2xl overflow-hidden text-left" dir="ltr">
+          <div class="bg-space-900/90 px-4 py-3 border-b border-white/10 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full bg-rose-500/80 inline-block"></span>
+              <span class="w-3 h-3 rounded-full bg-amber-500/80 inline-block"></span>
+              <span class="w-3 h-3 rounded-full bg-emerald-500/80 inline-block"></span>
+              <span class="text-xs font-mono text-gray-400 ml-2">crewloom-agent-runtime — zsh</span>
+            </div>
+            <div class="flex items-center gap-2 text-xs font-mono text-cyan-400">
+              <i class="fa-solid fa-shield-halved text-emerald-400"></i>
+              <span>Zero-Destruction Guard: ACTIVE</span>
+            </div>
           </div>
-          <div class="flex-1 bg-dark-card border border-dark-border rounded-2xl p-4 shadow-sm text-sm leading-relaxed">
-            <p class="font-bold text-cyan-400 mb-1">وكيل كرو لوم — Crewloom Agent</p>
-            <p class="text-gray-300">
-              أهلاً بك. أنا الوكيل الهندسي والتنفيذي المستقل لمنظومة <strong>Crewloom</strong>. أعمل بنظام الأدوار المتخصصة، وحارس عدم الهدم الصارم، مع دعم كامل للغتين العربية والإنجليزية.
+          <div class="p-6 font-mono text-sm space-y-3 bg-space-950/80">
+            <div class="text-gray-400 flex items-center gap-2">
+              <span class="text-emerald-400 font-bold">$</span>
+              <span class="text-cyan-300 font-semibold">crewloom</span> roles --category backend
+            </div>
+            <div class="text-gray-300 text-xs pl-4 space-y-1">
+              <p class="text-emerald-300">✓ Loaded 44 Sovereign Specialist Roles:</p>
+              <p class="text-gray-400">  [01] chix-brain-and-contracts (DAC + ZLRC Binding Verification)</p>
+              <p class="text-gray-400">  [02] chix-database-migrations (Additive Only · Partial Index)</p>
+              <p class="text-gray-400">  [03] zero-destruction-policy (Constitution Article IV Guard)</p>
+            </div>
+            <div class="text-gray-400 flex items-center gap-2 pt-2">
+              <span class="text-emerald-400 font-bold">$</span>
+              <span class="text-cyan-300 font-semibold">crewloom</span> verify --strict
+            </div>
+            <div class="text-cyan-400 text-xs pl-4 font-mono terminal-cursor">
+              All 14 CI Contract gates passed with ZERO destruction. Dual bicultural core intact.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Key Metrics Section -->
+    <section class="py-12 border-y border-white/5 bg-space-900/40">
+      <div class="max-w-6xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        <div>
+          <div class="text-3xl md:text-5xl font-black text-cyan-400 font-mono mb-2">44</div>
+          <div class="text-xs md:text-sm text-gray-400 font-medium" data-i18n="stat_roles">خبير برمجي تخصصي</div>
+        </div>
+        <div>
+          <div class="text-3xl md:text-5xl font-black text-emerald-400 font-mono mb-2">0%</div>
+          <div class="text-xs md:text-sm text-gray-400 font-medium" data-i18n="stat_regression">نسبة هدم الكود المستقر</div>
+        </div>
+        <div>
+          <div class="text-3xl md:text-5xl font-black text-cyan-300 font-mono mb-2">&lt; 5ms</div>
+          <div class="text-xs md:text-sm text-gray-400 font-medium" data-i18n="stat_latency">زمن اتصال المعمارية البينية</div>
+        </div>
+        <div>
+          <div class="text-3xl md:text-5xl font-black text-amber-300 font-mono mb-2">100%</div>
+          <div class="text-xs md:text-sm text-gray-400 font-medium" data-i18n="stat_bilingual">سيادة لغوية ثنائية كاملة</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-24 px-6 lg:px-12 max-w-6xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-xs font-mono font-bold text-cyan-400 tracking-widest uppercase mb-3" data-i18n="feat_tag">القدرات السيادية</h2>
+        <p class="text-3xl sm:text-4xl font-extrabold text-white" data-i18n="feat_title">لماذا صُمم كرو لوم للمهام المعقدة؟</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Feature 1 -->
+        <div class="glass-card glass-card-hover p-8 rounded-2xl">
+          <div class="w-12 h-12 rounded-xl bg-cyan-950 border border-cyan-800/80 flex items-center justify-center text-cyan-400 text-xl mb-6">
+            <i class="fa-solid fa-shield-virus"></i>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-3" data-i18n="feat1_title">ميثاق عدم الهدم (Zero-Destruction)</h3>
+          <p class="text-sm text-gray-400 leading-relaxed" data-i18n="feat1_desc">
+            قانون صارم ملزم برمجياً يمنع مس أو تكسير أي كود مستقر. لا يتم إدخال أي تعديل إلا بصيغة تراكمية مع التحقق الآلي من عقود الأداء وميزانيات الاستعلامات.
+          </p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="glass-card glass-card-hover p-8 rounded-2xl">
+          <div class="w-12 h-12 rounded-xl bg-emerald-950 border border-emerald-800/80 flex items-center justify-center text-emerald-400 text-xl mb-6">
+            <i class="fa-solid fa-language"></i>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-3" data-i18n="feat2_title">سيادة لغوية ثنائية (عربي / English)</h3>
+          <p class="text-sm text-gray-400 leading-relaxed" data-i18n="feat2_desc">
+            هوية فكرية أصيلة تجيد التفكير والتنفيذ بالعربية الفصحى الدقيقة بنفس الكفاءة الإنجليزية العالمية، مع فصل تام يمنع التشويه أو الرطانة اللغوية.
+          </p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="glass-card glass-card-hover p-8 rounded-2xl">
+          <div class="w-12 h-12 rounded-xl bg-teal-950 border border-teal-800/80 flex items-center justify-center text-teal-400 text-xl mb-6">
+            <i class="fa-solid fa-tower-broadcast"></i>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-3" data-i18n="feat3_title">غرفة العمليات الشاملة (Bridge)</h3>
+          <p class="text-sm text-gray-400 leading-relaxed" data-i18n="feat3_desc">
+            تحكم كامل في جهازك وأدواتك البرمجية عن بعد عبر تليجرام، واتساب، أو المتصفح مع مراقبة حية لتنفيذ الأوامر وسلامة النظام.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Architecture Section -->
+    <section id="architecture" class="py-20 px-6 lg:px-12 bg-space-900/30 border-y border-white/5">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-16">
+          <h2 class="text-xs font-mono font-bold text-cyan-400 tracking-widest uppercase mb-3" data-i18n="arch_tag">المعمارية الهيكلية</h2>
+          <p class="text-3xl sm:text-4xl font-extrabold text-white" data-i18n="arch_title">ثلاث طبقات مستقلة تحقق السيادة المطلقة</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <!-- Layer 1: Core -->
+          <div class="glass-card p-6 rounded-2xl border-l-4 border-l-cyan-500">
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-xs font-mono text-cyan-400 font-bold">LAYER 01</span>
+              <span class="text-xs bg-cyan-950 text-cyan-300 px-2 py-0.5 rounded border border-cyan-800/60">OPEN-SOURCE</span>
+            </div>
+            <h4 class="text-base font-bold text-white mb-2" data-i18n="arch1_name">الطبقة الأساسية (Crewloom Core)</h4>
+            <p class="text-xs text-gray-400 mb-4" data-i18n="arch1_desc">
+              مكتبة المهارات التخصصية (44 خبيراً)، والذاكرة العاملة المشتركة، مع بنية مدمجة للتطوير والتوسيع من مجتمع المطورين.
             </p>
-            <div class="mt-3 flex flex-wrap gap-2 text-xs">
-              <button onclick="sendQuickPrompt('أنت مين وما هي قدراتك بالضبط؟')" class="bg-dark-hover hover:bg-cyan-950/50 hover:text-cyan-300 border border-dark-border px-3 py-1.5 rounded-lg transition">
-                ❓ أنت مين وما هي قدراتك؟
-              </button>
-              <button onclick="sendQuickPrompt('Who are you and what makes you unique?')" class="bg-dark-hover hover:bg-cyan-950/50 hover:text-cyan-300 border border-dark-border px-3 py-1.5 rounded-lg transition font-sans">
-                🌐 Who are you? (English)
-              </button>
-              <button onclick="sendQuickPrompt('ما هي سياسة عدم الهدم Zero-Destruction؟')" class="bg-dark-hover hover:bg-cyan-950/50 hover:text-cyan-300 border border-dark-border px-3 py-1.5 rounded-lg transition">
-                🛡️ ما هي سياسة عدم الهدم؟
-              </button>
+            <div class="bg-space-950 p-3 rounded-lg text-xs font-mono text-gray-300">
+              github.com/crewloom/crewloom
+            </div>
+          </div>
+
+          <!-- Layer 2: Bridge -->
+          <div class="glass-card p-6 rounded-2xl border-l-4 border-l-teal-500">
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-xs font-mono text-teal-400 font-bold">LAYER 02</span>
+              <span class="text-xs bg-teal-950 text-teal-300 px-2 py-0.5 rounded border border-teal-800/60">OPEN-SOURCE</span>
+            </div>
+            <h4 class="text-base font-bold text-white mb-2" data-i18n="arch2_name">جسر التحكم الحي (Crewloom Bridge)</h4>
+            <p class="text-xs text-gray-400 mb-4" data-i18n="arch2_desc">
+              الوسيط متعدد القنوات (تليجرام، إيميل، طرفية)، يعمل كـ LaunchAgent خفيف في الخلفية لضمان استقرار العمليات دون استهلاك موارد.
+            </p>
+            <div class="bg-space-950 p-3 rounded-lg text-xs font-mono text-gray-300">
+              github.com/crewloom/bridge
+            </div>
+          </div>
+
+          <!-- Layer 3: Proprietary Agent -->
+          <div class="glass-card p-6 rounded-2xl border-l-4 border-l-emerald-500">
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-xs font-mono text-emerald-400 font-bold">LAYER 03</span>
+              <span class="text-xs bg-emerald-950 text-emerald-300 px-2 py-0.5 rounded border border-emerald-800/60">PROPRIETARY</span>
+            </div>
+            <h4 class="text-base font-bold text-white mb-2" data-i18n="arch3_name">محرك الوكيل السيادي (Agent Engine)</h4>
+            <p class="text-xs text-gray-400 mb-4" data-i18n="arch3_desc">
+              المحرك المغلق المبني على DeepSeek Harness مع بنية إضافات صارمة ومكتبة العقود وميثاق الدستور الملزم لحماية الأصول البرمجية.
+            </p>
+            <div class="bg-space-950 p-3 rounded-lg text-xs font-mono text-emerald-300">
+              github.com/crewloom/agent (Private)
             </div>
           </div>
         </div>
       </div>
+    </section>
 
-      <!-- Input Box -->
-      <div class="p-4 border-t border-dark-border bg-dark-card/50">
-        <form id="chatForm" class="max-w-4xl mx-auto relative flex items-center">
-          <textarea id="userInput" rows="1" placeholder="اكتب سؤالك أو أمرك للوكيل بالعربية أو بالإنجليزية..." class="w-full bg-dark-bg border border-dark-border rounded-xl px-4 py-3.5 pl-12 text-sm text-gray-200 placeholder-gray-500 focus:outline-none focus:border-cyan-500 resize-none custom-scrollbar"></textarea>
-          <button type="submit" class="absolute left-2.5 w-9 h-9 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white flex items-center justify-center transition shadow-lg shadow-cyan-600/30">
-            <i class="fa-solid fa-paper-plane text-xs"></i>
-          </button>
-        </form>
-        <p class="text-center text-[11px] text-gray-500 mt-2">
-          Crewloom Agent v1.0.0 · Dual Default Language · Zero-Destruction Enforced
-        </p>
+    <!-- Installation & Quick Start -->
+    <section id="install" class="py-24 px-6 lg:px-12 max-w-4xl mx-auto">
+      <div class="text-center mb-12">
+        <h2 class="text-xs font-mono font-bold text-cyan-400 tracking-widest uppercase mb-3" data-i18n="inst_tag">التثبيت السريع</h2>
+        <p class="text-3xl font-extrabold text-white" data-i18n="inst_title">ابدأ تشغيل كرو لوم في ثوانٍ</p>
       </div>
 
-    </main>
-
-  </div>
-
-  <script>
-    let currentLang = 'ar';
-    let selectedRole = 'distributed-systems-architect';
-    let rolesData = [];
-
-    async function loadRoles() {
-      try {
-        const res = await fetch('/api/roles');
-        rolesData = await res.json();
-        renderRoles(rolesData);
-      } catch (err) {
-        console.error('Failed loading roles:', err);
-      }
-    }
-
-    function renderRoles(list) {
-      const container = document.getElementById('rolesList');
-      container.innerHTML = '';
-      list.forEach(role => {
-        const isSelected = role.id === selectedRole;
-        const div = document.createElement('div');
-        div.className = `p-2.5 rounded-lg cursor-pointer transition border text-xs flex flex-col gap-1 ${
-          isSelected 
-            ? 'bg-cyan-950/40 border-cyan-500/80 text-white shadow-sm' 
-            : 'bg-dark-bg/60 border-dark-border text-gray-300 hover:bg-dark-hover hover:border-gray-700'
-        }`;
-        div.onclick = () => selectRole(role);
-        div.innerHTML = `
-          <div class="flex items-center justify-between">
-            <span class="font-semibold text-gray-200">${role.name}</span>
-            <span class="text-[9px] px-1.5 py-0.2 rounded uppercase ${
-              role.tier === 'architecture' ? 'bg-purple-950 text-purple-300' :
-              role.tier === 'governance' ? 'bg-amber-950 text-amber-300' :
-              role.tier === 'operations' ? 'bg-blue-950 text-blue-300' : 'bg-gray-800 text-gray-400'
-            }">${role.tier}</span>
+      <div class="glass-card rounded-2xl p-6 sm:p-8 border border-white/10 space-y-6">
+        <div>
+          <label class="block text-xs font-mono text-gray-400 mb-2 font-semibold">1. تثبيت أمر الطرفية العالمي (CLI):</label>
+          <div class="bg-space-950 p-4 rounded-xl border border-white/5 flex items-center justify-between font-mono text-sm text-cyan-300" dir="ltr">
+            <code>npm install -g @crewloom/cli</code>
+            <button onclick="navigator.clipboard.writeText('npm install -g @crewloom/cli')" class="text-gray-400 hover:text-white transition">
+              <i class="fa-regular fa-copy"></i>
+            </button>
           </div>
-          <p class="text-[11px] text-gray-400 line-clamp-1">${role.description || role.id}</p>
-        `;
-        container.appendChild(div);
-      });
-      document.getElementById('roleCountBadge').innerText = list.length;
-    }
-
-    function selectRole(role) {
-      selectedRole = role.id;
-      document.getElementById('activeRoleName').innerText = role.name;
-      document.getElementById('activeRoleTier').innerText = role.tier.toUpperCase();
-      renderRoles(rolesData);
-    }
-
-    document.getElementById('roleSearch').addEventListener('input', (e) => {
-      const q = e.target.value.toLowerCase();
-      const filtered = rolesData.filter(r => r.name.toLowerCase().includes(q) || r.id.toLowerCase().includes(q));
-      renderRoles(filtered);
-    });
-
-    document.getElementById('langToggle').addEventListener('click', () => {
-      if (currentLang === 'ar') {
-        currentLang = 'en';
-        document.documentElement.setAttribute('dir', 'ltr');
-        document.documentElement.setAttribute('lang', 'en');
-        document.getElementById('langLabel').innerText = 'العربية';
-        document.getElementById('userInput').placeholder = 'Type your command or question in English or Arabic...';
-      } else {
-        currentLang = 'ar';
-        document.documentElement.setAttribute('dir', 'rtl');
-        document.documentElement.setAttribute('lang', 'ar');
-        document.getElementById('langLabel').innerText = 'English';
-        document.getElementById('userInput').placeholder = 'اكتب سؤالك أو أمرك للوكيل بالعربية أو بالإنجليزية...';
-      }
-    });
-
-    function appendMessage(sender, text) {
-      const container = document.getElementById('messagesContainer');
-      const msgDiv = document.createElement('div');
-      msgDiv.className = `flex gap-4 max-w-3xl ${sender === 'user' ? 'mr-auto flex-row-reverse' : ''}`;
-      
-      const avatar = sender === 'user' 
-        ? `<div class="w-8 h-8 rounded-lg bg-gray-700 flex-shrink-0 flex items-center justify-center text-white text-sm"><i class="fa-solid fa-user"></i></div>`
-        : `<div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-cyan-600 to-teal-400 flex-shrink-0 flex items-center justify-center text-white text-sm shadow"><i class="fa-solid fa-robot"></i></div>`;
-
-      const parsedContent = marked.parse(text);
-
-      msgDiv.innerHTML = `
-        ${avatar}
-        <div class="flex-1 ${sender === 'user' ? 'bg-cyan-900/40 border border-cyan-700/50' : 'bg-dark-card border border-dark-border'} rounded-2xl p-4 shadow-sm text-sm leading-relaxed prose prose-invert max-w-none">
-          ${parsedContent}
         </div>
-      `;
-      container.appendChild(msgDiv);
-      container.scrollTop = container.scrollHeight;
-    }
 
-    async function sendPrompt(text) {
-      appendMessage('user', text);
-      const loadingDiv = document.createElement('div');
-      loadingDiv.id = 'loadingIndicator';
-      loadingDiv.className = 'flex items-center gap-2 text-xs text-cyan-400 p-2 animate-pulse';
-      loadingDiv.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Crewloom Agent يفكر...';
-      document.getElementById('messagesContainer').appendChild(loadingDiv);
+        <div>
+          <label class="block text-xs font-mono text-gray-400 mb-2 font-semibold">2. تشغيل استوديو الوكيل والتطبيق المكتبي:</label>
+          <div class="bg-space-950 p-4 rounded-xl border border-white/5 flex items-center justify-between font-mono text-sm text-cyan-300" dir="ltr">
+            <code>crewloom studio --open</code>
+            <button onclick="navigator.clipboard.writeText('crewloom studio --open')" class="text-gray-400 hover:text-white transition">
+              <i class="fa-regular fa-copy"></i>
+            </button>
+          </div>
+        </div>
 
-      try {
-        const res = await fetch('/api/chat', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ prompt: text, role: selectedRole, lang: currentLang })
-        });
-        const data = await res.json();
-        document.getElementById('loadingIndicator')?.remove();
-        appendMessage('agent', data.response);
-      } catch (err) {
-        document.getElementById('loadingIndicator')?.remove();
-        appendMessage('agent', '❌ حدث خطأ في الاتصال بالوكيل: ' + err.message);
+        <div>
+          <label class="block text-xs font-mono text-gray-400 mb-2 font-semibold">3. تطبيق الماك الأصلي (Native macOS Cocoa):</label>
+          <p class="text-xs text-gray-400 mb-3" data-i18n="inst_app_desc">
+            تطبيق فائق الخفة (58 كيلوبايت) مدمج مع نظام WebKit الأصلي دون أي استهلاك للذاكرة. متاح تحت:
+          </p>
+          <div class="bg-space-950 p-4 rounded-xl border border-white/5 flex items-center justify-between font-mono text-xs text-emerald-300" dir="ltr">
+            <code>/Applications/Crewloom Agent.app</code>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-white/10 bg-space-950 px-6 lg:px-12 py-12">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-lg bg-cyan-600 flex items-center justify-center">
+          <i class="fa-solid fa-layer-group text-space-950 text-sm"></i>
+        </div>
+        <span class="font-bold text-sm text-white">CREWLOOM SOVEREIGN</span>
+        <span class="text-xs text-gray-500">| © 2026 Rumuze (رموز). All rights reserved.</span>
+      </div>
+
+      <div class="flex items-center gap-6 text-xs text-gray-400 font-semibold">
+        <a href="https://github.com/crewloom" target="_blank" class="hover:text-cyan-400 transition">GitHub Organization</a>
+        <a href="https://crewloom.org" class="hover:text-cyan-400 transition">Official Site</a>
+        <a href="mailto:support@crewloom.org" class="hover:text-cyan-400 transition">support@crewloom.org</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bilingual Toggle Script -->
+  <script>
+    const translations = {
+      ar: {
+        dir: 'rtl',
+        fontClass: 'font-ar',
+        langBtnText: 'English',
+        announcementText: 'مبادرة وطنية تقنية مفتوحة المصدر بقيادة رموز (Rumuze) — الإصدار السيادي v1.0.0 متاح الآن',
+        announcementLink: 'استكشف المستودعات',
+        nav_features: 'المزايا السيادية',
+        nav_arch: 'المعمارية',
+        nav_roles: 'الـ 44 خبيراً',
+        nav_constitution: 'ميثاق عدم الهدم',
+        nav_install: 'التثبيت والتشغيل',
+        btn_github: 'مستودعات المنظمة',
+        hero_badge: 'المعمارية ثنائية النواة: مفتوحة الأدوار ومحكمة المحرك',
+        hero_title_1: 'الوكيل البرمجي السيادي الفائق',
+        hero_title_2: 'بدقة كوديكس وحرية الأنظمة المستقلة',
+        hero_desc: 'أول بيئة عمل برمجية تجمع بين 44 خبيراً تخصصياً مفتوح المصدر ومحرك مغلق فائق الانضباط، مع ميثاق عدم الهدم المطلق وغرفة عمليات شاملة تتحكم بها من التليجرام أو التطبيق المكتبي أو الطرفية.',
+        hero_cta_install: 'تثبيت أمر الطرفية والتطبيق',
+        hero_cta_bridge: 'غرفة التحكم عن بعد',
+        stat_roles: 'خبير برمجي تخصصي',
+        stat_regression: 'نسبة هدم الكود المستقر',
+        stat_latency: 'زمن اتصال المعمارية البينية',
+        stat_bilingual: 'سيادة لغوية ثنائية كاملة',
+        feat_tag: 'القدرات السيادية',
+        feat_title: 'لماذا صُمم كرو لوم للمهام المعقدة؟',
+        feat1_title: 'ميثاق عدم الهدم (Zero-Destruction)',
+        feat1_desc: 'قانون صارم ملزم برمجياً يمنع مس أو تكسير أي كود مستقر. لا يتم إدخال أي تعديل إلا بصيغة تراكمية مع التحقق الآلي من عقود الأداء وميزانيات الاستعلامات.',
+        feat2_title: 'سيادة لغوية ثنائية (عربي / English)',
+        feat2_desc: 'هوية فكرية أصيلة تجيد التفكير والتنفيذ بالعربية الفصحى الدقيقة بنفس الكفاءة الإنجليزية العالمية، مع فصل تام يمنع التشويه أو الرطانة اللغوية.',
+        feat3_title: 'غرفة العمليات الشاملة (Bridge)',
+        feat3_desc: 'تحكم كامل في جهازك وأدواتك البرمجية عن بعد عبر تليجرام، واتساب، أو المتصفح مع مراقبة حية لتنفيذ الأوامر وسلامة النظام.',
+        arch_tag: 'المعمارية الهيكلية',
+        arch_title: 'ثلاث طبقات مستقلة تحقق السيادة المطلقة',
+        arch1_name: 'الطبقة الأساسية (Crewloom Core)',
+        arch1_desc: 'مكتبة المهارات التخصصية (44 خبيراً)، والذاكرة العاملة المشتركة، مع بنية مدمجة للتطوير والتوسيع من مجتمع المطورين.',
+        arch2_name: 'جسر التحكم الحي (Crewloom Bridge)',
+        arch2_desc: 'الوسيط متعدد القنوات (تليجرام، إيميل، طرفية)، يعمل كـ LaunchAgent خفيف في الخلفية لضمان استقرار العمليات دون استهلاك موارد.',
+        arch3_name: 'محرك الوكيل السيادي (Agent Engine)',
+        arch3_desc: 'المحرك المغلق المبني على DeepSeek Harness مع بنية إضافات صارمة ومكتبة العقود وميثاق الدستور الملزم لحماية الأصول البرمجية.',
+        inst_tag: 'التثبيت السريع',
+        inst_title: 'ابدأ تشغيل كرو لوم في ثوانٍ',
+        inst_app_desc: 'تطبيق فائق الخفة (58 كيلوبايت) مدمج مع نظام WebKit الأصلي دون أي استهلاك للذاكرة. متاح تحت:'
+      },
+      en: {
+        dir: 'ltr',
+        fontClass: 'font-en',
+        langBtnText: 'العربية',
+        announcementText: 'Sovereign Open-Source Engineering Initiative by Rumuze — v1.0.0 is now live',
+        announcementLink: 'Explore GitHub Repos',
+        nav_features: 'Sovereign Features',
+        nav_arch: 'Architecture',
+        nav_roles: '44 Specialist Roles',
+        nav_constitution: 'Zero-Destruction Constitution',
+        nav_install: 'Installation',
+        btn_github: 'GitHub Org',
+        hero_badge: 'Dual-Core Architecture: Open Roles · Proprietary Engine',
+        hero_title_1: 'The Sovereign AI Coding Agent',
+        hero_title_2: 'Codex Precision with Sovereign Autonomy',
+        hero_desc: 'The premier autonomous development runtime merging 44 open-source specialist skills with a proprietary disciplined engine, strict Zero-Destruction guarantees, and an omni-channel bridge control room.',
+        hero_cta_install: 'Install Global CLI & App',
+        hero_cta_bridge: 'Remote Control Room',
+        stat_roles: 'Specialist Roles',
+        stat_regression: 'Destructive Regression Rate',
+        stat_latency: 'IPC Latency',
+        stat_bilingual: 'Dual Linguistic Sovereignty',
+        feat_tag: 'Sovereign Capabilities',
+        feat_title: 'Why Was Crewloom Engineered for Complex Work?',
+        feat1_title: 'Zero-Destruction Guarantee',
+        feat1_desc: 'A constitutionally binding software contract preventing regression or destruction of stable systems. Additive-only execution enforced by CI ratchets.',
+        feat2_title: 'Dual-Core Bicultural Persona',
+        feat2_desc: 'Authentic sovereign identity operating with equal eloquence in Classical Arabic and modern English, strictly preserving linguistic purity without fragmentation.',
+        feat3_title: 'Omni-Channel Control Room',
+        feat3_desc: 'Complete mediation through Telegram, WhatsApp, web, or native macOS app with live telemetry and asynchronous remote dispatch.',
+        arch_tag: 'System Topology',
+        arch_title: 'Three Sovereign Layers Guaranteeing Autonomy',
+        arch1_name: 'Layer 01: Crewloom Core',
+        arch1_desc: 'Open-source repository holding 44 expert skill definitions, persistent working memory, and upstream-friendly toolchains.',
+        arch2_name: 'Layer 02: Crewloom Bridge',
+        arch2_desc: 'Omni-channel mediator daemon linking terminal tools with Telegram, WhatsApp, and remote ops with minimal footprint.',
+        arch3_name: 'Layer 03: Proprietary Agent Engine',
+        arch3_desc: 'Strict closed-source engine powered by DeepSeek Harness with contract-driven safety guards and binding constitution.',
+        inst_tag: 'Quickstart',
+        inst_title: 'Deploy Crewloom in Seconds',
+        inst_app_desc: 'Hyper-optimized native macOS Cocoa app (58KB binary) powered by WebKit with zero background bloat. Located at:'
       }
-    }
+    };
 
-    function sendQuickPrompt(text) {
-      document.getElementById('userInput').value = text;
-      document.getElementById('chatForm').dispatchEvent(new Event('submit'));
-    }
+    let currentLang = 'ar';
+    const langBtn = document.getElementById('langSwitcher');
 
-    document.getElementById('chatForm').addEventListener('submit', (e) => {
-      e.preventDefault();
-      const input = document.getElementById('userInput');
-      const text = input.value.trim();
-      if (!text) return;
-      input.value = '';
-      sendPrompt(text);
+    langBtn.addEventListener('click', () => {
+      currentLang = currentLang === 'ar' ? 'en' : 'ar';
+      const t = translations[currentLang];
+
+      document.documentElement.lang = currentLang;
+      document.documentElement.dir = t.dir;
+      document.body.className = `${t.fontClass} antialiased selection:bg-cyan-500/30 selection:text-cyan-200 glow-mesh min-h-screen flex flex-col justify-between`;
+
+      document.getElementById('langBtnText').textContent = t.langBtnText;
+      document.getElementById('announcementText').textContent = t.announcementText;
+      document.getElementById('announcementLink').textContent = t.announcementLink;
+
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (t[key]) el.textContent = t[key];
+      });
     });
-
-    loadRoles();
   </script>
 </body>
 </html>
