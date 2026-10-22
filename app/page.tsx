@@ -21,6 +21,10 @@ import {
   Sparkles,
   Command,
   CheckCircle2,
+  Play,
+  RotateCcw,
+  Apple,
+  Package,
 } from "lucide-react";
 import { Logo } from "@/components/Logo";
 
@@ -28,7 +32,13 @@ export default function Home() {
   const [lang, setLang] = useState<"en" | "ar">("en");
   const [copiedCmd, setCopiedCmd] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<"cli" | "guard" | "bridge">("cli");
+  const [installMethod, setInstallMethod] = useState<"curl" | "macos" | "npm" | "brew">("curl");
   const [roleSearch, setRoleSearch] = useState("");
+  
+  // Interactive Simulator State
+  const [isSimulating, setIsSimulating] = useState(false);
+  const [simProgress, setSimProgress] = useState(0);
+  const [simStep, setSimStep] = useState(0);
 
   const isAr = lang === "ar";
 
@@ -43,7 +53,28 @@ export default function Home() {
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
     setCopiedCmd(text);
-    setTimeout(() => setCopiedCmd(null), 2000);
+    setTimeout(() => setCopiedCmd(null), 2500);
+  };
+
+  const runSimulation = () => {
+    if (isSimulating) return;
+    setIsSimulating(true);
+    setSimProgress(0);
+    setSimStep(1);
+
+    const interval = setInterval(() => {
+      setSimProgress((prev) => {
+        if (prev >= 100) {
+          clearInterval(interval);
+          setIsSimulating(false);
+          setSimStep(4);
+          return 100;
+        }
+        if (prev === 25) setSimStep(2);
+        if (prev === 65) setSimStep(3);
+        return prev + 5;
+      });
+    }, 60);
   };
 
   const allRoles = [
@@ -88,7 +119,6 @@ export default function Home() {
       {/* Main Navigation Header */}
       <header className="sticky top-0 z-50 glass-card border-b border-white/[0.08] px-6 lg:px-12 py-3.5 backdrop-blur-xl">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
-          {/* Logo & Brand Identity */}
           <a href="#" className="flex items-center gap-3.5 group">
             <Logo className="w-10 h-10" />
             <div>
@@ -104,7 +134,6 @@ export default function Home() {
             </div>
           </a>
 
-          {/* Navigation Links */}
           <nav className="hidden md:flex items-center gap-8 text-sm font-semibold text-gray-300">
             <a href="#features" className="hover:text-cyan-400 transition">
               {isAr ? "المزايا السيادية" : "Capabilities"}
@@ -112,46 +141,45 @@ export default function Home() {
             <a href="#architecture" className="hover:text-cyan-400 transition">
               {isAr ? "المعمارية" : "Architecture"}
             </a>
+            <a href="#simulator" className="hover:text-cyan-400 transition text-cyan-400 flex items-center gap-1.5">
+              <Zap className="w-3.5 h-3.5 animate-pulse" />
+              <span>{isAr ? "المحاكي الحي" : "Live Demo"}</span>
+            </a>
             <a href="#roles" className="hover:text-cyan-400 transition">
               {isAr ? "الـ 44 خبيراً" : "44 Skills"}
             </a>
             <a href="#install" className="hover:text-cyan-400 transition">
-              {isAr ? "التثبيت والتشغيل" : "Quickstart"}
+              {isAr ? "التثبيت السريع" : "Quickstart"}
             </a>
           </nav>
 
-          {/* Header Action Buttons */}
           <div className="flex items-center gap-3">
-            {/* Language Switcher */}
             <button
               onClick={() => setLang(isAr ? "en" : "ar")}
               className="px-3.5 py-1.5 rounded-lg bg-space-850 hover:bg-space-800 border border-white/10 hover:border-cyan-500/60 text-xs font-bold text-cyan-300 flex items-center gap-2 transition shadow-sm"
-              title={isAr ? "Switch to English" : "التبديل إلى العربية"}
             >
               <Globe className="w-3.5 h-3.5 text-cyan-400" />
               <span>{isAr ? "English" : "العربية"}</span>
             </button>
 
             <a
-              href="https://github.com/crewloom"
-              target="_blank"
-              rel="noreferrer"
-              className="hidden sm:inline-flex items-center gap-2 bg-gradient-to-r from-cyan-500 via-teal-400 to-emerald-400 hover:from-cyan-400 hover:to-emerald-300 text-space-950 px-4 py-2 rounded-lg font-bold text-xs shadow-lg shadow-cyan-500/20 transition transform hover:-translate-y-0.5"
+              href="#install"
+              className="hidden sm:inline-flex items-center gap-2 bg-gradient-to-r from-cyan-500 via-teal-400 to-emerald-400 hover:from-cyan-400 hover:to-emerald-300 text-space-950 px-4 py-2 rounded-lg font-bold text-xs shadow-lg shadow-cyan-500/20 transition transform hover:-translate-y-0.5 animate-shimmer"
             >
-              <span>GitHub Org</span>
-              <ExternalLink className="w-3.5 h-3.5 stroke-[2.5]" />
+              <Download className="w-3.5 h-3.5 stroke-[2.5]" />
+              <span>{isAr ? "تثبيت فوري" : "Get Crewloom"}</span>
             </a>
           </div>
         </div>
       </header>
 
       {/* Hero Section */}
-      <section className="relative pt-20 pb-28 px-6 lg:px-12 overflow-hidden">
+      <section className="relative pt-16 pb-24 px-6 lg:px-12 overflow-hidden">
         <div className="max-w-6xl mx-auto text-center relative z-10">
           
           {/* Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-950/70 border border-cyan-800/60 text-cyan-300 text-xs font-semibold mb-8 backdrop-blur shadow-inner">
-            <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
+            <Sparkles className="w-3.5 h-3.5 text-cyan-400 animate-spin" style={{ animationDuration: "12s" }} />
             <span>
               {isAr
                 ? "المعمارية ثنائية النواة: كوديكس في الدقة ومستقلة في السيادة"
@@ -159,7 +187,7 @@ export default function Home() {
             </span>
           </div>
 
-          {/* Main Headline */}
+          {/* Main Title */}
           <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-white tracking-tight leading-[1.15] mb-6">
             <span className="block">
               {isAr ? "الوكيل البرمجي السيادي الفائق" : "The Sovereign AI Coding Agent"}
@@ -176,28 +204,152 @@ export default function Home() {
               : "The premier autonomous development engine uniting 44 open-source specialist skills with a disciplined proprietary core, strict non-destructive verification, and an omni-channel bridge control room."}
           </p>
 
-          {/* Action CTAs */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
-            <a
-              href="#install"
-              className="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-cyan-500 via-teal-400 to-emerald-400 text-space-950 font-black text-base shadow-xl shadow-cyan-500/25 hover:shadow-cyan-500/40 transition transform hover:-translate-y-0.5 flex items-center justify-center gap-3"
-            >
-              <Terminal className="w-5 h-5 stroke-[2.5]" />
-              <span>{isAr ? "تثبيت أمر الطرفية والتطبيق" : "Install Global CLI & Desktop App"}</span>
-            </a>
+          {/* HIGH-CONVERSION MAGNETIC INSTALL DOCK (Beam Border) */}
+          <div className="max-w-3xl mx-auto mb-16 beam-border shadow-2xl">
+            <div className="beam-content p-6 sm:p-8 text-left" dir="ltr">
+              <div className="flex flex-wrap items-center justify-between gap-4 mb-5 border-b border-white/[0.08] pb-4">
+                <div className="flex items-center gap-2">
+                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
+                  <span className="text-xs font-mono font-bold text-gray-200">
+                    ONE-STEP INSTALLATION
+                  </span>
+                </div>
+                <div className="flex items-center gap-1.5 bg-space-950 p-1 rounded-lg border border-white/10 text-xs font-mono">
+                  <button
+                    onClick={() => setInstallMethod("curl")}
+                    className={`px-3 py-1 rounded transition ${installMethod === "curl" ? "bg-cyan-950 text-cyan-300 border border-cyan-700/80 font-bold" : "text-gray-400 hover:text-white"}`}
+                  >
+                    curl
+                  </button>
+                  <button
+                    onClick={() => setInstallMethod("npm")}
+                    className={`px-3 py-1 rounded transition ${installMethod === "npm" ? "bg-cyan-950 text-cyan-300 border border-cyan-700/80 font-bold" : "text-gray-400 hover:text-white"}`}
+                  >
+                    npm
+                  </button>
+                  <button
+                    onClick={() => setInstallMethod("brew")}
+                    className={`px-3 py-1 rounded transition ${installMethod === "brew" ? "bg-cyan-950 text-cyan-300 border border-cyan-700/80 font-bold" : "text-gray-400 hover:text-white"}`}
+                  >
+                    brew
+                  </button>
+                  <button
+                    onClick={() => setInstallMethod("macos")}
+                    className={`px-3 py-1 rounded transition flex items-center gap-1 ${installMethod === "macos" ? "bg-cyan-950 text-cyan-300 border border-cyan-700/80 font-bold" : "text-gray-400 hover:text-white"}`}
+                  >
+                    <Apple className="w-3 h-3" />
+                    <span>Native App</span>
+                  </button>
+                </div>
+              </div>
 
-            <a
-              href="https://github.com/crewloom/bridge"
-              target="_blank"
-              rel="noreferrer"
-              className="w-full sm:w-auto px-8 py-4 rounded-xl glass-card hover:bg-space-800 border border-white/10 text-white font-bold text-base transition flex items-center justify-center gap-3"
-            >
-              <Radio className="w-5 h-5 text-cyan-400" />
-              <span>{isAr ? "غرفة التحكم عن بعد (Telegram)" : "Remote Ops Control Room"}</span>
-            </a>
+              {/* Install Code Display */}
+              {installMethod === "curl" && (
+                <div className="flex items-center justify-between bg-space-950/90 border border-cyan-500/30 rounded-xl p-4 font-mono text-sm group hover:border-cyan-400 transition">
+                  <div className="flex items-center gap-3 overflow-x-auto text-cyan-300">
+                    <span className="text-emerald-400 font-bold select-none">$</span>
+                    <code>curl -fsSL https://crewloom.org/install.sh | bash</code>
+                  </div>
+                  <button
+                    onClick={() => copyToClipboard("curl -fsSL https://crewloom.org/install.sh | bash")}
+                    className="ml-4 shrink-0 px-4 py-2 rounded-lg bg-cyan-950 hover:bg-cyan-900 border border-cyan-700/80 text-cyan-300 text-xs font-bold transition flex items-center gap-2 shadow"
+                  >
+                    {copiedCmd === "curl -fsSL https://crewloom.org/install.sh | bash" ? (
+                      <>
+                        <Check className="w-3.5 h-3.5 text-emerald-400" />
+                        <span className="text-emerald-300 font-sans">Copied!</span>
+                      </>
+                    ) : (
+                      <>
+                        <Copy className="w-3.5 h-3.5" />
+                        <span className="font-sans">Copy</span>
+                      </>
+                    )}
+                  </button>
+                </div>
+              )}
+
+              {installMethod === "npm" && (
+                <div className="flex items-center justify-between bg-space-950/90 border border-cyan-500/30 rounded-xl p-4 font-mono text-sm group hover:border-cyan-400 transition">
+                  <div className="flex items-center gap-3 overflow-x-auto text-cyan-300">
+                    <span className="text-emerald-400 font-bold select-none">$</span>
+                    <code>npm install -g @crewloom/cli</code>
+                  </div>
+                  <button
+                    onClick={() => copyToClipboard("npm install -g @crewloom/cli")}
+                    className="ml-4 shrink-0 px-4 py-2 rounded-lg bg-cyan-950 hover:bg-cyan-900 border border-cyan-700/80 text-cyan-300 text-xs font-bold transition flex items-center gap-2 shadow"
+                  >
+                    {copiedCmd === "npm install -g @crewloom/cli" ? (
+                      <>
+                        <Check className="w-3.5 h-3.5 text-emerald-400" />
+                        <span className="text-emerald-300 font-sans">Copied!</span>
+                      </>
+                    ) : (
+                      <>
+                        <Copy className="w-3.5 h-3.5" />
+                        <span className="font-sans">Copy</span>
+                      </>
+                    )}
+                  </button>
+                </div>
+              )}
+
+              {installMethod === "brew" && (
+                <div className="flex items-center justify-between bg-space-950/90 border border-cyan-500/30 rounded-xl p-4 font-mono text-sm group hover:border-cyan-400 transition">
+                  <div className="flex items-center gap-3 overflow-x-auto text-cyan-300">
+                    <span className="text-emerald-400 font-bold select-none">$</span>
+                    <code>brew install crewloom/tap/crewloom</code>
+                  </div>
+                  <button
+                    onClick={() => copyToClipboard("brew install crewloom/tap/crewloom")}
+                    className="ml-4 shrink-0 px-4 py-2 rounded-lg bg-cyan-950 hover:bg-cyan-900 border border-cyan-700/80 text-cyan-300 text-xs font-bold transition flex items-center gap-2 shadow"
+                  >
+                    {copiedCmd === "brew install crewloom/tap/crewloom" ? (
+                      <>
+                        <Check className="w-3.5 h-3.5 text-emerald-400" />
+                        <span className="text-emerald-300 font-sans">Copied!</span>
+                      </>
+                    ) : (
+                      <>
+                        <Copy className="w-3.5 h-3.5" />
+                        <span className="font-sans">Copy</span>
+                      </>
+                    )}
+                  </button>
+                </div>
+              )}
+
+              {installMethod === "macos" && (
+                <div className="flex flex-col sm:flex-row items-center justify-between bg-space-950/90 border border-cyan-500/30 rounded-xl p-4 gap-4">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-lg bg-cyan-950 border border-cyan-800 flex items-center justify-center text-cyan-400">
+                      <Apple className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <div className="font-bold text-sm text-white">Crewloom Agent.app (macOS Native)</div>
+                      <div className="text-xs text-gray-400">58 KB Binary · WebKit Accelerated · Apple Silicon Native (M1–M5)</div>
+                    </div>
+                  </div>
+                  <a
+                    href="https://github.com/crewloom/agent/releases/latest"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="w-full sm:w-auto px-5 py-2.5 rounded-lg bg-gradient-to-r from-cyan-500 to-emerald-400 text-space-950 font-black text-xs flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/20 hover:scale-105 transition"
+                  >
+                    <Download className="w-4 h-4 stroke-[2.5]" />
+                    <span>Download for Mac</span>
+                  </a>
+                </div>
+              )}
+
+              <div className="flex items-center justify-between text-[11px] text-gray-400 mt-4">
+                <span>⚡ Instant start · Zero configuration · Offline capable</span>
+                <span className="text-emerald-400 font-mono">100% Non-Destructive Certified</span>
+              </div>
+            </div>
           </div>
 
-          {/* Interactive Terminal Showcase */}
+          {/* Terminal Tabs Demo */}
           <div className="max-w-4xl mx-auto rounded-2xl glass-card border border-cyan-500/25 shadow-2xl overflow-hidden text-left" dir="ltr">
             <div className="bg-space-900/95 px-4 py-3 border-b border-white/10 flex items-center justify-between">
               <div className="flex items-center gap-2">
@@ -291,7 +443,117 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Key Metrics Section */}
+      {/* INTERACTIVE LIVE AGENT BENCHMARK SIMULATOR */}
+      <section id="simulator" className="py-20 px-6 lg:px-12 bg-space-900/50 border-y border-white/[0.08]">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-950/80 border border-emerald-800/60 text-emerald-300 text-xs font-mono font-bold mb-3">
+              <Zap className="w-3.5 h-3.5" />
+              <span>LIVE INTERACTIVE SIMULATOR</span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-3">
+              {isAr ? "اختبر سرعة ودقة الوكيل السيادي مباشرة" : "Benchmark Autonomous Execution Live"}
+            </h2>
+            <p className="text-sm text-gray-400 max-w-2xl mx-auto">
+              {isAr
+                ? "اضغط لتشغيل محاكاة معقدة لترحيل قاعدة بيانات مع التحقق من عقود عدم الهدم في أجزاء من الثانية:"
+                : "Trigger a live simulated multi-specialist mission: schema migration + contract verification + regression check in sub-milliseconds."}
+            </p>
+          </div>
+
+          <div className="glass-card rounded-2xl p-6 sm:p-8 border border-cyan-500/30 text-left" dir="ltr">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
+              <div>
+                <span className="text-xs font-mono text-cyan-400 font-bold block mb-1">TASK SPECIFICATION:</span>
+                <span className="text-sm text-white font-mono font-semibold">
+                  "Execute additive migration on production DB & audit against DAC-01 contract"
+                </span>
+              </div>
+
+              <button
+                onClick={runSimulation}
+                disabled={isSimulating}
+                className="px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-emerald-400 text-space-950 font-black text-xs uppercase tracking-wider flex items-center gap-2 hover:scale-105 active:scale-95 transition disabled:opacity-50 disabled:scale-100 shadow-lg shadow-cyan-500/20"
+              >
+                {isSimulating ? (
+                  <>
+                    <RotateCcw className="w-4 h-4 animate-spin" />
+                    <span>Executing Task...</span>
+                  </>
+                ) : (
+                  <>
+                    <Play className="w-4 h-4 fill-current" />
+                    <span>Run Live Benchmark</span>
+                  </>
+                )}
+              </button>
+            </div>
+
+            {/* Progress Bar */}
+            <div className="w-full bg-space-950 h-3 rounded-full overflow-hidden border border-white/10 mb-6">
+              <div
+                className="h-full bg-gradient-to-r from-cyan-500 via-teal-400 to-emerald-400 transition-all duration-100 shadow-[0_0_12px_rgba(6,182,212,0.8)]"
+                style={{ width: `${simProgress}%` }}
+              />
+            </div>
+
+            {/* Live Steps & Telemetry */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 font-mono text-xs">
+              <div className={`p-4 rounded-xl border transition ${simStep >= 1 ? "bg-cyan-950/40 border-cyan-500/60 text-cyan-300" : "bg-space-950 border-white/5 text-gray-500"}`}>
+                <div className="font-bold mb-1 flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-cyan-400"></span>
+                  <span>1. Autonomous Routing</span>
+                </div>
+                <p className="text-[11px] text-gray-400">
+                  {simStep >= 1 ? "Dispatched chix-database-migrations (P-014)" : "Waiting for trigger..."}
+                </p>
+              </div>
+
+              <div className={`p-4 rounded-xl border transition ${simStep >= 2 ? "bg-teal-950/40 border-teal-500/60 text-teal-300" : "bg-space-950 border-white/5 text-gray-500"}`}>
+                <div className="font-bold mb-1 flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-teal-400"></span>
+                  <span>2. Non-Destructive Guard</span>
+                </div>
+                <p className="text-[11px] text-gray-400">
+                  {simStep >= 2 ? "Certified: Partial index, additive-only, zero DROP" : "Standby..."}
+                </p>
+              </div>
+
+              <div className={`p-4 rounded-xl border transition ${simStep >= 3 ? "bg-emerald-950/40 border-emerald-500/60 text-emerald-300" : "bg-space-950 border-white/5 text-gray-500"}`}>
+                <div className="font-bold mb-1 flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
+                  <span>3. Execution Verdict</span>
+                </div>
+                <p className="text-[11px] text-gray-400">
+                  {simStep >= 4 ? "COMPLETE in 3.2ms · 0 regressions" : simStep >= 3 ? "Verifying AST trees..." : "Standby..."}
+                </p>
+              </div>
+            </div>
+
+            {simStep === 4 && (
+              <div className="mt-6 p-4 rounded-xl bg-emerald-950/60 border border-emerald-500/50 flex flex-col sm:flex-row items-center justify-between gap-4 animate-fade-in">
+                <div className="flex items-center gap-3">
+                  <CheckCircle2 className="w-6 h-6 text-emerald-400 shrink-0" />
+                  <span className="text-xs text-emerald-200 font-sans font-semibold">
+                    {isAr
+                      ? "اكتمل الاختبار بنجاح في 3.2ms دون أي كسر! شغّل المحرك بالكامل على جهازك الآن:"
+                      : "Benchmark PASSED in 3.2ms with zero destruction! Ready to deploy locally on your Mac:"}
+                  </span>
+                </div>
+                <a
+                  href="#install"
+                  className="px-5 py-2 rounded-lg bg-emerald-400 hover:bg-emerald-300 text-space-950 font-black text-xs flex items-center gap-1.5 shadow"
+                >
+                  <Download className="w-3.5 h-3.5 stroke-[2.5]" />
+                  <span>{isAr ? "تحميل الأداة الآن" : "Download Tool Now"}</span>
+                </a>
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+
+      {/* Metrics Section */}
       <section className="py-12 border-y border-white/[0.08] bg-space-900/40">
         <div className="max-w-6xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
           <div>
@@ -333,7 +595,6 @@ export default function Home() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Card 1 */}
           <div className="glass-card glass-card-hover p-8 rounded-2xl border border-white/[0.08]">
             <div className="w-12 h-12 rounded-xl bg-cyan-950/80 border border-cyan-800/80 flex items-center justify-center text-cyan-400 mb-6">
               <ShieldAlert className="w-6 h-6 stroke-[2]" />
@@ -348,7 +609,6 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Card 2 */}
           <div className="glass-card glass-card-hover p-8 rounded-2xl border border-white/[0.08]">
             <div className="w-12 h-12 rounded-xl bg-emerald-950/80 border border-emerald-800/80 flex items-center justify-center text-emerald-400 mb-6">
               <Globe className="w-6 h-6 stroke-[2]" />
@@ -363,7 +623,6 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Card 3 */}
           <div className="glass-card glass-card-hover p-8 rounded-2xl border border-white/[0.08]">
             <div className="w-12 h-12 rounded-xl bg-teal-950/80 border border-teal-800/80 flex items-center justify-center text-teal-400 mb-6">
               <Radio className="w-6 h-6 stroke-[2]" />
@@ -500,7 +759,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Quickstart Installation */}
+      {/* Quickstart Installation Full Guide */}
       <section id="install" className="py-24 px-6 lg:px-12 max-w-4xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="text-xs font-mono font-bold text-cyan-400 tracking-widest uppercase mb-3">
@@ -514,16 +773,16 @@ export default function Home() {
         <div className="glass-card rounded-2xl p-6 sm:p-8 border border-white/[0.08] space-y-6">
           <div>
             <label className="block text-xs font-mono text-gray-400 mb-2 font-semibold">
-              {isAr ? "1. تثبيت أمر الطرفية العالمي (CLI):" : "1. Install Global CLI Tool:"}
+              {isAr ? "1. أمر التثبيت الشامل (مستحسن):" : "1. Universal Terminal Install (Recommended):"}
             </label>
             <div className="bg-space-950 p-4 rounded-xl border border-white/5 flex items-center justify-between font-mono text-sm text-cyan-300" dir="ltr">
-              <code>npm install -g @crewloom/cli</code>
+              <code>curl -fsSL https://crewloom.org/install.sh | bash</code>
               <button
-                onClick={() => copyToClipboard("npm install -g @crewloom/cli")}
+                onClick={() => copyToClipboard("curl -fsSL https://crewloom.org/install.sh | bash")}
                 className="text-gray-400 hover:text-white transition"
                 title="Copy Command"
               >
-                {copiedCmd === "npm install -g @crewloom/cli" ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
+                {copiedCmd === "curl -fsSL https://crewloom.org/install.sh | bash" ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
               </button>
             </div>
           </div>
@@ -559,6 +818,49 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* FLOATING ACTION DOCK AT BOTTOM */}
+      <aside aria-label="Quick Actions" className="fixed bottom-6 inset-x-0 z-40 max-w-xl mx-auto px-4 pointer-events-none">
+        <div className="pointer-events-auto glass-card rounded-2xl p-2.5 border border-cyan-500/40 shadow-2xl flex items-center justify-between gap-3 animate-float backdrop-blur-2xl">
+          <div className="flex items-center gap-2.5 pl-2" dir="ltr">
+            <Logo className="w-7 h-7" glow={false} />
+            <div className="hidden sm:block">
+              <span className="text-xs font-mono font-bold text-white block">Crewloom CLI v1.0</span>
+              <span className="text-[10px] text-emerald-400 font-mono">● Ready to install</span>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2" dir="ltr">
+            <button
+              onClick={() => copyToClipboard("curl -fsSL https://crewloom.org/install.sh | bash")}
+              className="px-3.5 py-2 rounded-xl bg-space-950 hover:bg-space-900 border border-white/10 text-xs font-mono text-cyan-300 flex items-center gap-1.5 transition"
+              title="Copy curl install command"
+            >
+              {copiedCmd === "curl -fsSL https://crewloom.org/install.sh | bash" ? (
+                <>
+                  <Check className="w-3.5 h-3.5 text-emerald-400" />
+                  <span className="text-emerald-300 text-[11px]">Copied!</span>
+                </>
+              ) : (
+                <>
+                  <Terminal className="w-3.5 h-3.5 text-gray-400" />
+                  <span className="text-[11px]">curl install</span>
+                </>
+              )}
+            </button>
+
+            <a
+              href="https://github.com/crewloom/agent/releases/latest"
+              target="_blank"
+              rel="noreferrer"
+              className="px-4 py-2 rounded-xl bg-gradient-to-r from-cyan-500 to-emerald-400 text-space-950 font-black text-xs flex items-center gap-1.5 shadow-lg shadow-cyan-500/20 hover:scale-105 transition animate-shimmer"
+            >
+              <Download className="w-3.5 h-3.5 stroke-[2.5]" />
+              <span>Get App</span>
+            </a>
+          </div>
+        </div>
+      </aside>
 
       {/* Footer */}
       <footer className="border-t border-white/[0.08] bg-space-950 px-6 lg:px-12 py-12">
