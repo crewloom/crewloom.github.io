@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crewloom Agent Studio — استوديو وكيل كرو لوم</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#ecfeff',
+              400: '#22d3ee',
+              500: '#06b6d4',
+              600: '#0891b2',
+              900: '#164e63',
+            },
+            dark: {
+              bg: '#0a0e17',
+              card: '#111827',
+              border: '#1f2937',
+              hover: '#1e293b',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=JetBrains+Mono:wght@400;600&family=Inter:wght@400;500;600;700&display=swap');
+    body { font-family: 'Cairo', 'Inter', sans-serif; }
+    code, pre { font-family: 'JetBrains Mono', monospace; }
+    .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: #0a0e17; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: #1f2937; border-radius: 4px; }
+  </style>
+</head>
+<body class="bg-dark-bg text-gray-100 h-screen flex flex-col overflow-hidden">
+
+  <!-- Header -->
+  <header class="h-16 border-b border-dark-border bg-dark-card/80 backdrop-blur px-6 flex items-center justify-between z-10">
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-lg bg-gradient-to-tr from-cyan-600 to-teal-400 flex items-center justify-center shadow-lg shadow-cyan-500/20">
+        <i class="fa-solid fa-network-wired text-white text-lg"></i>
+      </div>
+      <div>
+        <div class="flex items-center gap-2">
+          <h1 class="font-bold text-lg text-white tracking-wide">Crewloom Agent</h1>
+          <span class="text-xs bg-cyan-950 text-cyan-400 border border-cyan-800 px-2 py-0.5 rounded-full font-mono">v1.0.0</span>
+          <span class="text-xs bg-emerald-950 text-emerald-400 border border-emerald-800 px-2 py-0.5 rounded-full">PROPRIETARY</span>
+        </div>
+        <p class="text-xs text-gray-400">Initiative by Rumuze (رموز) · Dual Bilingual Core</p>
+      </div>
+    </div>
+
+    <!-- Status Badges & Language Switcher -->
+    <div class="flex items-center gap-3">
+      <div class="hidden md:flex items-center gap-2 bg-dark-bg px-3 py-1.5 rounded-lg border border-dark-border text-xs">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span class="text-gray-300">حارس عدم الهدم: نشط</span>
+      </div>
+      <div class="hidden md:flex items-center gap-2 bg-dark-bg px-3 py-1.5 rounded-lg border border-dark-border text-xs">
+        <i class="fa-brands fa-telegram text-sky-400"></i>
+        <span class="text-gray-300">التحكم عن بعد: متصل</span>
+      </div>
+      <button id="langToggle" class="px-3 py-1.5 rounded-lg bg-dark-hover border border-dark-border hover:border-cyan-500 transition text-xs font-semibold flex items-center gap-2">
+        <i class="fa-solid fa-language text-cyan-400"></i>
+        <span id="langLabel">English</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <div class="flex-1 flex overflow-hidden">
+
+    <!-- Sidebar: Specialist Roles (44 Roles) -->
+    <aside class="w-80 border-l border-dark-border bg-dark-card flex flex-col custom-scrollbar">
+      <div class="p-4 border-b border-dark-border">
+        <div class="flex items-center justify-between mb-2">
+          <h2 class="font-bold text-sm text-gray-300 flex items-center gap-2">
+            <i class="fa-solid fa-user-gear text-cyan-400"></i>
+            الأدوار التخصصية (44 خبيراً)
+          </h2>
+          <span id="roleCountBadge" class="text-xs bg-gray-800 text-cyan-300 px-2 py-0.5 rounded">44</span>
+        </div>
+        <div class="relative">
+          <input type="text" id="roleSearch" placeholder="بحث في الأدوار..." class="w-full bg-dark-bg border border-dark-border rounded-lg px-3 py-2 text-xs text-gray-200 focus:outline-none focus:border-cyan-500 pr-8">
+          <i class="fa-solid fa-search absolute left-3 top-2.5 text-gray-500 text-xs"></i>
+        </div>
+      </div>
+
+      <div id="rolesList" class="flex-1 overflow-y-auto p-2 space-y-1.5 custom-scrollbar">
+        <!-- Roles will be injected here via JavaScript -->
+      </div>
+
+      <div class="p-3 border-t border-dark-border bg-dark-bg/60 text-xs text-gray-400 flex items-center justify-between">
+        <span>المستودع: <span class="text-cyan-400 font-mono">crewloom/core</span></span>
+        <i class="fa-solid fa-shield-halved text-emerald-400" title="Zero-Destruction Enforced"></i>
+      </div>
+    </aside>
+
+    <!-- Center: Chat & Interactive Studio -->
+    <main class="flex-1 flex flex-col bg-dark-bg">
+
+      <!-- Active Role Banner -->
+      <div class="h-12 border-b border-dark-border px-6 flex items-center justify-between bg-dark-card/30">
+        <div class="flex items-center gap-2 text-xs text-gray-300">
+          <span class="text-gray-500">الدور النشط:</span>
+          <span id="activeRoleName" class="font-bold text-cyan-400 bg-cyan-950/60 border border-cyan-800/80 px-2 py-0.5 rounded">معماري النظم الموزعة</span>
+          <span id="activeRoleTier" class="text-gray-400 text-[10px] bg-gray-800 px-1.5 py-0.5 rounded">ARCHITECTURE</span>
+        </div>
+        <div class="text-xs text-gray-500">
+          النموذج: <span class="text-gray-300 font-mono">DeepSeek V3 / R1 Reasoner</span>
+        </div>
+      </div>
+
+      <!-- Messages View -->
+      <div id="messagesContainer" class="flex-1 overflow-y-auto p-6 space-y-4 custom-scrollbar">
+        <!-- Welcome Message -->
+        <div class="flex gap-4 max-w-3xl">
+          <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-cyan-600 to-teal-400 flex-shrink-0 flex items-center justify-center text-white text-sm shadow">
+            <i class="fa-solid fa-robot"></i>
+          </div>
+          <div class="flex-1 bg-dark-card border border-dark-border rounded-2xl p-4 shadow-sm text-sm leading-relaxed">
+            <p class="font-bold text-cyan-400 mb-1">وكيل كرو لوم — Crewloom Agent</p>
+            <p class="text-gray-300">
+              أهلاً بك. أنا الوكيل الهندسي والتنفيذي المستقل لمنظومة <strong>Crewloom</strong>. أعمل بنظام الأدوار المتخصصة، وحارس عدم الهدم الصارم، مع دعم كامل للغتين العربية والإنجليزية.
+            </p>
+            <div class="mt-3 flex flex-wrap gap-2 text-xs">
+              <button onclick="sendQuickPrompt('أنت مين وما هي قدراتك بالضبط؟')" class="bg-dark-hover hover:bg-cyan-950/50 hover:text-cyan-300 border border-dark-border px-3 py-1.5 rounded-lg transition">
+                ❓ أنت مين وما هي قدراتك؟
+              </button>
+              <button onclick="sendQuickPrompt('Who are you and what makes you unique?')" class="bg-dark-hover hover:bg-cyan-950/50 hover:text-cyan-300 border border-dark-border px-3 py-1.5 rounded-lg transition font-sans">
+                🌐 Who are you? (English)
+              </button>
+              <button onclick="sendQuickPrompt('ما هي سياسة عدم الهدم Zero-Destruction؟')" class="bg-dark-hover hover:bg-cyan-950/50 hover:text-cyan-300 border border-dark-border px-3 py-1.5 rounded-lg transition">
+                🛡️ ما هي سياسة عدم الهدم؟
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Input Box -->
+      <div class="p-4 border-t border-dark-border bg-dark-card/50">
+        <form id="chatForm" class="max-w-4xl mx-auto relative flex items-center">
+          <textarea id="userInput" rows="1" placeholder="اكتب سؤالك أو أمرك للوكيل بالعربية أو بالإنجليزية..." class="w-full bg-dark-bg border border-dark-border rounded-xl px-4 py-3.5 pl-12 text-sm text-gray-200 placeholder-gray-500 focus:outline-none focus:border-cyan-500 resize-none custom-scrollbar"></textarea>
+          <button type="submit" class="absolute left-2.5 w-9 h-9 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white flex items-center justify-center transition shadow-lg shadow-cyan-600/30">
+            <i class="fa-solid fa-paper-plane text-xs"></i>
+          </button>
+        </form>
+        <p class="text-center text-[11px] text-gray-500 mt-2">
+          Crewloom Agent v1.0.0 · Dual Default Language · Zero-Destruction Enforced
+        </p>
+      </div>
+
+    </main>
+
+  </div>
+
+  <script>
+    let currentLang = 'ar';
+    let selectedRole = 'distributed-systems-architect';
+    let rolesData = [];
+
+    async function loadRoles() {
+      try {
+        const res = await fetch('/api/roles');
+        rolesData = await res.json();
+        renderRoles(rolesData);
+      } catch (err) {
+        console.error('Failed loading roles:', err);
+      }
+    }
+
+    function renderRoles(list) {
+      const container = document.getElementById('rolesList');
+      container.innerHTML = '';
+      list.forEach(role => {
+        const isSelected = role.id === selectedRole;
+        const div = document.createElement('div');
+        div.className = `p-2.5 rounded-lg cursor-pointer transition border text-xs flex flex-col gap-1 ${
+          isSelected 
+            ? 'bg-cyan-950/40 border-cyan-500/80 text-white shadow-sm' 
+            : 'bg-dark-bg/60 border-dark-border text-gray-300 hover:bg-dark-hover hover:border-gray-700'
+        }`;
+        div.onclick = () => selectRole(role);
+        div.innerHTML = `
+          <div class="flex items-center justify-between">
+            <span class="font-semibold text-gray-200">${role.name}</span>
+            <span class="text-[9px] px-1.5 py-0.2 rounded uppercase ${
+              role.tier === 'architecture' ? 'bg-purple-950 text-purple-300' :
+              role.tier === 'governance' ? 'bg-amber-950 text-amber-300' :
+              role.tier === 'operations' ? 'bg-blue-950 text-blue-300' : 'bg-gray-800 text-gray-400'
+            }">${role.tier}</span>
+          </div>
+          <p class="text-[11px] text-gray-400 line-clamp-1">${role.description || role.id}</p>
+        `;
+        container.appendChild(div);
+      });
+      document.getElementById('roleCountBadge').innerText = list.length;
+    }
+
+    function selectRole(role) {
+      selectedRole = role.id;
+      document.getElementById('activeRoleName').innerText = role.name;
+      document.getElementById('activeRoleTier').innerText = role.tier.toUpperCase();
+      renderRoles(rolesData);
+    }
+
+    document.getElementById('roleSearch').addEventListener('input', (e) => {
+      const q = e.target.value.toLowerCase();
+      const filtered = rolesData.filter(r => r.name.toLowerCase().includes(q) || r.id.toLowerCase().includes(q));
+      renderRoles(filtered);
+    });
+
+    document.getElementById('langToggle').addEventListener('click', () => {
+      if (currentLang === 'ar') {
+        currentLang = 'en';
+        document.documentElement.setAttribute('dir', 'ltr');
+        document.documentElement.setAttribute('lang', 'en');
+        document.getElementById('langLabel').innerText = 'العربية';
+        document.getElementById('userInput').placeholder = 'Type your command or question in English or Arabic...';
+      } else {
+        currentLang = 'ar';
+        document.documentElement.setAttribute('dir', 'rtl');
+        document.documentElement.setAttribute('lang', 'ar');
+        document.getElementById('langLabel').innerText = 'English';
+        document.getElementById('userInput').placeholder = 'اكتب سؤالك أو أمرك للوكيل بالعربية أو بالإنجليزية...';
+      }
+    });
+
+    function appendMessage(sender, text) {
+      const container = document.getElementById('messagesContainer');
+      const msgDiv = document.createElement('div');
+      msgDiv.className = `flex gap-4 max-w-3xl ${sender === 'user' ? 'mr-auto flex-row-reverse' : ''}`;
+      
+      const avatar = sender === 'user' 
+        ? `<div class="w-8 h-8 rounded-lg bg-gray-700 flex-shrink-0 flex items-center justify-center text-white text-sm"><i class="fa-solid fa-user"></i></div>`
+        : `<div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-cyan-600 to-teal-400 flex-shrink-0 flex items-center justify-center text-white text-sm shadow"><i class="fa-solid fa-robot"></i></div>`;
+
+      const parsedContent = marked.parse(text);
+
+      msgDiv.innerHTML = `
+        ${avatar}
+        <div class="flex-1 ${sender === 'user' ? 'bg-cyan-900/40 border border-cyan-700/50' : 'bg-dark-card border border-dark-border'} rounded-2xl p-4 shadow-sm text-sm leading-relaxed prose prose-invert max-w-none">
+          ${parsedContent}
+        </div>
+      `;
+      container.appendChild(msgDiv);
+      container.scrollTop = container.scrollHeight;
+    }
+
+    async function sendPrompt(text) {
+      appendMessage('user', text);
+      const loadingDiv = document.createElement('div');
+      loadingDiv.id = 'loadingIndicator';
+      loadingDiv.className = 'flex items-center gap-2 text-xs text-cyan-400 p-2 animate-pulse';
+      loadingDiv.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Crewloom Agent يفكر...';
+      document.getElementById('messagesContainer').appendChild(loadingDiv);
+
+      try {
+        const res = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ prompt: text, role: selectedRole, lang: currentLang })
+        });
+        const data = await res.json();
+        document.getElementById('loadingIndicator')?.remove();
+        appendMessage('agent', data.response);
+      } catch (err) {
+        document.getElementById('loadingIndicator')?.remove();
+        appendMessage('agent', '❌ حدث خطأ في الاتصال بالوكيل: ' + err.message);
+      }
+    }
+
+    function sendQuickPrompt(text) {
+      document.getElementById('userInput').value = text;
+      document.getElementById('chatForm').dispatchEvent(new Event('submit'));
+    }
+
+    document.getElementById('chatForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const input = document.getElementById('userInput');
+      const text = input.value.trim();
+      if (!text) return;
+      input.value = '';
+      sendPrompt(text);
+    });
+
+    loadRoles();
+  </script>
+</body>
+</html>
