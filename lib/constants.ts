@@ -6,7 +6,7 @@ export const SITE_CONFIG = {
   githubUrl: 'https://github.com/crewloom',
   cliRepo: 'https://github.com/crewloom/crewloom.github.io',
   installCommand: 'curl -fsSL https://crewloom.org/install.sh | bash',
-  cliPackage: 'agentgram',
+  cliPackage: 'crewloom',
   brewTap: 'crewloom/tap/crewloom',
   macosDownloadUrl: 'https://github.com/crewloom/crewloom.github.io/releases/latest/download/Crewloom.dmg',
   version: 'v2.4.0-sovereign',

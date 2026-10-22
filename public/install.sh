@@ -8,8 +8,8 @@ set -e
 
 echo ""
 echo "  ╔══════════════════════════════════════════════════════════╗"
-echo "  ║  CREWLOOM SOVEREIGN AI AGENT — INSTALLER v2.1.0        ║"
-echo "  ║  Dual Bicultural Core · Zero-Destruction Guaranteed     ║"
+echo "  ║  CREWLOOM SOVEREIGN AI AGENT — INSTALLER v1.0.0        ║"
+echo "  ║  Dual Bicultural Core · 44 Specialist Skills            ║"
 echo "  ╚══════════════════════════════════════════════════════════╝"
 echo ""
 
@@ -24,30 +24,28 @@ fi
 NODE_VER=$(node -v)
 echo "  ✓ Detected Node.js: $NODE_VER"
 
-# Install global CLI wrapper
 INSTALL_DIR="$HOME/.local/bin"
 mkdir -p "$INSTALL_DIR"
 
-echo "  ▶ Linking global CLI executable..."
+echo "  ▶ Installing Crewloom Sovereign CLI..."
 
 cat << 'EOF' > "$INSTALL_DIR/crewloom"
-#!/usr/bin/env bash
-if [ -f "/Volumes/data/rumuze-edit/dist/index.js" ]; then
-    exec node --no-warnings /Volumes/data/rumuze-edit/dist/index.js "$@"
-elif [ -f "/Volumes/data/projects/crewloom/bridge/dist/index.js" ]; then
-    exec node --no-warnings /Volumes/data/projects/crewloom/bridge/dist/index.js "$@"
-elif [ -f "/Volumes/data/projects/crewloom/agent/dist/index.js" ]; then
-    exec node --no-warnings /Volumes/data/projects/crewloom/agent/dist/index.js "$@"
-else
-    exec npx -y agentgram "$@"
-fi
+#!/usr/bin/env node
+import { spawn } from 'child_process';
+import fs from 'fs';
+
+const localCli = '/Volumes/data/projects/crewloom/cli/bin/crewloom.js';
+if (fs.existsSync(localCli)) {
+  const child = spawn('node', [localCli, ...process.argv.slice(2)], { stdio: 'inherit' });
+  child.on('exit', (code) => process.exit(code || 0));
+} else {
+  const child = spawn('npx', ['-y', 'crewloom', ...process.argv.slice(2)], { stdio: 'inherit' });
+  child.on('exit', (code) => process.exit(code || 0));
+}
 EOF
 
 chmod +x "$INSTALL_DIR/crewloom"
-
-# Also symlink cl-bridge and crewloom-bridge
-ln -sf "$INSTALL_DIR/crewloom" "$INSTALL_DIR/crewloom-bridge" 2>/dev/null || true
-ln -sf "$INSTALL_DIR/crewloom" "$INSTALL_DIR/cl-bridge" 2>/dev/null || true
+ln -sf "$INSTALL_DIR/crewloom" "$INSTALL_DIR/cl" 2>/dev/null || true
 
 echo "  ✓ Crewloom CLI installed to: $INSTALL_DIR/crewloom"
 
@@ -64,5 +62,5 @@ esac
 
 echo ""
 echo "  🎉 Success! Crewloom is ready to launch."
-echo "  Run: crewloom --help or crewloom init"
+echo "  Run: crewloom roles or crewloom --help"
 echo ""
