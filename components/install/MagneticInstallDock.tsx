@@ -1,29 +1,26 @@
+'use client';
+
 import React, { useState } from 'react';
-import { Copy, Check, Apple, Download, Terminal, Package } from 'lucide-react';
-import { InstallMethod, Lang } from '@/types';
-import { DICTIONARY } from '@/data/dictionary';
+import { Apple, Download, Terminal, Package, ChevronRight, Check } from 'lucide-react';
+import { InstallMethod } from '@/types';
+import { useLanguage } from '@/hooks/useLanguage';
+import { useClipboard } from '@/hooks/useClipboard';
+import { Card, Button, Badge } from '@/components/ui';
+import { SITE_CONFIG } from '@/lib/constants';
 
-interface MagneticInstallDockProps {
-  lang: Lang;
-}
+const INSTALL_COMMANDS: Record<Exclude<InstallMethod, 'macos'>, string> = {
+  curl: SITE_CONFIG.installCommand,
+  npm: `npm install -g ${SITE_CONFIG.cliPackage}`,
+  brew: `brew install ${SITE_CONFIG.brewTap}`,
+};
 
-export function MagneticInstallDock({ lang }: MagneticInstallDockProps) {
+export function MagneticInstallDock() {
   const [method, setMethod] = useState<InstallMethod>('curl');
-  const [copiedCmd, setCopiedCmd] = useState<string | null>(null);
+  const { t } = useLanguage();
+  const { isCopied, copy } = useClipboard({ timeout: 2500 });
 
-  const t = DICTIONARY[lang];
-
-  const commands: Record<Exclude<InstallMethod, 'macos'>, string> = {
-    curl: 'curl -fsSL https://crewloom.org/install.sh | bash',
-    npm: 'npm install -g @crewloom/cli',
-    brew: 'brew install crewloom/tap/crewloom',
-  };
-
-  const copyToClipboard = (text: string) => {
-    navigator.clipboard.writeText(text);
-    setCopiedCmd(text);
-    setTimeout(() => setCopiedCmd(null), 2500);
-  };
+  const currentCommand = method !== 'macos' ? INSTALL_COMMANDS[method] : '';
+  const copied = currentCommand ? isCopied(currentCommand) : false;
 
   return (
     <div className="max-w-3xl mx-auto mb-16 beam-border shadow-2xl">
@@ -31,7 +28,10 @@ export function MagneticInstallDock({ lang }: MagneticInstallDockProps) {
         {/* Header & Tabs */}
         <div className="flex flex-wrap items-center justify-between gap-4 mb-5 border-b border-white/[0.08] pb-4">
           <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping" aria-hidden="true" />
+            <span className="relative flex h-2.5 w-2.5 shrink-0">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-400" />
+            </span>
             <span className="text-xs font-mono font-bold text-gray-200 tracking-wider">
               {t.install.title}
             </span>
@@ -58,61 +58,74 @@ export function MagneticInstallDock({ lang }: MagneticInstallDockProps) {
           </div>
         </div>
 
-        {/* Command displays */}
-        {method !== 'macos' && (
-          <div className="flex items-center justify-between bg-space-950/90 border border-cyan-500/30 rounded-xl p-4 font-mono text-sm group hover:border-cyan-400/80 transition-colors shadow-inner">
-            <div className="flex items-center gap-3 overflow-x-auto text-cyan-300 pr-2">
-              <span className="text-emerald-400 font-bold select-none">$</span>
-              <code className="text-xs sm:text-sm whitespace-nowrap">{commands[method]}</code>
-            </div>
-            <button
-              onClick={() => copyToClipboard(commands[method])}
-              className="ml-4 shrink-0 px-4 py-2 rounded-lg bg-cyan-950 hover:bg-cyan-900 border border-cyan-700/80 text-cyan-300 text-xs font-bold transition flex items-center gap-2 shadow cursor-pointer active:scale-95"
-              aria-label="Copy install command"
-            >
-              {copiedCmd === commands[method] ? (
-                <>
-                  <Check className="w-3.5 h-3.5 text-emerald-400" />
-                  <span className="text-emerald-300 font-sans">{t.install.copied}</span>
-                </>
-              ) : (
-                <>
-                  <Copy className="w-3.5 h-3.5" />
-                  <span className="font-sans">{t.install.copy}</span>
-                </>
-              )}
-            </button>
-          </div>
-        )}
-
-        {/* macOS Native App */}
-        {method === 'macos' && (
-          <div className="flex flex-col sm:flex-row items-center justify-between bg-space-950/90 border border-cyan-500/30 rounded-xl p-4 gap-4 shadow-inner">
-            <div className="flex items-center gap-3 text-left">
-              <div className="w-10 h-10 rounded-lg bg-cyan-950 border border-cyan-800 flex items-center justify-center text-cyan-400 shrink-0">
-                <Apple className="w-5 h-5" />
+        {/* Command Display or Native App Download */}
+        {method === 'macos' ? (
+          <div className="bg-space-950 p-6 rounded-xl border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-xl bg-cyan-950 border border-cyan-800/80 flex items-center justify-center text-cyan-400 shadow-inner shrink-0">
+                <Apple className="w-6 h-6" />
               </div>
               <div>
-                <div className="font-bold text-sm text-white">{t.install.macTitle}</div>
-                <div className="text-xs text-gray-400">{t.install.macSub}</div>
+                <h4 className="text-sm font-bold text-white font-mono flex items-center gap-2">
+                  <span>Crewloom Studio for macOS</span>
+                  <Badge variant="cyan" className="text-[10px] py-0 px-2">Apple Silicon & Intel</Badge>
+                </h4>
+                <p className="text-xs text-gray-400 mt-1">
+                  Standalone desktop environment with dual-core offline telemetry & visual team dashboard.
+                </p>
               </div>
             </div>
+
             <a
-              href="https://github.com/crewloom/agent/releases/latest"
-              target="_blank"
-              rel="noreferrer"
-              className="w-full sm:w-auto px-5 py-2.5 rounded-lg bg-gradient-to-r from-cyan-500 to-emerald-400 text-space-950 font-black text-xs flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/20 hover:scale-105 transition-all cursor-pointer"
+              href={SITE_CONFIG.macosDownloadUrl}
+              className="w-full sm:w-auto"
             >
-              <Download className="w-4 h-4 stroke-[2.5]" />
-              <span>{t.install.downloadMac}</span>
+              <Button
+                variant="primary"
+                size="md"
+                leftIcon={<Download className="w-4 h-4" />}
+                className="w-full sm:w-auto whitespace-nowrap"
+              >
+                {t.install.downloadMac}
+              </Button>
             </a>
+          </div>
+        ) : (
+          <div className="relative group bg-space-950 p-4 sm:p-5 rounded-xl border border-cyan-500/30 flex items-center justify-between gap-4 shadow-inner">
+            <div className="flex items-center gap-3 overflow-x-auto pr-2 select-all font-mono text-xs sm:text-sm text-cyan-300">
+              <span className="text-gray-500 select-none font-bold">$</span>
+              <code className="whitespace-pre">{currentCommand}</code>
+            </div>
+
+            <Button
+              variant={copied ? 'cyber' : 'primary'}
+              size="sm"
+              onClick={() => copy(currentCommand)}
+              leftIcon={
+                copied ? (
+                  <Check className="w-3.5 h-3.5 text-emerald-400" />
+                ) : (
+                  <Terminal className="w-3.5 h-3.5" />
+                )
+              }
+              className="shrink-0 font-mono"
+            >
+              {copied ? t.install.copied : t.install.copy}
+            </Button>
           </div>
         )}
 
-        {/* Trust Badges */}
-        <div className="flex flex-col sm:flex-row items-center justify-between text-[11px] text-gray-400 mt-4 gap-2">
-          <span>{t.hero.trustNote}</span>
-          <span className="text-emerald-400 font-mono font-semibold">100% Non-Destructive Certified</span>
+        {/* Real-time Subtext Features */}
+        <div className="flex flex-wrap items-center justify-between text-[11px] font-mono text-gray-400 mt-4 px-1 gap-2">
+          <div className="flex items-center gap-4">
+            <span className="flex items-center gap-1.5 text-cyan-400">
+              <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+              Zero telemetry leaks
+            </span>
+            <span className="hidden sm:inline text-gray-600">•</span>
+            <span className="hidden sm:inline text-gray-400">Auto-detects Ollama & DeepSeek</span>
+          </div>
+          <span className="text-emerald-400 font-semibold">{t.hero.trustNote}</span>
         </div>
       </div>
     </div>

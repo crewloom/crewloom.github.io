@@ -1,15 +1,14 @@
+'use client';
+
 import React, { useState } from 'react';
 import { CheckCircle2 } from 'lucide-react';
-import { Lang, TerminalTab } from '@/types';
-import { DICTIONARY } from '@/data/dictionary';
+import { TerminalTab } from '@/types';
+import { useLanguage } from '@/hooks/useLanguage';
+import { Badge } from '@/components/ui';
 
-interface InteractiveTerminalProps {
-  lang: Lang;
-}
-
-export function InteractiveTerminal({ lang }: InteractiveTerminalProps) {
+export function InteractiveTerminal() {
   const [activeTab, setActiveTab] = useState<TerminalTab>('cli');
-  const t = DICTIONARY[lang];
+  const { t } = useLanguage();
 
   return (
     <div
@@ -31,7 +30,7 @@ export function InteractiveTerminal({ lang }: InteractiveTerminalProps) {
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab)}
-                  className={`px-3 py-1 rounded transition cursor-pointer ${
+                  className={`px-3 py-1 rounded transition cursor-pointer select-none ${
                     active
                       ? 'bg-cyan-950 text-cyan-300 border border-cyan-800/80 font-bold shadow-sm'
                       : 'text-gray-400 hover:text-gray-200'
@@ -59,14 +58,12 @@ export function InteractiveTerminal({ lang }: InteractiveTerminalProps) {
               <span className="text-emerald-400 font-bold">$</span>
               <span className="text-cyan-300 font-semibold">crewloom</span> roles --category backend
             </div>
-            <div className="text-gray-300 text-xs pl-4 space-y-1">
-              <p className="text-emerald-300 font-semibold">✓ Loaded 44 Sovereign Specialist Roles:</p>
-              <p className="text-gray-400">  [01] chix-brain-and-contracts (DAC + ZLRC Binding Verification)</p>
-              <p className="text-gray-400">  [02] chix-database-migrations (Additive Only · Partial Index Guard)</p>
-              <p className="text-gray-400">  [03] zero-destruction-policy (Constitution Article IV Non-Destructive)</p>
+            <div className="text-emerald-400 text-xs sm:text-sm pl-4 border-l-2 border-emerald-500/50">
+              ✓ Loaded 44 autonomous roles with strict zero-loss verification
             </div>
-            <div className="text-cyan-400 text-xs pl-4 font-mono terminal-cursor">
-              Ready for autonomous instruction dispatch.
+            <div className="text-cyan-200/90 text-xs sm:text-sm pl-4 flex items-center gap-2">
+              <CheckCircle2 className="w-4 h-4 text-cyan-400" />
+              <span>Orchestrator online • Target latency: &lt; 0.8ms</span>
             </div>
           </div>
         )}
@@ -75,17 +72,13 @@ export function InteractiveTerminal({ lang }: InteractiveTerminalProps) {
           <div className="space-y-2 animate-fade-in">
             <div className="text-gray-400 flex items-center gap-2">
               <span className="text-emerald-400 font-bold">$</span>
-              <span className="text-cyan-300 font-semibold">crewloom</span> verify --strict
+              <span className="text-cyan-300 font-semibold">crewloom</span> audit --preflight
             </div>
-            <div className="text-gray-300 text-xs pl-4 space-y-1">
-              <p className="text-cyan-300">▶ Executing 14 CI Contract gates...</p>
-              <p className="text-emerald-400">  ✓ Gate 01: Raw Colors Baseline (0 regressions)</p>
-              <p className="text-emerald-400">  ✓ Gate 02: Data Access Contract (Forbidden keys audit clean)</p>
-              <p className="text-emerald-400">  ✓ Gate 03: Zero-Destruction Policy Guard (100% additive enforcement)</p>
+            <div className="text-cyan-400 text-xs sm:text-sm pl-4 border-l-2 border-cyan-500/50">
+              [Contract Guard] Scanning code diffs against strict Zero-Destruction Policy...
             </div>
-            <div className="text-emerald-300 text-xs pl-4 font-mono font-bold flex items-center gap-1.5">
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 inline" />
-              <span>[CONSTITUTION RATIFIED]: All changes certified non-destructive.</span>
+            <div className="text-emerald-400 text-xs sm:text-sm pl-4">
+              ✓ 0 destructive edits detected • 100% additive safety guarantee passed
             </div>
           </div>
         )}
@@ -94,16 +87,13 @@ export function InteractiveTerminal({ lang }: InteractiveTerminalProps) {
           <div className="space-y-2 animate-fade-in">
             <div className="text-gray-400 flex items-center gap-2">
               <span className="text-emerald-400 font-bold">$</span>
-              <span className="text-cyan-300 font-semibold">crewloom</span> bridge status
+              <span className="text-cyan-300 font-semibold">crewloom</span> bridge --telegram --whatsapp
             </div>
-            <div className="text-gray-300 text-xs pl-4 space-y-1">
-              <p className="text-emerald-300 font-semibold">● Omni-Channel Bridge Daemon: ONLINE</p>
-              <p className="text-gray-400">  Telegram Gateway: Connected (@CrewloomBot)</p>
-              <p className="text-gray-400">  Local IPC Socket: /tmp/crewloom-bridge.sock (&lt;1ms latency)</p>
-              <p className="text-gray-400">  Web Studio UI: http://localhost:3030</p>
+            <div className="text-purple-400 text-xs sm:text-sm pl-4 border-l-2 border-purple-500/50">
+              [Omni-Channel] Bridge listening on encrypted dual-socket gateways
             </div>
-            <div className="text-cyan-400 text-xs pl-4 font-mono terminal-cursor">
-              Awaiting remote telegram commands or local socket messages...
+            <div className="text-emerald-400 text-xs sm:text-sm pl-4">
+              ✓ Live Telegram control room activated • Remote execution authorized
             </div>
           </div>
         )}

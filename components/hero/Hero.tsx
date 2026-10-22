@@ -1,28 +1,32 @@
+'use client';
+
 import React from 'react';
 import { Sparkles } from 'lucide-react';
-import { Lang } from '@/types';
-import { DICTIONARY } from '@/data/dictionary';
+import { useLanguage } from '@/hooks/useLanguage';
+import { Badge, Container } from '@/components/ui';
 import { MagneticInstallDock } from '@/components/install/MagneticInstallDock';
 import { InteractiveTerminal } from '@/components/terminal/InteractiveTerminal';
 
-interface HeroProps {
-  lang: Lang;
-}
-
-export function Hero({ lang }: HeroProps) {
-  const t = DICTIONARY[lang];
-  const isAr = lang === 'ar';
+export function Hero() {
+  const { t } = useLanguage();
 
   return (
-    <section className="relative pt-12 sm:pt-16 pb-20 sm:pb-24 px-4 sm:px-6 lg:px-12 overflow-hidden">
-      <div className="max-w-6xl mx-auto text-center relative z-10">
+    <section className="relative pt-12 sm:pt-16 pb-20 sm:pb-24 overflow-hidden">
+      <Container size="lg" className="text-center relative z-10">
         {/* Architecture Badge */}
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-950/70 border border-cyan-800/60 text-cyan-300 text-xs font-semibold mb-8 backdrop-blur shadow-inner">
-          <Sparkles
-            className="w-3.5 h-3.5 text-cyan-400 animate-spin"
-            style={{ animationDuration: '12s' }}
-          />
-          <span>{t.hero.badge}</span>
+        <div className="mb-8 flex justify-center">
+          <Badge
+            variant="cyan"
+            icon={
+              <Sparkles
+                className="w-3.5 h-3.5 text-cyan-400 animate-spin"
+                style={{ animationDuration: '12s' }}
+              />
+            }
+            className="px-4 py-1.5 text-xs font-semibold"
+          >
+            {t.hero.badge}
+          </Badge>
         </div>
 
         {/* Main Title */}
@@ -39,11 +43,11 @@ export function Hero({ lang }: HeroProps) {
         </p>
 
         {/* HIGH-CONVERSION MAGNETIC INSTALL DOCK */}
-        <MagneticInstallDock lang={lang} />
+        <MagneticInstallDock />
 
         {/* Interactive Terminal Demo */}
-        <InteractiveTerminal lang={lang} />
-      </div>
+        <InteractiveTerminal />
+      </Container>
     </section>
   );
 }

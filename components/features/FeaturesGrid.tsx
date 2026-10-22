@@ -1,15 +1,13 @@
+'use client';
+
 import React from 'react';
 import { ShieldAlert, Globe, Radio } from 'lucide-react';
-import { Lang } from '@/types';
-import { DICTIONARY, FEATURES } from '@/data/dictionary';
+import { FEATURES } from '@/data/dictionary';
+import { useLanguage } from '@/hooks/useLanguage';
+import { Card, Container, SectionHeading } from '@/components/ui';
 
-interface FeaturesGridProps {
-  lang: Lang;
-}
-
-export function FeaturesGrid({ lang }: FeaturesGridProps) {
-  const t = DICTIONARY[lang];
-  const isAr = lang === 'ar';
+export function FeaturesGrid() {
+  const { t, isAr } = useLanguage();
 
   const iconMap: Record<string, React.ReactNode> = {
     ShieldAlert: <ShieldAlert className="w-6 h-6 stroke-[2]" />,
@@ -36,39 +34,51 @@ export function FeaturesGrid({ lang }: FeaturesGridProps) {
   };
 
   return (
-    <section id="features" className="py-24 px-4 sm:px-6 lg:px-12 max-w-6xl mx-auto relative z-10">
-      <div className="text-center mb-16">
-        <h2 className="text-xs font-mono font-bold text-cyan-400 tracking-widest uppercase mb-3">
-          {t.features.badge}
-        </h2>
-        <p className="text-3xl sm:text-4xl font-extrabold text-white">
-          {t.features.heading}
-        </p>
-      </div>
+    <section id="features" className="py-24 relative z-10">
+      <Container size="lg">
+        <SectionHeading
+          badge={t.features.badge}
+          title={t.features.heading}
+          align="center"
+        />
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {FEATURES.map((feature, idx) => {
-          const colors = colorStyles[feature.colorScheme];
-          return (
-            <div
-              key={idx}
-              className="glass-card glass-card-hover p-8 rounded-2xl border border-white/[0.08]"
-            >
-              <div
-                className={`w-12 h-12 rounded-xl ${colors.bg} border ${colors.border} flex items-center justify-center ${colors.text} mb-6`}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {FEATURES.map((feature, idx) => {
+            const colors = colorStyles[feature.colorScheme];
+            return (
+              <Card
+                key={idx}
+                variant="interactive"
+                className="p-8 flex flex-col justify-between"
               >
-                {iconMap[feature.icon]}
-              </div>
-              <h3 className="text-lg font-bold text-white mb-3">
-                {isAr ? feature.titleAr : feature.titleEn}
-              </h3>
-              <p className="text-sm text-gray-400 leading-relaxed">
-                {isAr ? feature.descAr : feature.descEn}
-              </p>
-            </div>
-          );
-        })}
-      </div>
+                <div>
+                  <div
+                    className={`w-12 h-12 rounded-xl ${colors.bg} border ${colors.border} flex items-center justify-center ${colors.text} mb-6 shadow-inner transition-transform group-hover:scale-110 duration-300`}
+                  >
+                    {iconMap[feature.icon]}
+                  </div>
+
+                  <h3 className="text-xl font-bold text-white mb-3">
+                    {isAr ? feature.titleAr : feature.titleEn}
+                  </h3>
+
+                  <p className="text-sm text-gray-400 leading-relaxed font-normal">
+                    {isAr ? feature.descAr : feature.descEn}
+                  </p>
+                </div>
+
+                <div
+                  className="mt-6 pt-4 border-t border-white/[0.06] text-xs font-mono font-semibold text-gray-500 flex items-center justify-between"
+                  dir="ltr"
+                >
+                  <span className="text-cyan-400/80">CORE_ENGINE_0{idx + 1}</span>
+                  <span className="text-emerald-400">ACTIVE</span>
+                </div>
+              </Card>
+            );
+          })}
+        </div>
+      </Container>
     </section>
   );
 }
