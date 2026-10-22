@@ -8,15 +8,15 @@ set -e
 
 echo ""
 echo "  ╔══════════════════════════════════════════════════════════╗"
-echo "  ║  CREWLOOM SOVEREIGN AI AGENT — INSTALLER v1.0.0        ║"
-echo "  ║  Dual Bicultural Core · 44 Specialist Skills            ║"
+echo "  ║  ⚡ CREWLOOM SOVEREIGN AI AGENT — INSTALLER v1.0.0       ║"
+echo "  ║  Dual Bicultural Core (En/Ar) · 44 Specialist Skills     ║"
 echo "  ╚══════════════════════════════════════════════════════════╝"
 echo ""
 
 # Check Node.js
 if ! command -v node >/dev/null 2>&1; then
-    echo "  [ERROR] Node.js is required but not installed."
-    echo "  Please install Node.js (v18+) from https://nodejs.org or via brew:"
+    echo "  [ERROR] Node.js is required (v18+) but not installed."
+    echo "  Please install Node.js from https://nodejs.org or via brew:"
     echo "    brew install node"
     exit 1
 fi
@@ -27,34 +27,35 @@ echo "  ✓ Detected Node.js: $NODE_VER"
 INSTALL_DIR="$HOME/.local/bin"
 mkdir -p "$INSTALL_DIR"
 
-echo "  ▶ Installing Crewloom Sovereign CLI..."
+echo "  ▶ Downloading and installing Crewloom Sovereign CLI..."
 
-cat << 'EOF' > "$INSTALL_DIR/crewloom"
-#!/usr/bin/env node
-import { spawn } from 'child_process';
-import fs from 'fs';
-
-const localCli = '/Volumes/data/projects/crewloom/cli/bin/crewloom.js';
-if (fs.existsSync(localCli)) {
-  const child = spawn('node', [localCli, ...process.argv.slice(2)], { stdio: 'inherit' });
-  child.on('exit', (code) => process.exit(code || 0));
-} else {
-  const child = spawn('npx', ['-y', 'crewloom', ...process.argv.slice(2)], { stdio: 'inherit' });
-  child.on('exit', (code) => process.exit(code || 0));
-}
-EOF
+# If local workspace exists, link directly for zero-latency local development
+if [ -f "/Volumes/data/projects/crewloom/cli/bin/crewloom.js" ]; then
+    ln -sf "/Volumes/data/projects/crewloom/cli/bin/crewloom.js" "$INSTALL_DIR/crewloom"
+else
+    # Universal fallback for any user on internet: fetch self-contained binary from GitHub CDN
+    DOWNLOAD_URL="https://raw.githubusercontent.com/crewloom/crewloom.github.io/main/public/bin/crewloom"
+    if command -v curl >/dev/null 2>&1; then
+        curl -fsSL "$DOWNLOAD_URL" -o "$INSTALL_DIR/crewloom"
+    elif command -v wget >/dev/null 2>&1; then
+        wget -qO "$INSTALL_DIR/crewloom" "$DOWNLOAD_URL"
+    else
+        echo "  [ERROR] Neither curl nor wget was found."
+        exit 1
+    fi
+fi
 
 chmod +x "$INSTALL_DIR/crewloom"
 ln -sf "$INSTALL_DIR/crewloom" "$INSTALL_DIR/cl" 2>/dev/null || true
 
 echo "  ✓ Crewloom CLI installed to: $INSTALL_DIR/crewloom"
 
-# Check PATH
+# Ensure INSTALL_DIR is in PATH
 case ":$PATH:" in
     *":$INSTALL_DIR:"*) ;;
     *)
         echo ""
-        echo "  [NOTE] Please add $INSTALL_DIR to your PATH:"
+        echo "  [NOTE] Add $INSTALL_DIR to your PATH by running:"
         echo "    echo 'export PATH=\"\$HOME/.local/bin:\$PATH\"' >> ~/.zshrc"
         echo "    source ~/.zshrc"
         ;;
@@ -62,5 +63,5 @@ esac
 
 echo ""
 echo "  🎉 Success! Crewloom is ready to launch."
-echo "  Run: crewloom roles or crewloom --help"
+echo "  Try running: crewloom roles"
 echo ""
