@@ -7,7 +7,7 @@ import { SITE_CONFIG } from '@/lib/constants';
 import { Container } from '@/components/ui';
 
 export function Footer() {
-  const { t } = useLanguage();
+  const { t, isAr } = useLanguage();
 
   return (
     <footer className="border-t border-white/[0.08] bg-space-950 py-8 sm:py-12 relative z-10 select-none">
@@ -24,6 +24,12 @@ export function Footer() {
         </div>
 
         <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-xs text-gray-400 font-medium">
+          <a
+            href="/blog/"
+            className="hover:text-cyan-400 transition-colors cursor-pointer text-cyan-400/90"
+          >
+            {isAr ? 'الأبحاث والمقالات' : 'Articles & Research'}
+          </a>
           <a
             href={SITE_CONFIG.githubUrl}
             target="_blank"
