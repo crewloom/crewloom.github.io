@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "next dev",
     "prebuild": "node scripts/generate-seo-assets.mjs",
-    "build": "next build",
+    "build": "next build && node scripts/sync-export.mjs",
     "generate:seo": "node scripts/generate-seo-assets.mjs",
     "start": "next start",
     "test:seo": "node scripts/verify-seo-output.mjs",
