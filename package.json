@@ -8,6 +8,7 @@
     "build": "next build",
     "start": "next start",
     "test:seo": "node scripts/verify-seo-output.mjs",
+    "ping:indexnow": "node scripts/ping-indexnow.mjs",
     "postinstall": "node scripts/install-shim.cjs"
   },
   "bin": {

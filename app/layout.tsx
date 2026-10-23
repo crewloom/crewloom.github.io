@@ -157,6 +157,7 @@ export default function RootLayout({
   return (
     <html lang="en" dir="ltr" className="dark">
       <head>
+        <link rel="manifest" href="/site.webmanifest" />
         <link rel="author" href="https://crewloom.org" />
         <link rel="sitemap" type="application/xml" href="https://crewloom.org/sitemap.xml" />
         <script

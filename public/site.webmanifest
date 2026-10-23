@@ -1,0 +1,22 @@
+{
+  "name": "Crewloom Sovereign Autonomous AI Coding Agent",
+  "short_name": "Crewloom",
+  "description": "The sovereign autonomous development runtime with 44 specialist skills and Zero-Destruction guarantee.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#030712",
+  "theme_color": "#030712",
+  "icons": [
+    {
+      "src": "/logo.png",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

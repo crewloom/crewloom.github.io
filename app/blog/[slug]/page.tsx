@@ -68,26 +68,80 @@ export default async function ArticlePage({ params }: PageProps) {
 
   const jsonLd = {
     '@context': 'https://schema.org',
-    '@type': 'TechArticle',
-    headline: article.titleEn,
-    description: article.descriptionEn,
-    author: {
-      '@type': 'Person',
-      name: article.author,
-    },
-    publisher: {
-      '@type': 'Organization',
-      name: 'Crewloom',
-      url: 'https://crewloom.org',
-      logo: {
-        '@type': 'ImageObject',
-        url: 'https://crewloom.org/logo.png',
+    '@graph': [
+      {
+        '@type': 'TechArticle',
+        '@id': `https://crewloom.org/blog/${article.slug}/#article-en`,
+        inLanguage: 'en',
+        headline: article.titleEn,
+        description: article.descriptionEn,
+        author: {
+          '@type': 'Person',
+          name: article.author,
+        },
+        publisher: {
+          '@type': 'Organization',
+          name: 'Crewloom',
+          url: 'https://crewloom.org',
+          logo: {
+            '@type': 'ImageObject',
+            url: 'https://crewloom.org/logo.png',
+          },
+        },
+        datePublished: article.date,
+        dateModified: article.date,
+        mainEntityOfPage: `https://crewloom.org/blog/${article.slug}/`,
+        keywords: article.tags.join(', '),
       },
-    },
-    datePublished: article.date,
-    dateModified: article.date,
-    mainEntityOfPage: `https://crewloom.org/blog/${article.slug}/`,
-    keywords: article.tags.join(', '),
+      {
+        '@type': 'TechArticle',
+        '@id': `https://crewloom.org/blog/${article.slug}/#article-ar`,
+        inLanguage: 'ar',
+        headline: article.titleAr,
+        description: article.descriptionAr,
+        author: {
+          '@type': 'Person',
+          name: article.author,
+        },
+        publisher: {
+          '@type': 'Organization',
+          name: 'Crewloom',
+          url: 'https://crewloom.org',
+          logo: {
+            '@type': 'ImageObject',
+            url: 'https://crewloom.org/logo.png',
+          },
+        },
+        datePublished: article.date,
+        dateModified: article.date,
+        mainEntityOfPage: `https://crewloom.org/blog/${article.slug}/`,
+        keywords: article.tags.join(', '),
+      },
+      {
+        '@type': 'BreadcrumbList',
+        '@id': `https://crewloom.org/blog/${article.slug}/#breadcrumb`,
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'Home',
+            item: 'https://crewloom.org/',
+          },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: 'Articles',
+            item: 'https://crewloom.org/blog/',
+          },
+          {
+            '@type': 'ListItem',
+            position: 3,
+            name: article.titleEn,
+            item: `https://crewloom.org/blog/${article.slug}/`,
+          },
+        ],
+      },
+    ],
   };
 
   return (

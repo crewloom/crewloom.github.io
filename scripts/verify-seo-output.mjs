@@ -27,6 +27,9 @@ const requiredFiles = [
   'llms.txt',
   'llms-full.txt',
   'google6d88c509a96bb024.html',
+  '6adab85ec7f9e8a1d2b34e5f6a7b8c9d.txt',
+  'site.webmanifest',
+  '404.html',
 ];
 
 for (const file of requiredFiles) {
@@ -54,6 +57,8 @@ assert(homeHtml.includes('"@type":"SoftwareApplication"'), 'SoftwareApplication 
 assert(homeHtml.includes('"@type":"FAQPage"'), 'FAQPage schema present on Homepage');
 assert(!article1Html.includes('"@type":"FAQPage"'), 'FAQPage schema correctly NOT present on Blog Article');
 assert(article1Html.includes('"@type":"TechArticle"'), 'TechArticle schema present on Blog Article');
+assert(article1Html.includes('"@type":"BreadcrumbList"'), 'BreadcrumbList schema present on Blog Article');
+assert(article1Html.includes('"inLanguage":"ar"'), 'Dual-language Arabic TechArticle schema present on Blog Article');
 assert(blogHtml.includes('"@type":"Blog"'), 'Blog schema present on Blog Index');
 
 // 4. Verify Semantic HTML Rendering in Articles (Markdown to HTML)
