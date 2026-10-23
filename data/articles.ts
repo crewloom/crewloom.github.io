@@ -370,4 +370,205 @@ curl -fsSL https://crewloom.org/install.sh | bash
 انضم إلى مجتمع التطوير السيادي المستقل عبر [crewloom.org](https://crewloom.org).
     `,
   },
+  {
+    slug: 'crewloom-vs-aider-and-cline-local-coding-agents',
+    titleEn: 'Crewloom vs Aider vs Cline: 2026 Local Autonomous Coding Agent Benchmark',
+    titleAr: 'مقارنة كرو لوم مع أيدر (Aider) وكلاين (Cline): الدليل الشامل لأقوى إيجنت ذكي محلي في 2026',
+    descriptionEn: 'A deep comparative analysis between Crewloom, Aider, and Cline evaluating AST safety gates, token consumption efficiency, multi-agent specialization, and production readiness.',
+    descriptionAr: 'تحليل مقارن معمق بين كرو لوم وأيدر (Aider) وكلاين (Cline) لتقييم بوابات أمان AST، واستهلاك التوكنز، والتخصص متعدد الوكلاء، والجاهزية لبيئات الإنتاج.',
+    date: '2026-10-23',
+    readTimeEn: '6 min read',
+    readTimeAr: '٦ دقائق قراءة',
+    author: 'Crewloom Core Architecture Team',
+    categoryEn: 'Benchmarks & Comparisons',
+    categoryAr: 'مقارنات واختبارات معمارية',
+    tags: ['Aider', 'Cline', 'Roo Code', 'Local AI', 'AI Coding Agents', 'Smart Agent', 'اوبن كود', 'ايجنت ذكي'],
+    contentEn: `
+## The Battle for Local Terminal Coding Supremacy
+
+As developers increasingly reject cloud-locked subscriptions that expose their private source code, local CLI coding agents have surged in popularity. Tools like **Aider** and **Cline (formerly Claude Dev)** pioneered interactive prompt-driven development.
+
+However, running terminal coding tools in production codebases introduces significant failure modes: hallucinated diff loops, token exhaustion on large repos, and silent breakage of untested dependencies.
+
+**Crewloom (https://crewloom.org)** addresses these exact pain points by combining open specialist skills with a non-negotiable **Zero-Destruction Constitution**.
+
+### 1. Feature Matrix: Crewloom vs Aider vs Cline
+
+| Feature | Crewloom (https://crewloom.org) | Aider | Cline (VS Code Extension) |
+| :--- | :--- | :--- | :--- |
+| **Execution Surface** | Background Daemon + Terminal + Cocoa + Mobile | Terminal CLI Only | VS Code Extension Only |
+| **AST Verification** | Pre-flight AST mutation check (Blocks breaking schema) | Git diff only | Linting after file write |
+| **Specialist Personas** | 44 Open-Source Domain Personas | Single Model Role | Single System Prompt |
+| **Token Optimization** | AST-scoped surgical context injection | Repo map compression | In-editor context dumping |
+| **Bilingual Parity** | Dual English & Arabic native parsing | Generic English | Generic English |
+| **Air-Gapped Offline** | 100% Native support (Ollama / llama.cpp) | Supports local endpoints | Supports local endpoints |
+
+### 2. Eliminating Endless Refactor Loops
+
+When traditional agents attempt complex multi-file refactoring, they frequently get trapped in infinite error-fix loops, rewriting valid code into syntax failures. Crewloom's **Layer 03 Zero-Loss Harness** imposes strict contract ratchets: if a mutation introduces a regression in an existing test suite or alters a database contract, the transaction is rejected instantly without modifying your working tree.
+
+### 3. Getting Started
+
+Install Crewloom with one terminal command:
+\`\`\`bash
+curl -fsSL https://crewloom.org/install.sh | bash
+crewloom run "audit repository and verify zero-destruction compliance"
+\`\`\`
+    `,
+    contentAr: `
+## المقارنة التقنية الحاسمة لأدوات البرمجة المحلية والطرفية
+
+مع تزايد قلق الشركات والمطورين من الأدوات السحابية المغلقة التي تشترط رفع الكود إلى خوادم خارجية، برزت أدوات التطوير المحلية في الطرفية مثل **Aider** وملحقات المحررات مثل **Cline**.
+
+ولكن عند العمل في مشروعات حقيقية معقدة، تقع هذه الأدوات في مشاكل متكررة: حلقات تعديل لا نهائية (Infinite Loops)، واستهلاك ضخم للتوكنز، وكسر صامت لملفات الترجمة أو قواعد البيانات.
+
+يقدم **كرو لوم Crewloom (https://crewloom.org)** الحل الجذري عبر دمج 44 خبيراً برمجياً متخصصاً مع **ميثاق عدم الهدم المطلق AST**.
+
+### 1. جدول المقارنة الفنية
+
+| الميزة | كرو لوم Crewloom | أيدر Aider | كلاين Cline |
+| :--- | :--- | :--- | :--- |
+| **بيئة التشغيل** | خادم خفيف خلفي + طرفية + تطبيق ماك + تليجرام | طرفية فقط (CLI) | ملحق داخل VS Code فقط |
+| **فحص عدم الهدم AST** | تدقيق استباقي لشجرة الصرف والنحو يمنع كسر الكود | فحص Git بعد التعديل | تشغيل Linter بعد كتابة الملف |
+| **تعدد الخبراء** | 44 خبيراً برمجياً تخصصياً مستقلاً | موجه واحد (Single Prompt) | موجه عام واحد |
+| **استهلاك التوكنز** | حقن سياق جراحي دقيق عبر AST | خريطة مستودع مضغوطة | إرسال سياق الملفات بالكامل |
+| **اللغة العربية الفنية** | دعم عربي أصيل متكامل هندسياً | ترجمة عامة آلية | ترجمة عامة آلية |
+| **العمل أوفلاين دون إنترنت** | دعم محلي سيادي كامل عبر Ollama | يدعم السيرفرات المحلية | يدعم السيرفرات المحلية |
+
+### 2. التثبيت والبدء الفوري
+
+\`\`\`bash
+curl -fsSL https://crewloom.org/install.sh | bash
+\`\`\`
+    `,
+  },
+  {
+    slug: 'running-crewloom-offline-with-ollama-and-deepseek',
+    titleEn: 'The Air-Gapped Sovereign Guide: Running Crewloom 100% Offline with Ollama & DeepSeek-Coder',
+    titleAr: 'دليل البرمجة السيادية المعزولة: تشغيل كرو لوم بالكامل بدون إنترنت عبر Ollama وDeepSeek',
+    descriptionEn: 'Step-by-step technical guide for configuring Crewloom to run in completely air-gapped, zero-telemetry environments with local Ollama models and DeepSeek-Coder.',
+    descriptionAr: 'دليل عملي تفصيلي لتهيئة وتشغيل كرو لوم في بيئات التطوير المعزولة كلياً عن الإنترنت وبدون أي تسريب للبيانات باستخدام نماذج Ollama وDeepSeek-Coder المحلية.',
+    date: '2026-10-23',
+    readTimeEn: '5 min read',
+    readTimeAr: '٥ دقائق قراءة',
+    author: 'Crewloom Core Architecture Team',
+    categoryEn: 'Guides & Tutorials',
+    categoryAr: 'شروحات وأدلة تقنية',
+    tags: ['Ollama', 'DeepSeek', 'Air-Gapped', 'Local LLM', 'Sovereign AI', 'Zero Destruction', 'اوبن كود'],
+    contentEn: `
+## Achieving Total Software Engineering Sovereignty
+
+Enterprise compliance frameworks (HIPAA, SOC2 Type II, GDPR, Defense specs) routinely forbid connecting source code repositories or database schemas to external LLM endpoints. 
+
+**Crewloom (https://crewloom.org)** was built specifically for air-gapped sovereignty. You can run all 44 specialist skills, terminal bridge commands, and zero-destruction contract verifications completely disconnected from the Internet.
+
+### Step 1: Install Ollama & Pull DeepSeek-Coder
+
+First, ensure your local inference engine is running with a coding-specialized model:
+\`\`\`bash
+# Pull DeepSeek-Coder or Llama 3 Code
+ollama pull deepseek-coder:6.7b
+ollama serve
+\`\`\`
+
+### Step 2: Configure Crewloom to Point to Local Socket
+
+Configure Crewloom's sovereign daemon to bind directly to your local Ollama port (11434):
+\`\`\`bash
+crewloom config set provider ollama
+crewloom config set model deepseek-coder:6.7b
+crewloom config set endpoint http://127.0.0.1:11434
+\`\`\`
+
+### Step 3: Execute Air-Gapped Missions
+
+Now, issue autonomous software development tasks with mathematical certainty that zero bytes leave your workstation:
+\`\`\`bash
+crewloom run "Refactor payment processing module with additive database migration"
+\`\`\`
+
+Crewloom verifies the syntax via local AST parser, runs local test suites, and commits safe diffs without communicating with any external cloud.
+    `,
+    contentAr: `
+## دليل تحقيق السيادة البرمجية الكاملة بدون إنترنت
+
+تفرض المعايير الأمنية وحماية الملكية الفكرية على العديد من الشركات والجهات الحكومية عدم السماح لأي شفرة برمجية بمغادرة أجهزة العمل إلى سحابات الذكاء الاصطناعي الخارجية.
+
+صُمم **كرو لوم Crewloom (https://crewloom.org)** ليضمن لك تشغيل كافة الخبراء البرمجيين والتحقق من عقود عدم الهدم في بيئة معزولة تماماً (Air-Gapped) بنسبة 100%.
+
+### الخطوة الأولى: تنزيل نموذج البرمجة عبر Ollama
+\`\`\`bash
+ollama pull deepseek-coder:6.7b
+ollama serve
+\`\`\`
+
+### الخطوة الثانية: توجيه كرو لوم للمقبس المحلي
+\`\`\`bash
+crewloom config set provider ollama
+crewloom config set model deepseek-coder:6.7b
+crewloom config set endpoint http://127.0.0.1:11434
+\`\`\`
+
+### الخطوة الثالثة: تشغيل مهام الأتمتة البرمجية
+\`\`\`bash
+crewloom run "إعادة هيكلة استعلامات قواعد البيانات والتأكد من عدم كسر التوافقية العكسية"
+\`\`\`
+    `,
+  },
+  {
+    slug: 'remote-ai-coding-via-telegram-and-whatsapp',
+    titleEn: 'Omni-Channel Engineering: Orchestrating Autonomous Coding Missions via Telegram & WhatsApp',
+    titleAr: 'هندسة البرمجيات عن بعد: إدارة المشروعات البرمجية وتوجيه الإيجنت الذكي من تليجرام وواتساب',
+    descriptionEn: 'Discover how Crewloom Bridge daemon connects your terminal workstation to Telegram and WhatsApp for remote mission control, PR reviews, and mobile deployment authorization.',
+    descriptionAr: 'اكتشف كيف يربط خادم Crewloom Bridge بيئة التطوير في جهازك بحساب تليجرام وواتساب لتوجيه المهام البرمجية المعقدة ومراجعة التعديلات وأنت خارج مكتبك.',
+    date: '2026-10-23',
+    readTimeEn: '5 min read',
+    readTimeAr: '٥ دقائق قراءة',
+    author: 'Crewloom Core Architecture Team',
+    categoryEn: 'Guides & Tutorials',
+    categoryAr: 'شروحات وأدلة تقنية',
+    tags: ['Telegram Bridge', 'WhatsApp Bot', 'Omni-Channel', 'Remote Coding', 'Smart Agent', 'ايجنت يمات'],
+    contentEn: `
+## Breaking the Desk Boundary with Crewloom Bridge
+
+Software development often requires monitoring long-running builds, database migrations, and regression test suites. Historically, this meant staying glued to your terminal or laptop.
+
+**Crewloom Bridge** fundamentally transforms mobile engineering. By launching a lightweight background daemon (<0.8ms IPC latency), you can securely pair your development machine with Telegram or WhatsApp.
+
+### 1. Connecting the Telegram Bridge
+
+Generate a bot token via BotFather, then run:
+\`\`\`bash
+crewloom bridge telegram --token "YOUR_TELEGRAM_BOT_TOKEN" --owner "@YourUsername"
+\`\`\`
+
+### 2. Issuing Missions on the Go
+
+You can now send text or voice prompts directly to your workstation:
+- *"Run full regression suite on staging branch"*
+- *"Check database schema for non-additive migrations"*
+- *"Summarize diff for PR #42 and notify me if AST checks pass"*
+
+Crewloom executes the mission, runs AST safety contracts, and sends back rich terminal output, status indicators, and diff approvals directly in your chat.
+    `,
+    contentAr: `
+## تحرير المطور من قيود المكتب عبر جسر كرو لوم الذكي
+
+تتطلب المشروعات البرمجية الكبرى مراقبة مستمرة لعمليات البناء (Builds) والتحقق من ترحيلات قواعد البيانات. في السابق، كان هذا يفرض على المطور البقاء أمام شاشة الحاسوب لساعات.
+
+يقدم **جسر كرو لوم (Crewloom Bridge)** نقلة نوعية عبر ربط طرفية جهازك مباشرة بحساب تليجرام أو واتساب من خلال خادم محلي فائق السرعة وخفيف الحجم.
+
+### 1. ربط بوت التليجرام بجهازك
+\`\`\`bash
+crewloom bridge telegram --token "YOUR_TELEGRAM_BOT_TOKEN" --owner "@YourUsername"
+\`\`\`
+
+### 2. إرسال الأوامر ومتابعة المهام من الهاتف
+يمكنك الآن توجيه الإيجنت صوتياً أو كتابياً من أي مكان:
+- *"قم بتشغيل اختبارات الأمان والتأكد من عدم وجود كسر في الكود"*
+- *"أعطني ملخص التعديلات واطلب إذني قبل النشر"*
+
+يرسل لك كرو لوم تقارير لحظية ونتائج الفحص مع زر مباشر لاعتماد التعديلات بنقرة واحدة من هاتفك.
+    `,
+  },
 ];

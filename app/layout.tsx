@@ -51,6 +51,7 @@ export default function RootLayout({
         <link rel="manifest" href="/site.webmanifest" />
         <link rel="author" href="https://crewloom.org" />
         <link rel="sitemap" type="application/xml" href="https://crewloom.org/sitemap.xml" />
+        <link rel="alternate" type="application/rss+xml" title="Crewloom RSS Feed" href="https://crewloom.org/feed.xml" />
         <JsonLd data={rootSchemas} />
       </head>
       <body className="antialiased selection:bg-cyan-500/30 selection:text-cyan-200 glow-mesh min-h-screen flex flex-col justify-between">

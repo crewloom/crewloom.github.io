@@ -29,20 +29,15 @@ mkdir -p "$INSTALL_DIR"
 
 echo "  ▶ Downloading and installing Crewloom Sovereign CLI..."
 
-# If local workspace exists, link directly for zero-latency local development
-if [ -f "/Volumes/data/projects/crewloom/cli/bin/crewloom.js" ]; then
-    ln -sf "/Volumes/data/projects/crewloom/cli/bin/crewloom.js" "$INSTALL_DIR/crewloom"
+# Universal install: fetch self-contained binary from GitHub CDN
+DOWNLOAD_URL="https://raw.githubusercontent.com/crewloom/crewloom.github.io/main/public/bin/crewloom"
+if command -v curl >/dev/null 2>&1; then
+    curl -fsSL "$DOWNLOAD_URL" -o "$INSTALL_DIR/crewloom"
+elif command -v wget >/dev/null 2>&1; then
+    wget -qO "$INSTALL_DIR/crewloom" "$DOWNLOAD_URL"
 else
-    # Universal fallback for any user on internet: fetch self-contained binary from GitHub CDN
-    DOWNLOAD_URL="https://raw.githubusercontent.com/crewloom/crewloom.github.io/main/public/bin/crewloom"
-    if command -v curl >/dev/null 2>&1; then
-        curl -fsSL "$DOWNLOAD_URL" -o "$INSTALL_DIR/crewloom"
-    elif command -v wget >/dev/null 2>&1; then
-        wget -qO "$INSTALL_DIR/crewloom" "$DOWNLOAD_URL"
-    else
-        echo "  [ERROR] Neither curl nor wget was found."
-        exit 1
-    fi
+    echo "  [ERROR] Neither curl nor wget was found."
+    exit 1
 fi
 
 chmod +x "$INSTALL_DIR/crewloom"

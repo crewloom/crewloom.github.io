@@ -9,6 +9,7 @@ import { createPageMetadata } from '@/lib/seo/metadata';
 import { generateBlogIndexSchema, generateBreadcrumbSchema } from '@/lib/seo/schema';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { Breadcrumbs } from '@/components/seo/Breadcrumbs';
+import { BadgeCopyWidget } from '@/components/common/BadgeCopyWidget';
 
 export const metadata: Metadata = createPageMetadata({
   title: 'Articles, Research & Knowledge Base | Crewloom — Sovereign AI Coding Agent',
@@ -131,6 +132,10 @@ export default function BlogIndexPage() {
             <p className="text-xs sm:text-sm text-gray-300 leading-relaxed">
               يوفر كرو لوم Crewloom ترجمة وتأصيلاً معمارياً عربياً أصيلاً لكافة المفاهيم الهندسية، مع إمكانية التبديل الفوري بين اللغتين في صفحة كل مقال.
             </p>
+          </div>
+          {/* Viral GitHub README Badge */}
+          <div className="mt-12 max-w-5xl mx-auto">
+            <BadgeCopyWidget />
           </div>
         </Container>
       </main>

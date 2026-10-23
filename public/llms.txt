@@ -24,6 +24,9 @@
 - [Zero-Destruction Autonomy: How Crewloom Protects Production Systems](https://crewloom.org/blog/zero-destruction-ast-verification/): An engineering deep dive into AST diff auditing, binding safety constitutions, and pre-commit verification.
 - [Crewloom Arabic Developer Guide: Sovereign AI Coding from Terminal to Telegram](https://crewloom.org/blog/dalil-crewloom-arabic-developer-guide/): Practical developer guide for installing Crewloom, utilizing 44 specialist skills, and connecting remote bridges.
 - [Crewloom vs Claude Code vs Open Code Agents: The Sovereign Smart Agent Architectural Standard](https://crewloom.org/blog/crewloom-vs-claude-code-and-open-code-agents/): An in-depth 2026 architectural benchmark comparing Crewloom against Claude Code and open code coding agents across AST safety, air-gapped sovereignty, omni-channel orchestration, and smart agent intelligence.
+- [Crewloom vs Aider vs Cline: 2026 Local Autonomous Coding Agent Benchmark](https://crewloom.org/blog/crewloom-vs-aider-and-cline-local-coding-agents/): A deep comparative analysis between Crewloom, Aider, and Cline evaluating AST safety gates, token consumption efficiency, multi-agent specialization, and production readiness.
+- [The Air-Gapped Sovereign Guide: Running Crewloom 100% Offline with Ollama & DeepSeek-Coder](https://crewloom.org/blog/running-crewloom-offline-with-ollama-and-deepseek/): Step-by-step technical guide for configuring Crewloom to run in completely air-gapped, zero-telemetry environments with local Ollama models and DeepSeek-Coder.
+- [Omni-Channel Engineering: Orchestrating Autonomous Coding Missions via Telegram & WhatsApp](https://crewloom.org/blog/remote-ai-coding-via-telegram-and-whatsapp/): Discover how Crewloom Bridge daemon connects your terminal workstation to Telegram and WhatsApp for remote mission control, PR reviews, and mobile deployment authorization.
 
 ## Installation
 ```bash

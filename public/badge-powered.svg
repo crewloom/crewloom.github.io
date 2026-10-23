@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="210" height="28" viewBox="0 0 210 28" role="img" aria-label="powered by: crewloom sovereign ai">
+  <title>Powered by Crewloom Autonomous Agent</title>
+  <linearGradient id="s" x2="0" y2="100%">
+    <stop offset="0" stop-color="#fff" stop-opacity=".1"/>
+    <stop offset="100%" stop-opacity=".1"/>
+  </linearGradient>
+  <clipPath id="r">
+    <rect width="210" height="28" rx="6" fill="#fff"/>
+  </clipPath>
+  <g clip-path="url(#r)">
+    <rect width="80" height="28" fill="#030712"/>
+    <rect x="80" width="130" height="28" fill="#0f172a"/>
+    <rect width="210" height="28" fill="url(#s)"/>
+  </g>
+  <g fill="#fff" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif" text-rendering="geometricPrecision" font-size="11" font-weight="700">
+    <text x="40" y="18" fill="#06b6d4" letter-spacing="0.5">CREWLOOM</text>
+    <text x="145" y="18" fill="#38bdf8" font-weight="600">SOVEREIGN AGENT</text>
+  </g>
+</svg>

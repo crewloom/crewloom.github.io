@@ -218,4 +218,37 @@ for (const article of ARTICLES) {
 fs.writeFileSync(path.join(PUBLIC_DIR, 'llms-full.txt'), llmsFullTxt, 'utf8');
 console.log('✅ llms-full.txt generated with full article corpus.');
 
+// 5. Generate RSS 2.0 Feed (feed.xml for Google News, Feedly, and AI Aggregators)
+console.log('📡 Generating dynamic RSS feed.xml...');
+
+const rssItemsXml = ARTICLES.map((article) => {
+  const pubDate = new Date(`${article.date}T12:00:00Z`).toUTCString();
+  return `    <item>
+      <title><![CDATA[${article.titleEn}]]></title>
+      <link>${BASE_URL}/blog/${article.slug}/</link>
+      <guid isPermaLink="true">${BASE_URL}/blog/${article.slug}/</guid>
+      <pubDate>${pubDate}</pubDate>
+      <description><![CDATA[${article.descriptionEn}]]></description>
+      <author>core@crewloom.org (${article.author})</author>
+      <category>${article.categoryEn}</category>
+    </item>`;
+}).join('\n');
+
+const feedXml = `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Crewloom Engineering Insights &amp; Research</title>
+    <link>${BASE_URL}/blog/</link>
+    <description>Official architectural benchmarks, zero-destruction guides, and announcements for the Crewloom sovereign AI coding agent.</description>
+    <language>en</language>
+    <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
+    <atom:link href="${BASE_URL}/feed.xml" rel="self" type="application/rss+xml" />
+${rssItemsXml}
+  </channel>
+</rss>
+`;
+
+fs.writeFileSync(path.join(PUBLIC_DIR, 'feed.xml'), feedXml, 'utf8');
+console.log(`✅ feed.xml generated with ${ARTICLES.length} RSS feed items.`);
+
 console.log('\n🚀 All Dynamic SEO/GEO/AEO Assets Generated Successfully!\n');

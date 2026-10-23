@@ -9,7 +9,7 @@ export const SITE_CONFIG = {
   cliPackage: 'crewloom',
   brewTap: 'crewloom/tap/crewloom',
   macosDownloadUrl: 'https://github.com/crewloom/crewloom.github.io/releases/latest/download/Crewloom.dmg',
-  version: 'v2.4.0-sovereign',
+  version: 'v0.1.0 (development)',
   latencyTargetMs: 0.8,
   license: 'Apache-2.0',
 } as const;

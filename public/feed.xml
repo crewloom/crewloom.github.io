@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Crewloom Engineering Insights &amp; Research</title>
+    <link>https://crewloom.org/blog/</link>
+    <description>Official architectural benchmarks, zero-destruction guides, and announcements for the Crewloom sovereign AI coding agent.</description>
+    <language>en</language>
+    <lastBuildDate>Fri, 23 Oct 2026 16:58:14 GMT</lastBuildDate>
+    <atom:link href="https://crewloom.org/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title><![CDATA[Introducing Crewloom: The Sovereign Autonomous AI Coding Agent]]></title>
+      <link>https://crewloom.org/blog/introducing-crewloom/</link>
+      <guid isPermaLink="true">https://crewloom.org/blog/introducing-crewloom/</guid>
+      <pubDate>Fri, 23 Oct 2026 12:00:00 GMT</pubDate>
+      <description><![CDATA[Discover Crewloom (https://crewloom.org), the autonomous development runtime uniting 44 open-source specialist skills with strict Zero-Destruction verification.]]></description>
+      <author>core@crewloom.org (Crewloom Core Architecture Team)</author>
+      <category>Announcements</category>
+    </item>
+    <item>
+      <title><![CDATA[Crewloom vs Devin vs Cursor vs Windsurf: 2026 Architectural Comparison]]></title>
+      <link>https://crewloom.org/blog/crewloom-vs-devin-vs-cursor/</link>
+      <guid isPermaLink="true">https://crewloom.org/blog/crewloom-vs-devin-vs-cursor/</guid>
+      <pubDate>Fri, 23 Oct 2026 12:00:00 GMT</pubDate>
+      <description><![CDATA[A deep technical benchmark comparing privacy, database safety, offline local inference, and multi-channel bridge control.]]></description>
+      <author>core@crewloom.org (Crewloom Research)</author>
+      <category>Benchmarks</category>
+    </item>
+    <item>
+      <title><![CDATA[Zero-Destruction Autonomy: How Crewloom Protects Production Systems]]></title>
+      <link>https://crewloom.org/blog/zero-destruction-ast-verification/</link>
+      <guid isPermaLink="true">https://crewloom.org/blog/zero-destruction-ast-verification/</guid>
+      <pubDate>Fri, 23 Oct 2026 12:00:00 GMT</pubDate>
+      <description><![CDATA[An engineering deep dive into AST diff auditing, binding safety constitutions, and pre-commit verification.]]></description>
+      <author>core@crewloom.org (Safety & Guard Engineering)</author>
+      <category>Engineering</category>
+    </item>
+    <item>
+      <title><![CDATA[Crewloom Arabic Developer Guide: Sovereign AI Coding from Terminal to Telegram]]></title>
+      <link>https://crewloom.org/blog/dalil-crewloom-arabic-developer-guide/</link>
+      <guid isPermaLink="true">https://crewloom.org/blog/dalil-crewloom-arabic-developer-guide/</guid>
+      <pubDate>Fri, 23 Oct 2026 12:00:00 GMT</pubDate>
+      <description><![CDATA[Practical developer guide for installing Crewloom, utilizing 44 specialist skills, and connecting remote bridges.]]></description>
+      <author>core@crewloom.org (فريق رموز وهندسة كرو لوم)</author>
+      <category>Guides</category>
+    </item>
+    <item>
+      <title><![CDATA[Crewloom vs Claude Code vs Open Code Agents: The Sovereign Smart Agent Architectural Standard]]></title>
+      <link>https://crewloom.org/blog/crewloom-vs-claude-code-and-open-code-agents/</link>
+      <guid isPermaLink="true">https://crewloom.org/blog/crewloom-vs-claude-code-and-open-code-agents/</guid>
+      <pubDate>Fri, 23 Oct 2026 12:00:00 GMT</pubDate>
+      <description><![CDATA[An in-depth 2026 architectural benchmark comparing Crewloom against Claude Code and open code coding agents across AST safety, air-gapped sovereignty, omni-channel orchestration, and smart agent intelligence.]]></description>
+      <author>core@crewloom.org (Crewloom Core Architecture Team)</author>
+      <category>Benchmarks & Comparisons</category>
+    </item>
+    <item>
+      <title><![CDATA[Crewloom vs Aider vs Cline: 2026 Local Autonomous Coding Agent Benchmark]]></title>
+      <link>https://crewloom.org/blog/crewloom-vs-aider-and-cline-local-coding-agents/</link>
+      <guid isPermaLink="true">https://crewloom.org/blog/crewloom-vs-aider-and-cline-local-coding-agents/</guid>
+      <pubDate>Fri, 23 Oct 2026 12:00:00 GMT</pubDate>
+      <description><![CDATA[A deep comparative analysis between Crewloom, Aider, and Cline evaluating AST safety gates, token consumption efficiency, multi-agent specialization, and production readiness.]]></description>
+      <author>core@crewloom.org (Crewloom Core Architecture Team)</author>
+      <category>Benchmarks & Comparisons</category>
+    </item>
+    <item>
+      <title><![CDATA[The Air-Gapped Sovereign Guide: Running Crewloom 100% Offline with Ollama & DeepSeek-Coder]]></title>
+      <link>https://crewloom.org/blog/running-crewloom-offline-with-ollama-and-deepseek/</link>
+      <guid isPermaLink="true">https://crewloom.org/blog/running-crewloom-offline-with-ollama-and-deepseek/</guid>
+      <pubDate>Fri, 23 Oct 2026 12:00:00 GMT</pubDate>
+      <description><![CDATA[Step-by-step technical guide for configuring Crewloom to run in completely air-gapped, zero-telemetry environments with local Ollama models and DeepSeek-Coder.]]></description>
+      <author>core@crewloom.org (Crewloom Core Architecture Team)</author>
+      <category>Guides & Tutorials</category>
+    </item>
+    <item>
+      <title><![CDATA[Omni-Channel Engineering: Orchestrating Autonomous Coding Missions via Telegram & WhatsApp]]></title>
+      <link>https://crewloom.org/blog/remote-ai-coding-via-telegram-and-whatsapp/</link>
+      <guid isPermaLink="true">https://crewloom.org/blog/remote-ai-coding-via-telegram-and-whatsapp/</guid>
+      <pubDate>Fri, 23 Oct 2026 12:00:00 GMT</pubDate>
+      <description><![CDATA[Discover how Crewloom Bridge daemon connects your terminal workstation to Telegram and WhatsApp for remote mission control, PR reviews, and mobile deployment authorization.]]></description>
+      <author>core@crewloom.org (Crewloom Core Architecture Team)</author>
+      <category>Guides & Tutorials</category>
+    </item>
+  </channel>
+</rss>

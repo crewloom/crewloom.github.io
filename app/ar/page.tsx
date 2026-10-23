@@ -8,6 +8,7 @@ import { FeaturesGrid } from "@/components/features/FeaturesGrid";
 import { ArchitectureTopology } from "@/components/architecture/ArchitectureTopology";
 import { SpecialistRolesDirectory } from "@/components/roles/SpecialistRolesDirectory";
 import { QuickstartSection } from "@/components/quickstart/QuickstartSection";
+import { BadgeCopyWidget } from "@/components/common/BadgeCopyWidget";
 import { FaqSection } from "@/components/faq/FaqSection";
 import { FloatingActionDock } from "@/components/floating/FloatingActionDock";
 import { Footer } from "@/components/layout/Footer";
@@ -84,6 +85,11 @@ export default function ArabicHome() {
         {/* Deployment & CLI Quickstart */}
         <section id="install" className="relative z-10 py-12">
           <QuickstartSection />
+        </section>
+
+        {/* Viral GitHub README Badge */}
+        <section id="badge" className="relative z-10 py-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full" dir="ltr">
+          <BadgeCopyWidget />
         </section>
 
         {/* Accessible Interactive FAQ Section */}
