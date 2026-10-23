@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "next dev",
+    "prebuild": "node scripts/generate-seo-assets.mjs",
     "build": "next build",
+    "generate:seo": "node scripts/generate-seo-assets.mjs",
     "start": "next start",
     "test:seo": "node scripts/verify-seo-output.mjs",
     "ping:indexnow": "node scripts/ping-indexnow.mjs",

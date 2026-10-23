@@ -1,8 +1,52 @@
 import React from 'react';
+import { Hash } from 'lucide-react';
+import { CodeBlock } from './CodeBlock';
+import { TocItem } from './TableOfContents';
 
 interface MarkdownRendererProps {
   content: string;
   dir?: 'ltr' | 'rtl';
+}
+
+/**
+ * Creates a URL-friendly slug from heading text (supports English, Arabic, and numbers).
+ */
+export function slugifyHeading(text: string): string {
+  return text
+    .replace(/\*\*|`|\[.*?\]|\(.*?\)/g, '') // remove markdown tokens
+    .trim()
+    .toLowerCase()
+    .replace(/[^\p{L}\p{N}]+/gu, '-') // replace non-alphanumeric unicode with hyphen
+    .replace(/^-+|-+$/g, '');
+}
+
+/**
+ * Extracts H2 and H3 headings for Table of Contents generation.
+ */
+export function extractHeadings(content: string): TocItem[] {
+  const lines = content.split('\n');
+  const headings: TocItem[] = [];
+
+  for (const rawLine of lines) {
+    const line = rawLine.trim();
+    if (line.startsWith('## ')) {
+      const text = line.slice(3).replace(/\*\*|`|\[.*?\]|\(.*?\)/g, '').trim();
+      headings.push({
+        id: slugifyHeading(text),
+        text,
+        level: 2,
+      });
+    } else if (line.startsWith('### ')) {
+      const text = line.slice(4).replace(/\*\*|`|\[.*?\]|\(.*?\)/g, '').trim();
+      headings.push({
+        id: slugifyHeading(text),
+        text,
+        level: 3,
+      });
+    }
+  }
+
+  return headings;
 }
 
 function renderInline(text: string): React.ReactNode[] {
@@ -79,17 +123,13 @@ export function MarkdownRenderer({ content, dir = 'ltr' }: MarkdownRendererProps
         i++;
       }
       i++; // Skip closing ```
+      
       elements.push(
-        <div key={`code-${keyIndex++}`} className="my-6 rounded-xl border border-white/10 bg-space-950 p-4 font-mono text-xs sm:text-sm text-cyan-300 overflow-x-auto shadow-inner" dir="ltr">
-          {lang && (
-            <div className="text-[10px] text-gray-500 uppercase tracking-widest mb-2 select-none font-semibold">
-              {lang}
-            </div>
-          )}
-          <pre className="m-0 leading-relaxed">
-            <code>{codeLines.join('\n')}</code>
-          </pre>
-        </div>
+        <CodeBlock
+          key={`code-${keyIndex++}`}
+          code={codeLines.join('\n')}
+          language={lang}
+        />
       );
       continue;
     }
@@ -149,12 +189,23 @@ export function MarkdownRenderer({ content, dir = 'ltr' }: MarkdownRendererProps
 
     // Heading 2
     if (line.startsWith('## ')) {
+      const rawHeadingText = line.slice(3).trim();
+      const slug = slugifyHeading(rawHeadingText);
+
       elements.push(
         <h2
           key={`h2-${keyIndex++}`}
-          className="text-2xl sm:text-3xl font-black text-white tracking-tight mt-10 mb-4 border-b border-white/[0.08] pb-3"
+          id={slug}
+          className="group text-2xl sm:text-3xl font-black text-white tracking-tight mt-10 mb-4 border-b border-white/[0.08] pb-3 flex items-center gap-2 scroll-mt-24"
         >
-          {renderInline(line.slice(3))}
+          <span>{renderInline(rawHeadingText)}</span>
+          <a
+            href={`#${slug}`}
+            aria-label={`Link to section: ${rawHeadingText}`}
+            className="opacity-0 group-hover:opacity-100 text-gray-500 hover:text-cyan-400 transition-opacity p-1"
+          >
+            <Hash className="w-4 h-4" />
+          </a>
         </h2>
       );
       i++;
@@ -163,12 +214,23 @@ export function MarkdownRenderer({ content, dir = 'ltr' }: MarkdownRendererProps
 
     // Heading 3
     if (line.startsWith('### ')) {
+      const rawHeadingText = line.slice(4).trim();
+      const slug = slugifyHeading(rawHeadingText);
+
       elements.push(
         <h3
           key={`h3-${keyIndex++}`}
-          className="text-lg sm:text-xl font-bold text-cyan-300 tracking-tight mt-8 mb-3"
+          id={slug}
+          className="group text-lg sm:text-xl font-bold text-cyan-300 tracking-tight mt-8 mb-3 flex items-center gap-2 scroll-mt-24"
         >
-          {renderInline(line.slice(4))}
+          <span>{renderInline(rawHeadingText)}</span>
+          <a
+            href={`#${slug}`}
+            aria-label={`Link to subsection: ${rawHeadingText}`}
+            className="opacity-0 group-hover:opacity-100 text-gray-500 hover:text-cyan-400 transition-opacity p-1"
+          >
+            <Hash className="w-3.5 h-3.5" />
+          </a>
         </h3>
       );
       i++;

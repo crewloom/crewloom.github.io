@@ -3,65 +3,50 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://crewloom.org/</loc>
-    <lastmod>2026-10-23</lastmod>
+    <lastmod>2026-10-23T18:54:15+03:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://crewloom.org/" />
-    <xhtml:link rel="alternate" hreflang="ar" href="https://crewloom.org/ar/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://crewloom.org/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://crewloom.org/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://crewloom.org/ar/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://crewloom.org/"/>
   </url>
   <url>
     <loc>https://crewloom.org/ar/</loc>
-    <lastmod>2026-10-23</lastmod>
+    <lastmod>2026-10-23T18:54:15+03:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://crewloom.org/" />
-    <xhtml:link rel="alternate" hreflang="ar" href="https://crewloom.org/ar/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://crewloom.org/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://crewloom.org/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://crewloom.org/ar/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://crewloom.org/"/>
   </url>
   <url>
     <loc>https://crewloom.org/blog/</loc>
-    <lastmod>2026-10-23</lastmod>
+    <lastmod>2026-10-23T18:54:15+03:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://crewloom.org/blog/" />
-    <xhtml:link rel="alternate" hreflang="ar" href="https://crewloom.org/blog/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://crewloom.org/blog/" />
   </url>
   <url>
     <loc>https://crewloom.org/blog/introducing-crewloom/</loc>
-    <lastmod>2026-10-23</lastmod>
+    <lastmod>2026-10-23T12:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://crewloom.org/blog/crewloom-vs-devin-vs-cursor/</loc>
-    <lastmod>2026-10-23</lastmod>
+    <lastmod>2026-10-23T12:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://crewloom.org/blog/zero-destruction-ast-verification/</loc>
-    <lastmod>2026-10-23</lastmod>
+    <lastmod>2026-10-23T12:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://crewloom.org/blog/dalil-crewloom-arabic-developer-guide/</loc>
-    <lastmod>2026-10-23</lastmod>
+    <lastmod>2026-10-23T12:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://crewloom.org/llms.txt</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://crewloom.org/llms-full.txt</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
   </url>
 </urlset>

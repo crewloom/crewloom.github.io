@@ -1,55 +1,269 @@
-# Crewloom Full Technical Specification & Knowledge Base
+# Crewloom (https://crewloom.org)
 
-## Overview
-Crewloom (https://crewloom.org) is an enterprise-grade sovereign autonomous AI coding engine engineered specifically to eliminate destructive regressions, broken schema migrations, and accidental production downtime during AI-assisted development.
+> Sovereign Autonomous AI Coding Agent uniting 44 open-source specialist skills with strict Zero-Destruction contract verification and omni-channel bridge control.
 
-## Sovereign Principles
-1. **Zero-Destruction Commitment**: No code changes are ever applied to persistent stores or master branches without passing formal contract verification, AST diff inspection, and additive migration checks.
-2. **Dual-Core Native Parity**: First-class linguistic models capable of understanding technical prompts, architectures, and commands in both English and Arabic.
-3. **Local Sovereignty**: Operates seamlessly with offline, air-gapped local models (via Ollama or llama.cpp) ensuring zero intellectual property or telemetry leakage.
-4. **Multi-Agent Orchestration**: Deploys a squad of 44 specialized autonomous personas rather than a single monolithic generalist model.
+## Project Identity
+- **Name**: Crewloom (كرو لوم)
+- **Domain**: https://crewloom.org
+- **License**: Open-Source Specialist Layer & Sovereign Core
+- **Repository**: https://github.com/crewloom
+- **Primary Mission**: Delivering autonomous software engineering without catastrophic mutations, schema erasures, or telemetry leaks.
 
-## Specialist Skills Breakdown
-Crewloom contains 44 specialist skills spanning 5 major disciplines:
-- **Backend Architecture & APIs**: Microservices, RESTful & GraphQL contracts, gRPC, Node.js, Go, Rust, Python, FastAPI.
-- **Frontend & UI/UX**: Next.js, React, Tailwind CSS, Vue, Svelte, Accessibility audits, Core Web Vitals optimization.
-- **Database & Data Engineering**: PostgreSQL, MySQL, SQLite additive migrations, Redis cache orchestration, Spanner, BigQuery, Dataform, dbt, Apache Beam.
-- **DevOps, Cloud & Infrastructure**: Docker containerization, Kubernetes helm charts, Cloudflare Workers, GitHub Actions CI/CD pipelines, AWS, GCP, Terraform.
-- **Security & Reliability**: Penetration auditing, OWASP Top 10 mitigation, secret scanning, memory leak profiling, zero-downtime rollouts.
+## Core Architectural Pillars
+1. **Zero-Destruction Verification**: Formal AST auditing before any commit or database mutation. Destructive operations (DROP TABLE, TRUNCATE, unchecked schema ALTERs) are automatically intercepted and rejected.
+2. **44 Specialist AI Personas**: Open-source domain skills covering backend architectures, frontend performance, distributed databases, kernel debugging, and security penetration.
+3. **Dual Sovereign English & Arabic Intelligence**: Native bilingual comprehension for technical queries and enterprise specifications.
+4. **Omni-Channel Bridge Daemon**: Manage workflows seamlessly across terminal CLI, native macOS Cocoa desktop app, Telegram, and WhatsApp.
 
-## Installation & Deployment
+## Technical Knowledge Base & Documentation
+- [Introducing Crewloom](https://crewloom.org/blog/introducing-crewloom/): The foundational manifesto of the sovereign autonomous AI coding agent.
+- [Crewloom vs Devin vs Cursor vs Windsurf](https://crewloom.org/blog/crewloom-vs-devin-vs-cursor/): Comprehensive 2026 architectural benchmark comparison across autonomy, verification, and privacy.
+- [Zero-Destruction AST Verification Engine](https://crewloom.org/blog/zero-destruction-ast-verification/): Deep dive into pre-flight safety algorithms, AST mutation interception, and contract testing.
+- [دليل كرو لوم الشامل للمطور العربي](https://crewloom.org/blog/dalil-crewloom-arabic-developer-guide/): Complete Arabic engineering handbook covering installation, personas, and workflows.
 
-### 1. Terminal One-Liner (macOS / Linux)
+## Installation
 ```bash
 curl -fsSL https://crewloom.org/install.sh | bash
 ```
 
-### 2. Homebrew
+---
+
+# Complete Technical Publications & Knowledge Base
+
+
+## Article: Introducing Crewloom: The Sovereign Autonomous AI Coding Agent
+- **Arabic Title**: إطلاق كرو لوم Crewloom: الوكيل البرمجي السيادي المطور للأتمتة غير التدميرية
+- **URL**: https://crewloom.org/blog/introducing-crewloom/
+- **Date**: 2026-10-23
+- **Author**: Crewloom Core Architecture Team
+- **Tags**: Crewloom, AI Coding Agent, Zero Destruction, Open Source, Sovereign AI
+
+### English Content
+## The New Era of Sovereign Software Engineering
+
+Traditional software engineering with AI has reached an inflection point. While autocomplete tools and cloud-locked assistants help write code faster, they routinely introduce catastrophic regressions, erase persistent database state with unverified DROP statements, and compromise intellectual property through unmonitored telemetry streams.
+
+**Crewloom (https://crewloom.org)** was built from the ground up to solve these core vulnerabilities through a radical new paradigm: **Sovereign Zero-Destruction Autonomy**.
+
+### 1. The Dual-Core Sovereign Architecture
+Unlike generalist models forced to act as developers, Crewloom divides responsibilities into a 3-tier sovereign runtime:
+- **Layer 01 — Open-Source Specialist Skills (44 Personas)**: Deep domain knowledge across backend frameworks, distributed databases, frontend performance, and penetration security.
+- **Layer 02 — Crewloom Bridge**: An ultra-lightweight daemon enabling developers to orchestrate missions directly from the terminal, macOS Cocoa desktop application, or remote channels like Telegram and WhatsApp.
+- **Layer 03 — Proprietary Zero-Loss Harness**: A disciplined core operating under a strict constitution that forbids unverified mutations to existing systems.
+
+### 2. The Zero-Destruction Guarantee
+Before any generated diff is committed to your workspace or executed on a live database, Crewloom executes formal **AST (Abstract Syntax Tree) auditing** and contract checks:
+- Strict rejection of destructive schema queries (DROP, TRUNCATE, unchecked ALTER).
+- Additive migrations only with automatic rollback test runs.
+- Sub-millisecond pre-flight regression checks on all dependent files.
+
+### 3. Immediate Universal Deployment
+You can deploy Crewloom on any modern macOS or Linux workstation with a single terminal command:
 ```bash
-brew tap crewloom/tap
-brew install crewloom
+curl -fsSL https://crewloom.org/install.sh | bash
 ```
 
-### 3. npm Global Package
+Join the movement toward sovereign, safe, and autonomous software development at [crewloom.org](https://crewloom.org).
+
+### المحتوى باللغة العربية
+## عصر جديد من هندسة البرمجيات السيادية والآمنة
+
+وصل تطوير البرمجيات باستخدام الذكاء الاصطناعي إلى نقطة تحول حاسمة. فرغم أن أدوات الإكمال التلقائي والمساعدات السحابية تزيد من سرعة كتابة الكود، إلا أنها كثيراً ما تتسبب في كوارث برمجية كمسح قواعد البيانات أو كسر التوافقية العكسية أو تسريب البيانات الحساسة عبر خوادم سحابية مجهولة.
+
+جاء **كرو لوم Crewloom (https://crewloom.org)** ليعيد صياغة المشهد بالكامل من خلال مبدأ **الأتمتة السيادية غير التدميرية (Zero-Destruction Autonomy)**.
+
+### 1. معمارية سيادية ثلاثية الطبقات
+بدلاً من الاعتماد على نموذج ذكاء اصطناعي عام، يعتمد كرو لوم على هيكل منظم:
+- **الطبقة الأولى — مكتبة الـ 44 خبيراً تخصصياً**: خبراء مستقلون في قواعد البيانات، والواجهات، والأمان، وهندسة السحابة.
+- **الطبقة الثانية — جسر التحكم الحي (Crewloom Bridge)**: خادم خفيف للتحكم عبر التليجرام أو الواتساب أو الطرفية أو تطبيق الماك المكتبي.
+- **الطبقة الثالثة — محرك الانضباط السيادي**: محرّك محمي بدستور صارم يمنع المساس بالأصول البرمجية دون تدقيق.
+
+### 2. ميثاق عدم الهدم المطلق
+قبل اعتماد أي تعديل في مستودع الكود أو قاعدة البيانات، يمر الكود بفحص شجرة الصرف والنحو (AST):
+- المنع المطلق لأي أوامر تدميرية (مثل DROP أو TRUNCATE).
+- فرض التهجير التزايدي (Additive Migrations) واختبار التراجع التلقائي.
+- فحص التوافقية وسرعة استجابة فورية أقل من 0.8 ملي ثانية.
+
+### 3. التثبيت الفوري في ثوانٍ
+يمكنك البدء فوراً بأمر واحد في الطرفية:
 ```bash
-npm install -g crewloom
+curl -fsSL https://crewloom.org/install.sh | bash
 ```
 
-### 4. macOS Native Cocoa App
-Crewloom Agent.app is available as a 58KB native binary powered by WebKit runtime with sub-second boot times.
+---
 
-## Frequently Asked Questions (FAQ)
+## Article: Crewloom vs Devin vs Cursor vs Windsurf: 2026 Architectural Comparison
+- **Arabic Title**: مقارنة معمارية شاملة: Crewloom مقابل Devin و Cursor و Windsurf
+- **URL**: https://crewloom.org/blog/crewloom-vs-devin-vs-cursor/
+- **Date**: 2026-10-23
+- **Author**: Crewloom Research
+- **Tags**: Crewloom vs Devin, Cursor, Windsurf, AI Benchmarks, Coding Agents
 
-### What makes Crewloom different from Devin, Cursor, or Copilot?
-Most existing AI assistants operate either as editor autocompletes or cloud-bound agents that can execute unverified, destructive commands. Crewloom enforces a strict non-destructive constitution: commands undergo real-time AST validation and architectural contract checks before hitting your filesystem or production databases. Furthermore, Crewloom operates completely offline if desired, and bridges directly to communication channels like Telegram.
+### English Content
+## Why We Benchmarked the World's Leading Coding Agents
 
-### Does Crewloom support enterprise air-gapped environments?
-Yes. Crewloom was designed from inception for sovereignty. It works with local inference servers like Ollama and local embedding stores, ensuring zero code or data leaves your corporate perimeter.
+As AI coding agents transition from experimental demos to enterprise development workflows, engineering teams demand clear answers on three non-negotiable vectors:
+1. **Safety**: Will the agent corrupt production data or delete critical code?
+2. **Sovereignty & Privacy**: Does company code leak to third-party model providers?
+3. **Omni-Channel Autonomy**: Can the agent execute background missions independently?
 
-### How does the Dual-Core English/Arabic capability work?
-Crewloom's dual-core parser interprets Arabic technical jargon (e.g. "نفّذ تهجير تزايدي لقاعدة البيانات مع فحص الأمان") with the exact same precision and architectural mapping as native English prompts.
+Here is how **Crewloom (https://crewloom.org)** compares directly against Devin, Cursor, and Windsurf:
 
-## Contact & Resources
-- Web: https://crewloom.org
-- GitHub: https://github.com/crewloom
-- Support: support@crewloom.org
+| Feature / Capability | Crewloom | Devin | Cursor | Windsurf |
+| :--- | :--- | :--- | :--- | :--- |
+| **Destruction Policy** | **Strict AST Contract Guard** | Best-effort heuristic | None (Editor Diff) | None (Editor Diff) |
+| **Offline Local Inference** | **Supported (Ollama/llama.cpp)** | No (Cloud Only) | Limited | Limited |
+| **Dual-Core English/Arabic** | **Full Native Parity** | Weak Translation | Partial | Partial |
+| **Omni-Channel Bridge** | **Telegram, WhatsApp, CLI, Cocoa** | Web Sandbox Only | Editor Only | Editor Only |
+| **Specialist Roles** | **44 Dedicated Personas** | Monolithic Model | Generalist LLM | Generalist LLM |
+| **Execution Architecture** | **Native Daemon (< 0.8ms IPC)** | Cloud Spin-up (~30s) | Editor Integrated | Editor Integrated |
+
+### Key Takeaways
+- **Cursor and Windsurf** are exceptional editor autocompletes, but lack autonomous background multi-agent execution and production guardrails.
+- **Devin** provides cloud sandbox autonomy, but locks user code into proprietary remote environments with significant latency and high recurring costs.
+- **Crewloom** provides the best of both worlds: local workstation speed, multi-agent autonomous missions, and strict mathematical guarantees against destructive operations.
+
+### المحتوى باللغة العربية
+## لماذا نحتاج لمقارنة تقنية واضحة لأدوات الذكاء الاصطناعي البرمجي؟
+
+مع انتقال وكلاء البرمجة من مجرد تجارب إلى أنظمة تشغيل حية في بيئات الإنتاج، تبحث فرق التطوير عن إجابات حاسمة حول:
+1. **الأمان البرمجي**: هل سيتسبب الذكاء الاصطناعي في مسح بيانات حيوية؟
+2. **السيادة والخصوصية**: هل تتسرب أسرار الكود إلى سحابة الشركات الخارجية؟
+3. **حرية الاستخدام والتحكم**: هل يمكن تشغيل المهام أثناء غياب المطور عن الحاسوب؟
+
+إليك جدول المقارنة الشامل بين **كرو لوم Crewloom (https://crewloom.org)** و Devin و Cursor و Windsurf:
+
+| الميزة والمعيار | Crewloom | Devin | Cursor | Windsurf |
+| :--- | :--- | :--- | :--- | :--- |
+| **سياسة حماية الأكواد** | **تدقيق AST صارم للعقود** | تقدير نسبي غير ملزم | لا يوجد (محرر كود) | لا يوجد (محرر كود) |
+| **العمل بدون إنترنت (محلياً)** | **مدعوم محلياً (Ollama/llama.cpp)** | لا (سحابي فقط) | محدود جداً | محدود جداً |
+| **الدعم العربي الكامل** | **نواة ثنائية معمارية أصلية** | ترجمة آلية ضعيفة | جزئي | جزئي |
+| **التحكم العابر للقنوات** | **تليجرام، واتساب، طرفية، تطبيق ماك** | واجهة ويب فقط | محرر الكود فقط | محرر الكود فقط |
+| **كتيبة الخبراء التخصصية** | **44 خبيراً مستقلاً** | نموذج أحادي عام | نموذج أحادي عام | نموذج أحادي عام |
+| **معمارية التشغيل** | **خادم محلي فائق الخفة (< 0.8ms IPC)** | تهيئة سحابية (~30 ثانية) | مدمج داخل المحرر | مدمج داخل المحرر |
+
+---
+
+## Article: Zero-Destruction Autonomy: How Crewloom Protects Production Systems
+- **Arabic Title**: ميثاق عدم الهدم البرمجي: كيف يحمي Crewloom قواعد البيانات والأنظمة الحية؟
+- **URL**: https://crewloom.org/blog/zero-destruction-ast-verification/
+- **Date**: 2026-10-23
+- **Author**: Safety & Guard Engineering
+- **Tags**: Zero Destruction, AST Verification, Database Safety, Reliability
+
+### English Content
+## The Danger of Autonomous AI in Production
+
+When an AI agent is granted filesystem access and database execution credentials, traditional safeguard models fall short. A hallucinated SQL statement such as:
+```sql
+DROP TABLE users; -- Intended to be temporary cache cleanup
+```
+can wipe years of company history in milliseconds.
+
+### The Crewloom Zero-Destruction Architecture
+In **Crewloom**, no action ever bypasses the Non-Destructive Guard. This pipeline executes three sequential validation gates before disk or network mutations:
+
+1. **Gate 1: AST Semantic Audit**:
+   The generated code or SQL is parsed into an Abstract Syntax Tree (AST). Destructive nodes (drop table, unconditioned delete, truncations, force-push commits) are flagged and terminated at the AST level.
+2. **Gate 2: Additive-Only Database Contract**:
+   Database migrations must strictly expand state rather than destruct it. Schema adjustments require explicit deprecation cycles and migration rollbacks tested in-memory before production application.
+3. **Gate 3: Multi-Skill Peer Consensus**:
+   Before a mission is marked complete, designated review specialist roles (e.g. `security-audit`, `regression-verifier`) audit the change set against the project constitution.
+
+Learn more and explore the full benchmark simulator at [crewloom.org](https://crewloom.org/#simulator).
+
+### المحتوى باللغة العربية
+## مخاطر الوكلاء المستقلين في بيئات العمل الحقيقية
+
+عندما يُمنح وكيل الذكاء الاصطناعي صلاحيات التعديل على الملفات وقواعد البيانات، تصبح الحماية التقليدية عاجزة. جملة استعلامية خاطئة من النموذج مثل:
+```sql
+DROP TABLE users;
+```
+قادرة على محو سنوات من البيانات خلال جزء من الثانية.
+
+### كيف يمنع كرو لوم Crewloom هذه الكوارث؟
+في كرو لوم، لا يمكن لأي أمر أن يتجاوز **حارس عدم الهدم (Zero-Destruction Guard)**، الذي يعمل عبر 3 بوابات فحص إلزامية:
+
+1. **البوابة الأولى: الفحص الصرفي لشجرة الكود (AST Audit)**:
+   يتم تفكيك الكود أو الاستعلام إلى شجرة صرفية نحوية. إذا وُجد أي أمر تدميري كحذف الجداول أو مسح السجلات دون شرط دقيق، يتم إيقاف العملية فوراً.
+2. **البوابة الثانية: عقد التوسع التزايدي فقط (Additive-Only)**:
+   يجب أن تكون تعديلات قواعد البيانات تزايدية، بحيث تدعم التراجع التلقائي والتدرج في إيقاف الأعمدة القديمة دون هدم مباشر.
+3. **البوابة الثالثة: إجماع الخبراء ومراجعة النظراء**:
+   يقوم خبير فحص التراجعات (Regression Verifier) بمراجعة نتائج الكود والتأكد من عدم كسر أي اختبارات سابقة قبل تنفيذ الالتزام (Commit).
+
+---
+
+## Article: Crewloom Arabic Developer Guide: Sovereign AI Coding from Terminal to Telegram
+- **Arabic Title**: دليل المطور الشامل: ما هو كرو لوم Crewloom وكيف تبدأ استخدامه في دقيقة؟
+- **URL**: https://crewloom.org/blog/dalil-crewloom-arabic-developer-guide/
+- **Date**: 2026-10-23
+- **Author**: فريق رموز وهندسة كرو لوم
+- **Tags**: كرو لوم, ذكاء اصطناعي عربي, دليل المطور, تثبيت Crewloom, أدوات المبرمجين
+
+### English Content
+## Complete Developer Quickstart for Crewloom
+
+Welcome to the definitive developer guide for **Crewloom (كرو لوم)**, the world's first sovereign autonomous AI coding agent featuring true native Arabic and English parity.
+
+### Step 1: Universal Installation
+Open your terminal on macOS or Linux and paste:
+```bash
+curl -fsSL https://crewloom.org/install.sh | bash
+```
+The installer verifies dependencies, compiles the native launcher, and registers the `crewloom` CLI tool globally.
+
+### Step 2: Exploring the 44 Specialist Skills
+List all available domain specialists in your terminal:
+```bash
+crewloom roles --category backend
+crewloom roles --category database
+```
+
+### Step 3: Executing a Safe Mission
+Run an autonomous mission with Zero-Destruction verification:
+```bash
+crewloom run "Refactor database migrations to be strictly additive and audit against DAC-01 contract"
+```
+
+### Step 4: Connecting the Telegram Bridge
+Stay in control of long-running missions from your phone:
+```bash
+crewloom bridge telegram --bot-token YOUR_TOKEN
+```
+
+Visit the official website [https://crewloom.org](https://crewloom.org) for documentation and community updates.
+
+### المحتوى باللغة العربية
+## الدليل العملي السريع لتشغيل كرو لوم للمطورين
+
+أهلاً بك في الدليل الرسمي الشامل لأداة **كرو لوم Crewloom (https://crewloom.org)**، أول وكيل برمجي سيادي يتمتع بنواة ذكاء عربية وإنجليزية حقيقية ومصمم للأمان المطلق.
+
+### الخطوة الأولى: التثبيت الفوري
+افتح الطرفية (Terminal) على جهاز الماك أو اللينكس ونفذ:
+```bash
+curl -fsSL https://crewloom.org/install.sh | bash
+```
+سيقوم برنامج التثبيت الذكي بإعداد بيئة العمل وتسجيل أمر `crewloom` عالمياً على جهازك.
+
+### الخطوة الثانية: استعراض الخبراء البرمجيين (44 خبيراً)
+يمكنك عرض المهارات المتاحة بحسب التخصص:
+```bash
+crewloom roles --category backend
+crewloom roles --category database
+```
+
+### الخطوة الثالثة: تنفيذ مهمة برمجية آمنة
+وجّه كرو لوم لتنفيذ مهمة معقدة باللغة العربية أو الإنجليزية:
+```bash
+crewloom run "قم بتحسين أداء استعلامات قاعدة البيانات وتأكد من تطبيق ميثاق عدم الهدم"
+```
+
+### الخطوة الرابعة: الربط مع بوت التليجرام
+يمكنك متابعة وتوجيه المهام الطويلة وأنت خارج المنزل مباشرة عبر تليجرام:
+```bash
+crewloom bridge telegram --bot-token YOUR_TOKEN
+```
+
+لمزيد من المعلومات، تفضل بزيارة الموقع الرسمي: [crewloom.org](https://crewloom.org).
+
+---

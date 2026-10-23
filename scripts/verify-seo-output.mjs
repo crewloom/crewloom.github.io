@@ -11,9 +11,9 @@ function assert(condition, message) {
   console.log(`✅ PASS: ${message}`);
 }
 
-console.log('🧪 Starting Crewloom Production SEO/GEO/AEO Verification Tests...\n');
+console.log('🧪 Starting Comprehensive Crewloom Production SEO/GEO/AEO Verification Tests...\n');
 
-// 1. Verify files exist
+// 1. Verify Core Output Files Exist
 const requiredFiles = [
   'index.html',
   'ar/index.html',
@@ -37,13 +37,14 @@ for (const file of requiredFiles) {
   assert(fs.existsSync(fullPath), `Required output file exists: ${file}`);
 }
 
-// 2. Verify Page Titles (Hydration / Build separation)
+// Read HTML files
 const homeHtml = fs.readFileSync(path.join(OUT_DIR, 'index.html'), 'utf8');
 const arHtml = fs.readFileSync(path.join(OUT_DIR, 'ar/index.html'), 'utf8');
 const blogHtml = fs.readFileSync(path.join(OUT_DIR, 'blog/index.html'), 'utf8');
 const article1Html = fs.readFileSync(path.join(OUT_DIR, 'blog/introducing-crewloom/index.html'), 'utf8');
 const article2Html = fs.readFileSync(path.join(OUT_DIR, 'blog/crewloom-vs-devin-vs-cursor/index.html'), 'utf8');
 
+// 2. Verify Page Titles (Hydration / Build separation)
 assert(homeHtml.includes('Crewloom — Sovereign Autonomous AI Coding Agent | كرو لوم'), 'Home page has canonical English/Arabic title');
 assert(arHtml.includes('كرو لوم Crewloom — الوكيل البرمجي السيادي الفائق | أتمتة برمجية بدون هدم'), 'Arabic home page has dedicated Arabic title');
 assert(blogHtml.includes('Articles, Research') && blogHtml.includes('Knowledge Base'), 'Blog hub has dedicated research title');
@@ -61,39 +62,60 @@ assert(article1Html.includes('"@type":"BreadcrumbList"'), 'BreadcrumbList schema
 assert(article1Html.includes('"inLanguage":"ar"'), 'Dual-language Arabic TechArticle schema present on Blog Article');
 assert(blogHtml.includes('"@type":"Blog"'), 'Blog schema present on Blog Index');
 
-// 4. Verify Semantic HTML Rendering in Articles (Markdown to HTML)
+// 4. Verify Semantic HTML & Markdown Rendering in Articles
 assert(article2Html.includes('<table class="w-full text-left border-collapse text-xs sm:text-sm"'), 'Article 2 renders semantic <table> element');
 assert(article2Html.includes('<th'), 'Article 2 renders semantic <th> table headers');
 assert(article2Html.includes('<td'), 'Article 2 renders semantic <td> table cells');
 assert(article1Html.includes('<pre class="m-0 leading-relaxed"><code>curl -fsSL https://crewloom.org/install.sh | bash</code></pre>'), 'Article 1 renders semantic <pre><code> block');
-assert(article1Html.includes('<h2 class="text-2xl sm:text-3xl font-black text-white tracking-tight mt-10 mb-4 border-b border-white/[0.08] pb-3"'), 'Article 1 renders semantic <h2> heading');
+assert(article1Html.includes('<h2 id="the-new-era-of-sovereign-software-engineering"'), 'Article 1 renders slugified H2 heading id for AEO anchor jump links');
+assert(article1Html.includes('<h3 id="1-the-dual-core-sovereign-architecture"'), 'Article 1 renders slugified H3 heading id');
 
-// 5. Verify FAQ Accessibility & Search Engine Availability
+// 5. Verify Table of Contents & Breadcrumbs UI
+assert(article1Html.includes('aria-label="Table of Contents"'), 'Article 1 renders accessible Table of Contents sidebar');
+assert(article1Html.includes('aria-label="Breadcrumb"'), 'Article 1 renders accessible Breadcrumbs navigation');
+assert(blogHtml.includes('aria-label="Breadcrumb"'), 'Blog index renders accessible Breadcrumbs navigation');
+
+// 6. Verify FAQ Accessibility & Static HTML Search Engine Availability
 assert(homeHtml.includes('<details'), 'FAQ uses semantic <details> element');
 assert(homeHtml.includes('<summary'), 'FAQ uses semantic <summary> element');
 assert(homeHtml.includes('What is Crewloom?'), 'FAQ Question 1 is in static HTML');
 assert(homeHtml.includes('How does Crewloom guarantee Zero-Destruction coding?'), 'FAQ Question 2 is in static HTML');
 assert(arHtml.includes('ما هو Crewloom (كرو لوم)؟'), 'Arabic FAQ Question 1 is in static HTML');
 
-// 6. Verify Sitemap & Robots
+// 7. Verify Sitemap & Multi-language alternates
 const sitemap = fs.readFileSync(path.join(OUT_DIR, 'sitemap.xml'), 'utf8');
 assert(sitemap.includes('<loc>https://crewloom.org/</loc>'), 'Sitemap contains homepage');
 assert(sitemap.includes('<loc>https://crewloom.org/ar/</loc>'), 'Sitemap contains dedicated Arabic page');
 assert(sitemap.includes('<loc>https://crewloom.org/blog/</loc>'), 'Sitemap contains blog index');
 assert(sitemap.includes('<loc>https://crewloom.org/blog/introducing-crewloom/</loc>'), 'Sitemap contains Article 1');
 assert(sitemap.includes('<loc>https://crewloom.org/blog/crewloom-vs-devin-vs-cursor/</loc>'), 'Sitemap contains Article 2');
+assert(sitemap.includes('xmlns:xhtml="http://www.w3.org/1999/xhtml"'), 'Sitemap declares xhtml namespace for multilingual alternates');
+assert(sitemap.includes('<xhtml:link rel="alternate" hreflang="ar" href="https://crewloom.org/ar/"/>'), 'Sitemap cross-links English home with Arabic alternate');
 
+// 8. Verify Robots.txt & AI Crawler directives
 const robots = fs.readFileSync(path.join(OUT_DIR, 'robots.txt'), 'utf8');
 assert(robots.includes('User-agent: Googlebot'), 'Robots.txt configures Googlebot');
+assert(robots.includes('User-agent: Bingbot'), 'Robots.txt configures Bingbot');
 assert(robots.includes('User-agent: GPTBot'), 'Robots.txt configures GPTBot (OpenAI)');
 assert(robots.includes('User-agent: PerplexityBot'), 'Robots.txt configures PerplexityBot');
 assert(robots.includes('User-agent: ClaudeBot'), 'Robots.txt configures ClaudeBot (Anthropic)');
+assert(robots.includes('User-agent: Applebot-Extended'), 'Robots.txt configures Applebot-Extended');
 assert(robots.includes('Sitemap: https://crewloom.org/sitemap.xml'), 'Robots.txt points to Sitemap');
 
-// 7. Verify Canonical & Hreflang
+// 9. Verify Canonical & Hreflang reciprocity
 assert(homeHtml.includes('<link rel="canonical" href="https://crewloom.org/"/>'), 'Homepage has correct canonical link');
 assert(homeHtml.includes('<link rel="alternate" hrefLang="ar" href="https://crewloom.org/ar/"/>'), 'Homepage links to /ar/ alternate');
 assert(arHtml.includes('<link rel="canonical" href="https://crewloom.org/ar/"/>'), 'Arabic page has correct canonical link');
 assert(arHtml.includes('<link rel="alternate" hrefLang="en" href="https://crewloom.org/"/>'), 'Arabic page links to / en alternate');
 
-console.log('\n🎉 ALL 24 VERIFICATION CHECKS PASSED SUCCESSFULLY!\n');
+// 10. Verify IndexNow & LLM Knowledge Dossiers
+const llmsTxt = fs.readFileSync(path.join(OUT_DIR, 'llms.txt'), 'utf8');
+const llmsFullTxt = fs.readFileSync(path.join(OUT_DIR, 'llms-full.txt'), 'utf8');
+const indexNowKeyFile = fs.readFileSync(path.join(OUT_DIR, '6adab85ec7f9e8a1d2b34e5f6a7b8c9d.txt'), 'utf8');
+
+assert(llmsTxt.includes('Sovereign Autonomous AI Coding Agent'), 'llms.txt contains primary positioning');
+assert(llmsTxt.includes('https://crewloom.org/blog/introducing-crewloom/'), 'llms.txt links to articles');
+assert(llmsFullTxt.includes('Introducing Crewloom: The Sovereign Autonomous AI Coding Agent'), 'llms-full.txt includes full article corpus');
+assert(indexNowKeyFile.trim() === '6adab85ec7f9e8a1d2b34e5f6a7b8c9d', 'IndexNow key file matches registered protocol key');
+
+console.log('\n🎉 ALL 40 PRODUCTION VERIFICATION CHECKS PASSED WITH 100% SUCCESS!\n');
