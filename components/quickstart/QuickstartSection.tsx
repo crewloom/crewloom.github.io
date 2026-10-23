@@ -13,7 +13,7 @@ export function QuickstartSection() {
   const rolesCmd = 'crewloom roles list';
 
   return (
-    <section id="install" className="py-24 relative z-10">
+    <section id="install" className="py-16 sm:py-24 relative z-10">
       <Container size="md">
         <SectionHeading
           badge={t.quickstart.badge}
@@ -21,7 +21,7 @@ export function QuickstartSection() {
           align="center"
         />
 
-        <Card variant="glass" className="p-6 sm:p-8 space-y-6">
+        <Card variant="glass" className="p-4 sm:p-6 md:p-8 space-y-5 sm:space-y-6">
           {/* Step 1 */}
           <div>
             <label className="block text-xs font-mono text-gray-400 mb-2 font-semibold">

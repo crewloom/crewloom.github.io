@@ -34,7 +34,7 @@ export function FeaturesGrid() {
   };
 
   return (
-    <section id="features" className="py-24 relative z-10">
+    <section id="features" className="py-16 sm:py-24 relative z-10">
       <Container size="lg">
         <SectionHeading
           badge={t.features.badge}
@@ -42,14 +42,14 @@ export function FeaturesGrid() {
           align="center"
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
           {FEATURES.map((feature, idx) => {
             const colors = colorStyles[feature.colorScheme];
             return (
               <Card
                 key={idx}
                 variant="interactive"
-                className="p-8 flex flex-col justify-between"
+                className="p-6 sm:p-8 flex flex-col justify-between"
               >
                 <div>
                   <div

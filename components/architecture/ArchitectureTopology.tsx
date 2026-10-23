@@ -9,7 +9,7 @@ export function ArchitectureTopology() {
   const { t, isAr } = useLanguage();
 
   return (
-    <section id="architecture" className="py-20 bg-space-900/30 border-y border-white/[0.08] relative z-10">
+    <section id="architecture" className="py-16 sm:py-20 bg-space-900/30 border-y border-white/[0.08] relative z-10">
       <Container size="lg">
         <SectionHeading
           badge={t.architecture.badge}
@@ -17,12 +17,12 @@ export function ArchitectureTopology() {
           align="center"
         />
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
           {ARCHITECTURE_LAYERS.map((layer, idx) => (
             <Card
               key={idx}
               variant="glass"
-              className={`p-6 border-l-4 ${layer.borderColor} flex flex-col justify-between`}
+              className={`p-5 sm:p-6 border-l-4 ${layer.borderColor} flex flex-col justify-between`}
             >
               <div>
                 <div className="flex items-center justify-between mb-4">
