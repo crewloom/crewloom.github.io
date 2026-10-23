@@ -8,7 +8,7 @@ Crewloom (https://crewloom.org) is the next-generation autonomous software devel
 - **Dual-Core Intelligence**: Native bilingual core with full parity across English and Arabic technical vocabularies.
 - **44 Specialist Skills**: Specialized autonomous skills for backend, frontend, database migrations, security audits, and cloud infrastructure.
 - **Omni-Channel Bridge Mediation**: Run workflows from the CLI, macOS desktop app, Telegram, or automated background daemons.
-- **Sub-Millisecond Performance**: Boot latency under 0.8ms with zero configuration and local offline inference support.
+- **Optimized Runtime**: Sub-millisecond IPC design target (<0.8ms) with zero configuration and local offline inference support.
 
 ## Quick Installation
 ```bash

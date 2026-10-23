@@ -32,9 +32,36 @@ export const metadata: Metadata = {
   ],
 };
 
+const blogJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "@id": "https://crewloom.org/blog/#blog",
+  "name": "Crewloom Engineering Insights & Research",
+  "description": "Deep technical articles, architecture benchmarks, and developer guides for Crewloom Sovereign AI.",
+  "url": "https://crewloom.org/blog/",
+  "publisher": {
+    "@id": "https://crewloom.org/#organization"
+  },
+  "blogPost": ARTICLES.map((article) => ({
+    "@type": "BlogPosting",
+    "headline": article.titleEn,
+    "description": article.descriptionEn,
+    "datePublished": article.date,
+    "url": `https://crewloom.org/blog/${article.slug}/`,
+    "author": {
+      "@type": "Person",
+      "name": article.author
+    }
+  }))
+};
+
 export default function BlogIndexPage() {
   return (
     <div className="min-h-screen flex flex-col justify-between bg-space-950 text-white selection:bg-cyan-500/30 selection:text-cyan-200">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogJsonLd) }}
+      />
       <Navbar />
 
       <main className="flex-1 py-12 sm:py-20 relative">

@@ -19,7 +19,7 @@ export const DICTIONARY = {
       titleLine2: 'Engineered for Zero-Destruction Autonomy',
       subtitle:
         'The premier autonomous development engine uniting 44 open-source specialist skills with a disciplined proprietary core, strict non-destructive verification, and an omni-channel bridge control room.',
-      trustNote: '⚡ Sub-second boot · Zero configuration · 100% Non-destructive certified',
+      trustNote: '⚡ Sub-second boot · Zero configuration · Strict AST non-destructive guard',
     },
     install: {
       title: 'ONE-STEP INSTALLATION',
@@ -136,7 +136,7 @@ export const DICTIONARY = {
       titleLine2: 'بدقة كوديكس وحرية الأنظمة المستقلة',
       subtitle:
         'أول بيئة عمل برمجية تجمع بين 44 خبيراً تخصصياً مفتوح المصدر ومحرك مغلق فائق الانضباط، مع ميثاق عدم الهدم المطلق وغرفة عمليات شاملة تتحكم بها من التليجرام أو التطبيق المكتبي أو الطرفية.',
-      trustNote: '⚡ إقلاع فوري · صفر إعدادات · معتمد 100% ضد الهدم والكسر البرمجي',
+      trustNote: '⚡ إقلاع فوري · صفر إعدادات · تدقيق AST صارم لحماية قواعد البيانات',
     },
     install: {
       title: 'التثبيت بخطوة واحدة',

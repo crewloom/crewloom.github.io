@@ -17,24 +17,27 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 
 const STORAGE_KEY = 'crewloom_preferred_lang';
 
-export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [lang, setLangState] = useState<Lang>('en');
+export function LanguageProvider({ children, initialLang }: { children: ReactNode; initialLang?: Lang }) {
+  const [lang, setLangState] = useState<Lang>(initialLang || 'en');
 
   useEffect(() => {
+    if (initialLang) {
+      setLangState(initialLang);
+      document.documentElement.lang = initialLang;
+      document.documentElement.dir = initialLang === 'ar' ? 'rtl' : 'ltr';
+      return;
+    }
     // Read persisted preference if available
     const saved = storage.get<Lang | null>(STORAGE_KEY, null);
     if (saved === 'ar' || saved === 'en') {
       setLangState(saved);
     }
-  }, []);
+  }, [initialLang]);
 
   useEffect(() => {
     const isAr = lang === 'ar';
     document.documentElement.lang = lang;
     document.documentElement.dir = isAr ? 'rtl' : 'ltr';
-    document.title = isAr
-      ? 'كرو لوم — محرك الوكلاء البرمجية السيادي ثنائي النواة | Crewloom'
-      : 'Crewloom — The Sovereign Dual-Core AI Agent Engine';
 
     storage.set(STORAGE_KEY, lang);
   }, [lang]);

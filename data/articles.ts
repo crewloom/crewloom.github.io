@@ -107,12 +107,12 @@ Here is how **Crewloom (https://crewloom.org)** compares directly against Devin,
 
 | Feature / Capability | Crewloom | Devin | Cursor | Windsurf |
 | :--- | :--- | :--- | :--- | :--- |
-| **Destruction Policy** | **Strict Zero-Loss AST Guard** | Best-effort heuristic | None (Editor Diff) | None (Editor Diff) |
-| **Offline Local Inference** | **100% Native (Ollama/llama.cpp)** | No (Cloud Only) | Limited | Limited |
+| **Destruction Policy** | **Strict AST Contract Guard** | Best-effort heuristic | None (Editor Diff) | None (Editor Diff) |
+| **Offline Local Inference** | **Supported (Ollama/llama.cpp)** | No (Cloud Only) | Limited | Limited |
 | **Dual-Core English/Arabic** | **Full Native Parity** | Weak Translation | Partial | Partial |
 | **Omni-Channel Bridge** | **Telegram, WhatsApp, CLI, Cocoa** | Web Sandbox Only | Editor Only | Editor Only |
 | **Specialist Roles** | **44 Dedicated Personas** | Monolithic Model | Generalist LLM | Generalist LLM |
-| **Boot Latency** | **< 0.8ms (Native Binary)** | Cloud Spin-up (~30s) | Instant (Editor) | Instant (Editor) |
+| **Execution Architecture** | **Native Daemon (< 0.8ms IPC)** | Cloud Spin-up (~30s) | Editor Integrated | Editor Integrated |
 
 ### Key Takeaways
 - **Cursor and Windsurf** are exceptional editor autocompletes, but lack autonomous background multi-agent execution and production guardrails.
@@ -131,12 +131,12 @@ Here is how **Crewloom (https://crewloom.org)** compares directly against Devin,
 
 | الميزة والمعيار | Crewloom | Devin | Cursor | Windsurf |
 | :--- | :--- | :--- | :--- | :--- |
-| **ضمان عدم الهدم والكسر** | **فحص شجرة AST صارم 100%** | تقدير نسبي غير مضمون | لا يوجد (محرر كود) | لا يوجد (محرر كود) |
-| **العمل بدون إنترنت (محلياً)** | **مدعوم 100% (Ollama/llama.cpp)** | لا (سحابي فقط) | محدود جداً | محدود جداً |
+| **سياسة حماية الأكواد** | **تدقيق AST صارم للعقود** | تقدير نسبي غير ملزم | لا يوجد (محرر كود) | لا يوجد (محرر كود) |
+| **العمل بدون إنترنت (محلياً)** | **مدعوم محلياً (Ollama/llama.cpp)** | لا (سحابي فقط) | محدود جداً | محدود جداً |
 | **الدعم العربي الكامل** | **نواة ثنائية معمارية أصلية** | ترجمة آلية ضعيفة | جزئي | جزئي |
 | **التحكم العابر للقنوات** | **تليجرام، واتساب، طرفية، تطبيق ماك** | واجهة ويب فقط | محرر الكود فقط | محرر الكود فقط |
 | **كتيبة الخبراء التخصصية** | **44 خبيراً مستقلاً** | نموذج أحادي عام | نموذج أحادي عام | نموذج أحادي عام |
-| **سرعة الإقلاع** | **أقل من 0.8 ملي ثانية** | تهيئة سحابية (30 ثانية) | لحظي (محرر) | لحظي (محرر) |
+| **معمارية التشغيل** | **خادم محلي فائق الخفة (< 0.8ms IPC)** | تهيئة سحابية (~30 ثانية) | مدمج داخل المحرر | مدمج داخل المحرر |
     `,
   },
   {

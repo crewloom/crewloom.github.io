@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ArrowLeft, Calendar, Clock, Share2, Sparkles, User, Tag } from 'lucide-react';
 import { ARTICLES, Article } from '@/data/articles';
+import { MarkdownRenderer } from '@/components/blog/MarkdownRenderer';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { Container, Badge } from '@/components/ui';
@@ -158,10 +159,8 @@ export default async function ArticlePage({ params }: PageProps) {
           </header>
 
           {/* English Content */}
-          <article className="prose prose-invert prose-cyan max-w-none mb-16 text-gray-300 text-base leading-relaxed space-y-6">
-            <div className="whitespace-pre-line font-sans">
-              {article.contentEn}
-            </div>
+          <article className="max-w-none mb-16 text-gray-300 text-base leading-relaxed">
+            <MarkdownRenderer content={article.contentEn} dir="ltr" />
           </article>
 
           {/* Arabic Version Card */}
@@ -181,8 +180,8 @@ export default async function ArticlePage({ params }: PageProps) {
               {article.descriptionAr}
             </p>
 
-            <div className="text-gray-200 text-base leading-loose whitespace-pre-line border-t border-white/[0.08] pt-6 font-sans">
-              {article.contentAr}
+            <div className="text-gray-200 text-base leading-loose border-t border-white/[0.08] pt-6">
+              <MarkdownRenderer content={article.contentAr} dir="rtl" />
             </div>
           </section>
 
