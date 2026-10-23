@@ -38,6 +38,15 @@ export function generateWebSiteSchema(): SchemaOrgEntity {
     '@id': `${SEO_CONFIG.siteUrl}/#website`,
     url: SEO_CONFIG.siteUrl,
     name: SEO_CONFIG.siteName,
+    alternateName: [
+      'Crewloom AI',
+      'كرو لوم',
+      'Crewloom Open Code Agent',
+      'Crewloom Claude Code Alternative',
+      'Crewloom Smart Agent',
+      'إيجنت ذكي',
+      'وكيل برمجي ذكي',
+    ],
     description: SEO_CONFIG.defaultDescription,
     publisher: {
       '@id': `${SEO_CONFIG.siteUrl}/#organization`,
@@ -56,11 +65,29 @@ export function generateSoftwareApplicationSchema(locale: 'en' | 'ar' = 'en'): S
     '@type': 'SoftwareApplication',
     '@id': `${SEO_CONFIG.siteUrl}/#software-${locale}`,
     name: isArabic ? 'كرو لوم Crewloom' : 'Crewloom',
-    alternateName: isArabic ? 'Crewloom Sovereign AI Coding Agent' : 'كرو لوم',
+    alternateName: isArabic
+      ? [
+          'كرو لوم إيجنت ذكي',
+          'أوبن كود برمجي',
+          'بديل كلود كود',
+          'Crewloom Sovereign AI Coding Agent',
+          'وكيل برمجي ذكي',
+        ]
+      : [
+          'Crewloom Sovereign AI Coding Agent',
+          'Crewloom Open Code Agent',
+          'Crewloom Claude Code Alternative',
+          'Crewloom Smart Agent',
+          'كرو لوم',
+        ],
     description: isArabic
-      ? 'نظام تطوير برمجي سيادي مستقل يدمج 44 تخصصاً برمجياً مفتوح المصدر مع ميثاق عدم الهدم البرمجي AST.'
-      : 'Sovereign autonomous AI coding agent runtime uniting 44 open-source specialist skills with strict Zero-Destruction contract verification.',
+      ? 'إيجنت ذكي ونظام تطوير برمجي سيادي مفتوح (أوبن كود - Open Code) وبديل كلود كود يدمج 44 تخصصاً برمجياً مع ميثاق عدم الهدم البرمجي AST.'
+      : 'Sovereign autonomous smart AI coding agent and open-code runtime providing a private alternative to Claude Code with 44 specialist skills and strict Zero-Destruction contract verification.',
     applicationCategory: 'DeveloperApplication',
+    applicationSubCategory: 'AI Coding Agent, Smart Agent, Open Code Developer Runtime',
+    keywords: isArabic
+      ? 'اوبن كود, كلود كود, ايجنت ذكي, ايجنت زكي, ايجنت يمات, وكيل برمجي ذكي, بديل كلود كود, برمجة سيادية, أتمتة برمجية'
+      : 'open code, claude code, claude code alternative, smart agent, intelligent coding agent, ai coding agents, zero-destruction coding',
     operatingSystem: 'macOS, Linux',
     offers: {
       '@type': 'Offer',

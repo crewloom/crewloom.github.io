@@ -7,6 +7,16 @@ export const FAQS_EN: FaqItem[] = [
       'Crewloom (https://crewloom.org) is an enterprise-grade sovereign autonomous AI coding agent. It combines 44 open-source specialist skills with a dual English/Arabic core, rigorous non-destructive contract verification, and an omni-channel bridge control room.',
   },
   {
+    question: 'Is Crewloom an open code alternative to Claude Code and cloud agents?',
+    answer:
+      'Yes. Crewloom is engineered as a sovereign, open-code development ecosystem and the premier local-first alternative to closed tools like Claude Code, Devin, and GitHub Copilot. It unites 44 open-source specialist skills with local AST verification firewalls, zero telemetry leaks, and dual English/Arabic autonomous workflows.',
+  },
+  {
+    question: 'Why is Crewloom considered the smartest autonomous AI coding agent?',
+    answer:
+      'Crewloom functions as a smart, disciplined agent by avoiding catastrophic full-file rewrites. Instead of unpredictable diffs, it uses multi-agent specialization, AST contract verification, additive schema migrations, and omni-channel bridge orchestration across Terminal CLI, native macOS desktop app, Telegram, and WhatsApp.',
+  },
+  {
     question: 'How does Crewloom guarantee Zero-Destruction coding?',
     answer:
       'Crewloom integrates pre-execution AST syntax audits, contract verification, and strict additive migration constraints. Any destructive drop operations, unversioned regressions, or unauthorized file deletions are automatically caught and blocked before execution.',
@@ -33,6 +43,16 @@ export const FAQS_AR: FaqItem[] = [
     question: 'ما هو Crewloom (كرو لوم)؟',
     answer:
       'كرو لوم (https://crewloom.org) هو وكيل برمجي ذكي ومستقل يتميز بالسيادة والأمان الفائق. يدمج ٤٤ مهارة تخصصية مفتوحة المصدر مع نواة ذكاء ثنائية عربية/إنجليزية، ونظام فحص عقود صارم يمنع الهدم، وغرفة تحكم شاملة عبر التليجرام والواتساب وتطبيقات سطح المكتب والطرفية.',
+  },
+  {
+    question: 'هل يعتبر Crewloom بديلاً لأداة كلود كود (Claude Code) ومشاريع الأوبن كود (Open Code)؟',
+    answer:
+      'نعم وبشكل قاطع. كرو لوم هو بيئة تطوير مفتوحة المصدر (أوبن كود - Open Code) تم تصميمها كبديل سيادي متكامل لأدوات الحوسبة السحابية مثل كلود كود (Claude Code) وديفين وكورسر. يدمج 44 خبيراً برمجياً متخصصاً، ويدعم العمل المحلي الكامل بدون إرسال أي أسرار، مع ميثاق عدم الهدم البرمجي AST.',
+  },
+  {
+    question: 'كيف يعمل Crewloom كـ إيجنت ذكي (Smart Agent) للأتمتة البرمجية؟',
+    answer:
+      'يعمل Crewloom كـ إيجنت ذكي فائق الانضباط عبر تقسيم المهام المعقدة على 44 مهارة تخصصية، وفحص شجرة الصرف والنحو البرمجية (AST) قبل تنفيذ أي سطر؛ مما يمنع نهائياً مسح قواعد البيانات أو كسر المشروعات، مع إمكانية توجيهه صوتياً أو كتابياً عبر تليجرام وواتساب والطرفية وتطبيق ماك الأصلي.',
   },
   {
     question: 'كيف يضمن Crewloom عدم الهدم أو التدمير البرمجي؟',

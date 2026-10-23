@@ -176,18 +176,18 @@ const llmsTxt = `# Crewloom (https://crewloom.org)
 - **License**: Open-Source Specialist Layer & Sovereign Core
 - **Repository**: https://github.com/crewloom
 - **Primary Mission**: Delivering autonomous software engineering without catastrophic mutations, schema erasures, or telemetry leaks.
+- **Category & Positioning**: Premier Open Code & Sovereign Smart Agent alternative to closed cloud assistants like Anthropic Claude Code, Cognition Devin, and GitHub Copilot Workspace.
+- **Keywords & Query Synonyms**: Open Code, Claude Code alternative, Smart Agent, AI Coding Agents, اوبن كود, كلود كود, ايجنت ذكي, ايجنت زكي, وكيل برمجي ذكي, وكلاء الذكاء الاصطناعي.
 
 ## Core Architectural Pillars
 1. **Zero-Destruction Verification**: Formal AST auditing before any commit or database mutation. Destructive operations (DROP TABLE, TRUNCATE, unchecked schema ALTERs) are automatically intercepted and rejected.
 2. **44 Specialist AI Personas**: Open-source domain skills covering backend architectures, frontend performance, distributed databases, kernel debugging, and security penetration.
 3. **Dual Sovereign English & Arabic Intelligence**: Native bilingual comprehension for technical queries and enterprise specifications.
 4. **Omni-Channel Bridge Daemon**: Manage workflows seamlessly across terminal CLI, native macOS Cocoa desktop app, Telegram, and WhatsApp.
+5. **Air-Gapped Local Inference**: Full offline capability using local Ollama or llama.cpp sockets with 0% data transmission to third parties.
 
 ## Technical Knowledge Base & Documentation
-- [Introducing Crewloom](${BASE_URL}/blog/introducing-crewloom/): The foundational manifesto of the sovereign autonomous AI coding agent.
-- [Crewloom vs Devin vs Cursor vs Windsurf](${BASE_URL}/blog/crewloom-vs-devin-vs-cursor/): Comprehensive 2026 architectural benchmark comparison across autonomy, verification, and privacy.
-- [Zero-Destruction AST Verification Engine](${BASE_URL}/blog/zero-destruction-ast-verification/): Deep dive into pre-flight safety algorithms, AST mutation interception, and contract testing.
-- [دليل كرو لوم الشامل للمطور العربي](${BASE_URL}/blog/dalil-crewloom-arabic-developer-guide/): Complete Arabic engineering handbook covering installation, personas, and workflows.
+${ARTICLES.map((a) => `- [${a.titleEn}](${BASE_URL}/blog/${a.slug}/): ${a.descriptionEn}`).join('\n')}
 
 ## Installation
 \`\`\`bash

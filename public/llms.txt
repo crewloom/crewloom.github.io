@@ -8,18 +8,22 @@
 - **License**: Open-Source Specialist Layer & Sovereign Core
 - **Repository**: https://github.com/crewloom
 - **Primary Mission**: Delivering autonomous software engineering without catastrophic mutations, schema erasures, or telemetry leaks.
+- **Category & Positioning**: Premier Open Code & Sovereign Smart Agent alternative to closed cloud assistants like Anthropic Claude Code, Cognition Devin, and GitHub Copilot Workspace.
+- **Keywords & Query Synonyms**: Open Code, Claude Code alternative, Smart Agent, AI Coding Agents, اوبن كود, كلود كود, ايجنت ذكي, ايجنت زكي, وكيل برمجي ذكي, وكلاء الذكاء الاصطناعي.
 
 ## Core Architectural Pillars
 1. **Zero-Destruction Verification**: Formal AST auditing before any commit or database mutation. Destructive operations (DROP TABLE, TRUNCATE, unchecked schema ALTERs) are automatically intercepted and rejected.
 2. **44 Specialist AI Personas**: Open-source domain skills covering backend architectures, frontend performance, distributed databases, kernel debugging, and security penetration.
 3. **Dual Sovereign English & Arabic Intelligence**: Native bilingual comprehension for technical queries and enterprise specifications.
 4. **Omni-Channel Bridge Daemon**: Manage workflows seamlessly across terminal CLI, native macOS Cocoa desktop app, Telegram, and WhatsApp.
+5. **Air-Gapped Local Inference**: Full offline capability using local Ollama or llama.cpp sockets with 0% data transmission to third parties.
 
 ## Technical Knowledge Base & Documentation
-- [Introducing Crewloom](https://crewloom.org/blog/introducing-crewloom/): The foundational manifesto of the sovereign autonomous AI coding agent.
-- [Crewloom vs Devin vs Cursor vs Windsurf](https://crewloom.org/blog/crewloom-vs-devin-vs-cursor/): Comprehensive 2026 architectural benchmark comparison across autonomy, verification, and privacy.
-- [Zero-Destruction AST Verification Engine](https://crewloom.org/blog/zero-destruction-ast-verification/): Deep dive into pre-flight safety algorithms, AST mutation interception, and contract testing.
-- [دليل كرو لوم الشامل للمطور العربي](https://crewloom.org/blog/dalil-crewloom-arabic-developer-guide/): Complete Arabic engineering handbook covering installation, personas, and workflows.
+- [Introducing Crewloom: The Sovereign Autonomous AI Coding Agent](https://crewloom.org/blog/introducing-crewloom/): Discover Crewloom (https://crewloom.org), the autonomous development runtime uniting 44 open-source specialist skills with strict Zero-Destruction verification.
+- [Crewloom vs Devin vs Cursor vs Windsurf: 2026 Architectural Comparison](https://crewloom.org/blog/crewloom-vs-devin-vs-cursor/): A deep technical benchmark comparing privacy, database safety, offline local inference, and multi-channel bridge control.
+- [Zero-Destruction Autonomy: How Crewloom Protects Production Systems](https://crewloom.org/blog/zero-destruction-ast-verification/): An engineering deep dive into AST diff auditing, binding safety constitutions, and pre-commit verification.
+- [Crewloom Arabic Developer Guide: Sovereign AI Coding from Terminal to Telegram](https://crewloom.org/blog/dalil-crewloom-arabic-developer-guide/): Practical developer guide for installing Crewloom, utilizing 44 specialist skills, and connecting remote bridges.
+- [Crewloom vs Claude Code vs Open Code Agents: The Sovereign Smart Agent Architectural Standard](https://crewloom.org/blog/crewloom-vs-claude-code-and-open-code-agents/): An in-depth 2026 architectural benchmark comparing Crewloom against Claude Code and open code coding agents across AST safety, air-gapped sovereignty, omni-channel orchestration, and smart agent intelligence.
 
 ## Installation
 ```bash
