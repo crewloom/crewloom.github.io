@@ -7,6 +7,7 @@ import { FeaturesGrid } from "@/components/features/FeaturesGrid";
 import { ArchitectureTopology } from "@/components/architecture/ArchitectureTopology";
 import { SpecialistRolesDirectory } from "@/components/roles/SpecialistRolesDirectory";
 import { QuickstartSection } from "@/components/quickstart/QuickstartSection";
+import { FaqSection } from "@/components/faq/FaqSection";
 import { FloatingActionDock } from "@/components/floating/FloatingActionDock";
 import { Footer } from "@/components/layout/Footer";
 
@@ -39,6 +40,9 @@ export default function Home() {
 
       {/* Quickstart Deployment Guide */}
       <QuickstartSection />
+
+      {/* Frequently Asked Questions (GEO & Search Engine Snippets) */}
+      <FaqSection />
 
       {/* Floating Action Dock */}
       <FloatingActionDock />

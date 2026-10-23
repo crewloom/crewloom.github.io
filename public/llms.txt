@@ -1,0 +1,29 @@
+# Crewloom
+> The Sovereign Autonomous AI Coding Agent Engineered for Zero-Destruction Autonomy.
+
+Crewloom (https://crewloom.org) is the next-generation autonomous software development engine uniting 44 open-source specialist skills with a disciplined proprietary core, strict non-destructive verification, and an omni-channel bridge control room (Telegram, WhatsApp, Web, Terminal).
+
+## Key Capabilities
+- **Zero-Destruction Autonomy**: Every action is audited against binding architectural contracts and non-destructive AST policies before committing.
+- **Dual-Core Intelligence**: Native bilingual core with full parity across English and Arabic technical vocabularies.
+- **44 Specialist Skills**: Specialized autonomous skills for backend, frontend, database migrations, security audits, and cloud infrastructure.
+- **Omni-Channel Bridge Mediation**: Run workflows from the CLI, macOS desktop app, Telegram, or automated background daemons.
+- **Sub-Millisecond Performance**: Boot latency under 0.8ms with zero configuration and local offline inference support.
+
+## Quick Installation
+```bash
+# Universal One-Step Installer (macOS & Linux)
+curl -fsSL https://crewloom.org/install.sh | bash
+```
+
+## Core Architecture
+- **Layer 01 - Crewloom Core (Open-Source)**: Repository holding 44 specialist skill definitions, shared working memory, and toolchain connectors.
+- **Layer 02 - Crewloom Bridge (Open-Source)**: Omni-channel mediator linking terminal execution to remote communication apps.
+- **Layer 03 - Agent Engine (Proprietary)**: High-discipline execution engine with binding constitution and contract-driven AST verification.
+
+## Primary Links
+- Official Website: https://crewloom.org
+- Documentation & Topology: https://crewloom.org/#architecture
+- Specialist Roles: https://crewloom.org/#roles
+- Live Simulator: https://crewloom.org/#simulator
+- GitHub Organization: https://github.com/crewloom

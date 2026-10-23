@@ -1,0 +1,55 @@
+# Crewloom Full Technical Specification & Knowledge Base
+
+## Overview
+Crewloom (https://crewloom.org) is an enterprise-grade sovereign autonomous AI coding engine engineered specifically to eliminate destructive regressions, broken schema migrations, and accidental production downtime during AI-assisted development.
+
+## Sovereign Principles
+1. **Zero-Destruction Commitment**: No code changes are ever applied to persistent stores or master branches without passing formal contract verification, AST diff inspection, and additive migration checks.
+2. **Dual-Core Native Parity**: First-class linguistic models capable of understanding technical prompts, architectures, and commands in both English and Arabic.
+3. **Local Sovereignty**: Operates seamlessly with offline, air-gapped local models (via Ollama or llama.cpp) ensuring zero intellectual property or telemetry leakage.
+4. **Multi-Agent Orchestration**: Deploys a squad of 44 specialized autonomous personas rather than a single monolithic generalist model.
+
+## Specialist Skills Breakdown
+Crewloom contains 44 specialist skills spanning 5 major disciplines:
+- **Backend Architecture & APIs**: Microservices, RESTful & GraphQL contracts, gRPC, Node.js, Go, Rust, Python, FastAPI.
+- **Frontend & UI/UX**: Next.js, React, Tailwind CSS, Vue, Svelte, Accessibility audits, Core Web Vitals optimization.
+- **Database & Data Engineering**: PostgreSQL, MySQL, SQLite additive migrations, Redis cache orchestration, Spanner, BigQuery, Dataform, dbt, Apache Beam.
+- **DevOps, Cloud & Infrastructure**: Docker containerization, Kubernetes helm charts, Cloudflare Workers, GitHub Actions CI/CD pipelines, AWS, GCP, Terraform.
+- **Security & Reliability**: Penetration auditing, OWASP Top 10 mitigation, secret scanning, memory leak profiling, zero-downtime rollouts.
+
+## Installation & Deployment
+
+### 1. Terminal One-Liner (macOS / Linux)
+```bash
+curl -fsSL https://crewloom.org/install.sh | bash
+```
+
+### 2. Homebrew
+```bash
+brew tap crewloom/tap
+brew install crewloom
+```
+
+### 3. npm Global Package
+```bash
+npm install -g crewloom
+```
+
+### 4. macOS Native Cocoa App
+Crewloom Agent.app is available as a 58KB native binary powered by WebKit runtime with sub-second boot times.
+
+## Frequently Asked Questions (FAQ)
+
+### What makes Crewloom different from Devin, Cursor, or Copilot?
+Most existing AI assistants operate either as editor autocompletes or cloud-bound agents that can execute unverified, destructive commands. Crewloom enforces a strict non-destructive constitution: commands undergo real-time AST validation and architectural contract checks before hitting your filesystem or production databases. Furthermore, Crewloom operates completely offline if desired, and bridges directly to communication channels like Telegram.
+
+### Does Crewloom support enterprise air-gapped environments?
+Yes. Crewloom was designed from inception for sovereignty. It works with local inference servers like Ollama and local embedding stores, ensuring zero code or data leaves your corporate perimeter.
+
+### How does the Dual-Core English/Arabic capability work?
+Crewloom's dual-core parser interprets Arabic technical jargon (e.g. "نفّذ تهجير تزايدي لقاعدة البيانات مع فحص الأمان") with the exact same precision and architectural mapping as native English prompts.
+
+## Contact & Resources
+- Web: https://crewloom.org
+- GitHub: https://github.com/crewloom
+- Support: support@crewloom.org

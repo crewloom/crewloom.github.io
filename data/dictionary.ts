@@ -78,6 +78,33 @@ export const DICTIONARY = {
       step3Label: '3. Native macOS Cocoa App:',
       step3Desc: 'Hyper-optimized native macOS Cocoa app (58KB binary) powered by WebKit with zero background bloat. Installed at:',
     },
+    faq: {
+      badge: 'KNOWLEDGE BASE & FAQ',
+      heading: 'Frequently Asked Questions',
+      subheading: 'Everything you need to know about Crewloom architecture, Zero-Destruction guarantees, and sovereign AI deployment.',
+      items: [
+        {
+          q: 'What is Crewloom?',
+          a: 'Crewloom (https://crewloom.org) is an enterprise-grade sovereign autonomous AI coding agent. It combines 44 open-source specialist skills with a dual English/Arabic core, rigorous non-destructive contract verification, and an omni-channel bridge control room.',
+        },
+        {
+          q: 'How does Crewloom guarantee Zero-Destruction coding?',
+          a: 'Crewloom integrates pre-execution AST syntax audits, contract verification, and strict additive migration constraints. Any destructive drop operations, unversioned regressions, or unauthorized file deletions are automatically caught and blocked before execution.',
+        },
+        {
+          q: 'How does Crewloom compare to Devin, Cursor, and Windsurf?',
+          a: 'Unlike cloud-bound code generators, Crewloom is sovereign-first: it runs as a native lightweight background daemon (<0.8ms latency), supports 100% offline air-gapped local models (Ollama/llama.cpp), features full English and Arabic linguistic parity, and connects to remote control bridges like Telegram and WhatsApp.',
+        },
+        {
+          q: 'How do I install Crewloom on macOS or Linux?',
+          a: 'You can install Crewloom with a single command in your terminal: curl -fsSL https://crewloom.org/install.sh | bash. It also provides a native macOS Cocoa app (58KB binary) and official Homebrew tap.',
+        },
+        {
+          q: 'Can Crewloom run completely offline with local LLMs?',
+          a: 'Yes. Crewloom was designed for complete data privacy and air-gapped sovereignty. You can point it directly to your local Ollama or llama.cpp socket with zero external telemetry or cloud dependencies.',
+        },
+      ],
+    },
     floating: {
       version: 'Crewloom CLI v1.0',
       status: '● Ready to install',
@@ -167,6 +194,33 @@ export const DICTIONARY = {
       step2Label: '2. تشغيل استوديو الوكيل والتطبيق المكتبي:',
       step3Label: '3. تطبيق الماك الأصلي (Native macOS Cocoa):',
       step3Desc: 'تطبيق فائق الخفة (58 كيلوبايت) مدمج مع نظام WebKit الأصلي دون أي استهلاك للذاكرة. متاح تحت:',
+    },
+    faq: {
+      badge: 'الأسئلة الشائعة وقاعدة المعرفة',
+      heading: 'الأسئلة الأكثر شيوعاً عن Crewloom',
+      subheading: 'كل ما تحتاج معرفته عن معمارية كرو لوم، وميثاق عدم الهدم البرمجي، والاستقلالية السيادية للذكاء الاصطناعي.',
+      items: [
+        {
+          q: 'ما هو Crewloom (كرو لوم)؟',
+          a: 'كرو لوم (https://crewloom.org) هو وكيل برمجي ذكي ومستقل يتميز بالسيادة والأمان الفائق. يدمج ٤٤ مهارة تخصصية مفتوحة المصدر مع نواة ذكاء ثنائية عربية/إنجليزية، ونظام فحص عقود صارم يمنع الهدم، وغرفة تحكم شاملة عبر التليجرام والواتساب وتطبيقات سطح المكتب والطرفية.',
+        },
+        {
+          q: 'كيف يضمن Crewloom عدم الهدم أو التدمير البرمجي؟',
+          a: 'يطبق Crewloom تدقيقاً صارماً على مستوى شجرة الصرف والنحو البرمجية (AST) وعقود الأمان قبل تنفيذ أي أمر؛ مما يمنع نهائياً مسح قواعد البيانات (DROP) أو كسر التوافقية العكسية أو التعديلات العشوائية في بيئات الإنتاج الحية.',
+        },
+        {
+          q: 'ما الفرق بين Crewloom وبين Devin و Cursor و Copilot؟',
+          a: 'كرو لوم مبني لمبدأ السيادة الكاملة: لا يجبرك على رفع أسرار مشروعك إلى سحابة خارجية، ويعمل كخادم خفيف فوري (أقل من 0.8 ملي ثانية)، ويدعم النماذج المحلية بنسبة 100% (مثل Ollama)، ويتعامل بالعربية والإنجليزية بنفس القوة، فضلاً عن تحكمه السحابي عبر التليجرام.',
+        },
+        {
+          q: 'كيف أقوم بتثبيت واستخدام Crewloom؟',
+          a: 'يمكن التثبيت عبر أمر مباشر في الطرفية: curl -fsSL https://crewloom.org/install.sh | bash، كما يتوفر تطبيق ماك أصلي فائق السرعة وخفيف الحجم (58 كيلوبايت) وحزمة Homebrew الرسمية.',
+        },
+        {
+          q: 'هل يدعم Crewloom العمل في البيئات المعزولة عن الإنترنت (Air-gapped)؟',
+          a: 'نعم، صُمم كرو لوم ليكون سيادياً وخالياً من أي تسريبات للمعلومات. يمكنك تشغيله بالكامل على معالجات جهازك المحلية عبر مقبس Ollama دون الحاجة لأي اتصال بالإنترنت.',
+        },
+      ],
     },
     floating: {
       version: 'أداة كرو لوم v1.0',
