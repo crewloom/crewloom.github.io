@@ -15,7 +15,7 @@ export const DICTIONARY = {
     },
     hero: {
       badge: 'Dual-Core Sovereign Architecture: Codex Precision · Uncompromising Autonomy',
-      titleLine1: 'The Sovereign AI Coding Agent',
+      titleLine1: 'Crewloom: Sovereign AI Coding Agent',
       titleLine2: 'Engineered for Zero-Destruction Autonomy',
       subtitle:
         'The premier autonomous development engine uniting 44 open-source specialist skills with a disciplined proprietary core, strict non-destructive verification, and an omni-channel bridge control room.',
@@ -105,7 +105,7 @@ export const DICTIONARY = {
     },
     hero: {
       badge: 'المعمارية ثنائية النواة: كوديكس في الدقة ومستقلة في السيادة',
-      titleLine1: 'الوكيل البرمجي السيادي الفائق',
+      titleLine1: 'كرو لوم Crewloom — الوكيل البرمجي السيادي',
       titleLine2: 'بدقة كوديكس وحرية الأنظمة المستقلة',
       subtitle:
         'أول بيئة عمل برمجية تجمع بين 44 خبيراً تخصصياً مفتوح المصدر ومحرك مغلق فائق الانضباط، مع ميثاق عدم الهدم المطلق وغرفة عمليات شاملة تتحكم بها من التليجرام أو التطبيق المكتبي أو الطرفية.',
