@@ -88,6 +88,9 @@ export const metadata: Metadata = {
     },
   },
   category: "technology",
+  verification: {
+    google: "google6d88c509a96bb024",
+  },
 };
 
 const jsonLd = {
