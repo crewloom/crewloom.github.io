@@ -3,12 +3,14 @@
 import React, { useState, useEffect } from 'react';
 import { ArrowUp, Terminal, Download, Globe } from 'lucide-react';
 import { useLanguage } from '@/hooks/useLanguage';
+import { useLatestRelease } from '@/hooks/useLatestRelease';
 import { Button } from '@/components/ui';
 import { SITE_CONFIG } from '@/lib/constants';
 
 export function FloatingActionDock() {
   const [showScrollTop, setShowScrollTop] = useState(false);
   const { toggleLang, isAr } = useLanguage();
+  const { macDownloadUrl } = useLatestRelease();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -29,7 +31,7 @@ export function FloatingActionDock() {
       dir="ltr"
     >
       <div className="pointer-events-auto flex items-center gap-2 p-2 rounded-2xl bg-space-950/90 backdrop-blur-2xl border border-white/10 shadow-2xl transition-all duration-300">
-        <a href={SITE_CONFIG.macosDownloadUrl} download="Crewloom.dmg">
+        <a href={macDownloadUrl} download="Crewloom.dmg">
           <Button
             variant="primary"
             size="sm"

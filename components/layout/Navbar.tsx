@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { Download, Zap, Menu, X, ExternalLink } from 'lucide-react';
 import { Logo } from '@/components/common/Logo';
 import { useLanguage } from '@/hooks/useLanguage';
+import { useLatestRelease } from '@/hooks/useLatestRelease';
 import { Button, Badge } from '@/components/ui';
 import { LanguageToggle } from '@/components/common/LanguageToggle';
 import { SITE_CONFIG } from '@/lib/constants';
@@ -19,6 +20,7 @@ function GithubIcon(props: React.SVGProps<SVGSVGElement>) {
 export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { t, isAr } = useLanguage();
+  const { versionTag, macDownloadUrl } = useLatestRelease();
 
   const navItems = [
     { href: '/#features', label: t.nav.capabilities },
@@ -69,10 +71,10 @@ export function Navbar() {
           <LanguageToggle />
 
           <a
-            href={SITE_CONFIG.macosDownloadUrl}
+            href={macDownloadUrl}
             download="Crewloom.dmg"
             className="hidden xs:inline-block"
-            title={isAr ? 'تحميل تطبيق الماك المكتبي (Beta)' : 'Download macOS Desktop App (Beta)'}
+            title={isAr ? `تحميل تطبيق الماك المكتبي (${versionTag})` : `Download macOS Desktop App (${versionTag})`}
           >
             <Button
               variant="primary"
@@ -80,7 +82,7 @@ export function Navbar() {
               leftIcon={<Download className="w-3.5 h-3.5 stroke-[2.5]" />}
               className="font-bold text-xs shadow-lg shadow-cyan-500/20"
             >
-              <span className="hidden sm:inline">{isAr ? 'تحميل تطبيق الماك (Beta)' : 'Download Mac App (Beta)'}</span>
+              <span className="hidden sm:inline">{isAr ? `تحميل تطبيق الماك (${versionTag})` : `Download Mac App (${versionTag})`}</span>
               <span className="sm:hidden">{isAr ? 'تحميل' : 'Download'}</span>
             </Button>
           </a>

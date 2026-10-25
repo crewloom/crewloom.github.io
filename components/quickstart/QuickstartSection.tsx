@@ -3,11 +3,13 @@
 import React from 'react';
 import { Download, Apple } from 'lucide-react';
 import { useLanguage } from '@/hooks/useLanguage';
+import { useLatestRelease } from '@/hooks/useLatestRelease';
 import { Card, Container, SectionHeading, CodeSnippet, Button } from '@/components/ui';
 import { SITE_CONFIG } from '@/lib/constants';
 
 export function QuickstartSection() {
   const { t, isAr } = useLanguage();
+  const { versionTag, macFileSize, macDownloadUrl } = useLatestRelease();
 
   const curlCmd = SITE_CONFIG.installCommand;
   const studioCmd = 'crewloom studio --open';
@@ -31,14 +33,14 @@ export function QuickstartSection() {
               </div>
               <div>
                 <h4 className="text-xs sm:text-sm font-bold text-white font-mono flex items-center gap-2">
-                  <span>{isAr ? 'تطبيق الماك المكتبي (Beta v0.3.0)' : 'macOS Desktop Studio (Beta v0.3.0)'}</span>
+                  <span>{isAr ? `تطبيق الماك المكتبي (${versionTag})` : `macOS Desktop Studio (${versionTag})`}</span>
                 </h4>
                 <p className="text-[11px] sm:text-xs text-gray-400 mt-0.5">
-                  {isAr ? 'حزمة أصلية جاهزة للعمل فوراً بحجم 5.2 ميجابايت' : 'Native 5.2 MB bundle ready for immediate local execution'}
+                  {isAr ? `حزمة أصلية جاهزة للعمل فوراً بحجم ${macFileSize}` : `Native ${macFileSize} bundle ready for immediate local execution`}
                 </p>
               </div>
             </div>
-            <a href={SITE_CONFIG.macosDownloadUrl} download="Crewloom.dmg" className="w-full sm:w-auto shrink-0">
+            <a href={macDownloadUrl} download="Crewloom.dmg" className="w-full sm:w-auto shrink-0">
               <Button variant="primary" size="sm" leftIcon={<Download className="w-3.5 h-3.5" />} className="w-full sm:w-auto text-xs font-bold py-2">
                 {isAr ? 'تحميل مباشر للماك' : 'Download for Mac'}
               </Button>
