@@ -25,13 +25,14 @@ export interface LatestReleaseData {
   isLive: boolean;
 }
 
-export function formatBytes(bytes: number, decimals = 1): string {
+export function formatBytes(bytes: number): string {
   if (bytes === 0) return '0 B';
-  const k = 1024;
-  const dm = decimals < 0 ? 0 : decimals;
-  const sizes = ['B', 'KB', 'MB', 'GB'];
-  const i = Math.floor(Math.log(bytes) / Math.log(k));
-  return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`;
+  const mb = bytes / (1024 * 1024);
+  if (mb >= 1) {
+    return `${mb.toFixed(1)} MB`;
+  }
+  const kb = bytes / 1024;
+  return `${kb.toFixed(0)} KB`;
 }
 
 export function detectAssetPlatform(fileName: string): PlatformKey {

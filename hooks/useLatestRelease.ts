@@ -14,7 +14,7 @@ export function useLatestRelease() {
     async function loadRelease() {
       try {
         // First try the internal API route (cached on edge)
-        const res = await fetch('/api/releases/latest');
+        const res = await fetch('/api/releases/latest/');
         if (res.ok) {
           const data: LatestReleaseData = await res.json();
           if (isMounted && data && data.tagName) {
