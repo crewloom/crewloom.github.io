@@ -28,31 +28,31 @@ export function SectionHeading({
   return (
     <div
       className={cn(
-        'mb-12 sm:mb-16',
-        isCenter ? 'text-center max-w-3xl mx-auto' : 'text-left max-w-2xl',
+        'mb-8 sm:mb-10',
+        isCenter ? 'text-center max-w-2xl mx-auto' : 'text-left max-w-xl',
         className
       )}
       {...props}
     >
       {badge && (
-        <div className={cn('mb-4', isCenter ? 'flex justify-center' : 'inline-block')}>
+        <div className={cn('mb-2.5 sm:mb-3', isCenter ? 'flex justify-center' : 'inline-block')}>
           <Badge
             variant={badgeVariant}
             pulseDot={pulseDot}
             icon={badgeIcon}
-            className="tracking-wider uppercase"
+            className="tracking-wider uppercase text-[10px] sm:text-xs py-0.5 px-2.5"
           >
             {badge}
           </Badge>
         </div>
       )}
 
-      <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight leading-[1.25] mb-3">
+      <h2 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-white tracking-tight leading-[1.25] mb-2 sm:mb-2.5">
         {title}
       </h2>
 
       {description && (
-        <p className="text-sm sm:text-base text-gray-300/80 font-normal leading-relaxed max-w-2xl mx-auto">
+        <p className="text-xs sm:text-sm text-gray-300/80 font-normal leading-relaxed max-w-xl mx-auto">
           {description}
         </p>
       )}

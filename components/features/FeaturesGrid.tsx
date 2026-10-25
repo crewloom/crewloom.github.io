@@ -34,7 +34,7 @@ export function FeaturesGrid() {
   };
 
   return (
-    <section id="features" className="py-16 sm:py-24 relative z-10">
+    <section id="features" className="py-12 sm:py-16 relative z-10 scroll-mt-20">
       <Container size="lg">
         <SectionHeading
           badge={t.features.badge}
@@ -42,33 +42,33 @@ export function FeaturesGrid() {
           align="center"
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
           {FEATURES.map((feature, idx) => {
             const colors = colorStyles[feature.colorScheme];
             return (
               <Card
                 key={idx}
                 variant="interactive"
-                className="p-6 sm:p-8 flex flex-col justify-between"
+                className="p-5 sm:p-6 flex flex-col justify-between"
               >
                 <div>
                   <div
-                    className={`w-12 h-12 rounded-xl ${colors.bg} border ${colors.border} flex items-center justify-center ${colors.text} mb-6 shadow-inner transition-transform group-hover:scale-110 duration-300`}
+                    className={`w-10 h-10 rounded-xl ${colors.bg} border ${colors.border} flex items-center justify-center ${colors.text} mb-4 sm:mb-5 shadow-inner transition-transform group-hover:scale-105 duration-300`}
                   >
                     {iconMap[feature.icon]}
                   </div>
 
-                  <h3 className="text-xl font-bold text-white mb-3">
+                  <h3 className="text-base sm:text-lg font-bold text-white mb-2">
                     {isAr ? feature.titleAr : feature.titleEn}
                   </h3>
 
-                  <p className="text-sm text-gray-400 leading-relaxed font-normal">
+                  <p className="text-xs sm:text-sm text-gray-400 leading-relaxed font-normal">
                     {isAr ? feature.descAr : feature.descEn}
                   </p>
                 </div>
 
                 <div
-                  className="mt-6 pt-4 border-t border-white/[0.06] text-xs font-mono font-semibold text-gray-500 flex items-center justify-between"
+                  className="mt-5 pt-3 border-t border-white/[0.06] text-[11px] font-mono font-semibold text-gray-500 flex items-center justify-between"
                   dir="ltr"
                 >
                   <span className="text-cyan-400/80">CORE_ENGINE_0{idx + 1}</span>

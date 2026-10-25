@@ -17,7 +17,7 @@ export function InteractiveTerminal() {
 
   return (
     <div
-      className="max-w-4xl mx-auto rounded-2xl glass-card border border-cyan-500/25 shadow-2xl overflow-hidden text-left max-w-full"
+      className="max-w-3xl mx-auto rounded-2xl glass-card border border-cyan-500/20 shadow-2xl overflow-hidden text-left w-full"
       dir="ltr"
     >
       {/* Top Window Bar */}

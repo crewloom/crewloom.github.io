@@ -14,7 +14,7 @@ export function QuickstartSection() {
   const rolesCmd = 'crewloom roles list';
 
   return (
-    <section id="quickstart" className="py-16 sm:py-24 relative z-10">
+    <section id="quickstart" className="py-12 sm:py-16 relative z-10 scroll-mt-20">
       <Container size="md">
         <SectionHeading
           badge={t.quickstart.badge}
@@ -22,24 +22,24 @@ export function QuickstartSection() {
           align="center"
         />
 
-        <Card variant="glass" className="p-4 sm:p-6 md:p-8 space-y-5 sm:space-y-6">
+        <Card variant="glass" className="p-4 sm:p-6 space-y-4 sm:space-y-5">
           {/* Native Desktop Download Banner */}
-          <div className="bg-gradient-to-r from-cyan-950/70 to-space-900 border border-cyan-800/60 rounded-xl p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div className="bg-gradient-to-r from-cyan-950/70 to-space-900 border border-cyan-800/60 rounded-xl p-3.5 sm:p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3.5">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-cyan-950 border border-cyan-700/80 flex items-center justify-center text-cyan-400 shrink-0">
-                <Apple className="w-5 h-5" />
+              <div className="w-9 h-9 rounded-xl bg-cyan-950 border border-cyan-700/80 flex items-center justify-center text-cyan-400 shrink-0">
+                <Apple className="w-4 h-4" />
               </div>
               <div>
-                <h4 className="text-sm font-bold text-white font-mono flex items-center gap-2">
+                <h4 className="text-xs sm:text-sm font-bold text-white font-mono flex items-center gap-2">
                   <span>{isAr ? 'تطبيق الماك المكتبي (Beta v0.3.0)' : 'macOS Desktop Studio (Beta v0.3.0)'}</span>
                 </h4>
-                <p className="text-xs text-gray-400 mt-0.5">
+                <p className="text-[11px] sm:text-xs text-gray-400 mt-0.5">
                   {isAr ? 'حزمة أصلية جاهزة للعمل فوراً بحجم 5.2 ميجابايت' : 'Native 5.2 MB bundle ready for immediate local execution'}
                 </p>
               </div>
             </div>
             <a href={SITE_CONFIG.macosDownloadUrl} download="Crewloom.dmg" className="w-full sm:w-auto shrink-0">
-              <Button variant="primary" size="sm" leftIcon={<Download className="w-4 h-4" />} className="w-full sm:w-auto text-xs font-bold">
+              <Button variant="primary" size="sm" leftIcon={<Download className="w-3.5 h-3.5" />} className="w-full sm:w-auto text-xs font-bold py-2">
                 {isAr ? 'تحميل مباشر للماك' : 'Download for Mac'}
               </Button>
             </a>

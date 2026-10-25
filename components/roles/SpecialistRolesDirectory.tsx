@@ -34,20 +34,20 @@ export function SpecialistRolesDirectory() {
   }, [search, selectedCat]);
 
   return (
-    <section id="roles" className="py-16 sm:py-20 relative z-10">
+    <section id="roles" className="py-12 sm:py-16 relative z-10 scroll-mt-20">
       <Container size="lg">
         {/* Header and Search */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-10 gap-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-6 sm:mb-8 gap-4">
           <div className="max-w-xl">
-            <Badge variant="cyan" className="mb-3 uppercase tracking-wider text-[10px] sm:text-xs">
+            <Badge variant="cyan" className="mb-2 uppercase tracking-wider text-[10px] sm:text-xs py-0.5 px-2.5">
               {t.skills.badge}
             </Badge>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight">
+            <h2 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-white tracking-tight">
               {t.skills.heading}
             </h2>
           </div>
 
-          <div className="w-full md:w-80">
+          <div className="w-full md:w-72">
             <Input
               type="text"
               placeholder={t.skills.searchPlaceholder}

@@ -23,17 +23,17 @@ export function BadgeCopyWidget() {
   };
 
   return (
-    <div className="relative rounded-2xl border border-cyan-800/40 bg-gradient-to-r from-space-950 via-space-900 to-cyan-950/30 p-6 sm:p-8 backdrop-blur-md">
-      <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+    <div className="relative rounded-2xl border border-cyan-800/40 bg-gradient-to-r from-space-950 via-space-900 to-cyan-950/30 p-5 sm:p-6 backdrop-blur-md">
+      <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-5">
         <div>
-          <div className="flex items-center gap-2 text-cyan-400 font-mono text-xs uppercase tracking-wider font-semibold mb-2">
-            <ShieldCheck className="w-4 h-4" />
+          <div className="flex items-center gap-2 text-cyan-400 font-mono text-[11px] uppercase tracking-wider font-semibold mb-1.5">
+            <ShieldCheck className="w-3.5 h-3.5" />
             <span>Developer Viral Distribution Flywheel</span>
           </div>
-          <h3 className="text-xl sm:text-2xl font-black text-white tracking-tight mb-2">
+          <h3 className="text-lg sm:text-xl font-bold text-white tracking-tight mb-1.5">
             Add the Zero-Destruction Badge to your GitHub README
           </h3>
-          <p className="text-sm text-gray-400 max-w-xl leading-relaxed">
+          <p className="text-xs sm:text-sm text-gray-400 max-w-xl leading-relaxed">
             Signal to contributors and clients that your repository enforces strict AST mutation safety, additive schema migrations, and zero-telemetry sovereignty.
           </p>
         </div>

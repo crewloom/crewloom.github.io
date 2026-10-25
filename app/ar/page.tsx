@@ -12,6 +12,7 @@ import { BadgeCopyWidget } from "@/components/common/BadgeCopyWidget";
 import { FaqSection } from "@/components/faq/FaqSection";
 import { FloatingActionDock } from "@/components/floating/FloatingActionDock";
 import { Footer } from "@/components/layout/Footer";
+import { Container } from "@/components/ui/Container";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { createPageMetadata } from "@/lib/seo/metadata";
 import { FAQS_AR } from "@/data/faq";
@@ -58,38 +59,28 @@ export default function ArabicHome() {
         <Hero />
 
         {/* Real-time Interactive Benchmark Simulator */}
-        <section id="simulator" className="relative z-10 py-12">
-          <BenchmarkSimulator />
-        </section>
+        <BenchmarkSimulator />
 
         {/* Verification Metrics Grid */}
-        <section id="metrics" className="relative z-10 py-12">
-          <MetricsGrid />
-        </section>
+        <MetricsGrid />
 
         {/* Core Architectural Features */}
-        <section id="features" className="relative z-10 py-12">
-          <FeaturesGrid />
-        </section>
+        <FeaturesGrid />
 
         {/* Interactive 3-Layer Topology */}
-        <section id="architecture" className="relative z-10 py-12">
-          <ArchitectureTopology />
-        </section>
+        <ArchitectureTopology />
 
         {/* 44 Specialist Skills Directory */}
-        <section id="skills" className="relative z-10 py-12">
-          <SpecialistRolesDirectory />
-        </section>
+        <SpecialistRolesDirectory />
 
         {/* Deployment & CLI Quickstart */}
-        <section id="quickstart" className="relative z-10 py-12">
-          <QuickstartSection />
-        </section>
+        <QuickstartSection />
 
         {/* Viral GitHub README Badge */}
-        <section id="badge" className="relative z-10 py-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full" dir="ltr">
-          <BadgeCopyWidget />
+        <section id="badge" className="py-10 sm:py-12 border-t border-white/[0.06] bg-space-900/20 relative z-10" dir="ltr">
+          <Container size="lg">
+            <BadgeCopyWidget />
+          </Container>
         </section>
 
         {/* Accessible Interactive FAQ Section */}

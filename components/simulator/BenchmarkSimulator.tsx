@@ -34,7 +34,7 @@ export function BenchmarkSimulator() {
   };
 
   return (
-    <section id="simulator" className="py-16 sm:py-20 bg-space-900/50 border-y border-white/[0.08]">
+    <section id="simulator" className="py-12 sm:py-16 bg-space-900/40 border-y border-white/[0.06] relative z-10 scroll-mt-20">
       <Container size="md">
         <SectionHeading
           badge={t.simulator.badge}
@@ -45,7 +45,7 @@ export function BenchmarkSimulator() {
           align="center"
         />
 
-        <Card variant="glass" className="p-4 sm:p-6 md:p-8 border-cyan-500/30 text-left" dir="ltr">
+        <Card variant="glass" className="p-4 sm:p-6 border-cyan-500/25 text-left" dir="ltr">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
             <div className="min-w-0 flex-1">
               <span className="text-[11px] sm:text-xs font-mono text-cyan-400 font-bold block mb-1">
