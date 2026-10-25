@@ -23,7 +23,7 @@ export function MagneticInstallDock() {
   const copied = currentCommand ? isCopied(currentCommand) : false;
 
   return (
-    <div className="max-w-3xl mx-auto mb-16 beam-border shadow-2xl overflow-hidden">
+    <div id="install" className="max-w-3xl mx-auto mb-16 beam-border shadow-2xl overflow-hidden scroll-mt-28">
       <div className="beam-content p-4 sm:p-6 md:p-8 text-left" dir="ltr">
         {/* Header & Tabs */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5 border-b border-white/[0.08] pb-4">
@@ -84,19 +84,31 @@ export function MagneticInstallDock() {
               </div>
             </div>
 
-            <a
-              href={SITE_CONFIG.macosDownloadUrl}
-              className="w-full sm:w-auto"
-            >
-              <Button
-                variant="primary"
-                size="sm"
-                leftIcon={<Download className="w-4 h-4" />}
-                className="w-full sm:w-auto whitespace-nowrap text-xs font-bold"
+            <div className="flex flex-col sm:flex-row items-center gap-2.5 w-full sm:w-auto">
+              <a
+                href={SITE_CONFIG.macosDownloadUrl}
+                download="Crewloom.dmg"
+                className="w-full sm:w-auto"
               >
-                {t.install.downloadMac}
-              </Button>
-            </a>
+                <Button
+                  variant="primary"
+                  size="sm"
+                  leftIcon={<Download className="w-4 h-4" />}
+                  className="w-full sm:w-auto whitespace-nowrap text-xs font-bold"
+                >
+                  {t.install.downloadMac}
+                </Button>
+              </a>
+              <a
+                href={SITE_CONFIG.macosGithubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[10px] text-gray-500 hover:text-cyan-400 font-mono underline text-center"
+                title="Download from GitHub Release"
+              >
+                GitHub Mirror
+              </a>
+            </div>
           </div>
         ) : (
           <div className="relative group bg-space-950 p-3 sm:p-4 md:p-5 rounded-xl border border-cyan-500/30 flex items-center justify-between gap-2 sm:gap-4 shadow-inner min-w-0">

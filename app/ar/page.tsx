@@ -83,7 +83,7 @@ export default function ArabicHome() {
         </section>
 
         {/* Deployment & CLI Quickstart */}
-        <section id="install" className="relative z-10 py-12">
+        <section id="quickstart" className="relative z-10 py-12">
           <QuickstartSection />
         </section>
 

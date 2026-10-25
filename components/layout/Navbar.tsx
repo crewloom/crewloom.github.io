@@ -68,15 +68,20 @@ export function Navbar() {
         <div className="flex items-center gap-2 sm:gap-3">
           <LanguageToggle />
 
-          <a href="#install" className="hidden xs:inline-block">
+          <a
+            href={SITE_CONFIG.macosDownloadUrl}
+            download="Crewloom.dmg"
+            className="hidden xs:inline-block"
+            title={isAr ? 'تحميل تطبيق الماك المكتبي (Beta)' : 'Download macOS Desktop App (Beta)'}
+          >
             <Button
               variant="primary"
               size="xs"
               leftIcon={<Download className="w-3.5 h-3.5 stroke-[2.5]" />}
               className="font-bold text-xs shadow-lg shadow-cyan-500/20"
             >
-              <span className="hidden sm:inline">{t.nav.getStarted}</span>
-              <span className="sm:hidden">{isAr ? 'تثبيت' : 'Install'}</span>
+              <span className="hidden sm:inline">{isAr ? 'تحميل تطبيق الماك (Beta)' : 'Download Mac App (Beta)'}</span>
+              <span className="sm:hidden">{isAr ? 'تحميل' : 'Download'}</span>
             </Button>
           </a>
 
