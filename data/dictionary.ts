@@ -75,8 +75,8 @@ export const DICTIONARY = {
       heading: 'Deploy Crewloom in Seconds',
       step1Label: '1. Universal Terminal Install (Recommended):',
       step2Label: '2. Launch Studio & Desktop App:',
-      step3Label: '3. Native macOS Cocoa App:',
-      step3Desc: 'Hyper-optimized native macOS Cocoa app (58KB binary) powered by WebKit with zero background bloat. Installed at:',
+      step3Label: '3. Native macOS Desktop App:',
+      step3Desc: 'Hyper-optimized native macOS application (5.2 MB bundle) powered by Tauri with zero background telemetry. Installed at:',
     },
     faq: {
       badge: 'KNOWLEDGE BASE & FAQ',
@@ -97,7 +97,7 @@ export const DICTIONARY = {
         },
         {
           q: 'How do I install Crewloom on macOS or Linux?',
-          a: 'You can install Crewloom with a single command in your terminal: curl -fsSL https://crewloom.org/install.sh | bash. It also provides a native macOS Cocoa app (58KB binary) and official Homebrew tap.',
+          a: 'You can install Crewloom directly via the macOS Desktop DMG (5.2 MB native bundle for Apple Silicon M1–M5) from the website, or via the universal terminal command: curl -fsSL https://crewloom.org/install.sh | bash. Windows and Linux desktop installers are currently in automated CI staging.',
         },
         {
           q: 'Can Crewloom run completely offline with local LLMs?',
@@ -106,7 +106,7 @@ export const DICTIONARY = {
       ],
     },
     floating: {
-      version: 'Crewloom CLI v1.0',
+      version: 'Crewloom Studio Beta v0.3.0',
       status: '● Ready to install',
       curlBtn: 'curl install',
       appBtn: 'Get App',
@@ -192,8 +192,8 @@ export const DICTIONARY = {
       heading: 'ابدأ تشغيل كرو لوم في ثوانٍ',
       step1Label: '1. أمر التثبيت الشامل عبر الطرفية (مستحسن):',
       step2Label: '2. تشغيل استوديو الوكيل والتطبيق المكتبي:',
-      step3Label: '3. تطبيق الماك الأصلي (Native macOS Cocoa):',
-      step3Desc: 'تطبيق فائق الخفة (58 كيلوبايت) مدمج مع نظام WebKit الأصلي دون أي استهلاك للذاكرة. متاح تحت:',
+      step3Label: '3. تطبيق الماك المكتبي (macOS Native Studio):',
+      step3Desc: 'حزمة أصلية فائقة الخفة (5.2 ميجابايت) مبنية بنواة Tauri السريعة مع حماية كاملة للنظام وعدم استهلاك الموارد. متاح تحت:',
     },
     faq: {
       badge: 'الأسئلة الشائعة وقاعدة المعرفة',
@@ -214,7 +214,7 @@ export const DICTIONARY = {
         },
         {
           q: 'كيف أقوم بتثبيت واستخدام Crewloom؟',
-          a: 'يمكن التثبيت عبر أمر مباشر في الطرفية: curl -fsSL https://crewloom.org/install.sh | bash، كما يتوفر تطبيق ماك أصلي فائق السرعة وخفيف الحجم (58 كيلوبايت) وحزمة Homebrew الرسمية.',
+          a: 'يمكنك تحميل تطبيق الماك المكتبي مباشرة (نسخة DMG بحجم 5.2 ميجابايت مخصصة لمعالجات أبل سيليكون M1–M5) من الموقع، أو عبر أمر الطرفية السريع: curl -fsSL https://crewloom.org/install.sh | bash. وتجري حالياً معالجة بناء حزم ويندوز ولينكس في بيئة التجميع المستمر.',
         },
         {
           q: 'هل يدعم Crewloom العمل في البيئات المعزولة عن الإنترنت (Air-gapped)؟',
@@ -223,7 +223,7 @@ export const DICTIONARY = {
       ],
     },
     floating: {
-      version: 'أداة كرو لوم v1.0',
+      version: 'كرو لوم بيتا v0.3.0',
       status: '● جاهز للتثبيت الفوري',
       curlBtn: 'تثبيت الطرفية',
       appBtn: 'تحميل التطبيق',
