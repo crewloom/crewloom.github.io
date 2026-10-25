@@ -30,7 +30,7 @@ export function Hero() {
         </div>
 
         {/* Main Title */}
-        <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white tracking-tight leading-[1.15] mb-5 sm:mb-6 max-w-5xl mx-auto">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.22] lg:leading-[1.16] mb-5 sm:mb-6 max-w-4xl mx-auto">
           <span className="block mb-1 sm:mb-2">{t.hero.titleLine1}</span>
           <span className="bg-gradient-to-r from-teal-300 via-cyan-400 to-sky-400 bg-clip-text text-transparent">
             {t.hero.titleLine2}
@@ -38,7 +38,7 @@ export function Hero() {
         </h1>
 
         {/* Subtitle */}
-        <p className="max-w-3xl mx-auto text-sm sm:text-base md:text-lg lg:text-xl text-gray-400 leading-relaxed mb-8 sm:mb-10 font-medium px-2">
+        <p className="max-w-2xl mx-auto text-sm sm:text-base md:text-lg text-gray-300/90 leading-relaxed mb-8 sm:mb-10 font-normal px-2">
           {t.hero.subtitle}
         </p>
 

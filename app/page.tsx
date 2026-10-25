@@ -22,7 +22,7 @@ const homeSchemas = [
 
 export default function Home() {
   return (
-    <main className="min-h-screen flex flex-col justify-between">
+    <main className="min-h-screen flex flex-col justify-between font-latin">
       <JsonLd data={homeSchemas} />
       {/* Top Banner Announcement */}
       <AnnouncementBar />

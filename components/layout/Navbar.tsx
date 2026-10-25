@@ -51,12 +51,12 @@ export function Navbar() {
         </a>
 
         {/* Desktop Navigation Links */}
-        <nav aria-label="Main Navigation" className="hidden lg:flex items-center gap-8 text-sm font-semibold text-gray-300">
+        <nav aria-label="Main Navigation" className="hidden lg:flex items-center gap-7 text-sm font-medium text-gray-300">
           {navItems.map((item) => (
             <a
               key={item.href}
               href={item.href}
-              className="hover:text-cyan-400 transition-colors cursor-pointer flex items-center gap-1.5 text-xs tracking-wide"
+              className="hover:text-cyan-400 transition-colors cursor-pointer flex items-center gap-1.5 text-xs sm:text-[13px] tracking-normal"
             >
               {item.icon}
               <span>{item.label}</span>
@@ -76,7 +76,7 @@ export function Navbar() {
           >
             <Button
               variant="primary"
-              size="xs"
+              size="sm"
               leftIcon={<Download className="w-3.5 h-3.5 stroke-[2.5]" />}
               className="font-bold text-xs shadow-lg shadow-cyan-500/20"
             >

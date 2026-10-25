@@ -28,13 +28,13 @@ export function FloatingActionDock() {
       className="fixed bottom-6 inset-x-0 z-40 flex justify-center pointer-events-none px-4"
       dir="ltr"
     >
-      <div className="pointer-events-auto flex items-center gap-2 p-1.5 rounded-2xl bg-space-950/85 backdrop-blur-2xl border border-white/10 shadow-2xl transition-all duration-300">
+      <div className="pointer-events-auto flex items-center gap-2 p-2 rounded-2xl bg-space-950/90 backdrop-blur-2xl border border-white/10 shadow-2xl transition-all duration-300">
         <a href={SITE_CONFIG.macosDownloadUrl} download="Crewloom.dmg">
           <Button
             variant="primary"
-            size="xs"
+            size="sm"
             leftIcon={<Download className="w-3.5 h-3.5 stroke-[2.5]" />}
-            className="font-bold font-mono"
+            className="font-bold text-xs"
           >
             {isAr ? 'تحميل تطبيق الماك' : 'Download Mac App'}
           </Button>
@@ -43,9 +43,9 @@ export function FloatingActionDock() {
         <a href="#simulator" className="hidden sm:inline-block">
           <Button
             variant="ghost"
-            size="xs"
+            size="sm"
             leftIcon={<Terminal className="w-3.5 h-3.5 text-cyan-400" />}
-            className="text-gray-300 font-mono text-xs"
+            className="text-gray-300 text-xs"
           >
             {isAr ? 'المحاكاة' : 'Simulator'}
           </Button>

@@ -45,7 +45,7 @@ const arabicSchemas = [
 export default function ArabicHome() {
   return (
     <LanguageProvider initialLang="ar">
-      <main className="min-h-screen flex flex-col justify-between" dir="rtl">
+      <main className="min-h-screen flex flex-col justify-between font-arabic" dir="rtl">
         <JsonLd data={arabicSchemas} />
 
         {/* Top Banner Announcement */}
