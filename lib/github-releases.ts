@@ -57,9 +57,9 @@ export function detectAssetPlatform(fileName: string): PlatformKey {
 }
 
 export const FALLBACK_RELEASE: LatestReleaseData = {
-  tagName: 'v1.0.2',
-  version: '1.0.2',
-  name: 'Crewloom Desktop v1.0.2',
+  tagName: 'v1.0.3',
+  version: '1.0.3',
+  name: 'Crewloom Desktop v1.0.3',
   publishedAt: new Date().toISOString(),
   htmlUrl: 'https://github.com/crewloom/crewloom.github.io/releases/latest',
   body: 'Official production bundle for macOS Apple Silicon with verified zero-destruction guarantees.',
@@ -69,8 +69,8 @@ export const FALLBACK_RELEASE: LatestReleaseData = {
       id: 1,
       name: 'Crewloom.dmg',
       size: 5269425,
-      sizeFormatted: '5.2 MB',
-      downloadUrl: 'https://github.com/crewloom/crewloom.github.io/releases/download/v1.0.2/Crewloom.dmg',
+      sizeFormatted: '5.0 MB',
+      downloadUrl: 'https://github.com/crewloom/crewloom.github.io/releases/download/v1.0.3/Crewloom.dmg',
       contentType: 'application/x-apple-diskimage',
       platform: 'macos-arm64',
       isInstaller: true,
@@ -80,8 +80,8 @@ export const FALLBACK_RELEASE: LatestReleaseData = {
     id: 1,
     name: 'Crewloom.dmg',
     size: 5269425,
-    sizeFormatted: '5.2 MB',
-    downloadUrl: 'https://github.com/crewloom/crewloom.github.io/releases/download/v1.0.2/Crewloom.dmg',
+    sizeFormatted: '5.0 MB',
+    downloadUrl: 'https://github.com/crewloom/crewloom.github.io/releases/download/v1.0.3/Crewloom.dmg',
     contentType: 'application/x-apple-diskimage',
     platform: 'macos-arm64',
     isInstaller: true,
@@ -96,18 +96,23 @@ export async function fetchLatestReleaseFromGitHub(): Promise<LatestReleaseData>
 
   for (const repo of REPOS) {
     try {
-      const res = await fetch(`https://api.github.com/repos/${repo}/releases/latest`, {
+      const res = await fetch(`https://api.github.com/repos/${repo}/releases`, {
         headers: {
           'Accept': 'application/vnd.github.v3+json',
           'User-Agent': 'Crewloom-Website-Client',
         },
-        next: { revalidate: 300 }, // Cache on edge/server for 5 minutes
+        next: { revalidate: 300 }, // Edge cache: 5 minutes
       });
 
       if (!res.ok) continue;
 
-      const data = await res.json();
-      const rawAssets = Array.isArray(data.assets) ? data.assets : [];
+      const releases = await res.json();
+      if (!Array.isArray(releases) || releases.length === 0) continue;
+
+      // Select the newest release that contains downloadable assets, or fallback to the latest release
+      const releaseWithAssets = releases.find((r) => Array.isArray(r.assets) && r.assets.length > 0) || releases[0];
+
+      const rawAssets = Array.isArray(releaseWithAssets.assets) ? releaseWithAssets.assets : [];
 
       const parsedAssets: ReleaseAsset[] = rawAssets.map((a: { id: number; name: string; size: number; browser_download_url: string; content_type: string }) => ({
         id: a.id,
@@ -124,16 +129,16 @@ export async function fetchLatestReleaseFromGitHub(): Promise<LatestReleaseData>
       const primaryWin = parsedAssets.find((a) => a.platform === 'windows');
       const primaryLinux = parsedAssets.find((a) => a.platform === 'linux');
 
-      const tagName = data.tag_name || 'v1.0.2';
+      const tagName = releaseWithAssets.tag_name || 'v1.0.3';
       const version = tagName.replace(/^v/, '');
 
       return {
         tagName,
         version,
-        name: data.name || `Crewloom Desktop ${tagName}`,
-        publishedAt: data.published_at || new Date().toISOString(),
-        htmlUrl: data.html_url || `https://github.com/${repo}/releases/tag/${tagName}`,
-        body: data.body || '',
+        name: releaseWithAssets.name || `Crewloom Desktop ${tagName}`,
+        publishedAt: releaseWithAssets.published_at || new Date().toISOString(),
+        htmlUrl: releaseWithAssets.html_url || `https://github.com/${repo}/releases/tag/${tagName}`,
+        body: releaseWithAssets.body || '',
         assets: parsedAssets,
         primaryMacAsset: primaryMac,
         primaryWindowsAsset: primaryWin,
