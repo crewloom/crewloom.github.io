@@ -71,6 +71,17 @@ export function Navbar() {
           <LanguageToggle />
 
           <a
+            href={SITE_CONFIG.agentRepo}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden sm:inline-flex items-center justify-center p-2 rounded-xl border border-white/10 bg-white/5 text-gray-300 hover:text-white hover:border-cyan-500/40 hover:bg-cyan-950/30 transition-colors"
+            title={isAr ? 'سورس كود الإيجنت على GitHub' : 'Agent Source Code on GitHub'}
+            aria-label="Agent Source Code on GitHub"
+          >
+            <GithubIcon className="w-4 h-4" />
+          </a>
+
+          <a
             href={macDownloadUrl}
             download="Crewloom.dmg"
             className="hidden xs:inline-block"

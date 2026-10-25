@@ -31,6 +31,15 @@ export function Footer() {
             {isAr ? 'الأبحاث والمقالات' : 'Articles & Research'}
           </a>
           <a
+            href={SITE_CONFIG.agentRepo}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-cyan-400 transition-colors cursor-pointer text-cyan-300/90"
+            title="GitHub Agent Repository"
+          >
+            {isAr ? 'سورس كود الإيجنت' : 'Agent Source Code'}
+          </a>
+          <a
             href={SITE_CONFIG.githubUrl}
             target="_blank"
             rel="noopener noreferrer"

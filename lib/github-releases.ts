@@ -19,6 +19,10 @@ export interface LatestReleaseData {
   publishedAt: string;
   htmlUrl: string;
   body?: string;
+  repoUrl: string;
+  sourceUrl: string;
+  tarballUrl?: string;
+  zipballUrl?: string;
   assets: ReleaseAsset[];
   primaryMacAsset?: ReleaseAsset;
   primaryWindowsAsset?: ReleaseAsset;
@@ -71,6 +75,7 @@ export function getDesktopAgentVersion() {
     dmgSize: desktopAgentMeta.dmgSize || 5269425,
     dmgSizeFormatted: desktopAgentMeta.dmgSizeFormatted || '5.0 MB',
     downloadUrl: desktopAgentMeta.downloadUrl || `https://github.com/crewloom/crewloom.github.io/releases/download/${tagName}/Crewloom.dmg`,
+    agentRepo: 'https://github.com/crewloom/agent',
   };
 }
 
@@ -83,6 +88,10 @@ export const FALLBACK_RELEASE: LatestReleaseData = {
   publishedAt: desktopAgentMeta.syncedAt || new Date().toISOString(),
   htmlUrl: `https://github.com/crewloom/crewloom.github.io/releases/tag/${currentAgent.tagName}`,
   body: 'Official production bundle for macOS Apple Silicon with verified zero-destruction guarantees.',
+  repoUrl: 'https://github.com/crewloom/agent',
+  sourceUrl: 'https://github.com/crewloom/agent',
+  tarballUrl: `https://github.com/crewloom/agent/archive/refs/tags/crewloom-${currentAgent.tagName}.tar.gz`,
+  zipballUrl: `https://github.com/crewloom/agent/archive/refs/tags/crewloom-${currentAgent.tagName}.zip`,
   isLive: false,
   assets: [
     {
@@ -114,15 +123,23 @@ export async function fetchLatestReleaseFromGitHub(): Promise<LatestReleaseData>
   const REPOS = [
     'crewloom/crewloom.github.io',
     'crewloom/agent',
+    'crewloom/crewloom',
   ];
+
+  const headers: Record<string, string> = {
+    'Accept': 'application/vnd.github.v3+json',
+    'User-Agent': 'Crewloom-Website-Client',
+  };
+
+  const token = (typeof process !== 'undefined' && (process.env?.GITHUB_TOKEN || process.env?.GH_TOKEN)) || undefined;
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`;
+  }
 
   for (const repo of REPOS) {
     try {
       const res = await fetch(`https://api.github.com/repos/${repo}/releases`, {
-        headers: {
-          'Accept': 'application/vnd.github.v3+json',
-          'User-Agent': 'Crewloom-Website-Client',
-        },
+        headers,
         next: { revalidate: 300 }, // Edge cache: 5 minutes
       });
 
@@ -181,6 +198,10 @@ export async function fetchLatestReleaseFromGitHub(): Promise<LatestReleaseData>
         publishedAt: selectedRelease.published_at || new Date().toISOString(),
         htmlUrl: selectedRelease.html_url || `https://github.com/${repo}/releases/tag/${rawTagName}`,
         body: selectedRelease.body || '',
+        repoUrl: 'https://github.com/crewloom/agent',
+        sourceUrl: 'https://github.com/crewloom/agent',
+        tarballUrl: selectedRelease.tarball_url || `https://github.com/crewloom/agent/archive/refs/tags/${rawTagName}.tar.gz`,
+        zipballUrl: selectedRelease.zipball_url || `https://github.com/crewloom/agent/archive/refs/tags/${rawTagName}.zip`,
         assets: parsedAssets,
         primaryMacAsset: primaryMac,
         primaryWindowsAsset: primaryWin,
