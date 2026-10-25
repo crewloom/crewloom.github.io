@@ -106,7 +106,7 @@ export const DICTIONARY = {
       ],
     },
     floating: {
-      version: 'Crewloom Studio Beta v0.3.0',
+      version: 'Crewloom Desktop Agent v0.3.5',
       status: '● Ready to install',
       curlBtn: 'curl install',
       appBtn: 'Get App',
@@ -223,7 +223,7 @@ export const DICTIONARY = {
       ],
     },
     floating: {
-      version: 'كرو لوم بيتا v0.3.0',
+      version: 'عميل كرو لوم لسطح المكتب v0.3.5',
       status: '● جاهز للتثبيت الفوري',
       curlBtn: 'تثبيت الطرفية',
       appBtn: 'تحميل التطبيق',

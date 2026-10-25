@@ -1,4 +1,5 @@
 import { PlatformKey } from '@/hooks/useDeviceOS';
+import desktopAgentMeta from './desktop-agent.json';
 
 export interface ReleaseAsset {
   id: number;
@@ -56,21 +57,40 @@ export function detectAssetPlatform(fileName: string): PlatformKey {
   return 'curl';
 }
 
+/**
+ * Resolves the desktop agent version from the pre-synced desktop-agent.json metadata.
+ * (Synchronized automatically from agent/apps/crewloom-desktop/package.json via scripts/sync-desktop-agent.mjs)
+ */
+export function getDesktopAgentVersion() {
+  const version = desktopAgentMeta.version || '0.3.5';
+  const tagName = desktopAgentMeta.tagName || `v${version}`;
+  return {
+    version,
+    tagName,
+    name: desktopAgentMeta.name || `Crewloom Desktop Agent ${tagName}`,
+    dmgSize: desktopAgentMeta.dmgSize || 5269425,
+    dmgSizeFormatted: desktopAgentMeta.dmgSizeFormatted || '5.0 MB',
+    downloadUrl: desktopAgentMeta.downloadUrl || `https://github.com/crewloom/crewloom.github.io/releases/download/${tagName}/Crewloom.dmg`,
+  };
+}
+
+const currentAgent = getDesktopAgentVersion();
+
 export const FALLBACK_RELEASE: LatestReleaseData = {
-  tagName: 'v1.0.3',
-  version: '1.0.3',
-  name: 'Crewloom Desktop v1.0.3',
-  publishedAt: new Date().toISOString(),
-  htmlUrl: 'https://github.com/crewloom/crewloom.github.io/releases/latest',
+  tagName: currentAgent.tagName,
+  version: currentAgent.version,
+  name: currentAgent.name,
+  publishedAt: desktopAgentMeta.syncedAt || new Date().toISOString(),
+  htmlUrl: `https://github.com/crewloom/crewloom.github.io/releases/tag/${currentAgent.tagName}`,
   body: 'Official production bundle for macOS Apple Silicon with verified zero-destruction guarantees.',
   isLive: false,
   assets: [
     {
       id: 1,
       name: 'Crewloom.dmg',
-      size: 5269425,
-      sizeFormatted: '5.0 MB',
-      downloadUrl: 'https://github.com/crewloom/crewloom.github.io/releases/download/v1.0.3/Crewloom.dmg',
+      size: currentAgent.dmgSize,
+      sizeFormatted: currentAgent.dmgSizeFormatted,
+      downloadUrl: currentAgent.downloadUrl,
       contentType: 'application/x-apple-diskimage',
       platform: 'macos-arm64',
       isInstaller: true,
@@ -79,9 +99,9 @@ export const FALLBACK_RELEASE: LatestReleaseData = {
   primaryMacAsset: {
     id: 1,
     name: 'Crewloom.dmg',
-    size: 5269425,
-    sizeFormatted: '5.0 MB',
-    downloadUrl: 'https://github.com/crewloom/crewloom.github.io/releases/download/v1.0.3/Crewloom.dmg',
+    size: currentAgent.dmgSize,
+    sizeFormatted: currentAgent.dmgSizeFormatted,
+    downloadUrl: currentAgent.downloadUrl,
     contentType: 'application/x-apple-diskimage',
     platform: 'macos-arm64',
     isInstaller: true,
@@ -89,9 +109,11 @@ export const FALLBACK_RELEASE: LatestReleaseData = {
 };
 
 export async function fetchLatestReleaseFromGitHub(): Promise<LatestReleaseData> {
+  const agentInfo = getDesktopAgentVersion();
+
   const REPOS = [
     'crewloom/crewloom.github.io',
-    'crewloom/crewloom',
+    'crewloom/agent',
   ];
 
   for (const repo of REPOS) {
@@ -109,10 +131,29 @@ export async function fetchLatestReleaseFromGitHub(): Promise<LatestReleaseData>
       const releases = await res.json();
       if (!Array.isArray(releases) || releases.length === 0) continue;
 
-      // Select the newest release that contains downloadable assets, or fallback to the latest release
-      const releaseWithAssets = releases.find((r) => Array.isArray(r.assets) && r.assets.length > 0) || releases[0];
+      // Filter and prioritize releases that belong to the Desktop Agent:
+      // 1. Matches desktop agent version (e.g. tag 'v0.3.5' or 'crewloom-v0.3.5')
+      // 2. Or title contains 'Desktop' or 'Agent' (and not 'Website')
+      // 3. Must have downloadable assets
+      const agentReleases = releases.filter((r) => {
+        const title = (r.name || '').toLowerCase();
+        // Ignore releases clearly meant for website only
+        if (title.includes('website') && !title.includes('desktop') && !title.includes('agent')) {
+          return false;
+        }
+        return Array.isArray(r.assets) && r.assets.length > 0;
+      });
 
-      const rawAssets = Array.isArray(releaseWithAssets.assets) ? releaseWithAssets.assets : [];
+      if (agentReleases.length === 0) continue;
+
+      // Prefer exact version match with current desktop agent if present
+      const exactMatch = agentReleases.find((r) => {
+        const tagClean = (r.tag_name || '').replace(/^(crewloom-)?v?/, '');
+        return tagClean === agentInfo.version;
+      });
+
+      const selectedRelease = exactMatch || agentReleases[0];
+      const rawAssets = Array.isArray(selectedRelease.assets) ? selectedRelease.assets : [];
 
       const parsedAssets: ReleaseAsset[] = rawAssets.map((a: { id: number; name: string; size: number; browser_download_url: string; content_type: string }) => ({
         id: a.id,
@@ -129,16 +170,17 @@ export async function fetchLatestReleaseFromGitHub(): Promise<LatestReleaseData>
       const primaryWin = parsedAssets.find((a) => a.platform === 'windows');
       const primaryLinux = parsedAssets.find((a) => a.platform === 'linux');
 
-      const tagName = releaseWithAssets.tag_name || 'v1.0.3';
-      const version = tagName.replace(/^v/, '');
+      const rawTagName = selectedRelease.tag_name || agentInfo.tagName;
+      const cleanVersion = rawTagName.replace(/^(crewloom-)?v?/, '');
+      const tagName = `v${cleanVersion}`;
 
       return {
         tagName,
-        version,
-        name: releaseWithAssets.name || `Crewloom Desktop ${tagName}`,
-        publishedAt: releaseWithAssets.published_at || new Date().toISOString(),
-        htmlUrl: releaseWithAssets.html_url || `https://github.com/${repo}/releases/tag/${tagName}`,
-        body: releaseWithAssets.body || '',
+        version: cleanVersion,
+        name: selectedRelease.name || `Crewloom Desktop Agent ${tagName}`,
+        publishedAt: selectedRelease.published_at || new Date().toISOString(),
+        htmlUrl: selectedRelease.html_url || `https://github.com/${repo}/releases/tag/${rawTagName}`,
+        body: selectedRelease.body || '',
         assets: parsedAssets,
         primaryMacAsset: primaryMac,
         primaryWindowsAsset: primaryWin,

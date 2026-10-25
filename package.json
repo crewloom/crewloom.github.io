@@ -5,8 +5,10 @@
   "main": "index.js",
   "scripts": {
     "dev": "next dev",
-    "prebuild": "node scripts/generate-seo-assets.mjs",
+    "predev": "node scripts/sync-desktop-agent.mjs",
+    "prebuild": "node scripts/sync-desktop-agent.mjs && node scripts/generate-seo-assets.mjs",
     "build": "next build && node scripts/sync-export.mjs",
+    "sync:agent": "node scripts/sync-desktop-agent.mjs",
     "generate:seo": "node scripts/generate-seo-assets.mjs",
     "start": "next start",
     "test:seo": "node scripts/verify-seo-output.mjs",

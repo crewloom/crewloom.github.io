@@ -1,3 +1,5 @@
+import desktopAgentMeta from './desktop-agent.json';
+
 export const SITE_CONFIG = {
   name: 'Crewloom',
   legalName: 'Crewloom Autonomous Systems',
@@ -10,7 +12,7 @@ export const SITE_CONFIG = {
   brewTap: 'crewloom/tap/crewloom',
   macosDownloadUrl: '/Crewloom.dmg',
   macosGithubUrl: 'https://github.com/crewloom/crewloom.github.io/releases/latest/download/Crewloom.dmg',
-  version: 'v0.3.0 (Beta Preview)',
+  version: `v${desktopAgentMeta.version || '0.3.5'} (Beta Preview)`,
   latencyTargetMs: 0.8,
   license: 'Apache-2.0',
 } as const;
