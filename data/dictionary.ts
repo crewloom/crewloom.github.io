@@ -2,7 +2,7 @@ import { ArchitectureLayer, FeatureItem, MetricItem } from '@/types';
 
 export const DICTIONARY = {
   en: {
-    announcement: 'Sovereign Open-Source Engineering Initiative by Rumuze — v1.0.0 Production Release Live',
+    announcement: 'Sovereign AI Coding Agent — Desktop Beta (v0.3.0) Now Available for macOS',
     exploreGithub: 'Explore GitHub',
     brandSubtitle: 'Sovereign AI Coding Engine',
     nav: {
@@ -25,8 +25,8 @@ export const DICTIONARY = {
       title: 'ONE-STEP INSTALLATION',
       copied: 'Copied!',
       copy: 'Copy',
-      macTitle: 'Crewloom Agent.app (macOS Native)',
-      macSub: '58 KB Binary · WebKit Accelerated · Apple Silicon Native (M1–M5)',
+      macTitle: 'Crewloom Agent Studio (macOS Native Beta)',
+      macSub: '5.2 MB Native Bundle · Apple Silicon (M1–M5) · Local AST Zero-Destruction',
       downloadMac: 'Download for Mac',
     },
     terminal: {
@@ -119,7 +119,7 @@ export const DICTIONARY = {
     },
   },
   ar: {
-    announcement: 'مبادرة وطنية تقنية مفتوحة المصدر بقيادة رموز (Rumuze) — الإصدار السيادي v1.0.0 متاح الآن',
+    announcement: 'كرو لوم: النسخة التجريبية الأولى (Beta v0.3.0) متاحة الآن للتحميل المباشر لأجهزة الماك',
     exploreGithub: 'استكشف المستودعات',
     brandSubtitle: 'كرو لوم · الذكاء البرمجي السيادي',
     nav: {
@@ -142,8 +142,8 @@ export const DICTIONARY = {
       title: 'التثبيت بخطوة واحدة',
       copied: 'تم النسخ!',
       copy: 'نسخ',
-      macTitle: 'تطبيق الماك الأصلي (Crewloom Agent.app)',
-      macSub: 'حجم 58 كيلوبايت · مسرّع بـ WebKit الأصلي · معالجات أبل سيليكون (M1–M5)',
+      macTitle: 'تطبيق الماك الأصلي (Crewloom Agent Studio)',
+      macSub: 'حزمة أصلية بحجم 5.2 ميجابايت · معالجات أبل سيليكون (M1–M5) · تدقيق محلي فوري',
       downloadMac: 'تحميل لأجهزة الماك',
     },
     terminal: {

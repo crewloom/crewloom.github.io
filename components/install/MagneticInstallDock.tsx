@@ -15,7 +15,7 @@ const INSTALL_COMMANDS: Record<Exclude<InstallMethod, 'macos'>, string> = {
 };
 
 export function MagneticInstallDock() {
-  const [method, setMethod] = useState<InstallMethod>('curl');
+  const [method, setMethod] = useState<InstallMethod>('macos');
   const { t } = useLanguage();
   const { isCopied, copy } = useClipboard({ timeout: 2500 });
 
@@ -38,8 +38,16 @@ export function MagneticInstallDock() {
           </div>
 
           <div className="grid grid-cols-4 sm:flex items-center gap-1 bg-space-950 p-1 rounded-lg border border-white/10 text-xs font-mono">
-            {(['curl', 'npm', 'brew', 'macos'] as const).map((m) => {
+            {(['macos', 'curl', 'npm', 'brew'] as const).map((m) => {
               const active = method === m;
+              const label =
+                m === 'macos'
+                  ? 'Mac App (Beta)'
+                  : m === 'curl'
+                  ? 'curl'
+                  : m === 'npm'
+                  ? 'npm (soon)'
+                  : 'brew (soon)';
               return (
                 <button
                   key={m}
@@ -51,7 +59,7 @@ export function MagneticInstallDock() {
                   }`}
                 >
                   {m === 'macos' && <Apple className="w-3 h-3 shrink-0" />}
-                  <span>{m === 'macos' ? 'Mac App' : m}</span>
+                  <span>{label}</span>
                 </button>
               );
             })}
@@ -113,6 +121,12 @@ export function MagneticInstallDock() {
               {copied ? t.install.copied : t.install.copy}
             </Button>
           </div>
+        )}
+
+        {(method === 'npm' || method === 'brew') && (
+          <p className="text-[11px] text-amber-400/90 font-mono mt-2 px-1">
+            ⚠️ Registry package is finalizing for production. To test the sovereign agent now, please use the macOS Beta App tab.
+          </p>
         )}
 
         {/* Real-time Subtext Features */}

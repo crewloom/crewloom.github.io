@@ -1,5 +1,5 @@
-:HL["/_next/static/chunks/3nq75cp54nqie.css","style"]
+:HL["/_next/static/chunks/0sowak2uj1dg9.css","style"]
 3:[["children",{"s":"__PAGE__","h":160}]]
 2:[["children",{"s":{"n":"slug","t":"d","k":"crewloom-vs-claude-code-and-open-code-agents","s":[]},"h":96,"c":"$Q3"}]]
 1:[["children",{"s":"blog","h":64,"c":"$Q2"}]]
-0:{"b":"y-4GjJbQJ108zWOGtjJ5T","t":{"t":{"s":"","h":16,"c":"$Q1"}}}
+0:{"b":"164nHwjGehAxNB-2G_RM8","t":{"t":{"s":"","h":16,"c":"$Q1"}}}
