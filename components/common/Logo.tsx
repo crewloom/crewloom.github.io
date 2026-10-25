@@ -7,6 +7,23 @@ interface LogoProps {
   size?: number;
 }
 
+/**
+ * Crewloom woven mark: teal weft threads are roles, violet warp threads are memory,
+ * the ring is the evidence checkpoint. Geometry generated from
+ * agent/apps/crewloom-desktop/src/lib/logo-geometry.ts (full layout); keep both in sync.
+ */
+const WEFT = '#2dd4bf';
+const WARP = '#7388f5';
+const THICKNESS = 34;
+const THREADS: Array<{ axis: 'weft' | 'warp'; paths: string[]; caps: Array<[number, number]> }> = [
+  { axis: 'warp', paths: ['M176 128V230', 'M176 282V384'], caps: [[176,128], [176,384]] },
+  { axis: 'warp', paths: ['M256 128V150', 'M256 202V310', 'M256 362V384'], caps: [[256,128], [256,384]] },
+  { axis: 'warp', paths: ['M336 128V230', 'M336 282V384'], caps: [[336,128], [336,384]] },
+  { axis: 'weft', paths: ['M128 176H150', 'M202 176H310', 'M362 176H384'], caps: [[128,176], [384,176]] },
+  { axis: 'weft', paths: ['M128 256H230', 'M282 256H352'], caps: [[128,256], [352,256]] },
+  { axis: 'weft', paths: ['M128 336H150', 'M202 336H310', 'M362 336H384'], caps: [[128,336], [384,336]] },
+];
+
 export function Logo({ className = 'w-9 h-9', glow = true }: LogoProps) {
   const rawId = useId();
   // Sanitize id for SVG url reference
@@ -21,12 +38,12 @@ export function Logo({ className = 'w-9 h-9', glow = true }: LogoProps) {
         />
       )}
       <svg
-        viewBox="0 0 1024 1024"
+        viewBox="0 0 512 512"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         className="w-full h-full relative z-10 rounded-2xl transition-transform duration-300 group-hover:scale-105"
         role="img"
-        aria-label="Crewloom Sovereign Brand Logo"
+        aria-label="Crewloom"
       >
         <defs>
           <linearGradient id={gradId} x1="0" y1="0" x2="1" y2="1">
@@ -34,21 +51,22 @@ export function Logo({ className = 'w-9 h-9', glow = true }: LogoProps) {
             <stop offset="100%" stopColor="#38bdf8" />
           </linearGradient>
         </defs>
-        {/* Squircle Background Base */}
-        <rect width="1024" height="1024" rx="232" fill="#0b0f14" stroke="rgba(255,255,255,0.12)" strokeWidth="16" />
-        {/* Horizontal Loom Matrix Threads */}
-        <g stroke="#5eead4" strokeWidth="26" strokeLinecap="round" opacity="0.45">
-          <path d="M268 348H756M268 512H756M268 676H756" />
-        </g>
-        {/* Vertical Loom Matrix Threads */}
-        <g stroke="#8ca9ff" strokeWidth="26" strokeLinecap="round" opacity="0.45">
-          <path d="M372 262V762M512 262V762M652 262V762" />
-        </g>
-        {/* Center Loom Nucleus */}
-        <circle cx="512" cy="512" r="188" fill="#0b0f14" />
-        <circle cx="512" cy="512" r="188" fill="none" stroke={`url(#${gradId})`} strokeWidth="34" />
-        {/* Sovereign "C" Core Arc */}
-        <path d="M596 424a122 122 0 1 0 0 176" fill="none" stroke={`url(#${gradId})`} strokeWidth="58" strokeLinecap="round" />
+        <rect width="512" height="512" rx="116" fill="#0b0f14" stroke="rgba(255,255,255,0.12)" strokeWidth="8" />
+        {THREADS.map(thread => {
+          const color = thread.axis === 'weft' ? WEFT : WARP;
+          return (
+            <g key={thread.paths[0]}>
+              {thread.paths.map(d => (
+                <path key={d} d={d} stroke={color} strokeWidth={THICKNESS} />
+              ))}
+              {thread.caps.map(([cx, cy]) => (
+                <circle key={`${cx}-${cy}`} cx={cx} cy={cy} r={THICKNESS / 2} fill={color} />
+              ))}
+            </g>
+          );
+        })}
+        <circle cx="404" cy="256" r="30" stroke={`url(#${gradId})`} strokeWidth="16" />
+        <circle cx="404" cy="256" r="8" fill={`url(#${gradId})`} />
       </svg>
     </div>
   );

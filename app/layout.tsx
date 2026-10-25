@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   ...baseMetadata,
   icons: {
     icon: [
-      { url: "/logo.svg", type: "image/svg+xml" },
+      { url: "/logo-compact.svg", type: "image/svg+xml" },
       { url: "/logo.png", type: "image/png" },
     ],
     apple: "/logo.png",
