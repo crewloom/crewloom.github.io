@@ -1,9 +1,9 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { usePathname } from 'next/navigation';
 import { Lang } from '@/types';
 import { DICTIONARY } from '@/data/dictionary';
-import { storage } from '@/lib/utils';
 
 interface LanguageContextType {
   lang: Lang;
@@ -15,39 +15,50 @@ interface LanguageContextType {
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
-const STORAGE_KEY = 'crewloom_preferred_lang';
-
 export function LanguageProvider({ children, initialLang }: { children: ReactNode; initialLang?: Lang }) {
-  const [lang, setLangState] = useState<Lang>(initialLang || 'en');
+  const pathname = usePathname();
+
+  // URL path is the single authoritative source of truth for language:
+  // /ar, /ar/ => Arabic
+  // /, /blog, etc. => English
+  const getRouteLang = (): Lang => {
+    if (initialLang) return initialLang;
+    if (pathname && (pathname === '/ar' || pathname.startsWith('/ar/'))) {
+      return 'ar';
+    }
+    return 'en';
+  };
+
+  const [lang, setLangState] = useState<Lang>(getRouteLang);
 
   useEffect(() => {
-    if (initialLang) {
-      setLangState(initialLang);
-      document.documentElement.lang = initialLang;
-      document.documentElement.dir = initialLang === 'ar' ? 'rtl' : 'ltr';
-      return;
-    }
-    // Read persisted preference if available
-    const saved = storage.get<Lang | null>(STORAGE_KEY, null);
-    if (saved === 'ar' || saved === 'en') {
-      setLangState(saved);
-    }
-  }, [initialLang]);
-
-  useEffect(() => {
-    const isAr = lang === 'ar';
-    document.documentElement.lang = lang;
-    document.documentElement.dir = isAr ? 'rtl' : 'ltr';
-
-    storage.set(STORAGE_KEY, lang);
-  }, [lang]);
+    const activeLang = getRouteLang();
+    setLangState(activeLang);
+    const isArabic = activeLang === 'ar';
+    document.documentElement.lang = activeLang;
+    document.documentElement.dir = isArabic ? 'rtl' : 'ltr';
+  }, [pathname, initialLang]);
 
   const setLang = (newLang: Lang) => {
     setLangState(newLang);
+    if (typeof window !== 'undefined') {
+      if (newLang === 'ar' && !window.location.pathname.startsWith('/ar')) {
+        window.location.href = '/ar/';
+      } else if (newLang === 'en' && window.location.pathname.startsWith('/ar')) {
+        window.location.href = '/';
+      }
+    }
   };
 
   const toggleLang = () => {
-    setLangState((prev) => (prev === 'en' ? 'ar' : 'en'));
+    if (typeof window !== 'undefined') {
+      const currentPath = window.location.pathname;
+      if (currentPath === '/ar' || currentPath.startsWith('/ar/')) {
+        window.location.href = '/';
+      } else {
+        window.location.href = '/ar/';
+      }
+    }
   };
 
   const value: LanguageContextType = {

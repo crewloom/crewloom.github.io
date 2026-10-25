@@ -12,6 +12,7 @@ import { FaqSection } from "@/components/faq/FaqSection";
 import { FloatingActionDock } from "@/components/floating/FloatingActionDock";
 import { Footer } from "@/components/layout/Footer";
 import { Container } from "@/components/ui/Container";
+import { LanguageProvider } from "@/contexts/LanguageContext";
 import { FAQS_EN } from "@/data/faq";
 import { generateSoftwareApplicationSchema, generateFaqSchema } from "@/lib/seo/schema";
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -23,50 +24,52 @@ const homeSchemas = [
 
 export default function Home() {
   return (
-    <main className="min-h-screen flex flex-col justify-between font-latin">
-      <JsonLd data={homeSchemas} />
-      {/* Top Banner Announcement */}
-      <AnnouncementBar />
+    <LanguageProvider initialLang="en">
+      <main className="min-h-screen flex flex-col justify-between font-latin" dir="ltr">
+        <JsonLd data={homeSchemas} />
+        {/* Top Banner Announcement */}
+        <AnnouncementBar />
 
-      {/* Main Global Navigation */}
-      <Navbar />
+        {/* Main Global Navigation */}
+        <Navbar />
 
-      {/* Hero Header with Terminal Preview */}
-      <Hero />
+        {/* Hero Header with Terminal Preview */}
+        <Hero />
 
-      {/* Real-time Interactive Benchmark Simulator */}
-      <BenchmarkSimulator />
+        {/* Real-time Interactive Benchmark Simulator */}
+        <BenchmarkSimulator />
 
-      {/* Verification Metrics Grid */}
-      <MetricsGrid />
+        {/* Verification Metrics Grid */}
+        <MetricsGrid />
 
-      {/* Core Architectural Features */}
-      <FeaturesGrid />
+        {/* Core Architectural Features */}
+        <FeaturesGrid />
 
-      {/* Interactive 3-Layer Topology */}
-      <ArchitectureTopology />
+        {/* Interactive 3-Layer Topology */}
+        <ArchitectureTopology />
 
-      {/* 44 Specialist Skills Directory */}
-      <SpecialistRolesDirectory />
+        {/* 44 Specialist Skills Directory */}
+        <SpecialistRolesDirectory />
 
-      {/* Deployment & CLI Quickstart */}
-      <QuickstartSection />
+        {/* Deployment & CLI Quickstart */}
+        <QuickstartSection />
 
-      {/* Viral GitHub README Badge */}
-      <section id="badge" className="py-10 sm:py-12 border-t border-white/[0.06] bg-space-900/20 relative z-10">
-        <Container size="lg">
-          <BadgeCopyWidget />
-        </Container>
-      </section>
+        {/* Viral GitHub README Badge */}
+        <section id="badge" className="py-10 sm:py-12 border-t border-white/[0.06] bg-space-900/20 relative z-10">
+          <Container size="lg">
+            <BadgeCopyWidget />
+          </Container>
+        </section>
 
-      {/* Accessible Interactive FAQ Section */}
-      <FaqSection />
+        {/* Accessible Interactive FAQ Section */}
+        <FaqSection />
 
-      {/* Sticky Quick Action Dock */}
-      <FloatingActionDock />
+        {/* Sticky Quick Action Dock */}
+        <FloatingActionDock />
 
-      {/* Sovereign Global Footer */}
-      <Footer />
-    </main>
+        {/* Sovereign Global Footer */}
+        <Footer />
+      </main>
+    </LanguageProvider>
   );
 }
