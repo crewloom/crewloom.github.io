@@ -28,7 +28,7 @@ export function Navbar() {
     { href: '/#simulator', label: t.nav.simulator, icon: <Zap className="w-3.5 h-3.5 text-cyan-400 animate-pulse" /> },
     { href: '/#roles', label: t.nav.skills },
     { href: '/#install', label: t.nav.quickstart },
-    { href: '/blog/', label: isAr ? 'المقالات والأبحاث' : 'Articles' },
+    { href: '/blog/', label: t.nav.articles },
   ];
 
   return (
@@ -75,7 +75,7 @@ export function Navbar() {
             target="_blank"
             rel="noopener noreferrer"
             className="hidden sm:inline-flex items-center justify-center p-2 rounded-xl border border-white/10 bg-white/5 text-gray-300 hover:text-white hover:border-cyan-500/40 hover:bg-cyan-950/30 transition-colors"
-            title={isAr ? 'سورس كود الإيجنت على GitHub' : 'Agent Source Code on GitHub'}
+            title={t.nav.agentSourceCode}
             aria-label="Agent Source Code on GitHub"
           >
             <GithubIcon className="w-4 h-4" />
@@ -85,7 +85,7 @@ export function Navbar() {
             href={macDownloadUrl}
             download="Crewloom.dmg"
             className="hidden xs:inline-block"
-            title={isAr ? `تحميل تطبيق الماك المكتبي (${versionTag})` : `Download macOS Desktop App (${versionTag})`}
+            title={`${t.nav.downloadMacAppAria} (${versionTag})`}
           >
             <Button
               variant="primary"
@@ -93,8 +93,8 @@ export function Navbar() {
               leftIcon={<Download className="w-3.5 h-3.5 stroke-[2.5]" />}
               className="font-bold text-xs shadow-lg shadow-cyan-500/20"
             >
-              <span className="hidden sm:inline">{isAr ? `تحميل تطبيق الماك (${versionTag})` : `Download Mac App (${versionTag})`}</span>
-              <span className="sm:hidden">{isAr ? 'تحميل' : 'Download'}</span>
+              <span className="hidden sm:inline">{`${t.nav.downloadMacApp} (${versionTag})`}</span>
+              <span className="sm:hidden">{t.nav.download}</span>
             </Button>
           </a>
 

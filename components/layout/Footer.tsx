@@ -7,7 +7,7 @@ import { SITE_CONFIG } from '@/lib/constants';
 import { Container } from '@/components/ui';
 
 export function Footer() {
-  const { t, isAr } = useLanguage();
+  const { t } = useLanguage();
 
   return (
     <footer className="border-t border-white/[0.08] bg-space-950 py-8 sm:py-12 relative z-10 select-none">
@@ -28,7 +28,7 @@ export function Footer() {
             href="/blog/"
             className="hover:text-cyan-400 transition-colors cursor-pointer text-cyan-400/90"
           >
-            {isAr ? 'الأبحاث والمقالات' : 'Articles & Research'}
+            {t.footer.articlesResearch}
           </a>
           <a
             href={SITE_CONFIG.agentRepo}
@@ -37,7 +37,7 @@ export function Footer() {
             className="hover:text-cyan-400 transition-colors cursor-pointer text-cyan-300/90"
             title="GitHub Agent Repository"
           >
-            {isAr ? 'سورس كود الإيجنت' : 'Agent Source Code'}
+            {t.footer.agentSourceCode}
           </a>
           <a
             href={SITE_CONFIG.githubUrl}

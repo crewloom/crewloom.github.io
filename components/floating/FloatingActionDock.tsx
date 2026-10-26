@@ -9,7 +9,7 @@ import { SITE_CONFIG } from '@/lib/constants';
 
 export function FloatingActionDock() {
   const [showScrollTop, setShowScrollTop] = useState(false);
-  const { toggleLang, isAr } = useLanguage();
+  const { toggleLang, t } = useLanguage();
   const { macDownloadUrl } = useLatestRelease();
 
   useEffect(() => {
@@ -38,7 +38,7 @@ export function FloatingActionDock() {
             leftIcon={<Download className="w-3.5 h-3.5 stroke-[2.5]" />}
             className="font-bold text-xs"
           >
-            {isAr ? 'تحميل تطبيق الماك' : 'Download Mac App'}
+            {t.floating.downloadMacApp}
           </Button>
         </a>
 
@@ -49,7 +49,7 @@ export function FloatingActionDock() {
             leftIcon={<Terminal className="w-3.5 h-3.5 text-cyan-400" />}
             className="text-gray-300 text-xs"
           >
-            {isAr ? 'المحاكاة' : 'Simulator'}
+            {t.floating.simulator}
           </Button>
         </a>
 
@@ -59,7 +59,7 @@ export function FloatingActionDock() {
           onClick={toggleLang}
           className="text-gray-400 hover:text-white p-2"
           aria-label="Toggle Language"
-          title={isAr ? 'Switch to English' : 'التحويل إلى العربية'}
+          title={t.floating.switchLang}
         >
           <Globe className="w-3.5 h-3.5 text-cyan-400" />
         </Button>

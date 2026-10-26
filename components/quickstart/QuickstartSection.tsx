@@ -33,16 +33,16 @@ export function QuickstartSection() {
               </div>
               <div>
                 <h4 className="text-xs sm:text-sm font-bold text-white font-mono flex items-center gap-2">
-                  <span>{isAr ? `تطبيق الماك المكتبي (${versionTag})` : `macOS Desktop Studio (${versionTag})`}</span>
+                  <span>{`${t.quickstart.macDesktopStudio} (${versionTag})`}</span>
                 </h4>
                 <p className="text-[11px] sm:text-xs text-gray-400 mt-0.5">
-                  {isAr ? `حزمة أصلية جاهزة للعمل فوراً بحجم ${macFileSize}` : `Native ${macFileSize} bundle ready for immediate local execution`}
+                  {t.quickstart.nativeBundleNote.replace('{size}', macFileSize)}
                 </p>
               </div>
             </div>
             <a href={macDownloadUrl} download="Crewloom.dmg" className="w-full sm:w-auto shrink-0">
               <Button variant="primary" size="sm" leftIcon={<Download className="w-3.5 h-3.5" />} className="w-full sm:w-auto text-xs font-bold py-2">
-                {isAr ? 'تحميل مباشر للماك' : 'Download for Mac'}
+                {t.quickstart.downloadForMac}
               </Button>
             </a>
           </div>

@@ -70,7 +70,7 @@ export function MagneticInstallDock() {
                       <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
                       <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-400" />
                     </span>
-                    {isAr ? 'النسخة الموصى بها لجهازك' : 'Recommended for Your System'}
+                    {t.install.recommendedForSystem}
                   </span>
                   <Badge variant="cyan" className="text-[10px] py-0 px-1.5 font-mono">
                     {currentDevice.archNameEn}
@@ -100,7 +100,7 @@ export function MagneticInstallDock() {
                     leftIcon={<Download className="w-3.5 h-3.5 stroke-[2.5]" />}
                     className="w-full sm:w-auto font-bold text-xs shadow-lg shadow-cyan-500/25 px-4 py-2"
                   >
-                    {isAr ? `تحميل فوري مباشر (${macFileSize})` : `Download Now (${macFileSize})`}
+                    {`${t.install.downloadNow} (${macFileSize})`}
                   </Button>
                 </a>
               ) : (
@@ -110,7 +110,7 @@ export function MagneticInstallDock() {
                   onClick={() => setSelectedPlatform(currentDevice.platformKey)}
                   className="w-full sm:w-auto font-bold text-xs px-4 py-2"
                 >
-                  {isAr ? 'عرض تعليمات النظام' : 'View Instructions'}
+                  {t.install.viewInstructions}
                 </Button>
               )}
             </div>
@@ -122,7 +122,7 @@ export function MagneticInstallDock() {
           <div className="flex items-center gap-2">
             <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
             <span className="text-[11px] sm:text-xs font-mono font-bold text-gray-200 tracking-wider uppercase">
-              {isAr ? 'اختر النظام أو المعمارية' : 'All Platforms & Architectures'}
+              {t.install.allPlatforms}
             </span>
           </div>
 
@@ -165,7 +165,7 @@ export function MagneticInstallDock() {
                       {isAr ? activeInfo.fullNameAr : activeInfo.fullNameEn}
                     </h4>
                     <Badge variant="cyan" className="text-[10px] py-0 px-1.5 font-mono">
-                      {isAr ? `إصدار GitHub الرسمي ${versionTag}` : `Official GitHub ${versionTag}`}
+                      {`${t.install.officialRelease} ${versionTag}`}
                     </Badge>
                   </div>
                   <p className="text-[11px] sm:text-xs text-gray-400 mt-1 leading-relaxed">
@@ -193,7 +193,7 @@ export function MagneticInstallDock() {
                     leftIcon={<Download className="w-3.5 h-3.5 stroke-[2.5]" />}
                     className="w-full sm:w-auto whitespace-nowrap text-xs font-bold px-4 py-2"
                   >
-                    {isAr ? 'تحميل تطبيق الماك' : 'Download for macOS'}
+                    {t.install.downloadMac}
                   </Button>
                 </a>
                 <a
@@ -219,7 +219,7 @@ export function MagneticInstallDock() {
                       {isAr ? activeInfo.fullNameAr : activeInfo.fullNameEn}
                     </h4>
                     <Badge variant="amber" className="text-[10px] py-0 px-1.5 font-mono">
-                      {isAr ? 'قيد التجهيز التلقائي' : 'In CI Staging'}
+                      {t.install.inCiStaging}
                     </Badge>
                   </div>
                   <p className="text-[11px] sm:text-xs text-gray-400 mt-1 leading-relaxed">
@@ -266,7 +266,7 @@ export function MagneticInstallDock() {
                   leftIcon={isCopiedCmd ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Terminal className="w-3.5 h-3.5" />}
                   className="font-mono text-xs shrink-0"
                 >
-                  {isCopiedCmd ? (isAr ? 'تم النسخ!' : 'Copied!') : (isAr ? 'نسخ' : 'Copy')}
+                  {isCopiedCmd ? t.install.copied : t.install.copy}
                 </Button>
               </div>
             </div>
@@ -284,7 +284,7 @@ export function MagneticInstallDock() {
                   leftIcon={isCopiedCmd ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Terminal className="w-3.5 h-3.5" />}
                   className="font-mono text-xs shrink-0"
                 >
-                  {isCopiedCmd ? (isAr ? 'تم النسخ!' : 'Copied!') : (isAr ? 'نسخ' : 'Copy')}
+                  {isCopiedCmd ? t.install.copied : t.install.copy}
                 </Button>
               </div>
             </div>
@@ -297,7 +297,7 @@ export function MagneticInstallDock() {
             <div className="flex flex-wrap items-center gap-2 text-gray-400">
               <Box className="w-3.5 h-3.5 text-cyan-400" />
               <span>
-                {isAr ? 'ريليز GitHub الرسمي' : 'Official GitHub Release'}:
+                {t.install.officialGithubRelease}:
               </span>
               <a
                 href={release.htmlUrl}
@@ -320,7 +320,7 @@ export function MagneticInstallDock() {
                 title="View Crewloom Agent Source Code on GitHub"
               >
                 <GithubIcon className="w-3 h-3 text-cyan-400" />
-                <span className="font-semibold">{isAr ? 'سورس كود الإيجنت' : 'Agent Source'}</span>
+                <span className="font-semibold">{t.install.agentSource}</span>
                 <ExternalLink className="w-2.5 h-2.5 opacity-60" />
               </a>
 
@@ -346,15 +346,15 @@ export function MagneticInstallDock() {
           <div className="flex flex-wrap items-center gap-2 sm:gap-3">
             <span className="flex items-center gap-1.5 text-cyan-400 font-semibold">
               <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
-              {isAr ? 'صفر تسريب للبيانات (Zero Telemetry)' : 'Zero telemetry leaks'}
+              {t.install.zeroTelemetry}
             </span>
             <span className="text-gray-600">•</span>
             <span className="text-gray-400">
-              {isAr ? 'معالجة محلية كاملة' : '100% Local Inference Supported'}
+              {t.install.localInference}
             </span>
             <span className="text-gray-600">•</span>
             <span className="text-gray-400">
-              {isAr ? 'تدقيق AST لمنع الهدم' : 'AST Non-Destructive Guard'}
+              {t.install.astGuard}
             </span>
           </div>
           <span className="text-emerald-400 font-semibold">{t.hero.trustNote}</span>
