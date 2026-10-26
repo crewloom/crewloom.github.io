@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { SITE_CONFIG } from '@/lib/constants';
+import desktopAgentMeta from '@/lib/desktop-agent.json';
 
 export type PlatformKey = 'macos-arm64' | 'macos-x64' | 'windows' | 'linux' | 'curl';
 
@@ -129,14 +130,15 @@ export function useDeviceOS() {
           archNameAr: 'نواة 64-بت (x64 / ARM)',
           fullNameEn: 'Crewloom Studio for Windows 10/11',
           fullNameAr: 'تطبيق كرو لوم لويندوز 10/11',
-          isDirectDownload: false,
-          downloadUrl: SITE_CONFIG.macosGithubUrl,
-          fileSize: 'Coming Soon',
-          statusBadgeEn: 'Beta 2 Target · Pipeline Active',
-          statusBadgeAr: 'مستهدف في بيتا 2 · قيد التجهيز',
+          isDirectDownload: true,
+          downloadUrl: SITE_CONFIG.windowsDownloadUrl,
+          fileName: `Crewloom-Agent-v${desktopAgentMeta.version || '0.3.11'}-setup.exe`,
+          fileSize: '12.4 MB',
+          statusBadgeEn: 'Verified Release v' + (desktopAgentMeta.version || '0.3.11'),
+          statusBadgeAr: 'إصدار معتمد وموثق v' + (desktopAgentMeta.version || '0.3.11'),
           isRecommendedForDevice: detectedPlatform === 'windows',
-          compatibilityNoteEn: 'Windows NSIS installer is preparing for release. You can use WSL2 or CLI preview today.',
-          compatibilityNoteAr: 'حزمة ويندوز التثبيتية قيد التجهيز عبر CI. يمكنك استخدام بيئة WSL2 أو الطرفية حالياً.',
+          compatibilityNoteEn: 'Verified NSIS installer (.exe) for Windows 10/11 with zero-drift local headroom and PowerShell support.',
+          compatibilityNoteAr: 'مثبت NSIS معتمد (.exe) لويندوز 10/11 مع قياس دقيق للموارد ودعم كامل للطرفية وPowerShell.',
         };
 
       case 'linux':

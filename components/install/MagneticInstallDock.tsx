@@ -33,7 +33,9 @@ export function MagneticInstallDock() {
 
   const activeInfo = getPlatformDetails(selectedPlatform);
   const curlCmd = SITE_CONFIG.installCommand;
+  const psCmd = SITE_CONFIG.powershellCommand;
   const isCopiedCmd = isCopied(curlCmd);
+  const isCopiedPs = isCopied(psCmd);
 
   const platforms: { key: PlatformKey; labelEn: string; labelAr: string; icon: React.ReactNode; isHot?: boolean }[] = [
     { key: 'macos-arm64', labelEn: 'Mac (Apple Silicon)', labelAr: 'ماك (Apple Silicon)', icon: <Apple className="w-3.5 h-3.5" />, isHot: true },
@@ -208,29 +210,88 @@ export function MagneticInstallDock() {
               </div>
             </div>
           ) : activeInfo.platformKey === 'windows' ? (
-            <div className="space-y-3">
-              <div className="flex items-start gap-3">
-                <div className="w-10 h-10 rounded-xl bg-cyan-950 border border-cyan-800/80 flex items-center justify-center text-cyan-400 shrink-0">
-                  <Monitor className="w-5 h-5" />
-                </div>
-                <div>
-                  <div className="flex flex-wrap items-center gap-2">
-                    <h4 className="text-xs sm:text-sm font-bold text-white font-mono">
-                      {isAr ? activeInfo.fullNameAr : activeInfo.fullNameEn}
-                    </h4>
-                    <Badge variant="amber" className="text-[10px] py-0 px-1.5 font-mono">
-                      {t.install.inCiStaging}
-                    </Badge>
+            <div className="space-y-4">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div className="flex items-start gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-cyan-950 border border-cyan-800/80 flex items-center justify-center text-cyan-400 shrink-0 mt-0.5">
+                    <Monitor className="w-5 h-5" />
                   </div>
-                  <p className="text-[11px] sm:text-xs text-gray-400 mt-1 leading-relaxed">
-                    {isAr ? activeInfo.compatibilityNoteAr : activeInfo.compatibilityNoteEn}
-                  </p>
+                  <div>
+                    <div className="flex flex-wrap items-center gap-2">
+                      <h4 className="text-xs sm:text-sm font-bold text-white font-mono">
+                        {isAr ? activeInfo.fullNameAr : activeInfo.fullNameEn}
+                      </h4>
+                      <Badge variant="cyan" className="text-[10px] py-0 px-1.5 font-mono">
+                        {`${t.install.officialRelease} ${versionTag}`}
+                      </Badge>
+                    </div>
+                    <p className="text-[11px] sm:text-xs text-gray-400 mt-1 leading-relaxed">
+                      {isAr ? activeInfo.compatibilityNoteAr : activeInfo.compatibilityNoteEn}
+                    </p>
+                    <div className="flex flex-wrap items-center gap-2.5 text-[10px] sm:text-[11px] font-mono text-gray-500 mt-1.5">
+                      <span><strong className="text-gray-300">{t.install.windowsInstaller}</strong></span>
+                      <span>•</span>
+                      <span>Size: <strong className="text-cyan-400">{activeInfo.fileSize || '12.4 MB'}</strong></span>
+                      <span>•</span>
+                      <span><strong className="text-gray-300">{t.install.windowsTargetDetails}</strong></span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex flex-col sm:flex-row items-center gap-2 w-full sm:w-auto shrink-0">
+                  <a
+                    href={activeInfo.downloadUrl || SITE_CONFIG.windowsDownloadUrl}
+                    download={activeInfo.fileName || 'Crewloom-Agent-Setup.exe'}
+                    className="w-full sm:w-auto"
+                  >
+                    <Button
+                      variant="primary"
+                      size="sm"
+                      leftIcon={<Download className="w-3.5 h-3.5 stroke-[2.5]" />}
+                      className="w-full sm:w-auto whitespace-nowrap text-xs font-bold px-4 py-2"
+                    >
+                      {t.install.downloadWindows}
+                    </Button>
+                  </a>
+                  <a
+                    href={release.htmlUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[10px] sm:text-[11px] text-gray-400 hover:text-cyan-300 font-mono underline text-center flex items-center justify-center gap-1"
+                  >
+                    <span>GitHub Release</span>
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
                 </div>
               </div>
 
-              <div className="p-3 rounded-lg bg-space-900 border border-white/5 text-xs text-gray-300 font-mono flex items-center justify-between">
-                <span>WSL2 / Linux Preview Command:</span>
-                <code className="text-cyan-300">{curlCmd}</code>
+              {/* Native Windows PowerShell 1-liner */}
+              <div className="space-y-1.5">
+                <div className="text-[11px] font-mono text-gray-400 flex items-center gap-1.5">
+                  <Terminal className="w-3.5 h-3.5 text-cyan-400" />
+                  <span>{t.install.windowsPowershellPrompt}</span>
+                </div>
+                <div className="relative group bg-space-900 p-2.5 sm:p-3 rounded-lg border border-cyan-500/30 flex items-center justify-between gap-3 shadow-inner">
+                  <div className="flex items-center gap-2 min-w-0 flex-1 overflow-x-auto code-scroll font-mono text-xs sm:text-sm text-cyan-300 select-all">
+                    <span className="text-gray-500 select-none font-bold">PS&gt;</span>
+                    <code>{psCmd}</code>
+                  </div>
+                  <Button
+                    variant={isCopiedPs ? 'cyber' : 'primary'}
+                    size="xs"
+                    onClick={() => copy(psCmd)}
+                    leftIcon={isCopiedPs ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Terminal className="w-3.5 h-3.5" />}
+                    className="font-mono text-xs shrink-0"
+                  >
+                    {isCopiedPs ? t.install.copied : t.install.copy}
+                  </Button>
+                </div>
+              </div>
+
+              {/* WSL2 Option */}
+              <div className="p-2.5 sm:p-3 rounded-lg bg-space-900/60 border border-white/5 text-xs text-gray-400 font-mono flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <span>{t.install.wslPrompt}</span>
+                <code className="text-cyan-300/90 text-[11px]">{curlCmd}</code>
               </div>
             </div>
           ) : activeInfo.platformKey === 'linux' ? (

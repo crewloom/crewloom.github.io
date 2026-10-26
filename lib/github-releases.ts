@@ -115,6 +115,16 @@ export const FALLBACK_RELEASE: LatestReleaseData = {
     platform: 'macos-arm64',
     isInstaller: true,
   },
+  primaryWindowsAsset: {
+    id: 2,
+    name: `Crewloom-Agent-v${currentAgent.version}-setup.exe`,
+    size: 13002342,
+    sizeFormatted: '12.4 MB',
+    downloadUrl: `https://github.com/crewloom/agent/releases/download/crewloom-${currentAgent.tagName}/crewloom-${currentAgent.version}-windows-x64.exe`,
+    contentType: 'application/x-msdownload',
+    platform: 'windows',
+    isInstaller: true,
+  },
 };
 
 export async function fetchLatestReleaseFromGitHub(): Promise<LatestReleaseData> {
