@@ -9,7 +9,7 @@ set -e
 echo ""
 echo "  ╔══════════════════════════════════════════════════════════╗"
 echo "  ║  ⚡ CREWLOOM SOVEREIGN AI AGENT — INSTALLER v1.0.0       ║"
-echo "  ║  Dual Bicultural Core (En/Ar) · 44 Specialist Skills     ║"
+echo "  ║  Dual Bicultural Core (En/Ar) · 47 Specialist Skills     ║"
 echo "  ╚══════════════════════════════════════════════════════════╝"
 echo ""
 

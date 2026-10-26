@@ -69,7 +69,7 @@ export function InteractiveTerminal() {
               <span className="text-cyan-300 font-semibold">crewloom</span> roles --category backend
             </div>
             <div className="text-emerald-400 text-xs sm:text-sm pl-3 sm:pl-4 border-l-2 border-emerald-500/50">
-              ✓ Loaded 44 autonomous roles with strict zero-loss verification
+              ✓ Loaded 47 autonomous roles with strict zero-loss verification
             </div>
             <div className="text-cyan-200/90 text-xs sm:text-sm pl-3 sm:pl-4 flex items-center gap-2">
               <CheckCircle2 className="w-4 h-4 text-cyan-400 shrink-0" />

@@ -81,8 +81,8 @@ export function generateSoftwareApplicationSchema(locale: 'en' | 'ar' = 'en'): S
           'كرو لوم',
         ],
     description: isArabic
-      ? 'إيجنت ذكي ونظام تطوير برمجي سيادي مفتوح (أوبن كود - Open Code) وبديل كلود كود يدمج 44 تخصصاً برمجياً مع ميثاق عدم الهدم البرمجي AST.'
-      : 'Sovereign autonomous smart AI coding agent and open-code runtime providing a private alternative to Claude Code with 44 specialist skills and strict Zero-Destruction contract verification.',
+      ? 'إيجنت ذكي ونظام تطوير برمجي سيادي مفتوح (أوبن كود - Open Code) وبديل كلود كود يدمج 47 تخصصاً برمجياً مع ميثاق عدم الهدم البرمجي AST.'
+      : 'Sovereign autonomous smart AI coding agent and open-code runtime providing a private alternative to Claude Code with 47 specialist skills and strict Zero-Destruction contract verification.',
     applicationCategory: 'DeveloperApplication',
     applicationSubCategory: 'AI Coding Agent, Smart Agent, Open Code Developer Runtime',
     keywords: isArabic
@@ -102,7 +102,7 @@ export function generateSoftwareApplicationSchema(locale: 'en' | 'ar' = 'en'): S
     featureList: [
       'Dual-Core Sovereign Architecture',
       'Zero-Destruction AST Verification',
-      '44 Specialist AI Developer Skills',
+      '47 Specialist AI Developer Skills',
       'Omni-channel Bridge (CLI, Cocoa Desktop, Telegram, WhatsApp)',
       'Dual English and Arabic Engineering Intelligence',
     ],

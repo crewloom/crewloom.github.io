@@ -23,5 +23,5 @@ export const NAV_LINKS = [
   { href: '#install', labelEn: 'Install', labelAr: 'التثبيت' },
   { href: '#simulator', labelEn: 'Benchmark', labelAr: 'المحاكاة' },
   { href: '#features', labelEn: 'Architecture', labelAr: 'المعمارية' },
-  { href: '#roles', labelEn: '44 Specialist Skills', labelAr: '٤٤ مهارة تخصصية' },
+  { href: '#roles', labelEn: '47 Specialist Skills', labelAr: '٤٧ مهارة تخصصية' },
 ] as const;

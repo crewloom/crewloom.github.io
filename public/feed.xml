@@ -5,14 +5,14 @@
     <link>https://crewloom.org/blog/</link>
     <description>Official architectural benchmarks, zero-destruction guides, and announcements for the Crewloom sovereign AI coding agent.</description>
     <language>en</language>
-    <lastBuildDate>Sun, 25 Oct 2026 20:47:47 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 26 Oct 2026 05:18:54 GMT</lastBuildDate>
     <atom:link href="https://crewloom.org/feed.xml" rel="self" type="application/rss+xml" />
     <item>
       <title><![CDATA[Introducing Crewloom: The Sovereign Autonomous AI Coding Agent]]></title>
       <link>https://crewloom.org/blog/introducing-crewloom/</link>
       <guid isPermaLink="true">https://crewloom.org/blog/introducing-crewloom/</guid>
       <pubDate>Fri, 23 Oct 2026 12:00:00 GMT</pubDate>
-      <description><![CDATA[Discover Crewloom (https://crewloom.org), the autonomous development runtime uniting 44 open-source specialist skills with strict Zero-Destruction verification.]]></description>
+      <description><![CDATA[Discover Crewloom (https://crewloom.org), the autonomous development runtime uniting 47 open-source specialist skills with strict Zero-Destruction verification.]]></description>
       <author>core@crewloom.org (Crewloom Core Architecture Team)</author>
       <category>Announcements</category>
     </item>
@@ -39,7 +39,7 @@
       <link>https://crewloom.org/blog/dalil-crewloom-arabic-developer-guide/</link>
       <guid isPermaLink="true">https://crewloom.org/blog/dalil-crewloom-arabic-developer-guide/</guid>
       <pubDate>Fri, 23 Oct 2026 12:00:00 GMT</pubDate>
-      <description><![CDATA[Practical developer guide for installing Crewloom, utilizing 44 specialist skills, and connecting remote bridges.]]></description>
+      <description><![CDATA[Practical developer guide for installing Crewloom, utilizing 47 specialist skills, and connecting remote bridges.]]></description>
       <author>core@crewloom.org (فريق رموز وهندسة كرو لوم)</author>
       <category>Guides</category>
     </item>

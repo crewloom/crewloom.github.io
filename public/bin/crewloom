@@ -20,7 +20,7 @@ const command = args[0] || 'help';
 const BANNER = `
 \x1b[38;2;6;182;212m╔══════════════════════════════════════════════════════════════════════╗\x1b[0m
 \x1b[38;2;6;182;212m║\x1b[0m  \x1b[1;37m⚡ CREWLOOM SOVEREIGN AI AGENT ENGINE\x1b[0m \x1b[38;2;6;182;212mv${VERSION}\x1b[0m                    \x1b[38;2;6;182;212m║\x1b[0m
-\x1b[38;2;6;182;212m║\x1b[0m  \x1b[38;2;16;185;129mDual Bicultural Core (En/Ar) · 44 Specialist Skills · Zero Drift\x1b[0m    \x1b[38;2;6;182;212m║\x1b[0m
+\x1b[38;2;6;182;212m║\x1b[0m  \x1b[38;2;16;185;129mDual Bicultural Core (En/Ar) · 47 Specialist Skills · Zero Drift\x1b[0m    \x1b[38;2;6;182;212m║\x1b[0m
 \x1b[38;2;6;182;212m╚══════════════════════════════════════════════════════════════════════╝\x1b[0m
 `;
 
@@ -41,7 +41,7 @@ function printHelp() {
 Usage: crewloom <command> [options]
 
 Commands:
-  roles, list          List and inspect 44 autonomous specialist agent skills
+  roles, list          List and inspect 47 autonomous specialist agent skills
   audit [--preflight]  Execute AST Zero-Destruction contract verification
   studio [--open]      Launch Crewloom Studio visual workspace on localhost
   bridge [options]     Launch Omni-Channel Mediator (Telegram/WhatsApp/Terminal)
@@ -71,7 +71,7 @@ switch (command) {
   case 'roles':
   case 'list': {
     console.log(BANNER);
-    console.log('\x1b[1;36m▶ 44 Sovereign Specialist Skills Loaded (Latency Target: <0.8ms):\x1b[0m\n');
+    console.log('\x1b[1;36m▶ 47 Sovereign Specialist Skills Loaded (Latency Target: <0.8ms):\x1b[0m\n');
     console.table(ROLES);
     console.log('\n\x1b[32m✓ All specialist skill procedures verified against strict zero-drift invariants.\x1b[0m\n');
     break;
@@ -154,7 +154,7 @@ switch (command) {
     console.log('  Engine: Sovereign Dual-Core v' + VERSION);
     console.log('  Latency: 0.78ms (Target: <0.8ms)');
     console.log('  Zero-Destruction Guard: ACTIVE');
-    console.log('  Specialist Skills: 44 Available\n');
+    console.log('  Specialist Skills: 47 Available\n');
     break;
   }
 

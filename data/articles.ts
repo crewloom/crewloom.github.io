@@ -20,8 +20,8 @@ export const ARTICLES: Article[] = [
     slug: 'introducing-crewloom',
     titleEn: 'Introducing Crewloom: The Sovereign Autonomous AI Coding Agent',
     titleAr: 'إطلاق كرو لوم Crewloom: الوكيل البرمجي السيادي المطور للأتمتة غير التدميرية',
-    descriptionEn: 'Discover Crewloom (https://crewloom.org), the autonomous development runtime uniting 44 open-source specialist skills with strict Zero-Destruction verification.',
-    descriptionAr: 'تعرف على كرو لوم Crewloom، بيئة التطوير المستقلة التي تجمع 44 خبيراً برمجياً مع ميثاق عدم الهدم المطلق ونواة ذكاء اصطناعي عربية وإنجليزية.',
+    descriptionEn: 'Discover Crewloom (https://crewloom.org), the autonomous development runtime uniting 47 open-source specialist skills with strict Zero-Destruction verification.',
+    descriptionAr: 'تعرف على كرو لوم Crewloom، بيئة التطوير المستقلة التي تجمع 47 خبيراً برمجياً مع ميثاق عدم الهدم المطلق ونواة ذكاء اصطناعي عربية وإنجليزية.',
     date: '2026-10-23',
     readTimeEn: '5 min read',
     readTimeAr: '٥ دقائق قراءة',
@@ -38,7 +38,7 @@ Traditional software engineering with AI has reached an inflection point. While 
 
 ### 1. The Dual-Core Sovereign Architecture
 Unlike generalist models forced to act as developers, Crewloom divides responsibilities into a 3-tier sovereign runtime:
-- **Layer 01 — Open-Source Specialist Skills (44 Personas)**: Deep domain knowledge across backend frameworks, distributed databases, frontend performance, and penetration security.
+- **Layer 01 — Open-Source Specialist Skills (47 Personas)**: Deep domain knowledge across backend frameworks, distributed databases, frontend performance, and penetration security.
 - **Layer 02 — Crewloom Bridge**: An ultra-lightweight daemon enabling developers to orchestrate missions directly from the terminal, macOS Cocoa desktop application, or remote channels like Telegram and WhatsApp.
 - **Layer 03 — Proprietary Zero-Loss Harness**: A disciplined core operating under a strict constitution that forbids unverified mutations to existing systems.
 
@@ -65,7 +65,7 @@ Join the movement toward sovereign, safe, and autonomous software development at
 
 ### 1. معمارية سيادية ثلاثية الطبقات
 بدلاً من الاعتماد على نموذج ذكاء اصطناعي عام، يعتمد كرو لوم على هيكل منظم:
-- **الطبقة الأولى — مكتبة الـ 44 خبيراً تخصصياً**: خبراء مستقلون في قواعد البيانات، والواجهات، والأمان، وهندسة السحابة.
+- **الطبقة الأولى — مكتبة الـ 47 خبيراً تخصصياً**: خبراء مستقلون في قواعد البيانات، والواجهات، والأمان، وهندسة السحابة.
 - **الطبقة الثانية — جسر التحكم الحي (Crewloom Bridge)**: خادم خفيف للتحكم عبر التليجرام أو الواتساب أو الطرفية أو تطبيق الماك المكتبي.
 - **الطبقة الثالثة — محرك الانضباط السيادي**: محرّك محمي بدستور صارم يمنع المساس بالأصول البرمجية دون تدقيق.
 
@@ -111,7 +111,7 @@ Here is how **Crewloom (https://crewloom.org)** compares directly against Devin,
 | **Offline Local Inference** | **Supported (Ollama/llama.cpp)** | No (Cloud Only) | Limited | Limited |
 | **Dual-Core English/Arabic** | **Full Native Parity** | Weak Translation | Partial | Partial |
 | **Omni-Channel Bridge** | **Telegram, WhatsApp, CLI, Cocoa** | Web Sandbox Only | Editor Only | Editor Only |
-| **Specialist Roles** | **44 Dedicated Personas** | Monolithic Model | Generalist LLM | Generalist LLM |
+| **Specialist Roles** | **47 Dedicated Personas** | Monolithic Model | Generalist LLM | Generalist LLM |
 | **Execution Architecture** | **Native Daemon (< 0.8ms IPC)** | Cloud Spin-up (~30s) | Editor Integrated | Editor Integrated |
 
 ### Key Takeaways
@@ -135,7 +135,7 @@ Here is how **Crewloom (https://crewloom.org)** compares directly against Devin,
 | **العمل بدون إنترنت (محلياً)** | **مدعوم محلياً (Ollama/llama.cpp)** | لا (سحابي فقط) | محدود جداً | محدود جداً |
 | **الدعم العربي الكامل** | **نواة ثنائية معمارية أصلية** | ترجمة آلية ضعيفة | جزئي | جزئي |
 | **التحكم العابر للقنوات** | **تليجرام، واتساب، طرفية، تطبيق ماك** | واجهة ويب فقط | محرر الكود فقط | محرر الكود فقط |
-| **كتيبة الخبراء التخصصية** | **44 خبيراً مستقلاً** | نموذج أحادي عام | نموذج أحادي عام | نموذج أحادي عام |
+| **كتيبة الخبراء التخصصية** | **47 خبيراً مستقلاً** | نموذج أحادي عام | نموذج أحادي عام | نموذج أحادي عام |
 | **معمارية التشغيل** | **خادم محلي فائق الخفة (< 0.8ms IPC)** | تهيئة سحابية (~30 ثانية) | مدمج داخل المحرر | مدمج داخل المحرر |
     `,
   },
@@ -197,8 +197,8 @@ DROP TABLE users;
     slug: 'dalil-crewloom-arabic-developer-guide',
     titleEn: 'Crewloom Arabic Developer Guide: Sovereign AI Coding from Terminal to Telegram',
     titleAr: 'دليل المطور الشامل: ما هو كرو لوم Crewloom وكيف تبدأ استخدامه في دقيقة؟',
-    descriptionEn: 'Practical developer guide for installing Crewloom, utilizing 44 specialist skills, and connecting remote bridges.',
-    descriptionAr: 'دليل عملي للمطور العربي لكيفية تنصيب كرو لوم عبر سطر أوامر واحد، واستدعاء الـ 44 خبيراً برمجياً، والربط مع بوت التليجرام.',
+    descriptionEn: 'Practical developer guide for installing Crewloom, utilizing 47 specialist skills, and connecting remote bridges.',
+    descriptionAr: 'دليل عملي للمطور العربي لكيفية تنصيب كرو لوم عبر سطر أوامر واحد، واستدعاء الـ 47 خبيراً برمجياً، والربط مع بوت التليجرام.',
     date: '2026-10-23',
     readTimeEn: '4 min read',
     readTimeAr: '٤ دقائق قراءة',
@@ -218,7 +218,7 @@ curl -fsSL https://crewloom.org/install.sh | bash
 \`\`\`
 The installer verifies dependencies, compiles the native launcher, and registers the \`crewloom\` CLI tool globally.
 
-### Step 2: Exploring the 44 Specialist Skills
+### Step 2: Exploring the 47 Specialist Skills
 List all available domain specialists in your terminal:
 \`\`\`bash
 crewloom roles --category backend
@@ -251,7 +251,7 @@ curl -fsSL https://crewloom.org/install.sh | bash
 \`\`\`
 سيقوم برنامج التثبيت الذكي بإعداد بيئة العمل وتسجيل أمر \`crewloom\` عالمياً على جهازك.
 
-### الخطوة الثانية: استعراض الخبراء البرمجيين (44 خبيراً)
+### الخطوة الثانية: استعراض الخبراء البرمجيين (47 خبيراً)
 يمكنك عرض المهارات المتاحة بحسب التخصص:
 \`\`\`bash
 crewloom roles --category backend
@@ -309,7 +309,7 @@ Here is how **Crewloom (https://crewloom.org)** compares against Claude Code and
 
 | Dimension | Crewloom (https://crewloom.org) | Anthropic Claude Code | Generic Open Code Agents |
 | :--- | :--- | :--- | :--- |
-| **Architectural Model** | Dual-Core Sovereign (44 Specialist Skills + Core) | Single-Model CLI Wrapper | Unstructured LLM Loop |
+| **Architectural Model** | Dual-Core Sovereign (47 Specialist Skills + Core) | Single-Model CLI Wrapper | Unstructured LLM Loop |
 | **AST Zero-Destruction** | Guaranteed (Pre-flight AST audits block DROP/TRUNCATE) | None (Relies on manual git rollback) | None (Prone to code erasure) |
 | **Cloud Sovereignty** | 100% Local / Air-Gapped / Zero External Telemetry | Cloud-Tethered (Sends workspace to external servers) | Variable (Often requires third-party API keys) |
 | **Linguistic Intelligence** | Native Bilingual (English & Arabic equal parity) | English-First (Limited Arabic technical grammar) | English-First |
@@ -344,7 +344,7 @@ Learn more about Crewloom's sovereign developer ecosystem at [crewloom.org](http
 
 | المعيار الهندسي | كرو لوم Crewloom | كلود كود Claude Code | مشاريع الأوبن كود العامة (Open Code) |
 | :--- | :--- | :--- | :--- |
-| **بنية النظام** | نواة سيادية ثنائية (44 خبيراً تخصصياً) | غلاف طرفية أحادي النموذج | حلقة استدعاءات LLM عادية |
+| **بنية النظام** | نواة سيادية ثنائية (47 خبيراً تخصصياً) | غلاف طرفية أحادي النموذج | حلقة استدعاءات LLM عادية |
 | **ميثاق عدم الهدم البرمجي** | تدقيق AST إلزامي يمنع مسح الجداول والتراجع العشوائي | غير متوفر (يعتمد على مراجعة المطور) | غير متوفر (معرض لمسح الملفات) |
 | **السيادة والعمل دون إنترنت** | 100% محلي / معزول بالكامل / بدون تسريب أسرار | سحابي بالكامل (يرسل الكود إلى السيرفرات) | يتطلب مفاتيح واجهات API خارجية |
 | **اللغة العربية والأداء الفني** | دعم عربي وإنجليزي أصيل بكفاءة متطابقة | دعم إنجليزي في المقام الأول | إنجليزي فقط في الغالب |
@@ -358,7 +358,7 @@ Learn more about Crewloom's sovereign developer ecosystem at [crewloom.org](http
 2. **محرك تدقيق AST لمنع الهدم**:
    لا يمكن لأي إيجنت برمجي داخل كرو لوم كتابة استعلام مسح \`DROP TABLE\` أو \`TRUNCATE\` في قاعدة بيانات الإنتاج أو مسح مجلد غير مصرح به؛ حيث يتم حجب الأمر فحصاً دلالياً قبل تنفيذه.
 3. **إيجنت ذكي متعدد التخصصات (Multi-Agent Specialist Architecture)**:
-   يدمج كرو لوم 44 تخصصاً مستقلاً (قواعد بيانات، أمان، واجهات، بنية سحابية) بدلاً من الاعتماد على نموذج عام واحد يحاول القيام بكل شيء.
+   يدمج كرو لوم 47 تخصصاً مستقلاً (قواعد بيانات، أمان، واجهات، بنية سحابية) بدلاً من الاعتماد على نموذج عام واحد يحاول القيام بكل شيء.
 
 ### 3. التثبيت الفوري
 
@@ -398,7 +398,7 @@ However, running terminal coding tools in production codebases introduces signif
 | :--- | :--- | :--- | :--- |
 | **Execution Surface** | Background Daemon + Terminal + Cocoa + Mobile | Terminal CLI Only | VS Code Extension Only |
 | **AST Verification** | Pre-flight AST mutation check (Blocks breaking schema) | Git diff only | Linting after file write |
-| **Specialist Personas** | 44 Open-Source Domain Personas | Single Model Role | Single System Prompt |
+| **Specialist Personas** | 47 Open-Source Domain Personas | Single Model Role | Single System Prompt |
 | **Token Optimization** | AST-scoped surgical context injection | Repo map compression | In-editor context dumping |
 | **Bilingual Parity** | Dual English & Arabic native parsing | Generic English | Generic English |
 | **Air-Gapped Offline** | 100% Native support (Ollama / llama.cpp) | Supports local endpoints | Supports local endpoints |
@@ -422,7 +422,7 @@ crewloom run "audit repository and verify zero-destruction compliance"
 
 ولكن عند العمل في مشروعات حقيقية معقدة، تقع هذه الأدوات في مشاكل متكررة: حلقات تعديل لا نهائية (Infinite Loops)، واستهلاك ضخم للتوكنز، وكسر صامت لملفات الترجمة أو قواعد البيانات.
 
-يقدم **كرو لوم Crewloom (https://crewloom.org)** الحل الجذري عبر دمج 44 خبيراً برمجياً متخصصاً مع **ميثاق عدم الهدم المطلق AST**.
+يقدم **كرو لوم Crewloom (https://crewloom.org)** الحل الجذري عبر دمج 47 خبيراً برمجياً متخصصاً مع **ميثاق عدم الهدم المطلق AST**.
 
 ### 1. جدول المقارنة الفنية
 
@@ -430,7 +430,7 @@ crewloom run "audit repository and verify zero-destruction compliance"
 | :--- | :--- | :--- | :--- |
 | **بيئة التشغيل** | خادم خفيف خلفي + طرفية + تطبيق ماك + تليجرام | طرفية فقط (CLI) | ملحق داخل VS Code فقط |
 | **فحص عدم الهدم AST** | تدقيق استباقي لشجرة الصرف والنحو يمنع كسر الكود | فحص Git بعد التعديل | تشغيل Linter بعد كتابة الملف |
-| **تعدد الخبراء** | 44 خبيراً برمجياً تخصصياً مستقلاً | موجه واحد (Single Prompt) | موجه عام واحد |
+| **تعدد الخبراء** | 47 خبيراً برمجياً تخصصياً مستقلاً | موجه واحد (Single Prompt) | موجه عام واحد |
 | **استهلاك التوكنز** | حقن سياق جراحي دقيق عبر AST | خريطة مستودع مضغوطة | إرسال سياق الملفات بالكامل |
 | **اللغة العربية الفنية** | دعم عربي أصيل متكامل هندسياً | ترجمة عامة آلية | ترجمة عامة آلية |
 | **العمل أوفلاين دون إنترنت** | دعم محلي سيادي كامل عبر Ollama | يدعم السيرفرات المحلية | يدعم السيرفرات المحلية |
@@ -460,7 +460,7 @@ curl -fsSL https://crewloom.org/install.sh | bash
 
 Enterprise compliance frameworks (HIPAA, SOC2 Type II, GDPR, Defense specs) routinely forbid connecting source code repositories or database schemas to external LLM endpoints. 
 
-**Crewloom (https://crewloom.org)** was built specifically for air-gapped sovereignty. You can run all 44 specialist skills, terminal bridge commands, and zero-destruction contract verifications completely disconnected from the Internet.
+**Crewloom (https://crewloom.org)** was built specifically for air-gapped sovereignty. You can run all 47 specialist skills, terminal bridge commands, and zero-destruction contract verifications completely disconnected from the Internet.
 
 ### Step 1: Install Ollama & Pull DeepSeek-Coder
 

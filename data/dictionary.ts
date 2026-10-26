@@ -18,7 +18,7 @@ export const DICTIONARY = {
       titleLine1: 'Crewloom: Sovereign AI Coding Agent',
       titleLine2: 'Engineered for Zero-Destruction Autonomy',
       subtitle:
-        'The premier autonomous development engine uniting 44 open-source specialist skills with a disciplined proprietary core, strict non-destructive verification, and an omni-channel bridge control room.',
+        'The premier autonomous development engine uniting 47 open-source specialist skills with a disciplined proprietary core, strict non-destructive verification, and an omni-channel bridge control room.',
       trustNote: '⚡ Sub-second boot · Zero configuration · Strict AST non-destructive guard',
     },
     install: {
@@ -67,7 +67,7 @@ export const DICTIONARY = {
     },
     skills: {
       badge: 'SPECIALIST SKILLS',
-      heading: '44 Sovereign Specialist Skills',
+      heading: '47 Sovereign Specialist Skills',
       searchPlaceholder: 'Search specialist roles...',
     },
     quickstart: {
@@ -85,7 +85,7 @@ export const DICTIONARY = {
       items: [
         {
           q: 'What is Crewloom?',
-          a: 'Crewloom (https://crewloom.org) is an enterprise-grade sovereign autonomous AI coding agent. It combines 44 open-source specialist skills with a dual English/Arabic core, rigorous non-destructive contract verification, and an omni-channel bridge control room.',
+          a: 'Crewloom (https://crewloom.org) is an enterprise-grade sovereign autonomous AI coding agent. It combines 47 open-source specialist skills with a dual English/Arabic core, rigorous non-destructive contract verification, and an omni-channel bridge control room.',
         },
         {
           q: 'How does Crewloom guarantee Zero-Destruction coding?',
@@ -126,7 +126,7 @@ export const DICTIONARY = {
       capabilities: 'المزايا السيادية',
       architecture: 'المعمارية',
       simulator: 'المحاكي الحي',
-      skills: 'الـ 44 خبيراً',
+      skills: 'الـ 47 خبيراً',
       quickstart: 'التثبيت السريع',
       getStarted: 'تثبيت فوري',
     },
@@ -135,7 +135,7 @@ export const DICTIONARY = {
       titleLine1: 'كرو لوم Crewloom — الوكيل البرمجي السيادي',
       titleLine2: 'بدقة كوديكس وحرية الأنظمة المستقلة',
       subtitle:
-        'أول بيئة عمل برمجية تجمع بين 44 خبيراً تخصصياً مفتوح المصدر ومحرك مغلق فائق الانضباط، مع ميثاق عدم الهدم المطلق وغرفة عمليات شاملة تتحكم بها من التليجرام أو التطبيق المكتبي أو الطرفية.',
+        'أول بيئة عمل برمجية تجمع بين 47 خبيراً تخصصياً مفتوح المصدر ومحرك مغلق فائق الانضباط، مع ميثاق عدم الهدم المطلق وغرفة عمليات شاملة تتحكم بها من التليجرام أو التطبيق المكتبي أو الطرفية.',
       trustNote: '⚡ إقلاع فوري · صفر إعدادات · تدقيق AST صارم لحماية قواعد البيانات',
     },
     install: {
@@ -184,7 +184,7 @@ export const DICTIONARY = {
     },
     skills: {
       badge: 'كتيبة الخبراء',
-      heading: '44 خبيراً برمجياً في خدمتك',
+      heading: '47 خبيراً برمجياً في خدمتك',
       searchPlaceholder: 'بحث في المهارات التخصصية...',
     },
     quickstart: {
@@ -202,7 +202,7 @@ export const DICTIONARY = {
       items: [
         {
           q: 'ما هو Crewloom (كرو لوم)؟',
-          a: 'كرو لوم (https://crewloom.org) هو وكيل برمجي ذكي ومستقل يتميز بالسيادة والأمان الفائق. يدمج ٤٤ مهارة تخصصية مفتوحة المصدر مع نواة ذكاء ثنائية عربية/إنجليزية، ونظام فحص عقود صارم يمنع الهدم، وغرفة تحكم شاملة عبر التليجرام والواتساب وتطبيقات سطح المكتب والطرفية.',
+          a: 'كرو لوم (https://crewloom.org) هو وكيل برمجي ذكي ومستقل يتميز بالسيادة والأمان الفائق. يدمج ٤٧ مهارة تخصصية مفتوحة المصدر مع نواة ذكاء ثنائية عربية/إنجليزية، ونظام فحص عقود صارم يمنع الهدم، وغرفة تحكم شاملة عبر التليجرام والواتساب وتطبيقات سطح المكتب والطرفية.',
         },
         {
           q: 'كيف يضمن Crewloom عدم الهدم أو التدمير البرمجي؟',
@@ -239,7 +239,7 @@ export const DICTIONARY = {
 
 export const METRICS: MetricItem[] = [
   {
-    value: '44',
+    value: '47',
     labelEn: 'Specialist Skills',
     labelAr: 'خبير برمجي تخصصي',
     colorClass: 'text-cyan-400',
@@ -299,8 +299,8 @@ export const ARCHITECTURE_LAYERS: ArchitectureLayer[] = [
     badge: 'OPEN-SOURCE',
     badgeColor: 'bg-cyan-950 text-cyan-300 border-cyan-800/60',
     borderColor: 'border-l-cyan-500',
-    descEn: 'Open-source repository holding 44 expert skill definitions, persistent working memory, and upstream-friendly toolchains.',
-    descAr: 'مكتبة المهارات التخصصية (44 خبيراً)، والذاكرة العاملة المشتركة، مع بنية مدمجة للتطوير والتوسيع من مجتمع المطورين.',
+    descEn: 'Open-source repository holding 47 expert skill definitions, persistent working memory, and upstream-friendly toolchains.',
+    descAr: 'مكتبة المهارات التخصصية (47 خبيراً)، والذاكرة العاملة المشتركة، مع بنية مدمجة للتطوير والتوسيع من مجتمع المطورين.',
     repo: 'github.com/crewloom/crewloom',
     isPrivate: false,
   },

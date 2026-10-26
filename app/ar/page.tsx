@@ -22,7 +22,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 export const metadata: Metadata = createPageMetadata({
   title: "كرو لوم Crewloom — الوكيل البرمجي السيادي الفائق | أتمتة برمجية بدون هدم",
   description:
-    "كرو لوم (https://crewloom.org) هو أول وكيل برمجي سيادي مستقل يدمج ٤٤ مهارة تخصصية مع ميثاق عدم الهدم البرمجي ونظام حماية قواعد البيانات عبر التليجرام والطرفية.",
+    "كرو لوم (https://crewloom.org) هو أول وكيل برمجي سيادي مستقل يدمج ٤٧ مهارة تخصصية مع ميثاق عدم الهدم البرمجي ونظام حماية قواعد البيانات عبر التليجرام والطرفية.",
   pathname: "/ar/",
   locale: "ar",
   keywords: [
@@ -70,7 +70,7 @@ export default function ArabicHome() {
         {/* Interactive 3-Layer Topology */}
         <ArchitectureTopology />
 
-        {/* 44 Specialist Skills Directory */}
+        {/* 47 Specialist Skills Directory */}
         <SpecialistRolesDirectory />
 
         {/* Deployment & CLI Quickstart */}

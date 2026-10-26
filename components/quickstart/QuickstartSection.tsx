@@ -73,7 +73,7 @@ export function QuickstartSection() {
           {/* Step 3 */}
           <div>
             <label className="block text-xs font-mono text-gray-400 mb-2 font-semibold">
-              Step 3: List & Activate 44 Autonomous Specialist Skills
+              Step 3: List & Activate 47 Autonomous Specialist Skills
             </label>
             <CodeSnippet
               code={rolesCmd}
