@@ -33,6 +33,11 @@
       "source": "/en/:match*",
       "destination": "/:match*",
       "permanent": true
+    },
+    {
+      "source": "/cdn-cgi/:match*",
+      "destination": "/",
+      "permanent": true
     }
   ]
 }

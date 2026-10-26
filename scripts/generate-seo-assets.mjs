@@ -126,14 +126,19 @@ const robotsTxt = `# Crewloom Autonomous Systems (https://crewloom.org)
 User-agent: *
 Allow: /
 Allow: /_next/static/
+Disallow: /cdn-cgi/
 Disallow: /api/
 
 # Explicit Allowances for Tier 1 Search & AI Retrieval Crawlers
 User-agent: Googlebot
 Allow: /
+Disallow: /cdn-cgi/
+Disallow: /api/
 
 User-agent: Bingbot
 Allow: /
+Disallow: /cdn-cgi/
+Disallow: /api/
 
 User-agent: GPTBot
 Allow: /
