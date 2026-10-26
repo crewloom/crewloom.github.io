@@ -1,4 +1,38 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "framework": "nextjs"
+  "framework": "nextjs",
+  "cleanUrls": true,
+  "trailingSlash": true,
+  "redirects": [
+    {
+      "source": "/docs",
+      "destination": "/blog/",
+      "permanent": true
+    },
+    {
+      "source": "/docs/:match*",
+      "destination": "/blog/",
+      "permanent": true
+    },
+    {
+      "source": "/install",
+      "destination": "/#install",
+      "permanent": true
+    },
+    {
+      "source": "/download",
+      "destination": "/#install",
+      "permanent": true
+    },
+    {
+      "source": "/en",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/:match*",
+      "destination": "/:match*",
+      "permanent": true
+    }
+  ]
 }

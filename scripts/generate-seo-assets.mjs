@@ -125,7 +125,7 @@ const robotsTxt = `# Crewloom Autonomous Systems (https://crewloom.org)
 
 User-agent: *
 Allow: /
-Disallow: /_next/
+Allow: /_next/static/
 Disallow: /api/
 
 # Explicit Allowances for Tier 1 Search & AI Retrieval Crawlers
