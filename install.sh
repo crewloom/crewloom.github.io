@@ -29,8 +29,8 @@ mkdir -p "$INSTALL_DIR"
 
 echo "  ▶ Downloading and installing Crewloom Sovereign CLI..."
 
-# Universal install: fetch self-contained binary from GitHub CDN
-DOWNLOAD_URL="https://raw.githubusercontent.com/crewloom/crewloom.github.io/main/public/bin/crewloom"
+# Fetch the launcher built and verified by the website deployment.
+DOWNLOAD_URL="https://crewloom.org/bin/crewloom"
 if command -v curl >/dev/null 2>&1; then
     curl -fsSL "$DOWNLOAD_URL" -o "$INSTALL_DIR/crewloom"
 elif command -v wget >/dev/null 2>&1; then

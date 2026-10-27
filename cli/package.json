@@ -1,0 +1,47 @@
+{
+  "name": "crewloom",
+  "version": "1.0.1",
+  "type": "module",
+  "description": "Crewloom source-workspace launcher with non-destructive initialization and explicit verification failures.",
+  "main": "bin/crewloom.js",
+  "bin": {
+    "crewloom": "bin/crewloom.js",
+    "cl": "bin/crewloom.js"
+  },
+  "files": [
+    "bin/",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "start": "node bin/crewloom.js",
+    "test": "node --test tests/*.test.js"
+  },
+  "keywords": [
+    "crewloom",
+    "ai-agent",
+    "coding-agent",
+    "sovereign",
+    "dual-core",
+    "zero-destruction",
+    "bilingual",
+    "developer-tools"
+  ],
+  "author": "Crewloom Autonomous Systems <support@crewloom.org> (https://crewloom.org)",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/crewloom/crewloom.github.io.git",
+    "directory": "cli"
+  },
+  "bugs": {
+    "url": "https://github.com/crewloom/crewloom.github.io/issues"
+  },
+  "homepage": "https://crewloom.org",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

@@ -47,7 +47,7 @@ $ps1Path = Join-Path $installDir "crewloom.ps1"
 $pkgPath = Join-Path $installDir "package.json"
 
 Write-Host "  ▶ Downloading Crewloom Sovereign CLI..." -ForegroundColor Cyan
-$downloadUrl = "https://raw.githubusercontent.com/crewloom/crewloom.github.io/main/public/bin/crewloom"
+$downloadUrl = "https://crewloom.org/bin/crewloom.mjs"
 Invoke-RestMethod -Uri $downloadUrl -OutFile $cliPath
 Copy-Item -Path $cliPath -Destination $mjsPath -Force
 
