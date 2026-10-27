@@ -84,5 +84,7 @@
       "destination": "/",
       "permanent": true
     }
-  ]
+  ],
+  "installCommand": "npm ci",
+  "buildCommand": "npm run test:cli && npm run build"
 }

@@ -9,3 +9,5 @@ The website owns public distribution and the dependency-free `cli/` source packa
 The package version lives in `cli/package.json`; the bundler injects it into download artifacts. A source invocation reads its package metadata. The CLI has its own package version and is attached to the website's GitHub Release; that does not imply a new npm-registry publication.
 
 CI builds and tests the CLI before building and deploying the site. Portable download tests exercise repeated initialization, missing suites, both suite failure combinations, source discovery under nested Arabic/spaced paths, and version consistency. Real Windows installer execution remains a separate platform check.
+
+Production-domain publication uses the linked Vercel project with repository-owned install/build commands. GitHub Pages is an independent Actions output. Both consume canonical CLI builds, and deployment acceptance checks the live domain payload against the tested build.

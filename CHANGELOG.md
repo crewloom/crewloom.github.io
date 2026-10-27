@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.8 — 2026-10-27
+
+- Make Vercel install the npm lockfile and verify the CLI before the complete build, matching the validated GitHub pipeline.
+- Deploy the current CLI source to the production domain; keep GitHub Pages in workflow mode.
+
 ## 1.0.7 — 2026-10-27
 
 - Own the CLI 1.0.1 source in `cli/`, retaining the previous workspace entry points as forwarding adapters.
