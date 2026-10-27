@@ -38,7 +38,7 @@ export function getDesktopAgentVersion() {
     dmgSize: desktopAgentMeta.dmgSize || 5269425,
     dmgSizeFormatted: desktopAgentMeta.dmgSizeFormatted || '5.0 MB',
     downloadUrl: desktopAgentMeta.downloadUrl || `https://github.com/crewloom/crewloom.github.io/releases/download/${tagName}/Crewloom.dmg`,
-    agentRepo: 'https://github.com/crewloom/agent',
+    agentRepo: 'https://github.com/crewloom/crewloom',
   };
 }
 
@@ -51,10 +51,10 @@ export const FALLBACK_RELEASE: LatestReleaseData = {
   publishedAt: desktopAgentMeta.syncedAt || new Date().toISOString(),
   htmlUrl: `https://github.com/crewloom/crewloom.github.io/releases/tag/${currentAgent.tagName}`,
   body: 'Official production bundle for macOS Apple Silicon with verified zero-destruction guarantees.',
-  repoUrl: 'https://github.com/crewloom/agent',
-  sourceUrl: 'https://github.com/crewloom/agent',
-  tarballUrl: `https://github.com/crewloom/agent/archive/refs/tags/crewloom-${currentAgent.tagName}.tar.gz`,
-  zipballUrl: `https://github.com/crewloom/agent/archive/refs/tags/crewloom-${currentAgent.tagName}.zip`,
+  repoUrl: 'https://github.com/crewloom/crewloom',
+  sourceUrl: 'https://github.com/crewloom/crewloom',
+  tarballUrl: `https://github.com/crewloom/crewloom.github.io/archive/refs/tags/${currentAgent.tagName}.tar.gz`,
+  zipballUrl: `https://github.com/crewloom/crewloom.github.io/archive/refs/tags/${currentAgent.tagName}.zip`,
   isLive: false,
   assets: [
     {
@@ -65,6 +65,16 @@ export const FALLBACK_RELEASE: LatestReleaseData = {
       downloadUrl: currentAgent.downloadUrl,
       contentType: 'application/x-apple-diskimage',
       platform: 'macos-arm64',
+      isInstaller: true,
+    },
+    {
+      id: 2,
+      name: 'Crewloom-Agent-Setup.bat',
+      size: 616,
+      sizeFormatted: '1.0 KB',
+      downloadUrl: `https://github.com/crewloom/crewloom.github.io/releases/download/${currentAgent.tagName}/Crewloom-Agent-Setup.bat`,
+      contentType: 'application/x-bat',
+      platform: 'windows',
       isInstaller: true,
     },
   ],
@@ -80,11 +90,11 @@ export const FALLBACK_RELEASE: LatestReleaseData = {
   },
   primaryWindowsAsset: {
     id: 2,
-    name: `Crewloom-Agent-v${currentAgent.version}-setup.exe`,
-    size: 13002342,
-    sizeFormatted: '12.4 MB',
-    downloadUrl: `https://github.com/crewloom/agent/releases/download/crewloom-${currentAgent.tagName}/crewloom-${currentAgent.version}-windows-x64.exe`,
-    contentType: 'application/x-msdownload',
+    name: 'Crewloom-Agent-Setup.bat',
+    size: 616,
+    sizeFormatted: '1.0 KB',
+    downloadUrl: `https://github.com/crewloom/crewloom.github.io/releases/download/${currentAgent.tagName}/Crewloom-Agent-Setup.bat`,
+    contentType: 'application/x-bat',
     platform: 'windows',
     isInstaller: true,
   },
@@ -95,7 +105,6 @@ export async function fetchLatestReleaseFromGitHub(): Promise<LatestReleaseData>
 
   const REPOS = [
     'crewloom/crewloom.github.io',
-    'crewloom/agent',
     'crewloom/crewloom',
   ];
 
@@ -162,10 +171,10 @@ export async function fetchLatestReleaseFromGitHub(): Promise<LatestReleaseData>
         publishedAt: selectedRelease.published_at || new Date().toISOString(),
         htmlUrl: selectedRelease.html_url || `https://github.com/${repo}/releases/tag/${rawTagName}`,
         body: selectedRelease.body || '',
-        repoUrl: 'https://github.com/crewloom/agent',
-        sourceUrl: 'https://github.com/crewloom/agent',
-        tarballUrl: selectedRelease.tarball_url || `https://github.com/crewloom/agent/archive/refs/tags/${rawTagName}.tar.gz`,
-        zipballUrl: selectedRelease.zipball_url || `https://github.com/crewloom/agent/archive/refs/tags/${rawTagName}.zip`,
+        repoUrl: `https://github.com/${repo}`,
+        sourceUrl: `https://github.com/${repo}`,
+        tarballUrl: selectedRelease.tarball_url || `https://github.com/${repo}/archive/refs/tags/${rawTagName}.tar.gz`,
+        zipballUrl: selectedRelease.zipball_url || `https://github.com/${repo}/archive/refs/tags/${rawTagName}.zip`,
         assets: parsedAssets,
         primaryMacAsset: primaryMac,
         primaryWindowsAsset: primaryWin,

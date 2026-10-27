@@ -88,7 +88,7 @@ export function generateSoftwareApplicationSchema(locale: 'en' | 'ar' = 'en'): S
     keywords: isArabic
       ? 'اوبن كود, كلود كود, ايجنت ذكي, ايجنت زكي, ايجنت يمات, وكيل برمجي ذكي, بديل كلود كود, برمجة سيادية, أتمتة برمجية'
       : 'open code, claude code, claude code alternative, smart agent, intelligent coding agent, ai coding agents, zero-destruction coding',
-    operatingSystem: 'macOS, Linux',
+    operatingSystem: 'macOS, Windows, Linux',
     offers: {
       '@type': 'Offer',
       price: '0',
