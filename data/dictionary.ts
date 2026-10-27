@@ -54,6 +54,33 @@ export const DICTIONARY = {
       localInference: '100% Local Inference Supported',
       astGuard: 'AST Non-Destructive Guard',
     },
+    platforms: {
+      'macos-arm64': {
+        label: 'Mac (Apple Silicon)',
+        fullName: 'Crewloom Studio for macOS (Apple Silicon)',
+        compatibilityNote: 'Universal ARM64 package natively optimized for Apple Silicon (M1 through M5).',
+      },
+      'macos-x64': {
+        label: 'Mac (Intel)',
+        fullName: 'Crewloom Studio for macOS (Intel)',
+        compatibilityNote: 'Can run immediately via macOS Rosetta 2 emulation while native x86_64 binaries compile in CI.',
+      },
+      'windows': {
+        label: 'Windows',
+        fullName: 'Crewloom Studio for Windows 10/11',
+        compatibilityNote: 'Verified NSIS installer (.exe) for Windows 10/11 with zero-drift local headroom and PowerShell support.',
+      },
+      'linux': {
+        label: 'Linux',
+        fullName: 'Crewloom Linux Runtime (.deb / CLI)',
+        compatibilityNote: 'Run the one-line terminal installer or pull the container image for Linux servers and workstations.',
+      },
+      'curl': {
+        label: 'Terminal (curl)',
+        fullName: 'Crewloom Sovereign Developer CLI',
+        compatibilityNote: 'Lightweight daemon runtime with local sockets and remote chat bridge capabilities.',
+      },
+    },
     terminal: {
       daemonStatus: 'Daemon: PID 7136 · Online',
       tabs: {
@@ -203,6 +230,33 @@ export const DICTIONARY = {
       zeroTelemetry: 'صفر تسريب للبيانات (Zero Telemetry)',
       localInference: 'معالجة محلية كاملة',
       astGuard: 'تدقيق AST لمنع الهدم',
+    },
+    platforms: {
+      'macos-arm64': {
+        label: 'ماك (Apple Silicon)',
+        fullName: 'تطبيق كرو لوم المكتبي لأجهزة الماك (Apple Silicon)',
+        compatibilityNote: 'حزمة أصلية مخصصة لمعالجات Apple Silicon وتعمل بكفاءة تامة على شرائح M1 حتى M5.',
+      },
+      'macos-x64': {
+        label: 'ماك (Intel)',
+        fullName: 'تطبيق كرو لوم لأجهزة الماك (معالجات إنتل)',
+        compatibilityNote: 'يمكن تشغيله فوراً عبر بيئة Rosetta 2 في الماك لحين اكتمال تجميع حزم x86_64 الأصلية.',
+      },
+      'windows': {
+        label: 'ويندوز',
+        fullName: 'تطبيق كرو لوم لويندوز 10/11',
+        compatibilityNote: 'مثبت NSIS معتمد (.exe) لويندوز 10/11 مع قياس دقيق للموارد ودعم كامل للطرفية وPowerShell.',
+      },
+      'linux': {
+        label: 'لينكس',
+        fullName: 'بيئة تشغيل كرو لوم لنظام لينكس',
+        compatibilityNote: 'ثبّت بيئة التشغيل عبر سطر الأوامر الفوري أو عبر حاويات Docker للعمل على خوادم لينكس.',
+      },
+      'curl': {
+        label: 'الطرفية (curl)',
+        fullName: 'أداة الطرفية للمطورين Crewloom CLI',
+        compatibilityNote: 'خادم خفيف يعمل في الخلفية ويوفر وصولاً سريعاً للمحرك والجسور التفاعلية.',
+      },
     },
     terminal: {
       daemonStatus: 'الخادم الخلفي: PID 7136 · نشط',

@@ -21,7 +21,7 @@ export function MagneticInstallDock() {
   const { isClient, detectedPlatform, currentDevice, getPlatformDetails } = useDeviceOS();
   const { release, versionTag, macFileSize, macDownloadUrl } = useLatestRelease();
   const [selectedPlatform, setSelectedPlatform] = useState<PlatformKey>('macos-arm64');
-  const { t, isAr } = useLanguage();
+  const { t } = useLanguage();
   const { isCopied, copy } = useClipboard({ timeout: 2500 });
 
   // Update selected platform when device is detected on client
@@ -37,12 +37,12 @@ export function MagneticInstallDock() {
   const isCopiedCmd = isCopied(curlCmd);
   const isCopiedPs = isCopied(psCmd);
 
-  const platforms: { key: PlatformKey; labelEn: string; labelAr: string; icon: React.ReactNode; isHot?: boolean }[] = [
-    { key: 'macos-arm64', labelEn: 'Mac (Apple Silicon)', labelAr: 'ماك (Apple Silicon)', icon: <Apple className="w-3.5 h-3.5" />, isHot: true },
-    { key: 'macos-x64', labelEn: 'Mac (Intel)', labelAr: 'ماك (Intel)', icon: <Apple className="w-3.5 h-3.5" /> },
-    { key: 'windows', labelEn: 'Windows', labelAr: 'ويندوز', icon: <Monitor className="w-3.5 h-3.5" /> },
-    { key: 'linux', labelEn: 'Linux', labelAr: 'لينكس', icon: <Laptop className="w-3.5 h-3.5" /> },
-    { key: 'curl', labelEn: 'Terminal (curl)', labelAr: 'الطرفية (curl)', icon: <Terminal className="w-3.5 h-3.5" /> },
+  const platforms: { key: PlatformKey; icon: React.ReactNode; isHot?: boolean }[] = [
+    { key: 'macos-arm64', icon: <Apple className="w-3.5 h-3.5" />, isHot: true },
+    { key: 'macos-x64', icon: <Apple className="w-3.5 h-3.5" /> },
+    { key: 'windows', icon: <Monitor className="w-3.5 h-3.5" /> },
+    { key: 'linux', icon: <Laptop className="w-3.5 h-3.5" /> },
+    { key: 'curl', icon: <Terminal className="w-3.5 h-3.5" /> },
   ];
 
   return (
@@ -83,14 +83,29 @@ export function MagneticInstallDock() {
                 </div>
 
                 <h3 className="text-xs sm:text-sm font-bold text-white font-mono">
-                  {isAr ? currentDevice.fullNameAr : currentDevice.fullNameEn}
+                  {t.platforms[currentDevice.platformKey]?.fullName || currentDevice.fullNameEn}
                 </h3>
               </div>
             </div>
 
             {/* Quick 1-Click Recommended Action */}
             <div className="w-full sm:w-auto shrink-0 flex items-center gap-2">
-              {currentDevice.isDirectDownload ? (
+              {currentDevice.platformKey === 'windows' ? (
+                <a
+                  href={currentDevice.downloadUrl || SITE_CONFIG.windowsDownloadUrl}
+                  download={currentDevice.fileName}
+                  className="w-full sm:w-auto"
+                >
+                  <Button
+                    variant="primary"
+                    size="sm"
+                    leftIcon={<Download className="w-3.5 h-3.5 stroke-[2.5]" />}
+                    className="w-full sm:w-auto font-bold text-xs shadow-lg shadow-cyan-500/25 px-4 py-2"
+                  >
+                    {`${t.install.downloadWindows} (${currentDevice.fileSize || '12.4 MB'})`}
+                  </Button>
+                </a>
+              ) : currentDevice.isDirectDownload ? (
                 <a
                   href={macDownloadUrl}
                   download="Crewloom.dmg"
@@ -143,7 +158,7 @@ export function MagneticInstallDock() {
                   }`}
                 >
                   {p.icon}
-                  <span>{isAr ? p.labelAr : p.labelEn}</span>
+                  <span>{t.platforms[p.key]?.label || p.key}</span>
                   {isRec && (
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" title="Auto-detected system" />
                   )}
@@ -164,14 +179,14 @@ export function MagneticInstallDock() {
                 <div>
                   <div className="flex flex-wrap items-center gap-2">
                     <h4 className="text-xs sm:text-sm font-bold text-white font-mono">
-                      {isAr ? activeInfo.fullNameAr : activeInfo.fullNameEn}
+                      {t.platforms[activeInfo.platformKey]?.fullName || activeInfo.fullNameEn}
                     </h4>
                     <Badge variant="cyan" className="text-[10px] py-0 px-1.5 font-mono">
                       {`${t.install.officialRelease} ${versionTag}`}
                     </Badge>
                   </div>
                   <p className="text-[11px] sm:text-xs text-gray-400 mt-1 leading-relaxed">
-                    {isAr ? activeInfo.compatibilityNoteAr : activeInfo.compatibilityNoteEn}
+                    {t.platforms[activeInfo.platformKey]?.compatibilityNote || activeInfo.compatibilityNoteEn}
                   </p>
                   <div className="flex flex-wrap items-center gap-2.5 text-[10px] sm:text-[11px] font-mono text-gray-500 mt-1.5">
                     <span>Format: <strong className="text-gray-300">Apple Disk Image (.dmg)</strong></span>
@@ -219,14 +234,14 @@ export function MagneticInstallDock() {
                   <div>
                     <div className="flex flex-wrap items-center gap-2">
                       <h4 className="text-xs sm:text-sm font-bold text-white font-mono">
-                        {isAr ? activeInfo.fullNameAr : activeInfo.fullNameEn}
+                        {t.platforms[activeInfo.platformKey]?.fullName || activeInfo.fullNameEn}
                       </h4>
                       <Badge variant="cyan" className="text-[10px] py-0 px-1.5 font-mono">
                         {`${t.install.officialRelease} ${versionTag}`}
                       </Badge>
                     </div>
                     <p className="text-[11px] sm:text-xs text-gray-400 mt-1 leading-relaxed">
-                      {isAr ? activeInfo.compatibilityNoteAr : activeInfo.compatibilityNoteEn}
+                      {t.platforms[activeInfo.platformKey]?.compatibilityNote || activeInfo.compatibilityNoteEn}
                     </p>
                     <div className="flex flex-wrap items-center gap-2.5 text-[10px] sm:text-[11px] font-mono text-gray-500 mt-1.5">
                       <span><strong className="text-gray-300">{t.install.windowsInstaller}</strong></span>
@@ -303,14 +318,14 @@ export function MagneticInstallDock() {
                 <div>
                   <div className="flex flex-wrap items-center gap-2">
                     <h4 className="text-xs sm:text-sm font-bold text-white font-mono">
-                      {isAr ? activeInfo.fullNameAr : activeInfo.fullNameEn}
+                      {t.platforms[activeInfo.platformKey]?.fullName || activeInfo.fullNameEn}
                     </h4>
                     <Badge variant="cyan" className="text-[10px] py-0 px-1.5 font-mono">
                       CLI Live
                     </Badge>
                   </div>
                   <p className="text-[11px] sm:text-xs text-gray-400 mt-1 leading-relaxed">
-                    {isAr ? activeInfo.compatibilityNoteAr : activeInfo.compatibilityNoteEn}
+                    {t.platforms[activeInfo.platformKey]?.compatibilityNote || activeInfo.compatibilityNoteEn}
                   </p>
                 </div>
               </div>

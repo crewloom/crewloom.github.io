@@ -23,35 +23,53 @@ if (-not $nodeCmd) {
 $nodeVer = (& node -v)
 Write-Host "  ✓ Detected Node.js: $nodeVer" -ForegroundColor Green
 
-# 2. Target installation directory in user profile
+# 2. Check optional environment tools
+$gitCmd = Get-Command git -ErrorAction SilentlyContinue
+if ($gitCmd) {
+    Write-Host "  ✓ Detected Git" -ForegroundColor Green
+}
+$pyCmd = Get-Command python -ErrorAction SilentlyContinue
+if ($pyCmd) {
+    $pyVer = (& python --version 2>&1)
+    Write-Host "  ✓ Detected Python: $pyVer" -ForegroundColor Green
+}
+
+# 3. Target installation directory in user profile
 $installDir = Join-Path $HOME ".crewloom\bin"
 if (-not (Test-Path $installDir)) {
     New-Item -ItemType Directory -Path $installDir -Force | Out-Null
 }
 
 $cliPath = Join-Path $installDir "crewloom"
+$mjsPath = Join-Path $installDir "crewloom.mjs"
 $cmdPath = Join-Path $installDir "crewloom.cmd"
 $ps1Path = Join-Path $installDir "crewloom.ps1"
+$pkgPath = Join-Path $installDir "package.json"
 
 Write-Host "  ▶ Downloading Crewloom Sovereign CLI..." -ForegroundColor Cyan
 $downloadUrl = "https://raw.githubusercontent.com/crewloom/crewloom.github.io/main/public/bin/crewloom"
 Invoke-RestMethod -Uri $downloadUrl -OutFile $cliPath
+Copy-Item -Path $cliPath -Destination $mjsPath -Force
 
-# Write cmd wrapper
-$cmdContent = "@echo off`r`nnode `"%~dp0crewloom`" %*"
+# Ensure ESM module resolution works universally across all Node versions
+Set-Content -Path $pkgPath -Value '{"type":"module"}' -Encoding ASCII
+
+# Write cmd wrappers (runs in Command Prompt & PowerShell without policy restrictions)
+$cmdContent = "@echo off`r`nnode `"%~dp0crewloom.mjs`" %*"
 Set-Content -Path $cmdPath -Value $cmdContent -Encoding ASCII
+Set-Content -Path (Join-Path $installDir "cl.cmd") -Value $cmdContent -Encoding ASCII
 
-# Write ps1 wrapper
-$ps1Content = "& node `"`$PSScriptRoot\crewloom`" `$args"
+# Write ps1 wrappers
+$ps1Content = "& node `"`$PSScriptRoot\crewloom.mjs`" `$args"
 Set-Content -Path $ps1Path -Value $ps1Content -Encoding ASCII
+Set-Content -Path (Join-Path $installDir "cl.ps1") -Value $ps1Content -Encoding ASCII
 
-# Also write short alias 'cl.cmd'
-$clCmdPath = Join-Path $installDir "cl.cmd"
-Set-Content -Path $clCmdPath -Value $cmdContent -Encoding ASCII
+# Unblock files if downloaded via web
+Unblock-File -Path (Join-Path $installDir "*") -ErrorAction SilentlyContinue
 
-Write-Host "  ✓ Crewloom CLI installed to: $cliPath" -ForegroundColor Green
+Write-Host "  ✓ Crewloom CLI installed to: $installDir" -ForegroundColor Green
 
-# 3. Add to user PATH if not present
+# 4. Add to user PATH if not present
 $userPath = [Environment]::GetEnvironmentVariable("Path", "User")
 if ($userPath -split ';' -notcontains $installDir) {
     $newPath = if ($userPath) { "$userPath;$installDir" } else { $installDir }
