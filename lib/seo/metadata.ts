@@ -77,8 +77,8 @@ export function createPageMetadata(options: PageMetadataOptions = {}): Metadata 
       images: [
         {
           url: image.startsWith('http') ? image : `${SEO_CONFIG.siteUrl}${image}`,
-          width: 1024,
-          height: 1024,
+          width: image.includes('og-image') ? 1200 : 1024,
+          height: image.includes('og-image') ? 630 : 1024,
           alt: `${SEO_CONFIG.siteName} — Sovereign Autonomous AI Coding Agent`,
         },
       ],

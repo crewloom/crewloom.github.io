@@ -119,7 +119,7 @@ export const SEO_CONFIG: SeoConfig = {
     'スマートAIエージェント',
     '自律型AIソフトウェアエンジニア',
   ],
-  defaultImage: '/logo.png',
+  defaultImage: '/og-image.png',
   author: {
     name: 'Crewloom Autonomous Systems',
     url: 'https://crewloom.org',
