@@ -5,6 +5,7 @@ import { Download, Zap, Menu, X, ExternalLink } from 'lucide-react';
 import { Logo } from '@/components/common/Logo';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useLatestRelease } from '@/hooks/useLatestRelease';
+import { useDeviceOS } from '@/hooks/useDeviceOS';
 import { Button, Badge } from '@/components/ui';
 import { LanguageToggle } from '@/components/common/LanguageToggle';
 import { SITE_CONFIG } from '@/lib/constants';
@@ -19,8 +20,14 @@ function GithubIcon(props: React.SVGProps<SVGSVGElement>) {
 
 export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { t, isAr } = useLanguage();
-  const { versionTag, macDownloadUrl } = useLatestRelease();
+  const { t } = useLanguage();
+  const { currentDevice } = useDeviceOS();
+  const { versionTag, macDownloadUrl, macDownloadAvailable, macFileName } = useLatestRelease();
+
+  const isWin = currentDevice.platformKey === 'windows';
+  const downloadHref = isWin ? (currentDevice.downloadUrl || SITE_CONFIG.windowsDownloadUrl) : (currentDevice.isDirectDownload ? macDownloadUrl : '/#install');
+  const downloadName = isWin ? currentDevice.fileName : (currentDevice.isDirectDownload ? macFileName : undefined);
+  const downloadLabel = isWin ? `${t.install.downloadWindows} (${versionTag})` : (macDownloadAvailable ? `${t.nav.downloadMacApp} (${versionTag})` : `${t.nav.download} (${versionTag})`);
 
   const navItems = [
     { href: '/#features', label: t.nav.capabilities },
@@ -82,10 +89,10 @@ export function Navbar() {
           </a>
 
           <a
-            href={macDownloadUrl}
-            download="Crewloom.dmg"
+            href={downloadHref}
+            download={downloadName}
             className="hidden xs:inline-block"
-            title={`${t.nav.downloadMacAppAria} (${versionTag})`}
+            title={`${downloadLabel}`}
           >
             <Button
               variant="primary"
@@ -93,7 +100,7 @@ export function Navbar() {
               leftIcon={<Download className="w-3.5 h-3.5 stroke-[2.5]" />}
               className="font-bold text-xs shadow-lg shadow-cyan-500/20"
             >
-              <span className="hidden sm:inline">{`${t.nav.downloadMacApp} (${versionTag})`}</span>
+              <span className="hidden sm:inline">{downloadLabel}</span>
               <span className="sm:hidden">{t.nav.download}</span>
             </Button>
           </a>

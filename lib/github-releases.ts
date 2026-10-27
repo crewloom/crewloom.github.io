@@ -1,16 +1,10 @@
 import { PlatformKey } from '@/hooks/useDeviceOS';
 import desktopAgentMeta from './desktop-agent.json';
 
-export interface ReleaseAsset {
-  id: number;
-  name: string;
-  size: number;
-  sizeFormatted: string;
-  downloadUrl: string;
-  contentType: string;
-  platform: PlatformKey;
-  isInstaller: boolean;
-}
+import { parseReleaseAssets, selectReleaseAsset } from './release-assets';
+import type { ReleaseAsset } from './release-assets';
+export { formatBytes, detectAssetPlatform } from './release-assets';
+export type { ReleaseAsset } from './release-assets';
 
 export interface LatestReleaseData {
   tagName: string;
@@ -28,37 +22,6 @@ export interface LatestReleaseData {
   primaryWindowsAsset?: ReleaseAsset;
   primaryLinuxAsset?: ReleaseAsset;
   isLive: boolean;
-}
-
-export function formatBytes(bytes: number): string {
-  if (bytes === 0) return '0 B';
-  const mb = bytes / (1024 * 1024);
-  if (mb >= 1) {
-    return `${mb.toFixed(1)} MB`;
-  }
-  const kb = bytes / 1024;
-  return `${kb.toFixed(0)} KB`;
-}
-
-export function detectAssetPlatform(fileName: string): PlatformKey {
-  const lower = fileName.toLowerCase();
-
-  if (lower.endsWith('.dmg') || lower.includes('darwin') || lower.includes('mac')) {
-    if (lower.includes('x64') || lower.includes('x86_64') || lower.includes('intel')) {
-      return 'macos-x64';
-    }
-    return 'macos-arm64';
-  }
-
-  if (lower.endsWith('.exe') || lower.endsWith('.msi') || lower.includes('win')) {
-    return 'windows';
-  }
-
-  if (lower.endsWith('.deb') || lower.endsWith('.rpm') || lower.endsWith('.appimage') || lower.endsWith('.tar.gz') || lower.includes('linux')) {
-    return 'linux';
-  }
-
-  return 'curl';
 }
 
 /**
@@ -182,18 +145,9 @@ export async function fetchLatestReleaseFromGitHub(): Promise<LatestReleaseData>
       const selectedRelease = exactMatch || agentReleases[0];
       const rawAssets = Array.isArray(selectedRelease.assets) ? selectedRelease.assets : [];
 
-      const parsedAssets: ReleaseAsset[] = rawAssets.map((a: { id: number; name: string; size: number; browser_download_url: string; content_type: string }) => ({
-        id: a.id,
-        name: a.name,
-        size: a.size,
-        sizeFormatted: formatBytes(a.size),
-        downloadUrl: a.browser_download_url,
-        contentType: a.content_type,
-        platform: detectAssetPlatform(a.name),
-        isInstaller: a.name.endsWith('.dmg') || a.name.endsWith('.exe') || a.name.endsWith('.msi') || a.name.endsWith('.deb'),
-      }));
+      const parsedAssets = parseReleaseAssets(rawAssets, FALLBACK_RELEASE.assets);
 
-      const primaryMac = parsedAssets.find((a) => a.platform === 'macos-arm64' || a.name.endsWith('.dmg')) || parsedAssets[0];
+      const primaryMac = selectReleaseAsset(parsedAssets, 'macos-arm64');
       const primaryWin = parsedAssets.find((a) => a.platform === 'windows');
       const primaryLinux = parsedAssets.find((a) => a.platform === 'linux');
 

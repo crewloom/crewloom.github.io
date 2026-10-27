@@ -5,13 +5,13 @@ import {
   LatestReleaseData,
   ReleaseAsset,
   FALLBACK_RELEASE,
-  formatBytes,
-  detectAssetPlatform,
   getDesktopAgentVersion,
 } from '@/lib/github-releases';
-import { PlatformKey } from '@/hooks/useDeviceOS';
+import { parseReleaseAssets, selectReleaseAsset } from '@/lib/release-assets';
+import { useDeviceOS, type PlatformKey } from '@/hooks/useDeviceOS';
 
 export function useLatestRelease() {
+  const { detectedPlatform } = useDeviceOS();
   const [release, setRelease] = useState<LatestReleaseData>(FALLBACK_RELEASE);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
@@ -58,18 +58,9 @@ export function useLatestRelease() {
             const selected = exactMatch || agentReleases[0];
             if (selected) {
               const rawAssets = Array.isArray(selected.assets) ? selected.assets : [];
-              const parsedAssets: ReleaseAsset[] = rawAssets.map((a: { id: number; name: string; size: number; browser_download_url: string; content_type: string }) => ({
-                id: a.id,
-                name: a.name,
-                size: a.size,
-                sizeFormatted: formatBytes(a.size),
-                downloadUrl: a.browser_download_url,
-                contentType: a.content_type,
-                platform: detectAssetPlatform(a.name),
-                isInstaller: a.name.endsWith('.dmg') || a.name.endsWith('.exe') || a.name.endsWith('.msi') || a.name.endsWith('.deb'),
-              }));
+              const parsedAssets = parseReleaseAssets(rawAssets, FALLBACK_RELEASE.assets);
 
-              const primaryMac = parsedAssets.find((a) => a.platform === 'macos-arm64' || a.name.endsWith('.dmg')) || parsedAssets[0];
+              const primaryMac = selectReleaseAsset(parsedAssets, 'macos-arm64');
               const primaryWin = parsedAssets.find((a) => a.platform === 'windows');
               const primaryLinux = parsedAssets.find((a) => a.platform === 'linux');
 
@@ -117,21 +108,14 @@ export function useLatestRelease() {
     };
   }, []);
 
-  const getAssetForPlatform = (platform: PlatformKey): ReleaseAsset | undefined => {
-    if (platform === 'macos-arm64' || platform === 'macos-x64') {
-      return release.primaryMacAsset;
-    }
-    if (platform === 'windows') {
-      return release.primaryWindowsAsset;
-    }
-    if (platform === 'linux') {
-      return release.primaryLinuxAsset;
-    }
-    return undefined;
-  };
+  const getAssetForPlatform = (platform: PlatformKey): ReleaseAsset | undefined => selectReleaseAsset(release.assets, platform);
 
-  const macFileSize = release.primaryMacAsset?.sizeFormatted || '5.0 MB';
-  const macDownloadUrl = release.primaryMacAsset?.downloadUrl || '/Crewloom.dmg';
+  const macAsset = detectedPlatform === 'macos-arm64' || detectedPlatform === 'macos-x64'
+    ? selectReleaseAsset(release.assets, detectedPlatform) : undefined;
+  const macFileSize = macAsset?.sizeFormatted || '';
+  const macDownloadUrl = macAsset?.downloadUrl || '#install';
+  const macDownloadAvailable = Boolean(macAsset);
+  const macFileName = macAsset?.name;
   const versionTag = release.tagName;
 
   return {
@@ -149,6 +133,8 @@ export function useLatestRelease() {
     zipballUrl: release.zipballUrl,
     macFileSize,
     macDownloadUrl,
+    macDownloadAvailable,
+    macFileName,
     getAssetForPlatform,
   };
 }

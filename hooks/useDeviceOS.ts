@@ -26,7 +26,7 @@ export interface DeviceInfo {
 }
 
 export function useDeviceOS() {
-  const [detectedPlatform, setDetectedPlatform] = useState<PlatformKey>('macos-arm64');
+  const [detectedPlatform, setDetectedPlatform] = useState<PlatformKey>('curl');
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
@@ -51,7 +51,7 @@ export function useDeviceOS() {
 
     // Check Mac
     if (/Mac/i.test(platform) || /Macintosh|MacIntel/i.test(ua)) {
-      let isAppleSilicon = true; // Modern Macs are overwhelmingly Apple Silicon (M1-M5)
+      let isAppleSilicon: boolean | null = null;
 
       try {
         const canvas = document.createElement('canvas');
@@ -60,23 +60,23 @@ export function useDeviceOS() {
           const debugInfo = (gl as WebGLRenderingContext).getExtension('WEBGL_debug_renderer_info');
           if (debugInfo) {
             const renderer = (gl as WebGLRenderingContext).getParameter(debugInfo.UNMASKED_RENDERER_WEBGL) || '';
-            if (/Intel/i.test(renderer)) {
+            if (/Intel|AMD|Radeon|NVIDIA/i.test(renderer)) {
               isAppleSilicon = false;
-            } else if (/Apple/i.test(renderer)) {
+            } else if (/Apple M[1-9]/i.test(renderer)) {
               isAppleSilicon = true;
             }
           }
         }
       } catch {
-        // Fallback: keep Apple Silicon
+        // Unknown architecture requires an explicit platform selection.
       }
 
-      setDetectedPlatform(isAppleSilicon ? 'macos-arm64' : 'macos-x64');
+      setDetectedPlatform(isAppleSilicon === null ? 'curl' : isAppleSilicon ? 'macos-arm64' : 'macos-x64');
       return;
     }
 
-    // Default to macOS Apple Silicon
-    setDetectedPlatform('macos-arm64');
+    // Unknown devices must not receive an assumed CPU-specific installer.
+    setDetectedPlatform('curl');
   }, []);
 
   const getPlatformDetails = (key: PlatformKey): DeviceInfo => {

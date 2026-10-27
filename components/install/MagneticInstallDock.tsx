@@ -19,8 +19,8 @@ function GithubIcon({ className = 'w-4 h-4' }: { className?: string }) {
 
 export function MagneticInstallDock() {
   const { isClient, detectedPlatform, currentDevice, getPlatformDetails } = useDeviceOS();
-  const { release, versionTag, macFileSize, macDownloadUrl } = useLatestRelease();
-  const [selectedPlatform, setSelectedPlatform] = useState<PlatformKey>('macos-arm64');
+  const { release, versionTag, getAssetForPlatform } = useLatestRelease();
+  const [selectedPlatform, setSelectedPlatform] = useState<PlatformKey>('curl');
   const { t } = useLanguage();
   const { isCopied, copy } = useClipboard({ timeout: 2500 });
 
@@ -32,6 +32,8 @@ export function MagneticInstallDock() {
   }, [isClient, detectedPlatform]);
 
   const activeInfo = getPlatformDetails(selectedPlatform);
+  const deviceAsset = getAssetForPlatform(detectedPlatform);
+  const selectedAsset = getAssetForPlatform(selectedPlatform);
   const curlCmd = SITE_CONFIG.installCommand;
   const psCmd = SITE_CONFIG.powershellCommand;
   const isCopiedCmd = isCopied(curlCmd);
@@ -105,10 +107,10 @@ export function MagneticInstallDock() {
                     {`${t.install.downloadWindows} (${currentDevice.fileSize || '12.4 MB'})`}
                   </Button>
                 </a>
-              ) : currentDevice.isDirectDownload ? (
+              ) : currentDevice.isDirectDownload && deviceAsset ? (
                 <a
-                  href={macDownloadUrl}
-                  download="Crewloom.dmg"
+                  href={deviceAsset.downloadUrl}
+                  download={deviceAsset.name}
                   className="w-full sm:w-auto"
                 >
                   <Button
@@ -117,7 +119,7 @@ export function MagneticInstallDock() {
                     leftIcon={<Download className="w-3.5 h-3.5 stroke-[2.5]" />}
                     className="w-full sm:w-auto font-bold text-xs shadow-lg shadow-cyan-500/25 px-4 py-2"
                   >
-                    {`${t.install.downloadNow} (${macFileSize})`}
+                    {`${t.install.downloadNow} (${deviceAsset.sizeFormatted})`}
                   </Button>
                 </a>
               ) : (
@@ -188,20 +190,20 @@ export function MagneticInstallDock() {
                   <p className="text-[11px] sm:text-xs text-gray-400 mt-1 leading-relaxed">
                     {t.platforms[activeInfo.platformKey]?.compatibilityNote || activeInfo.compatibilityNoteEn}
                   </p>
-                  <div className="flex flex-wrap items-center gap-2.5 text-[10px] sm:text-[11px] font-mono text-gray-500 mt-1.5">
-                    <span>Format: <strong className="text-gray-300">Apple Disk Image (.dmg)</strong></span>
+                  {selectedAsset ? <div className="flex flex-wrap items-center gap-2.5 text-[10px] sm:text-[11px] font-mono text-gray-500 mt-1.5">
+                    <span>{t.install.formatLabel}: <strong className="text-gray-300">{selectedAsset.name}</strong></span>
                     <span>•</span>
-                    <span>Size: <strong className="text-cyan-400">{macFileSize}</strong></span>
+                    <span>{t.install.sizeLabel}: <strong className="text-cyan-400">{selectedAsset.sizeFormatted}</strong></span>
                     <span>•</span>
-                    <span>Target: <strong className="text-gray-300">macOS 11.0+</strong></span>
-                  </div>
+                    <span>{t.install.targetLabel}: <strong className="text-gray-300">{t.platforms[activeInfo.platformKey].label}</strong></span>
+                  </div> : null}
                 </div>
               </div>
 
               <div className="flex flex-col sm:flex-row items-center gap-2 w-full sm:w-auto shrink-0">
-                <a
-                  href={macDownloadUrl}
-                  download="Crewloom.dmg"
+                {selectedAsset ? <a
+                  href={selectedAsset.downloadUrl}
+                  download={selectedAsset.name}
                   className="w-full sm:w-auto"
                 >
                   <Button
@@ -212,7 +214,7 @@ export function MagneticInstallDock() {
                   >
                     {t.install.downloadMac}
                   </Button>
-                </a>
+                </a> : <p role="status" className="text-sm text-gray-300">{t.install.noInstaller}</p>}
                 <a
                   href={release.htmlUrl}
                   target="_blank"

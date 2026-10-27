@@ -37,6 +37,10 @@ export const DICTIONARY = {
       macTitle: 'Crewloom Agent Studio (macOS Native Beta)',
       macSub: '5.2 MB Native Bundle · Apple Silicon (M1–M5) · Local AST Zero-Destruction',
       downloadMac: 'Download for Mac',
+      noInstaller: 'No installer is available for this architecture.',
+      formatLabel: 'File',
+      sizeLabel: 'Size',
+      targetLabel: 'Platform',
       downloadWindows: 'Download for Windows',
       windowsInstaller: 'Windows NSIS Installer (.exe)',
       windowsPowershellPrompt: 'Windows PowerShell (1-Line Install):',
@@ -58,12 +62,12 @@ export const DICTIONARY = {
       'macos-arm64': {
         label: 'Mac (Apple Silicon)',
         fullName: 'Crewloom Studio for macOS (Apple Silicon)',
-        compatibilityNote: 'Universal ARM64 package natively optimized for Apple Silicon (M1 through M5).',
+        compatibilityNote: 'ARM64 installer for Apple Silicon. Availability depends on the published release.',
       },
       'macos-x64': {
         label: 'Mac (Intel)',
         fullName: 'Crewloom Studio for macOS (Intel)',
-        compatibilityNote: 'Can run immediately via macOS Rosetta 2 emulation while native x86_64 binaries compile in CI.',
+        compatibilityNote: 'Requires an x86_64 or explicitly universal installer. ARM64 packages cannot run on Intel Macs.',
       },
       'windows': {
         label: 'Windows',
@@ -214,6 +218,10 @@ export const DICTIONARY = {
       macTitle: 'تطبيق الماك الأصلي (Crewloom Agent Studio)',
       macSub: 'حزمة أصلية بحجم 5.2 ميجابايت · معالجات أبل سيليكون (M1–M5) · تدقيق محلي فوري',
       downloadMac: 'تحميل لأجهزة الماك',
+      noInstaller: 'لا يتوفر مثبت لهذه المعمارية.',
+      formatLabel: 'الملف',
+      sizeLabel: 'الحجم',
+      targetLabel: 'المنصة',
       downloadWindows: 'تحميل لأجهزة ويندوز',
       windowsInstaller: 'مثبت ويندوز NSIS (.exe)',
       windowsPowershellPrompt: 'أمر ويندوز PowerShell المباشر:',
@@ -240,7 +248,7 @@ export const DICTIONARY = {
       'macos-x64': {
         label: 'ماك (Intel)',
         fullName: 'تطبيق كرو لوم لأجهزة الماك (معالجات إنتل)',
-        compatibilityNote: 'يمكن تشغيله فوراً عبر بيئة Rosetta 2 في الماك لحين اكتمال تجميع حزم x86_64 الأصلية.',
+        compatibilityNote: 'يتطلب مثبت x86_64 أو مثبتًا معلنًا لدعم المعماريتين. حزم ARM64 لا تعمل على أجهزة Intel.',
       },
       'windows': {
         label: 'ويندوز',

@@ -9,7 +9,7 @@ import { SITE_CONFIG } from '@/lib/constants';
 
 export function QuickstartSection() {
   const { t, isAr } = useLanguage();
-  const { versionTag, macFileSize, macDownloadUrl } = useLatestRelease();
+  const { versionTag, macFileSize, macDownloadUrl, macDownloadAvailable, macFileName } = useLatestRelease();
 
   const curlCmd = SITE_CONFIG.installCommand;
   const studioCmd = 'crewloom studio --open';
@@ -36,13 +36,13 @@ export function QuickstartSection() {
                   <span>{`${t.quickstart.macDesktopStudio} (${versionTag})`}</span>
                 </h4>
                 <p className="text-[11px] sm:text-xs text-gray-400 mt-0.5">
-                  {t.quickstart.nativeBundleNote.replace('{size}', macFileSize)}
+                  {macDownloadAvailable ? t.quickstart.nativeBundleNote.replace('{size}', macFileSize) : t.install.noInstaller}
                 </p>
               </div>
             </div>
-            <a href={macDownloadUrl} download="Crewloom.dmg" className="w-full sm:w-auto shrink-0">
+            <a href={macDownloadUrl} download={macDownloadAvailable ? macFileName : undefined} className="w-full sm:w-auto shrink-0">
               <Button variant="primary" size="sm" leftIcon={<Download className="w-3.5 h-3.5" />} className="w-full sm:w-auto text-xs font-bold py-2">
-                {t.quickstart.downloadForMac}
+                {macDownloadAvailable ? t.quickstart.downloadForMac : t.install.viewInstructions}
               </Button>
             </a>
           </div>

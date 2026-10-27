@@ -10,7 +10,7 @@ import { SITE_CONFIG } from '@/lib/constants';
 export function FloatingActionDock() {
   const [showScrollTop, setShowScrollTop] = useState(false);
   const { toggleLang, t } = useLanguage();
-  const { macDownloadUrl } = useLatestRelease();
+  const { macDownloadUrl, macDownloadAvailable, macFileName } = useLatestRelease();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -31,14 +31,14 @@ export function FloatingActionDock() {
       dir="ltr"
     >
       <div className="pointer-events-auto flex items-center gap-2 p-2 rounded-2xl bg-space-950/90 backdrop-blur-2xl border border-white/10 shadow-2xl transition-all duration-300">
-        <a href={macDownloadUrl} download="Crewloom.dmg">
+        <a href={macDownloadUrl} download={macDownloadAvailable ? macFileName : undefined}>
           <Button
             variant="primary"
             size="sm"
             leftIcon={<Download className="w-3.5 h-3.5 stroke-[2.5]" />}
             className="font-bold text-xs"
           >
-            {t.floating.downloadMacApp}
+            {macDownloadAvailable ? t.floating.downloadMacApp : t.install.viewInstructions}
           </Button>
         </a>
 
