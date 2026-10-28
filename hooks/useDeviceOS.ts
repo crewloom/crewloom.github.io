@@ -132,13 +132,13 @@ export function useDeviceOS() {
           fullNameAr: 'تطبيق كرو لوم لويندوز 10/11',
           isDirectDownload: true,
           downloadUrl: SITE_CONFIG.windowsDownloadUrl,
-          fileName: 'Crewloom-Agent-Setup.bat',
-          fileSize: '1-Click Setup',
-          statusBadgeEn: 'Verified Release v' + (desktopAgentMeta.version || '0.3.22'),
-          statusBadgeAr: 'إصدار معتمد وموثق v' + (desktopAgentMeta.version || '0.3.22'),
+          fileName: 'Crewloom-Agent-Setup.exe',
+          fileSize: '6.0 MB',
+          statusBadgeEn: 'Verified Release (.exe) v' + (desktopAgentMeta.version || '0.3.22'),
+          statusBadgeAr: 'إصدار تنفيذي معتمد (.exe) v' + (desktopAgentMeta.version || '0.3.22'),
           isRecommendedForDevice: detectedPlatform === 'windows',
-          compatibilityNoteEn: '1-click Windows setup batch installer or native PowerShell installation with zero-drift local headroom.',
-          compatibilityNoteAr: 'مثبت بنقرة واحدة لويندوز عبر ملف إعداد فوري أو عبر سطر أوامر PowerShell مع قياس دقيق للموارد.',
+          compatibilityNoteEn: 'Verified native installer (.exe) for Windows 10/11 with zero-drift local headroom and PowerShell support.',
+          compatibilityNoteAr: 'مثبت تنفيذي معتمد (.exe) لويندوز 10/11 مع قياس دقيق للموارد ودعم كامل للطرفية وPowerShell.',
         };
 
       case 'linux':
