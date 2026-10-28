@@ -133,7 +133,7 @@ export function useDeviceOS() {
           isDirectDownload: true,
           downloadUrl: SITE_CONFIG.windowsDownloadUrl,
           fileName: 'Crewloom-Agent-Setup.exe',
-          fileSize: '6.0 MB',
+          fileSize: '12.4 MB',
           statusBadgeEn: 'Verified Release (.exe) v' + (desktopAgentMeta.version || '0.3.22'),
           statusBadgeAr: 'إصدار تنفيذي معتمد (.exe) v' + (desktopAgentMeta.version || '0.3.22'),
           isRecommendedForDevice: detectedPlatform === 'windows',

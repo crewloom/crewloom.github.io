@@ -111,8 +111,8 @@ export const FALLBACK_RELEASE: LatestReleaseData = {
   primaryWindowsAsset: {
     id: 2,
     name: 'Crewloom-Agent-Setup.exe',
-    size: 6260000,
-    sizeFormatted: '6.0 MB',
+    size: 12397568,
+    sizeFormatted: '12.4 MB',
     downloadUrl: `https://github.com/crewloom/crewloom.github.io/releases/download/${currentAgent.tagName}/Crewloom-Agent-Setup.exe`,
     contentType: 'application/x-msdownload',
     platform: 'windows',
