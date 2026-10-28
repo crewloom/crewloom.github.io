@@ -1,6 +1,9 @@
 {
   "name": "website",
-  "version": "1.0.8",
+  "version": "1.0.9",
+  "engines": {
+    "node": "^22.19.0 || >=24.0.0"
+  },
   "description": "",
   "main": "index.js",
   "scripts": {

@@ -7,7 +7,7 @@ const root = new URL('../', import.meta.url);
 const metadata = JSON.parse(await fs.readFile(new URL('cli/package.json', root), 'utf8'));
 const result = await build({
   entryPoints: [fileURLToPath(new URL('cli/bin/crewloom.js', root))],
-  bundle: true, write: false, platform: 'node', format: 'esm', target: 'node18',
+  bundle: true, write: false, platform: 'node', format: 'esm', target: 'node24',
   define: { CREWLOOM_BUILD_VERSION: JSON.stringify(metadata.version) },
   legalComments: 'none',
 });
@@ -17,7 +17,8 @@ const portable = '#!/usr/bin/env node\n'
   + `void import('data:text/javascript;base64,${Buffer.from(source).toString('base64')}')`
   + '.catch(error => { console.error(error.message); process.exitCode = 1; });\n';
 for (const name of ['crewloom', 'crewloom.js', 'crewloom.mjs']) {
-  const file = new URL(`public/bin/${name}`, root);
-  await fs.writeFile(file, name === 'crewloom' ? portable : source, { mode: 0o755 });
+  const content = name === 'crewloom' ? portable : source;
+  await fs.writeFile(new URL(`public/bin/${name}`, root), content, { mode: 0o755 });
+  await fs.writeFile(new URL(`bin/${name}`, root), content, { mode: 0o755 });
 }
 console.log(`Built CLI ${metadata.version} from cli/bin/crewloom.js`);

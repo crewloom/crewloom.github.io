@@ -11,6 +11,7 @@ import fs from 'fs';
 import { resolveWorkspaceRoot } from './workspace-root.js';
 import { initializeWorkspace, verifyWorkspace } from './workspace-commands.js';
 import { translate } from './messages.js';
+import { renderBanner } from './banner.js';
 
 const launcherDirectory = path.dirname(fs.realpathSync(process.argv[1]));
 const rootDir = resolveWorkspaceRoot(process.cwd(), launcherDirectory);
@@ -21,12 +22,7 @@ const VERSION = typeof CREWLOOM_BUILD_VERSION === 'string'
 const args = process.argv.slice(2);
 const command = args[0] || 'help';
 
-const BANNER = `
-\x1b[38;2;6;182;212m╔══════════════════════════════════════════════════════════════════════╗\x1b[0m
-\x1b[38;2;6;182;212m║\x1b[0m  \x1b[1;37m⚡ CREWLOOM SOVEREIGN AI AGENT ENGINE\x1b[0m \x1b[38;2;6;182;212mv${VERSION}\x1b[0m                    \x1b[38;2;6;182;212m║\x1b[0m
-\x1b[38;2;6;182;212m║\x1b[0m  \x1b[38;2;16;185;129mDual Bicultural Core (En/Ar) · Native Staged Diffs · Multi-Agent\x1b[0m     \x1b[38;2;6;182;212m║\x1b[0m
-\x1b[38;2;6;182;212m╚══════════════════════════════════════════════════════════════════════╝\x1b[0m
-`;
+const BANNER = renderBanner(VERSION);
 
 function loadRealCatalog() {
   const candidatePaths = [
@@ -94,13 +90,17 @@ switch (command) {
 
   case 'roles':
   case 'list': {
-    console.log(BANNER);
     const catalog = loadRealCatalog();
     const categoryFilter = args.includes('--category') ? args[args.indexOf('--category') + 1]?.toLowerCase() : null;
     let roles = catalog.roles || [];
     if (categoryFilter) {
       roles = roles.filter(r => (r.category || '').toLowerCase().includes(categoryFilter));
     }
+    if (args.includes('--json')) {
+      console.log(JSON.stringify(roles, null, 2));
+      break;
+    }
+    console.log(BANNER);
     console.log(`\x1b[1;36m▶ ${roles.length} Sovereign Specialist Roles Loaded from Catalog:\x1b[0m\n`);
     const tableData = roles.map(r => ({
       id: r.id,
@@ -218,19 +218,31 @@ switch (command) {
   }
 
   case 'status': {
+    const catalog = loadRealCatalog();
+    const tools = ['claude', 'codex', 'opencode', 'agy'].map(tool => ({
+      name: tool,
+      ...detectLocalCli(tool),
+    }));
+    if (args.includes('--json')) {
+      console.log(JSON.stringify({
+        engine: `Crewloom Desktop / Tauri v${VERSION}`,
+        version: VERSION,
+        rolesCount: catalog.roles?.length || 0,
+        tools,
+      }, null, 2));
+      break;
+    }
     console.log(BANNER);
     console.log('\x1b[36m▶ Orchestrator & Tool Runtime Status:\x1b[0m');
     console.log(`  Engine: Crewloom Desktop / Tauri v${VERSION}`);
-    const catalog = loadRealCatalog();
     console.log(`  Specialist Roles: ${catalog.roles?.length || 0} registered in catalog`);
 
     console.log('\n\x1b[36m▶ Local CLI Models & Engines Detected:\x1b[0m');
-    for (const tool of ['claude', 'codex', 'opencode', 'agy']) {
-      const res = detectLocalCli(tool);
-      if (res.installed) {
-        console.log(`  \x1b[32m✓ ${tool.padEnd(10)}\x1b[0m: ${res.version} (\x1b[90m${res.path}\x1b[0m)`);
+    for (const tool of tools) {
+      if (tool.installed) {
+        console.log(`  \x1b[32m✓ ${tool.name.padEnd(10)}\x1b[0m: ${tool.version} (\x1b[90m${tool.path}\x1b[0m)`);
       } else {
-        console.log(`  \x1b[90m- ${tool.padEnd(10)}: not found in PATH\x1b[0m`);
+        console.log(`  \x1b[90m- ${tool.name.padEnd(10)}: not found in PATH\x1b[0m`);
       }
     }
     console.log('');
