@@ -4,6 +4,7 @@
 import { spawn, execSync } from "child_process";
 import path3 from "path";
 import fs3 from "fs";
+import readline from "readline";
 
 // cli/bin/workspace-root.js
 import fs from "node:fs";
@@ -127,14 +128,9 @@ function getTerminalColors(stream = process.stdout) {
       mode: "none",
       isTrueColor: false,
       warp: "",
-      warpBright: "",
       weft: "",
-      weftBright: "",
-      ring1: "",
-      ring2: "",
-      ring3: "",
       sky: "",
-      skyBright: "",
+      tileBorder: "",
       text: "",
       white: "",
       bold: "",
@@ -153,25 +149,16 @@ function getTerminalColors(stream = process.stdout) {
     return {
       mode: "truecolor",
       isTrueColor: true,
-      warp: "\x1B[38;2;115;136;245m",
+      tileBorder: "\x1B[38;2;71;85;105m",
+      // #475569 Slate 600
+      warp: "\x1B[1;38;2;115;136;245m",
       // #7388f5 (Memory / Warp - periwinkle)
-      warpBright: "\x1B[1;38;2;147;165;255m",
-      // #93a5ff
-      weft: "\x1B[38;2;45;212;191m",
+      weft: "\x1B[1;38;2;45;212;191m",
       // #2dd4bf (Roles / Weft - luminous teal)
-      weftBright: "\x1B[1;38;2;94;234;212m",
-      // #5eead4
-      ring1: "\x1B[38;2;45;212;191m",
-      // #2dd4bf
-      ring2: "\x1B[38;2;56;189;248m",
+      sky: "\x1B[1;38;2;56;189;248m",
       // #38bdf8 (Evidence sky blue)
-      ring3: "\x1B[1;38;2;125;211;252m",
-      // #7dd3fc
-      sky: "\x1B[38;2;56;189;248m",
-      // #38bdf8
-      skyBright: "\x1B[1;38;2;125;211;252m",
-      text: "\x1B[38;2;237;242;247m",
-      // #edf2f7
+      text: "\x1B[38;2;241;245;249m",
+      // #f1f5f9
       white: "\x1B[1;38;2;255;255;255m",
       bold: "\x1B[1m",
       dim: "\x1B[38;2;148;163;184m",
@@ -179,51 +166,22 @@ function getTerminalColors(stream = process.stdout) {
       muted: "\x1B[38;2;100;116;139m",
       // #64748b
       badgeBg: "\x1B[48;2;30;41;59m\x1B[38;2;241;245;249m\x1B[1m",
-      // #1e293b / #f1f5f9
-      reset: "\x1B[0m"
-    };
-  }
-  const is256Color = Boolean(process.env.TERM && /256color/i.test(process.env.TERM)) || Boolean(process.env.TERM_PROGRAM);
-  if (is256Color) {
-    return {
-      mode: "256",
-      isTrueColor: false,
-      warp: "\x1B[38;5;105m",
-      warpBright: "\x1B[1;38;5;147m",
-      weft: "\x1B[38;5;43m",
-      weftBright: "\x1B[1;38;5;79m",
-      ring1: "\x1B[38;5;43m",
-      ring2: "\x1B[38;5;81m",
-      ring3: "\x1B[1;38;5;117m",
-      sky: "\x1B[38;5;81m",
-      skyBright: "\x1B[1;38;5;117m",
-      text: "\x1B[38;5;253m",
-      white: "\x1B[1;38;5;255m",
-      bold: "\x1B[1m",
-      dim: "\x1B[38;5;246m",
-      muted: "\x1B[38;5;242m",
-      badgeBg: "\x1B[48;5;236m\x1B[38;5;254m\x1B[1m",
       reset: "\x1B[0m"
     };
   }
   return {
-    mode: "16",
+    mode: "256",
     isTrueColor: false,
-    warp: "\x1B[1;34m",
-    warpBright: "\x1B[1;94m",
-    weft: "\x1B[36m",
-    weftBright: "\x1B[1;96m",
-    ring1: "\x1B[36m",
-    ring2: "\x1B[1;96m",
-    ring3: "\x1B[96m",
-    sky: "\x1B[1;96m",
-    skyBright: "\x1B[1;96m",
-    text: "\x1B[37m",
-    white: "\x1B[1;97m",
+    tileBorder: "\x1B[38;5;242m",
+    warp: "\x1B[1;38;5;105m",
+    weft: "\x1B[1;38;5;43m",
+    sky: "\x1B[1;38;5;81m",
+    text: "\x1B[38;5;254m",
+    white: "\x1B[1;38;5;255m",
     bold: "\x1B[1m",
-    dim: "\x1B[90m",
-    muted: "\x1B[90m",
-    badgeBg: "\x1B[7m",
+    dim: "\x1B[38;5;246m",
+    muted: "\x1B[38;5;242m",
+    badgeBg: "\x1B[48;5;236m\x1B[38;5;254m\x1B[1m",
     reset: "\x1B[0m"
   };
 }
@@ -246,26 +204,17 @@ function brandGradientColor(t) {
   }
   return `\x1B[38;2;${r};${g};${b}m`;
 }
-function renderWordmarkLine(line, colors) {
-  if (colors.mode === "none") return line;
+function gradientText(text, colors) {
+  if (colors.mode === "none") return text;
   if (colors.mode === "truecolor") {
     let out = "";
-    for (let i = 0; i < line.length; i++) {
-      const t = line.length > 1 ? i / (line.length - 1) : 0;
-      out += `${brandGradientColor(t)}${line[i]}`;
+    for (let i = 0; i < text.length; i++) {
+      const t = text.length > 1 ? i / (text.length - 1) : 0;
+      out += `${brandGradientColor(t)}${text[i]}`;
     }
     return out + colors.reset;
   }
-  if (colors.mode === "256") {
-    const stops = [43, 44, 81, 75, 105];
-    let out = "";
-    for (let i = 0; i < line.length; i++) {
-      const idx = Math.min(stops.length - 1, Math.floor(i / line.length * stops.length));
-      out += `\x1B[38;5;${stops[idx]}m${line[i]}`;
-    }
-    return out + colors.reset;
-  }
-  return `\x1B[1;96m${line}\x1B[0m`;
+  return `${colors.weft}${text}${colors.reset}`;
 }
 function formatTagline(templateKey, roleKey, memoryKey, evidenceKey, c, isAlt) {
   const template = translate(templateKey);
@@ -279,41 +228,34 @@ function formatTagline(templateKey, roleKey, memoryKey, evidenceKey, c, isAlt) {
   const content = template.replace("{role}", roleFormatted).replace("{memory}", memoryFormatted).replace("{evidence}", evidenceFormatted);
   return `${baseStyle}${content}${c.reset}`;
 }
-var WORDMARK_LINES = [
-  "\u2588\u2580\u2580 \u2588\u2580\u2588 \u2588\u2580\u2580 \u2588   \u2588 \u2588   \u2588\u2580\u2588 \u2588\u2580\u2588 \u2588\u2580\u2584\u2580\u2588",
-  "\u2588   \u2588\u2580\u2584 \u2588\u2588\u2584 \u2588 \u2588 \u2588 \u2588   \u2588 \u2588 \u2588 \u2588 \u2588 \u2588 \u2588",
-  "\u2580\u2580\u2580 \u2580 \u2580 \u2580\u2580\u2580  \u2580 \u2580  \u2580\u2580\u2580 \u2580\u2580\u2580 \u2580\u2580\u2580 \u2580   \u2580"
-];
 function renderBanner(version = "1.0.1", stream = process.stdout) {
   const c = getTerminalColors(stream);
   const subtitle = translate("bannerSubtitle");
   const core = translate("bannerCore");
-  const w1 = renderWordmarkLine(WORDMARK_LINES[0], c);
-  const w2 = renderWordmarkLine(WORDMARK_LINES[1], c);
-  const w3 = renderWordmarkLine(WORDMARK_LINES[2], c);
+  const wordmark = gradientText("C R E W L O O M", c);
   const badgeStr = c.badgeBg ? `${c.badgeBg} v${version} ${c.reset}` : `v${version}`;
   const primaryTagline = formatTagline("bannerTagline", "bannerRole", "bannerMemory", "bannerEvidence", c, false);
   const secondaryTagline = formatTagline("bannerTaglineAlt", "bannerRoleAlt", "bannerMemoryAlt", "bannerEvidenceAlt", c, true);
-  const E = `${c.ring1}\u2562${c.ring2}\u25CE${c.ring3}\u255F${c.reset}`;
+  const B = c.tileBorder;
   const W = c.warp;
   const F = c.weft;
   const R = c.reset;
-  const GAP = "    ";
-  const m0 = `       ${W}\u2551${R}     ${W}\u2551${R}     ${W}\u2551${R}    `;
-  const m1 = `    ${F}\u2550\u2550${R} ${W}\u2551${R} ${F}\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550${R} ${W}\u2551${R} ${F}\u2550\u2550${R} `;
-  const m2 = `       ${W}\u2551${R}     ${W}\u2551${R}     ${W}\u2551${R}    `;
-  const m3 = `    ${F}\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550${R} ${W}\u2551${R} ${F}\u2550\u2550\u2550\u2550\u2550\u2550${E}`;
-  const m4 = `       ${W}\u2551${R}     ${W}\u2551${R}     ${W}\u2551${R}    `;
-  const m5 = `    ${F}\u2550\u2550${R} ${W}\u2551${R} ${F}\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550${R} ${W}\u2551${R} ${F}\u2550\u2550${R} `;
-  const m6 = `       ${W}\u2551${R}     ${W}\u2551${R}     ${W}\u2551${R}    `;
+  const E = `${c.sky}\u25CE${R}`;
+  const t0 = `  ${B}\u256D\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u256E${R}`;
+  const t1 = `  ${B}\u2502${R}   ${W}\u2551${R}   ${W}\u2551${R}   ${W}\u2551${R}   ${B}\u2502${R}`;
+  const t2 = `  ${B}\u2502${R} ${F}\u2550\u2550${R}${W}\u256C${R}${F}\u2550\u2550\u2550\u2550\u2550\u2550\u2550${R}${W}\u256C${R}${F}\u2550\u2550${R} ${B}\u2502${R}`;
+  const t3 = `  ${B}\u2502${R} ${F}\u2550\u2550\u2550\u2550\u2550\u2550\u2550${R}${W}\u256C${R}${F}\u2550\u2550\u2550${E}  ${B}\u2502${R}`;
+  const t4 = `  ${B}\u2502${R} ${F}\u2550\u2550${R}${W}\u256C${R}${F}\u2550\u2550\u2550\u2550\u2550\u2550\u2550${R}${W}\u256C${R}${F}\u2550\u2550${R} ${B}\u2502${R}`;
+  const t5 = `  ${B}\u2502${R}   ${W}\u2551${R}   ${W}\u2551${R}   ${W}\u2551${R}   ${B}\u2502${R}`;
+  const t6 = `  ${B}\u2570\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u256F${R}`;
   return `
-${m0}${GAP}${w1}  ${badgeStr}
-${m1}${GAP}${w2}  ${c.dim}${subtitle}${c.reset}
-${m2}${GAP}${w3}  ${c.warp}${core}${c.reset}
-${m3}${GAP}
-${m4}${GAP}${primaryTagline}
-${m5}${GAP}${secondaryTagline}
-${m6}
+${t0}
+${t1}   ${c.bold}${wordmark}${c.reset}  ${badgeStr}
+${t2}   ${c.dim}${subtitle}${c.reset}
+${t3}   ${c.warp}${core}${c.reset}
+${t4}   ${primaryTagline}
+${t5}   ${secondaryTagline}
+${t6}
 `;
 }
 
@@ -322,7 +264,6 @@ var launcherDirectory = path3.dirname(fs3.realpathSync(process.argv[1]));
 var rootDir = resolveWorkspaceRoot(process.cwd(), launcherDirectory);
 var VERSION = true ? "1.0.1" : JSON.parse(fs3.readFileSync(path3.join(launcherDirectory, "../package.json"), "utf8")).version;
 var args = process.argv.slice(2);
-var command = args[0] || "help";
 var BANNER = renderBanner(VERSION);
 function loadRealCatalog() {
   const candidatePaths = [
@@ -359,17 +300,16 @@ function detectLocalCli(name) {
 }
 function printHelp() {
   console.log(BANNER);
-  console.log(`
-Usage: crewloom <command> [options]
+  console.log(`Usage: crewloom <command> [options]
 
 Commands:
-  roles, list          List and inspect real specialist agent roles from catalog
-  audit [--preflight]  Verify repository integrity, git worktree and check for dangerous patterns
-  studio [--open]      Launch Crewloom Studio web service (if available)
+  roles, list          List and inspect 47 specialist agent roles from catalog
+  status               Display real system status & detected local CLI models
+  studio [--open]      Launch Crewloom Studio web dashboard (browser interface)
   bridge [options]     Launch Omni-Channel Mediator (Telegram/WhatsApp/Terminal)
   verify               Run core automated verification test suite
+  audit [--preflight]  Verify repository integrity, worktree and security guards
   init                 Initialize sovereign .crewloom configuration in workspace
-  status               Display real system status, detected local CLI models & tools
   version, -v          Display Crewloom Sovereign Engine version
 
 Options:
@@ -377,171 +317,209 @@ Options:
   --json               Emit output as structured machine-readable JSON
   --help, -h           Show this help message
 
-Documentation & Quickstart:
-  https://crewloom.org
+Quick execution:
+  crewloom roles       \u2022  crewloom status  \u2022  crewloom studio  \u2022  crewloom verify
 `);
 }
-switch (command) {
-  case "version":
-  case "-v":
-  case "--version":
-    console.log(`crewloom v${VERSION} (Sovereign Dual-Core Engine)`);
-    break;
-  case "roles":
-  case "list": {
-    const catalog = loadRealCatalog();
-    const categoryFilter = args.includes("--category") ? args[args.indexOf("--category") + 1]?.toLowerCase() : null;
-    let roles = catalog.roles || [];
-    if (categoryFilter) {
-      roles = roles.filter((r) => (r.category || "").toLowerCase().includes(categoryFilter));
-    }
-    if (args.includes("--json")) {
-      console.log(JSON.stringify(roles, null, 2));
+function executeCommand(cmdArgs) {
+  const cmd = cmdArgs[0] || "help";
+  switch (cmd) {
+    case "version":
+    case "-v":
+    case "--version":
+      console.log(`crewloom v${VERSION} (Sovereign Dual-Core Engine)`);
+      break;
+    case "roles":
+    case "list": {
+      const catalog = loadRealCatalog();
+      const categoryFilter = cmdArgs.includes("--category") ? cmdArgs[cmdArgs.indexOf("--category") + 1]?.toLowerCase() : null;
+      let roles = catalog.roles || [];
+      if (categoryFilter) {
+        roles = roles.filter((r) => (r.category || "").toLowerCase().includes(categoryFilter));
+      }
+      if (cmdArgs.includes("--json")) {
+        console.log(JSON.stringify(roles, null, 2));
+        break;
+      }
+      console.log(BANNER);
+      console.log(`\x1B[36m\u25B6 ${roles.length} Sovereign Specialist Roles Loaded from Catalog:\x1B[0m
+`);
+      const preview = roles.slice(0, 30).map((r) => ({
+        id: r.id,
+        name: r.name,
+        category: r.category || "Specialist",
+        files: r.files?.length || 0
+      }));
+      console.table(preview);
+      if (roles.length > 30) {
+        console.log(`... and ${roles.length - 30} more roles. Use \x1B[1mcrewloom roles --json\x1B[0m to inspect all.`);
+      }
       break;
     }
-    console.log(BANNER);
-    console.log(`\x1B[1;36m\u25B6 ${roles.length} Sovereign Specialist Roles Loaded from Catalog:\x1B[0m
-`);
-    const tableData = roles.map((r) => ({
-      id: r.id,
-      name: r.name,
-      category: r.category || "Specialist",
-      files: Array.isArray(r.files) ? r.files.length : 0
-    }));
-    console.table(tableData.slice(0, 30));
-    if (tableData.length > 30) {
-      console.log(`\x1B[90m... and ${tableData.length - 30} more roles.\x1B[0m`);
-    }
-    break;
-  }
-  case "audit": {
-    console.log(BANNER);
-    console.log("\x1B[36m\u25B6 [Integrity & Safety Audit] Inspecting working tree...\x1B[0m");
-    const cwd = process.cwd();
-    let gitDirty = false;
-    let modifiedFiles = [];
-    try {
-      const gitOut = execSync("git status --porcelain", { cwd, stdio: "pipe" }).toString().trim();
-      if (gitOut) {
-        gitDirty = true;
-        modifiedFiles = gitOut.split("\n").map((l) => l.trim());
+    case "audit": {
+      console.log(BANNER);
+      console.log("\x1B[36m\u25B6 [Integrity & Safety Audit] Inspecting working tree...\x1B[0m");
+      const cwd = process.cwd();
+      let gitDirty = false;
+      let modifiedFiles = [];
+      try {
+        const gitOut = execSync("git status --porcelain", { cwd, stdio: "pipe" }).toString().trim();
+        if (gitOut) {
+          gitDirty = true;
+          modifiedFiles = gitOut.split("\n").map((l) => l.trim());
+        }
+      } catch {
+        console.log("  Notice: Current directory is not a git repository.");
       }
-    } catch {
-      console.log("  Notice: Current directory is not a git repository.");
+      const DANGEROUS_PATTERNS = [
+        /rm\s+-rf\s+[/~]/i,
+        /DROP\s+TABLE/i,
+        /DROP\s+DATABASE/i,
+        /TRUNCATE\s+TABLE/i,
+        /DELETE\s+FROM\s+\w+\s+WHERE\s+1\s*=\s*1/i
+      ];
+      let dangerousCount = 0;
+      try {
+        const diffOut = execSync("git diff -U0", { cwd, stdio: "pipe" }).toString();
+        for (const pattern of DANGEROUS_PATTERNS) {
+          if (pattern.test(diffOut)) {
+            dangerousCount++;
+            console.log(`\x1B[31m\u26A0 Warning: Dangerous command pattern detected: ${pattern}\x1B[0m`);
+          }
+        }
+      } catch {
+      }
+      if (gitDirty) {
+        console.log(`\x1B[33m\u2022 ${modifiedFiles.length} modified/untracked files in working directory.\x1B[0m`);
+      } else {
+        console.log("\x1B[32m\u2713 Working directory clean.\x1B[0m");
+      }
+      if (dangerousCount === 0) {
+        console.log("\x1B[32m\u2713 0 destructive commands detected in active diffs.\x1B[0m");
+        console.log("\x1B[32m\u2713 Policy guard verification certified clean.\x1B[0m\n");
+      } else {
+        console.log(`\x1B[31m\u2717 ${dangerousCount} destructive patterns detected. Please review staged changes.\x1B[0m
+`);
+        process.exit(1);
+      }
+      break;
     }
-    const DANGEROUS_PATTERNS = [
-      /rm\s+-rf\s+[/~]/i,
-      /DROP\s+TABLE/i,
-      /DROP\s+DATABASE/i,
-      /TRUNCATE\s+TABLE/i,
-      /DELETE\s+FROM\s+\w+\s+WHERE\s+1\s*=\s*1/i
-    ];
-    let dangerousCount = 0;
-    try {
-      const diffOut = execSync("git diff -U0", { cwd, stdio: "pipe" }).toString();
-      for (const pattern of DANGEROUS_PATTERNS) {
-        if (pattern.test(diffOut)) {
-          dangerousCount++;
-          console.log(`\x1B[31m\u26A0 Warning: Dangerous command pattern detected: ${pattern}\x1B[0m`);
+    case "studio": {
+      console.log(BANNER);
+      console.log("\x1B[36m\u25B6 Launching Crewloom Studio Web Dashboard...\x1B[0m");
+      const studioServerPath = process.env.CREWLOOM_STUDIO_PATH || path3.join(rootDir, "agent/apps/crewloom-studio/server.mjs");
+      if (fs3.existsSync(studioServerPath)) {
+        const shouldOpen = cmdArgs.includes("--open");
+        const child = spawn("node", [studioServerPath], { stdio: "inherit" });
+        if (shouldOpen) {
+          const openCmd = process.platform === "darwin" ? "open" : process.platform === "win32" ? "start" : "xdg-open";
+          setTimeout(() => {
+            try {
+              execSync(`${openCmd} http://localhost:3030`);
+            } catch {
+            }
+          }, 1e3);
+        }
+        child.on("exit", (code) => process.exit(code || 0));
+      } else {
+        console.log("\x1B[33m\u2022 Studio server script not found at expected path.\x1B[0m");
+      }
+      break;
+    }
+    case "bridge": {
+      console.log(BANNER);
+      const bridgePath = process.env.CREWLOOM_BRIDGE_PATH || path3.join(rootDir, "bridge/dist/index.js");
+      if (fs3.existsSync(bridgePath)) {
+        const child = spawn("node", [bridgePath, ...cmdArgs.slice(1)], { stdio: "inherit" });
+        child.on("exit", (code) => process.exit(code || 0));
+      } else {
+        console.log("\x1B[33m\u2022 Bridge build not found. Run `npm run build` in bridge/ first.\x1B[0m");
+      }
+      break;
+    }
+    case "verify":
+    case "demo": {
+      console.log(BANNER);
+      const results = verifyWorkspace(rootDir);
+      for (const result of results) {
+        console.log(`${translate(result.success ? "suitePass" : "suiteFail")}: ${result.name} (${result.reason})`);
+      }
+      const success = results.every((result) => result.success);
+      console.log(translate(success ? "verifyOk" : "verifyFailed"));
+      process.exitCode = success ? 0 : 1;
+      break;
+    }
+    case "init": {
+      console.log(BANNER);
+      try {
+        initializeWorkspace(process.cwd(), VERSION);
+        console.log(translate("initOk"));
+      } catch (error) {
+        console.error(translate("initFailed"), error instanceof Error ? error.message : String(error));
+        process.exitCode = 1;
+      }
+      break;
+    }
+    case "status": {
+      const catalog = loadRealCatalog();
+      const tools = ["claude", "codex", "opencode", "agy"].map((tool) => ({
+        name: tool,
+        ...detectLocalCli(tool)
+      }));
+      if (cmdArgs.includes("--json")) {
+        console.log(JSON.stringify({
+          engine: `Crewloom Desktop / Tauri v${VERSION}`,
+          version: VERSION,
+          rolesCount: catalog.roles?.length || 0,
+          tools
+        }, null, 2));
+        break;
+      }
+      console.log(BANNER);
+      console.log("\x1B[36m\u25B6 Orchestrator & Tool Runtime Status:\x1B[0m");
+      console.log(`  Engine: Crewloom Desktop / Tauri v${VERSION}`);
+      console.log(`  Specialist Roles: ${catalog.roles?.length || 0} registered in catalog`);
+      console.log("\n\x1B[36m\u25B6 Local CLI Models & Engines Detected:\x1B[0m");
+      for (const tool of tools) {
+        if (tool.installed) {
+          console.log(`  \x1B[32m\u2713 ${tool.name.padEnd(10)}\x1B[0m: ${tool.version} (\x1B[90m${tool.path}\x1B[0m)`);
+        } else {
+          console.log(`  \x1B[90m- ${tool.name.padEnd(10)}: not found in PATH\x1B[0m`);
         }
       }
-    } catch {
-    }
-    if (gitDirty) {
-      console.log(`\x1B[33m\u2022 ${modifiedFiles.length} modified/untracked files in working directory.\x1B[0m`);
-    } else {
-      console.log("\x1B[32m\u2713 Working directory clean.\x1B[0m");
-    }
-    if (dangerousCount === 0) {
-      console.log("\x1B[32m\u2713 0 destructive commands detected in active diffs.\x1B[0m");
-      console.log("\x1B[32m\u2713 Policy guard verification certified clean.\x1B[0m\n");
-    } else {
-      console.log(`\x1B[31m\u2717 ${dangerousCount} destructive patterns detected. Please review staged changes.\x1B[0m
-`);
-      process.exit(1);
-    }
-    break;
-  }
-  case "studio": {
-    console.log(BANNER);
-    console.log("\x1B[36m\u25B6 Launching Crewloom Studio Web Dashboard...\x1B[0m");
-    const studioServerPath = process.env.CREWLOOM_STUDIO_PATH || path3.join(rootDir, "agent/apps/crewloom-studio/server.mjs");
-    if (fs3.existsSync(studioServerPath)) {
-      const child = spawn("node", [studioServerPath], { stdio: "inherit" });
-      child.on("exit", (code) => process.exit(code || 0));
-    } else {
-      console.log("\x1B[33m\u2022 Studio server script not found at expected path.\x1B[0m");
-    }
-    break;
-  }
-  case "bridge": {
-    console.log(BANNER);
-    const bridgePath = process.env.CREWLOOM_BRIDGE_PATH || path3.join(rootDir, "bridge/dist/index.js");
-    if (fs3.existsSync(bridgePath)) {
-      const child = spawn("node", [bridgePath, ...args.slice(1)], { stdio: "inherit" });
-      child.on("exit", (code) => process.exit(code || 0));
-    } else {
-      console.log("\x1B[33m\u2022 Bridge build not found. Run `npm run build` in bridge/ first.\x1B[0m");
-    }
-    break;
-  }
-  case "verify":
-  case "demo": {
-    console.log(BANNER);
-    const results = verifyWorkspace(rootDir);
-    for (const result of results) {
-      console.log(`${translate(result.success ? "suitePass" : "suiteFail")}: ${result.name} (${result.reason})`);
-    }
-    const success = results.every((result) => result.success);
-    console.log(translate(success ? "verifyOk" : "verifyFailed"));
-    process.exitCode = success ? 0 : 1;
-    break;
-  }
-  case "init": {
-    console.log(BANNER);
-    try {
-      initializeWorkspace(process.cwd(), VERSION);
-      console.log(translate("initOk"));
-    } catch (error) {
-      console.error(translate("initFailed"), error instanceof Error ? error.message : String(error));
-      process.exitCode = 1;
-    }
-    break;
-  }
-  case "status": {
-    const catalog = loadRealCatalog();
-    const tools = ["claude", "codex", "opencode", "agy"].map((tool) => ({
-      name: tool,
-      ...detectLocalCli(tool)
-    }));
-    if (args.includes("--json")) {
-      console.log(JSON.stringify({
-        engine: `Crewloom Desktop / Tauri v${VERSION}`,
-        version: VERSION,
-        rolesCount: catalog.roles?.length || 0,
-        tools
-      }, null, 2));
+      console.log("");
       break;
     }
-    console.log(BANNER);
-    console.log("\x1B[36m\u25B6 Orchestrator & Tool Runtime Status:\x1B[0m");
-    console.log(`  Engine: Crewloom Desktop / Tauri v${VERSION}`);
-    console.log(`  Specialist Roles: ${catalog.roles?.length || 0} registered in catalog`);
-    console.log("\n\x1B[36m\u25B6 Local CLI Models & Engines Detected:\x1B[0m");
-    for (const tool of tools) {
-      if (tool.installed) {
-        console.log(`  \x1B[32m\u2713 ${tool.name.padEnd(10)}\x1B[0m: ${tool.version} (\x1B[90m${tool.path}\x1B[0m)`);
-      } else {
-        console.log(`  \x1B[90m- ${tool.name.padEnd(10)}: not found in PATH\x1B[0m`);
-      }
-    }
-    console.log("");
-    break;
+    case "help":
+    case "--help":
+    case "-h":
+    default:
+      printHelp();
+      break;
   }
-  case "help":
-  case "--help":
-  case "-h":
-  default:
-    printHelp();
-    break;
+}
+if (args.length === 0 && process.stdin.isTTY) {
+  printHelp();
+  const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+  });
+  rl.question("\x1B[1;36m\u25B6 Run command (e.g. status, roles, studio, verify) or Enter to exit: \x1B[0m", (input) => {
+    rl.close();
+    const trimmed = input.trim();
+    if (trimmed) {
+      const mapped = {
+        "1": "roles",
+        "2": "status",
+        "3": "studio",
+        "4": "bridge",
+        "5": "verify",
+        "6": "audit",
+        "7": "init"
+      }[trimmed] || trimmed;
+      executeCommand(mapped.split(/\s+/));
+    }
+  });
+} else {
+  executeCommand(args);
 }

@@ -29,7 +29,7 @@ export interface LatestReleaseData {
  * (Synchronized automatically from agent/apps/crewloom-desktop/package.json via scripts/sync-desktop-agent.mjs)
  */
 export function getDesktopAgentVersion() {
-  const version = desktopAgentMeta.version || '0.3.5';
+  const version = desktopAgentMeta.version || '0.3.22';
   const tagName = desktopAgentMeta.tagName || `v${version}`;
   return {
     version,
@@ -69,13 +69,33 @@ export const FALLBACK_RELEASE: LatestReleaseData = {
     },
     {
       id: 2,
-      name: `Crewloom-Agent-v${currentAgent.version}-setup.exe`,
-      size: 13002342,
-      sizeFormatted: '12.4 MB',
-      downloadUrl: `https://github.com/crewloom/crewloom.github.io/releases/download/${currentAgent.tagName}/Crewloom-Agent-v${currentAgent.version}-setup.exe`,
-      contentType: 'application/x-msdownload',
+      name: 'Crewloom-Agent-Setup.bat',
+      size: 616,
+      sizeFormatted: '1.0 KB',
+      downloadUrl: `https://github.com/crewloom/crewloom.github.io/releases/download/${currentAgent.tagName}/Crewloom-Agent-Setup.bat`,
+      contentType: 'application/x-bat',
       platform: 'windows',
       isInstaller: true,
+    },
+    {
+      id: 3,
+      name: 'install.bat',
+      size: 616,
+      sizeFormatted: '1.0 KB',
+      downloadUrl: `https://github.com/crewloom/crewloom.github.io/releases/download/${currentAgent.tagName}/install.bat`,
+      contentType: 'application/x-bat',
+      platform: 'windows',
+      isInstaller: false,
+    },
+    {
+      id: 4,
+      name: 'install.ps1',
+      size: 4000,
+      sizeFormatted: '4.0 KB',
+      downloadUrl: `https://github.com/crewloom/crewloom.github.io/releases/download/${currentAgent.tagName}/install.ps1`,
+      contentType: 'application/octet-stream',
+      platform: 'windows',
+      isInstaller: false,
     },
   ],
   primaryMacAsset: {
@@ -90,11 +110,11 @@ export const FALLBACK_RELEASE: LatestReleaseData = {
   },
   primaryWindowsAsset: {
     id: 2,
-    name: `Crewloom-Agent-v${currentAgent.version}-setup.exe`,
-    size: 13002342,
-    sizeFormatted: '12.4 MB',
-    downloadUrl: `https://github.com/crewloom/crewloom.github.io/releases/download/${currentAgent.tagName}/Crewloom-Agent-v${currentAgent.version}-setup.exe`,
-    contentType: 'application/x-msdownload',
+    name: 'Crewloom-Agent-Setup.bat',
+    size: 616,
+    sizeFormatted: '1.0 KB',
+    downloadUrl: `https://github.com/crewloom/crewloom.github.io/releases/download/${currentAgent.tagName}/Crewloom-Agent-Setup.bat`,
+    contentType: 'application/x-bat',
     platform: 'windows',
     isInstaller: true,
   },

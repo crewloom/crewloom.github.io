@@ -20,14 +20,9 @@ export function getTerminalColors(stream = process.stdout) {
       mode: 'none',
       isTrueColor: false,
       warp: '',
-      warpBright: '',
       weft: '',
-      weftBright: '',
-      ring1: '',
-      ring2: '',
-      ring3: '',
       sky: '',
-      skyBright: '',
+      tileBorder: '',
       text: '',
       white: '',
       bold: '',
@@ -58,72 +53,34 @@ export function getTerminalColors(stream = process.stdout) {
     return {
       mode: 'truecolor',
       isTrueColor: true,
-      warp: '\x1b[38;2;115;136;245m',       // #7388f5 (Memory / Warp - periwinkle)
-      warpBright: '\x1b[1;38;2;147;165;255m', // #93a5ff
-      weft: '\x1b[38;2;45;212;191m',        // #2dd4bf (Roles / Weft - luminous teal)
-      weftBright: '\x1b[1;38;2;94;234;212m', // #5eead4
-      ring1: '\x1b[38;2;45;212;191m',       // #2dd4bf
-      ring2: '\x1b[38;2;56;189;248m',       // #38bdf8 (Evidence sky blue)
-      ring3: '\x1b[1;38;2;125;211;252m',    // #7dd3fc
-      sky: '\x1b[38;2;56;189;248m',         // #38bdf8
-      skyBright: '\x1b[1;38;2;125;211;252m',
-      text: '\x1b[38;2;237;242;247m',       // #edf2f7
+      tileBorder: '\x1b[38;2;71;85;105m',   // #475569 Slate 600
+      warp: '\x1b[1;38;2;115;136;245m',     // #7388f5 (Memory / Warp - periwinkle)
+      weft: '\x1b[1;38;2;45;212;191m',      // #2dd4bf (Roles / Weft - luminous teal)
+      sky: '\x1b[1;38;2;56;189;248m',       // #38bdf8 (Evidence sky blue)
+      text: '\x1b[38;2;241;245;249m',       // #f1f5f9
       white: '\x1b[1;38;2;255;255;255m',
       bold: '\x1b[1m',
       dim: '\x1b[38;2;148;163;184m',        // #94a3b8
       muted: '\x1b[38;2;100;116;139m',      // #64748b
-      badgeBg: '\x1b[48;2;30;41;59m\x1b[38;2;241;245;249m\x1b[1m', // #1e293b / #f1f5f9
+      badgeBg: '\x1b[48;2;30;41;59m\x1b[38;2;241;245;249m\x1b[1m',
       reset: '\x1b[0m',
     };
   }
 
   // 3. High-fidelity 256-color fallback
-  const is256Color =
-    Boolean(process.env.TERM && /256color/i.test(process.env.TERM)) ||
-    Boolean(process.env.TERM_PROGRAM);
-
-  if (is256Color) {
-    return {
-      mode: '256',
-      isTrueColor: false,
-      warp: '\x1b[38;5;105m',
-      warpBright: '\x1b[1;38;5;147m',
-      weft: '\x1b[38;5;43m',
-      weftBright: '\x1b[1;38;5;79m',
-      ring1: '\x1b[38;5;43m',
-      ring2: '\x1b[38;5;81m',
-      ring3: '\x1b[1;38;5;117m',
-      sky: '\x1b[38;5;81m',
-      skyBright: '\x1b[1;38;5;117m',
-      text: '\x1b[38;5;253m',
-      white: '\x1b[1;38;5;255m',
-      bold: '\x1b[1m',
-      dim: '\x1b[38;5;246m',
-      muted: '\x1b[38;5;242m',
-      badgeBg: '\x1b[48;5;236m\x1b[38;5;254m\x1b[1m',
-      reset: '\x1b[0m',
-    };
-  }
-
-  // 4. Standard 16-color ANSI fallback
   return {
-    mode: '16',
+    mode: '256',
     isTrueColor: false,
-    warp: '\x1b[1;34m',
-    warpBright: '\x1b[1;94m',
-    weft: '\x1b[36m',
-    weftBright: '\x1b[1;96m',
-    ring1: '\x1b[36m',
-    ring2: '\x1b[1;96m',
-    ring3: '\x1b[96m',
-    sky: '\x1b[1;96m',
-    skyBright: '\x1b[1;96m',
-    text: '\x1b[37m',
-    white: '\x1b[1;97m',
+    tileBorder: '\x1b[38;5;242m',
+    warp: '\x1b[1;38;5;105m',
+    weft: '\x1b[1;38;5;43m',
+    sky: '\x1b[1;38;5;81m',
+    text: '\x1b[38;5;254m',
+    white: '\x1b[1;38;5;255m',
     bold: '\x1b[1m',
-    dim: '\x1b[90m',
-    muted: '\x1b[90m',
-    badgeBg: '\x1b[7m',
+    dim: '\x1b[38;5;246m',
+    muted: '\x1b[38;5;242m',
+    badgeBg: '\x1b[48;5;236m\x1b[38;5;254m\x1b[1m',
     reset: '\x1b[0m',
   };
 }
@@ -148,26 +105,17 @@ function brandGradientColor(t) {
   return `\x1b[38;2;${r};${g};${b}m`;
 }
 
-function renderWordmarkLine(line, colors) {
-  if (colors.mode === 'none') return line;
+function gradientText(text, colors) {
+  if (colors.mode === 'none') return text;
   if (colors.mode === 'truecolor') {
     let out = '';
-    for (let i = 0; i < line.length; i++) {
-      const t = line.length > 1 ? i / (line.length - 1) : 0;
-      out += `${brandGradientColor(t)}${line[i]}`;
+    for (let i = 0; i < text.length; i++) {
+      const t = text.length > 1 ? i / (text.length - 1) : 0;
+      out += `${brandGradientColor(t)}${text[i]}`;
     }
     return out + colors.reset;
   }
-  if (colors.mode === '256') {
-    const stops = [43, 44, 81, 75, 105];
-    let out = '';
-    for (let i = 0; i < line.length; i++) {
-      const idx = Math.min(stops.length - 1, Math.floor((i / line.length) * stops.length));
-      out += `\x1b[38;5;${stops[idx]}m${line[i]}`;
-    }
-    return out + colors.reset;
-  }
-  return `\x1b[1;96m${line}\x1b[0m`;
+  return `${colors.weft}${text}${colors.reset}`;
 }
 
 function formatTagline(templateKey, roleKey, memoryKey, evidenceKey, c, isAlt) {
@@ -189,47 +137,39 @@ function formatTagline(templateKey, roleKey, memoryKey, evidenceKey, c, isAlt) {
   return `${baseStyle}${content}${c.reset}`;
 }
 
-const WORDMARK_LINES = [
-  '█▀▀ █▀█ █▀▀ █   █ █   █▀█ █▀█ █▀▄▀█',
-  '█   █▀▄ ██▄ █ █ █ █   █ █ █ █ █ █ █',
-  '▀▀▀ ▀ ▀ ▀▀▀  ▀ ▀  ▀▀▀ ▀▀▀ ▀▀▀ ▀   ▀',
-];
-
 export function renderBanner(version = '1.0.1', stream = process.stdout) {
   const c = getTerminalColors(stream);
   const subtitle = translate('bannerSubtitle');
   const core = translate('bannerCore');
 
-  const w1 = renderWordmarkLine(WORDMARK_LINES[0], c);
-  const w2 = renderWordmarkLine(WORDMARK_LINES[1], c);
-  const w3 = renderWordmarkLine(WORDMARK_LINES[2], c);
-
+  const wordmark = gradientText('C R E W L O O M', c);
   const badgeStr = c.badgeBg ? `${c.badgeBg} v${version} ${c.reset}` : `v${version}`;
+
   const primaryTagline = formatTagline('bannerTagline', 'bannerRole', 'bannerMemory', 'bannerEvidence', c, false);
   const secondaryTagline = formatTagline('bannerTaglineAlt', 'bannerRoleAlt', 'bannerMemoryAlt', 'bannerEvidenceAlt', c, true);
 
-  const E = `${c.ring1}╢${c.ring2}◎${c.ring3}╟${c.reset}`;
+  const B = c.tileBorder;
   const W = c.warp;
   const F = c.weft;
   const R = c.reset;
-  const GAP = '    ';
+  const E = `${c.sky}◎${R}`;
 
-  // Precision 24-character weave lines
-  const m0 = `       ${W}║${R}     ${W}║${R}     ${W}║${R}    `;
-  const m1 = `    ${F}══${R} ${W}║${R} ${F}═════════${R} ${W}║${R} ${F}══${R} `;
-  const m2 = `       ${W}║${R}     ${W}║${R}     ${W}║${R}    `;
-  const m3 = `    ${F}════════${R} ${W}║${R} ${F}══════${E}`;
-  const m4 = `       ${W}║${R}     ${W}║${R}     ${W}║${R}    `;
-  const m5 = `    ${F}══${R} ${W}║${R} ${F}═════════${R} ${W}║${R} ${F}══${R} `;
-  const m6 = `       ${W}║${R}     ${W}║${R}     ${W}║${R}    `;
+  // Authentic 17-character rounded tile representing logo.svg
+  const t0 = `  ${B}╭───────────────╮${R}`;
+  const t1 = `  ${B}│${R}   ${W}║${R}   ${W}║${R}   ${W}║${R}   ${B}│${R}`;
+  const t2 = `  ${B}│${R} ${F}══${R}${W}╬${R}${F}═══════${R}${W}╬${R}${F}══${R} ${B}│${R}`;
+  const t3 = `  ${B}│${R} ${F}═══════${R}${W}╬${R}${F}═══${E}  ${B}│${R}`;
+  const t4 = `  ${B}│${R} ${F}══${R}${W}╬${R}${F}═══════${R}${W}╬${R}${F}══${R} ${B}│${R}`;
+  const t5 = `  ${B}│${R}   ${W}║${R}   ${W}║${R}   ${W}║${R}   ${B}│${R}`;
+  const t6 = `  ${B}╰───────────────╯${R}`;
 
   return `
-${m0}${GAP}${w1}  ${badgeStr}
-${m1}${GAP}${w2}  ${c.dim}${subtitle}${c.reset}
-${m2}${GAP}${w3}  ${c.warp}${core}${c.reset}
-${m3}${GAP}
-${m4}${GAP}${primaryTagline}
-${m5}${GAP}${secondaryTagline}
-${m6}
+${t0}
+${t1}   ${c.bold}${wordmark}${c.reset}  ${badgeStr}
+${t2}   ${c.dim}${subtitle}${c.reset}
+${t3}   ${c.warp}${core}${c.reset}
+${t4}   ${primaryTagline}
+${t5}   ${secondaryTagline}
+${t6}
 `;
 }
