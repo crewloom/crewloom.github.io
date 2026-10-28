@@ -50,6 +50,21 @@
   ],
   "redirects": [
     {
+      "source": "/Crewloom-Agent-Setup.exe",
+      "destination": "https://github.com/crewloom/crewloom.github.io/releases/download/v0.3.22/Crewloom-Agent-Setup.exe",
+      "permanent": false
+    },
+    {
+      "source": "/Crewloom-Desktop-Windows-x64.zip",
+      "destination": "https://github.com/crewloom/crewloom.github.io/releases/download/v0.3.22/Crewloom-Desktop-Windows-x64.zip",
+      "permanent": false
+    },
+    {
+      "source": "/Crewloom.dmg",
+      "destination": "https://github.com/crewloom/crewloom.github.io/releases/download/v0.3.22/Crewloom.dmg",
+      "permanent": false
+    },
+    {
       "source": "/docs",
       "destination": "/blog/",
       "permanent": true

@@ -1,0 +1,10 @@
+scripts/windows-installer/
+*.zip
+*.exe
+*.dmg
+.git
+.github
+tests
+cli/tests
+coverage
+*.log
