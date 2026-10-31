@@ -11,3 +11,7 @@ The package version lives in `cli/package.json`; the bundler injects it into dow
 CI builds and tests the CLI before building and deploying the site. Portable download tests exercise repeated initialization, missing suites, both suite failure combinations, source discovery under nested Arabic/spaced paths, and version consistency. Real Windows installer execution remains a separate platform check.
 
 Production-domain publication uses the linked Vercel project with repository-owned install/build commands. GitHub Pages is an independent Actions output. Both consume canonical CLI builds, and deployment acceptance checks the live domain payload against the tested build.
+
+## Download contract
+
+`lib/download-contract.json` is the only owner of release asset names. Names never contain a version; only the GitHub release tag changes. User-facing links use `releases/latest/download/<name>` (site code, `vercel.json`, `desktop-agent.json`). `npm run test:contract` checks the source and the published Latest release (`scripts/verify-release-assets.mjs [tag]`). Every release must upload all contract assets, and the desktop release must stay marked Latest.

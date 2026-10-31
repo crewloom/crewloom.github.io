@@ -18,6 +18,7 @@
     "ping:indexnow": "node scripts/ping-indexnow.mjs",
     "postinstall": "node scripts/install-shim.cjs",
     "build:cli": "node scripts/build-cli.mjs",
+    "test:contract": "node --test tests/download-contract.test.mjs && node scripts/verify-release-assets.mjs",
     "test:cli": "node --test cli/tests/*.test.js tests/cli-downloads.test.mjs",
     "pretest:cli": "npm run build:cli"
   },

@@ -1,0 +1,10 @@
+{
+  "repo": "crewloom/crewloom.github.io",
+  "assets": {
+    "macos": "Crewloom.dmg",
+    "windowsInstaller": "Crewloom-Agent-Setup.exe",
+    "windowsPortable": "Crewloom-Desktop-Windows-x64.zip",
+    "installBat": "install.bat",
+    "installPs1": "install.ps1"
+  }
+}

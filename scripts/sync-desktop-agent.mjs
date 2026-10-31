@@ -82,7 +82,7 @@ const meta = {
   dmgName: 'Crewloom.dmg',
   dmgSize,
   dmgSizeFormatted: formatBytes(dmgSize),
-  downloadUrl: `https://github.com/crewloom/crewloom.github.io/releases/download/${tagName}/Crewloom.dmg`,
+  downloadUrl: `https://github.com/crewloom/crewloom.github.io/releases/latest/download/Crewloom.dmg`,
   sourcePath: foundPath ? path.relative(websiteRoot, foundPath) : 'embedded',
   syncedAt: new Date().toISOString(),
 };

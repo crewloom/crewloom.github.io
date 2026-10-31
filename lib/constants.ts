@@ -1,4 +1,9 @@
 import desktopAgentMeta from './desktop-agent.json';
+import downloadContract from './download-contract.json';
+
+/** Stable download URL: only the release behind "latest" changes, never the file name. */
+export const latestDownloadUrl = (asset: keyof typeof downloadContract.assets) =>
+  `https://github.com/${downloadContract.repo}/releases/latest/download/${downloadContract.assets[asset]}`;
 
 export const SITE_CONFIG = {
   name: 'Crewloom',
@@ -13,10 +18,10 @@ export const SITE_CONFIG = {
   powershellCommand: 'irm https://crewloom.org/install.ps1 | iex',
   cliPackage: 'crewloom',
   brewTap: 'crewloom/tap/crewloom',
-  macosDownloadUrl: '/Crewloom.dmg',
-  macosGithubUrl: 'https://github.com/crewloom/crewloom.github.io/releases/download/v0.4.19/Crewloom.dmg',
-  windowsDownloadUrl: '/Crewloom-Agent-Setup.exe',
-  windowsGithubUrl: 'https://github.com/crewloom/crewloom.github.io/releases/download/v0.4.19/Crewloom-Agent-Setup.exe',
+  macosDownloadUrl: `/${downloadContract.assets.macos}`,
+  macosGithubUrl: latestDownloadUrl('macos'),
+  windowsDownloadUrl: `/${downloadContract.assets.windowsInstaller}`,
+  windowsGithubUrl: latestDownloadUrl('windowsInstaller'),
   version: `v${desktopAgentMeta.version || '0.3.22'} (Beta Preview)`,
   latencyTargetMs: 0.8,
   license: 'Apache-2.0',

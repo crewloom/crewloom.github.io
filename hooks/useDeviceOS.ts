@@ -1,5 +1,6 @@
 'use client';
 
+import downloadContract from '@/lib/download-contract.json';
 import { useState, useEffect } from 'react';
 import { SITE_CONFIG } from '@/lib/constants';
 import desktopAgentMeta from '@/lib/desktop-agent.json';
@@ -92,7 +93,7 @@ export function useDeviceOS() {
           fullNameAr: 'تطبيق كرو لوم المكتبي لأجهزة الماك (Apple Silicon)',
           isDirectDownload: true,
           downloadUrl: SITE_CONFIG.macosDownloadUrl,
-          fileName: 'Crewloom.dmg',
+          fileName: downloadContract.assets.macos,
           fileSize: '5.2 MB',
           statusBadgeEn: 'Beta v0.3.22 · Ready to Download',
           statusBadgeAr: 'النسخة التجريبية v0.3.22 · جاهزة للتحميل',
@@ -112,7 +113,7 @@ export function useDeviceOS() {
           fullNameAr: 'تطبيق كرو لوم لأجهزة الماك (معالجات إنتل)',
           isDirectDownload: true,
           downloadUrl: SITE_CONFIG.macosDownloadUrl,
-          fileName: 'Crewloom.dmg',
+          fileName: downloadContract.assets.macos,
           fileSize: '5.2 MB',
           statusBadgeEn: 'Compatible via Rosetta 2 & Native CI',
           statusBadgeAr: 'متوافق عبر Rosetta 2 وقيد التجهيز المباشر',
@@ -132,7 +133,7 @@ export function useDeviceOS() {
           fullNameAr: 'تطبيق كرو لوم لويندوز 10/11',
           isDirectDownload: true,
           downloadUrl: SITE_CONFIG.windowsDownloadUrl,
-          fileName: 'Crewloom-Agent-Setup.exe',
+          fileName: downloadContract.assets.windowsInstaller,
           fileSize: '12.4 MB',
           statusBadgeEn: 'Verified Release (.exe) v' + (desktopAgentMeta.version || '0.3.22'),
           statusBadgeAr: 'إصدار تنفيذي معتمد (.exe) v' + (desktopAgentMeta.version || '0.3.22'),

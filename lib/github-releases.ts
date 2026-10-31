@@ -1,3 +1,4 @@
+import downloadContract from './download-contract.json';
 import { PlatformKey } from '@/hooks/useDeviceOS';
 import desktopAgentMeta from './desktop-agent.json';
 
@@ -37,7 +38,7 @@ export function getDesktopAgentVersion() {
     name: desktopAgentMeta.name || `Crewloom Desktop Agent ${tagName}`,
     dmgSize: desktopAgentMeta.dmgSize || 5269425,
     dmgSizeFormatted: desktopAgentMeta.dmgSizeFormatted || '5.0 MB',
-    downloadUrl: desktopAgentMeta.downloadUrl || `https://github.com/crewloom/crewloom.github.io/releases/download/${tagName}/Crewloom.dmg`,
+    downloadUrl: desktopAgentMeta.downloadUrl || `https://github.com/${downloadContract.repo}/releases/download/${tagName}/${downloadContract.assets.macos}`,
     agentRepo: 'https://github.com/crewloom/crewloom',
   };
 }
@@ -59,7 +60,7 @@ export const FALLBACK_RELEASE: LatestReleaseData = {
   assets: [
     {
       id: 1,
-      name: 'Crewloom.dmg',
+      name: downloadContract.assets.macos,
       size: currentAgent.dmgSize,
       sizeFormatted: currentAgent.dmgSizeFormatted,
       downloadUrl: currentAgent.downloadUrl,
@@ -69,10 +70,10 @@ export const FALLBACK_RELEASE: LatestReleaseData = {
     },
     {
       id: 2,
-      name: 'Crewloom-Agent-Setup.exe',
+      name: downloadContract.assets.windowsInstaller,
       size: 6260000,
       sizeFormatted: '6.0 MB',
-      downloadUrl: `https://github.com/crewloom/crewloom.github.io/releases/download/${currentAgent.tagName}/Crewloom-Agent-Setup.exe`,
+      downloadUrl: `https://github.com/${downloadContract.repo}/releases/download/${currentAgent.tagName}/${downloadContract.assets.windowsInstaller}`,
       contentType: 'application/x-msdownload',
       platform: 'windows',
       isInstaller: true,
@@ -82,7 +83,7 @@ export const FALLBACK_RELEASE: LatestReleaseData = {
       name: 'install.bat',
       size: 616,
       sizeFormatted: '1.0 KB',
-      downloadUrl: `https://github.com/crewloom/crewloom.github.io/releases/download/${currentAgent.tagName}/install.bat`,
+      downloadUrl: `https://github.com/${downloadContract.repo}/releases/download/${currentAgent.tagName}/${downloadContract.assets.installBat}`,
       contentType: 'application/x-bat',
       platform: 'windows',
       isInstaller: false,
@@ -92,7 +93,7 @@ export const FALLBACK_RELEASE: LatestReleaseData = {
       name: 'install.ps1',
       size: 4000,
       sizeFormatted: '4.0 KB',
-      downloadUrl: `https://github.com/crewloom/crewloom.github.io/releases/download/${currentAgent.tagName}/install.ps1`,
+      downloadUrl: `https://github.com/${downloadContract.repo}/releases/download/${currentAgent.tagName}/${downloadContract.assets.installPs1}`,
       contentType: 'application/octet-stream',
       platform: 'windows',
       isInstaller: false,
@@ -100,7 +101,7 @@ export const FALLBACK_RELEASE: LatestReleaseData = {
   ],
   primaryMacAsset: {
     id: 1,
-    name: 'Crewloom.dmg',
+    name: downloadContract.assets.macos,
     size: currentAgent.dmgSize,
     sizeFormatted: currentAgent.dmgSizeFormatted,
     downloadUrl: currentAgent.downloadUrl,
@@ -110,10 +111,10 @@ export const FALLBACK_RELEASE: LatestReleaseData = {
   },
   primaryWindowsAsset: {
     id: 2,
-    name: 'Crewloom-Agent-Setup.exe',
+    name: downloadContract.assets.windowsInstaller,
     size: 12397568,
     sizeFormatted: '12.4 MB',
-    downloadUrl: `https://github.com/crewloom/crewloom.github.io/releases/download/${currentAgent.tagName}/Crewloom-Agent-Setup.exe`,
+    downloadUrl: `https://github.com/${downloadContract.repo}/releases/download/${currentAgent.tagName}/${downloadContract.assets.windowsInstaller}`,
     contentType: 'application/x-msdownload',
     platform: 'windows',
     isInstaller: true,
