@@ -2,7 +2,7 @@ import { ArchitectureLayer, FeatureItem, MetricItem } from '@/types';
 
 export const DICTIONARY = {
   en: {
-    announcement: 'Sovereign AI Coding Agent — Desktop Beta (v0.4.19) Now Available for macOS',
+    announcement: 'Sovereign AI Coding Agent — Desktop Beta (v0.5.6) Now Available for macOS',
     exploreGithub: 'Explore GitHub',
     brandSubtitle: 'Sovereign AI Coding Engine',
     common: {
@@ -183,7 +183,7 @@ export const DICTIONARY = {
     },
   },
   ar: {
-    announcement: 'كرو لوم: النسخة التجريبية (Beta v0.4.19) متاحة الآن للتحميل المباشر لأجهزة الماك',
+    announcement: 'كرو لوم: النسخة التجريبية (Beta v0.5.6) متاحة الآن للتحميل المباشر لأجهزة الماك',
     exploreGithub: 'استكشف المستودعات',
     brandSubtitle: 'كرو لوم · الذكاء البرمجي السيادي',
     common: {
