@@ -1,1 +1,2 @@
-1 ICON "/Volumes/data/projects/crewloom/agent/apps/crewloom-desktop/src-tauri/icons/icon.ico"
+1 ICON "icon.ico"
+1 24 "app.manifest"

@@ -6,6 +6,7 @@ import (
 	_ "embed"
 	"fmt"
 	"io"
+	"net/http"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -23,12 +24,17 @@ var embeddedWebView2Loader []byte
 //go:embed crewloom.mjs
 var embeddedCliSource []byte
 
+// appVersion is stamped at build time: -ldflags "-X main.appVersion=<version>".
+var appVersion = "dev"
+
 const (
-	cyanBold  = "\033[1;36m"
-	greenBold = "\033[1;32m"
-	yellow    = "\033[33m"
-	whiteBold = "\033[1;37m"
-	reset     = "\033[0m"
+	webView2ClientKey = `{F3017226-FE2A-4295-8BDF-00C3A9A7E4C5}`
+	webView2Bootstrap = "https://go.microsoft.com/fwlink/p/?LinkId=2124703"
+	cyanBold          = "\033[1;36m"
+	greenBold         = "\033[1;32m"
+	yellow            = "\033[33m"
+	whiteBold         = "\033[1;37m"
+	reset             = "\033[0m"
 )
 
 func main() {
@@ -50,6 +56,16 @@ func main() {
 
 	appDir := filepath.Join(localAppData, "Programs", "Crewloom Agent")
 	cliDir := filepath.Join(userHome, ".crewloom", "bin")
+
+	if major := windowsMajorVersion(); major != 0 && major < 10 {
+		fmt.Printf("  %s[!] Windows 10 or newer is required (detected major version %d).%s\n", yellow, major, reset)
+		waitForEnter()
+		os.Exit(1)
+	}
+
+	// A running copy keeps its exe locked and would make the upgrade fail.
+	_ = exec.Command("taskkill", "/F", "/IM", "Crewloom Agent.exe").Run()
+	time.Sleep(500 * time.Millisecond)
 
 	// Step 1: Install Crewloom Desktop Application (GUI)
 	fmt.Printf("%s[1/5] Deploying Crewloom Agent Desktop Application (GUI)...%s\n", cyanBold, reset)
@@ -128,12 +144,10 @@ pause
 	fmt.Printf("\n%s[4/5] Creating Desktop & Start Menu Shortcuts...%s\n", cyanBold, reset)
 	createShortcuts(desktopExePath, appDir)
 
-	// Step 5: Launch Application
+	// Step 5: Make sure the WebView2 runtime exists, then launch
 	fmt.Printf("\n%s[5/5] Launching Crewloom Agent Desktop...%s\n", cyanBold, reset)
-	fmt.Printf("  %s[✓] Starting Crewloom Agent GUI...%s\n", greenBold, reset)
-	launchDetached(desktopExePath)
-
-	time.Sleep(1500 * time.Millisecond)
+	ensureWebView2()
+	launchDetached(desktopExePath, appDir)
 	fmt.Println()
 	fmt.Printf("%s══════════════════════════════════════════════════════════════════%s\n", cyanBold, reset)
 	fmt.Printf("  %sInstallation complete!%s\n", greenBold, reset)
@@ -142,8 +156,78 @@ pause
 	fmt.Printf("  • Desktop Shortcut created on your desktop.\n")
 	fmt.Printf("%s══════════════════════════════════════════════════════════════════%s\n", cyanBold, reset)
 	fmt.Println("\nPress Enter to exit installer...")
+	waitForEnter()
+}
+
+func waitForEnter() {
 	var b [1]byte
 	_, _ = os.Stdin.Read(b[:])
+}
+
+// windowsMajorVersion returns 0 when it cannot be determined.
+func windowsMajorVersion() int {
+	out, err := exec.Command("cmd", "/c", "ver").Output()
+	if err != nil {
+		return 0
+	}
+	var major, minor int
+	text := string(out)
+	if i := strings.Index(text, "Version "); i >= 0 {
+		_, _ = fmt.Sscanf(text[i+len("Version "):], "%d.%d", &major, &minor)
+	}
+	return major
+}
+
+func webView2Installed() bool {
+	keys := []string{
+		`HKLM\SOFTWARE\WOW6432Node\Microsoft\EdgeUpdate\Clients\` + webView2ClientKey,
+		`HKLM\SOFTWARE\Microsoft\EdgeUpdate\Clients\` + webView2ClientKey,
+		`HKCU\SOFTWARE\Microsoft\EdgeUpdate\Clients\` + webView2ClientKey,
+	}
+	for _, key := range keys {
+		out, err := exec.Command("reg", "query", key, "/v", "pv").Output()
+		if err == nil && strings.Contains(string(out), "pv") && !strings.Contains(string(out), "0.0.0.0") {
+			return true
+		}
+	}
+	return false
+}
+
+// ensureWebView2 installs Microsoft's Evergreen WebView2 runtime when missing; the app cannot open a window without it.
+func ensureWebView2() {
+	if webView2Installed() {
+		fmt.Printf("  %s[✓]%s Microsoft WebView2 runtime detected.\n", greenBold, reset)
+		return
+	}
+	fmt.Printf("  %s[!] Microsoft WebView2 runtime is missing; downloading it from Microsoft (Windows may ask for permission)...%s\n", yellow, reset)
+	client := &http.Client{Timeout: 3 * time.Minute}
+	resp, err := client.Get(webView2Bootstrap)
+	if err != nil || resp.StatusCode != http.StatusOK {
+		fmt.Printf("  %s[!] Could not download WebView2 (%v). Install it from https://developer.microsoft.com/microsoft-edge/webview2 and start Crewloom Agent again.%s\n", yellow, err, reset)
+		return
+	}
+	defer resp.Body.Close()
+	setupPath := filepath.Join(os.TempDir(), "MicrosoftEdgeWebview2Setup.exe")
+	f, err := os.Create(setupPath)
+	if err != nil {
+		fmt.Printf("  %s[!] Could not save the WebView2 installer: %v%s\n", yellow, err, reset)
+		return
+	}
+	_, copyErr := io.Copy(f, resp.Body)
+	_ = f.Close()
+	if copyErr != nil {
+		fmt.Printf("  %s[!] WebView2 download was interrupted: %v%s\n", yellow, copyErr, reset)
+		return
+	}
+	if err := exec.Command(setupPath, "/silent", "/install").Run(); err != nil {
+		fmt.Printf("  %s[!] WebView2 installer reported: %v%s\n", yellow, err, reset)
+	}
+	_ = os.Remove(setupPath)
+	if webView2Installed() {
+		fmt.Printf("  %s[✓]%s Microsoft WebView2 runtime installed.\n", greenBold, reset)
+	} else {
+		fmt.Printf("  %s[!] WebView2 is still missing; Crewloom Agent will not open until it is installed.%s\n", yellow, reset)
+	}
 }
 
 func decompressGzip(data []byte, destPath string) error {
@@ -200,7 +284,7 @@ $s2.Save()
 func registerUninstall(appDir, uninstallCmd string) {
 	regBase := `HKCU\Software\Microsoft\Windows\CurrentVersion\Uninstall\CrewloomAgent`
 	_ = exec.Command("reg", "add", regBase, "/v", "DisplayName", "/d", "Crewloom Agent", "/f").Run()
-	_ = exec.Command("reg", "add", regBase, "/v", "DisplayVersion", "/d", "0.3.22", "/f").Run()
+	_ = exec.Command("reg", "add", regBase, "/v", "DisplayVersion", "/d", appVersion, "/f").Run()
 	_ = exec.Command("reg", "add", regBase, "/v", "Publisher", "/d", "Crewloom", "/f").Run()
 	_ = exec.Command("reg", "add", regBase, "/v", "InstallLocation", "/d", appDir, "/f").Run()
 	_ = exec.Command("reg", "add", regBase, "/v", "DisplayIcon", "/d", filepath.Join(appDir, "Crewloom Agent.exe")+",0", "/f").Run()
@@ -227,10 +311,23 @@ func appendUserPath(newPath string) {
 	_ = exec.Command("reg", "add", `HKCU\Environment`, "/v", "Path", "/t", "REG_EXPAND_SZ", "/d", updatedPath, "/f").Run()
 }
 
-func launchDetached(exePath string) {
-	cmd := exec.Command("cmd.exe", "/c", "start", "", exePath)
-	cmd.SysProcAttr = &syscall.SysProcAttr{}
-	_ = cmd.Start()
+func launchDetached(exePath, workDir string) {
+	cmd := exec.Command(exePath)
+	cmd.Dir = workDir
+	// DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP so the app outlives this installer.
+	cmd.SysProcAttr = &syscall.SysProcAttr{CreationFlags: 0x00000008 | 0x00000200}
+	if err := cmd.Start(); err != nil {
+		fmt.Printf("  %s[!] Could not start Crewloom Agent: %v%s\n", yellow, err, reset)
+		return
+	}
+	exited := make(chan error, 1)
+	go func() { exited <- cmd.Wait() }()
+	select {
+	case err := <-exited:
+		fmt.Printf("  %s[!] Crewloom Agent closed right after starting (%v). Open it from the Start menu; if it does not appear, install WebView2 and retry.%s\n", yellow, err, reset)
+	case <-time.After(4 * time.Second):
+		fmt.Printf("  %s[✓] Crewloom Agent is running.%s\n", greenBold, reset)
+	}
 }
 
 func enableVirtualTerminal() {
