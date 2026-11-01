@@ -22,7 +22,7 @@ export const SITE_CONFIG = {
   macosGithubUrl: latestDownloadUrl('macos'),
   windowsDownloadUrl: `/${downloadContract.assets.windowsInstaller}`,
   windowsGithubUrl: latestDownloadUrl('windowsInstaller'),
-  version: `v${desktopAgentMeta.version || '0.5.6'} (Beta Preview)`,
+  version: `v${desktopAgentMeta.version || '0.5.10'} (Beta Preview)`,
   latencyTargetMs: 0.8,
   license: 'Apache-2.0',
 } as const;
