@@ -2,8 +2,8 @@
 
 // cli/bin/crewloom.js
 import { spawn, execSync } from "child_process";
-import path3 from "path";
-import fs3 from "fs";
+import path4 from "path";
+import fs4 from "fs";
 import readline from "readline";
 
 // cli/bin/workspace-root.js
@@ -76,6 +76,34 @@ function verifyWorkspace(root, run = spawnSync) {
   });
 }
 
+// cli/bin/agent-command.js
+import fs3 from "node:fs";
+import path3 from "node:path";
+import { createRequire } from "node:module";
+import { pathToFileURL } from "node:url";
+import { spawnSync as spawnSync2 } from "node:child_process";
+function resolveAgentLaunch(root, args2) {
+  const agent = path3.join(root, "agent");
+  const entry = path3.join(agent, "apps/cli/src/bin.ts");
+  if (!fs3.existsSync(entry)) return { ok: false, reason: "missing-entry", path: entry };
+  let loader;
+  try {
+    loader = createRequire(path3.join(agent, "package.json")).resolve("tsx/esm");
+  } catch (error) {
+    if (error?.code !== "MODULE_NOT_FOUND") throw error;
+    return { ok: false, reason: "missing-dependencies", path: agent };
+  }
+  return { ok: true, command: process.execPath, args: ["--import", pathToFileURL(loader).href, entry, ...args2] };
+}
+function runAgentCli(root, args2, run = spawnSync2) {
+  const launch = resolveAgentLaunch(root, args2);
+  if (!launch.ok) return { ...launch, status: 1 };
+  const result = run(launch.command, launch.args, { cwd: process.cwd(), stdio: "inherit" });
+  if (result.error) return { ok: false, reason: "launch", path: launch.args[2], status: 1, error: result.error };
+  if (result.signal) return { ok: false, reason: "signal", path: launch.args[2], status: 1, signal: result.signal };
+  return { ok: true, status: result.status ?? 1 };
+}
+
 // cli/bin/messages.js
 var dictionaries = {
   en: {
@@ -85,6 +113,10 @@ var dictionaries = {
     verifyFailed: "Verification failed. Required checks must all pass.",
     suitePass: "PASS",
     suiteFail: "FAIL",
+    "agent:missing-entry": "Agent CLI entry not found; clone the agent repository into the workspace:",
+    "agent:missing-dependencies": "Agent dependencies are not installed; run `pnpm install` in:",
+    "agent:launch": "Could not start the agent CLI:",
+    "agent:signal": "The agent CLI was terminated by a signal:",
     bannerSubtitle: "Sovereign AI Agent Engine",
     bannerCore: "Dual Bicultural Core (En/Ar)",
     bannerTagline: "Give agent work a {role}, {memory}, and {evidence}.",
@@ -103,6 +135,10 @@ var dictionaries = {
     verifyFailed: "\u0641\u0634\u0644 \u0627\u0644\u062A\u062D\u0642\u0642. \u064A\u062C\u0628 \u0646\u062C\u0627\u062D \u062C\u0645\u064A\u0639 \u0627\u0644\u0641\u062D\u0648\u0635 \u0627\u0644\u0645\u0637\u0644\u0648\u0628\u0629.",
     suitePass: "\u0646\u062C\u062D",
     suiteFail: "\u0641\u0634\u0644",
+    "agent:missing-entry": "\u0644\u0645 \u064A\u064F\u0639\u062B\u0631 \u0639\u0644\u0649 \u0645\u062F\u062E\u0644 \u0648\u0627\u062C\u0647\u0629 \u0627\u0644\u0648\u0643\u064A\u0644\u061B \u0627\u0646\u0633\u062E \u0645\u0633\u062A\u0648\u062F\u0639 agent \u062F\u0627\u062E\u0644 \u0645\u0633\u0627\u062D\u0629 \u0627\u0644\u0639\u0645\u0644:",
+    "agent:missing-dependencies": "\u0627\u0639\u062A\u0645\u0627\u062F\u064A\u0627\u062A \u0627\u0644\u0648\u0643\u064A\u0644 \u063A\u064A\u0631 \u0645\u062B\u0628\u062A\u0629\u061B \u0634\u063A\u0651\u0644 `pnpm install` \u0641\u064A:",
+    "agent:launch": "\u062A\u0639\u0630\u0631 \u062A\u0634\u063A\u064A\u0644 \u0648\u0627\u062C\u0647\u0629 \u0627\u0644\u0648\u0643\u064A\u0644:",
+    "agent:signal": "\u0623\u064F\u0646\u0647\u064A\u062A \u0648\u0627\u062C\u0647\u0629 \u0627\u0644\u0648\u0643\u064A\u0644 \u0628\u0625\u0634\u0627\u0631\u0629:",
     bannerSubtitle: "\u0645\u062D\u0631\u0643 \u0648\u0643\u0644\u0627\u0621 \u0627\u0644\u0630\u0643\u0627\u0621 \u0627\u0644\u0627\u0635\u0637\u0646\u0627\u0639\u064A \u0627\u0644\u0633\u064A\u0627\u062F\u064A",
     bannerCore: "\u0646\u0648\u0627\u0629 \u062B\u0646\u0627\u0626\u064A\u0629 \u0627\u0644\u062B\u0642\u0627\u0641\u0629 (\u0639\u0631\u0628\u064A/\u0625\u0646\u062C\u0644\u064A\u0632\u064A)",
     bannerTagline: "\u0627\u0639\u0637\u0650 \u0634\u063A\u0644 \u0627\u0644\u0648\u0643\u064A\u0644 {role} \u0648{memory} \u0648{evidence}.",
@@ -260,20 +296,20 @@ ${t6}
 }
 
 // cli/bin/crewloom.js
-var launcherDirectory = path3.dirname(fs3.realpathSync(process.argv[1]));
+var launcherDirectory = path4.dirname(fs4.realpathSync(process.argv[1]));
 var rootDir = resolveWorkspaceRoot(process.cwd(), launcherDirectory);
-var VERSION = true ? "1.0.1" : JSON.parse(fs3.readFileSync(path3.join(launcherDirectory, "../package.json"), "utf8")).version;
+var VERSION = true ? "1.0.1" : JSON.parse(fs4.readFileSync(path4.join(launcherDirectory, "../package.json"), "utf8")).version;
 var args = process.argv.slice(2);
 var BANNER = renderBanner(VERSION);
 function loadRealCatalog() {
   const candidatePaths = [
-    path3.join(rootDir, "agent/apps/crewloom-desktop/src/generated/catalog.json"),
-    path3.join(rootDir, "agent/apps/crewloom-desktop/src-tauri/resources/catalog.json")
+    path4.join(rootDir, "agent/apps/crewloom-desktop/src/generated/catalog.json"),
+    path4.join(rootDir, "agent/apps/crewloom-desktop/src-tauri/resources/catalog.json")
   ];
   for (const p of candidatePaths) {
-    if (fs3.existsSync(p)) {
+    if (fs4.existsSync(p)) {
       try {
-        return JSON.parse(fs3.readFileSync(p, "utf8"));
+        return JSON.parse(fs4.readFileSync(p, "utf8"));
       } catch {
       }
     }
@@ -307,6 +343,7 @@ Commands:
   status               Display real system status & detected local CLI models
   studio [--open]      Launch Crewloom Studio web dashboard (browser interface)
   bridge [options]     Launch Omni-Channel Mediator (Telegram/WhatsApp/Terminal)
+  agent, dsh [args]    Run the agent's dsh CLI (MCP, hooks, plugins) in this directory
   verify               Run core automated verification test suite
   audit [--preflight]  Verify repository integrity, worktree and security guards
   init                 Initialize sovereign .crewloom configuration in workspace
@@ -407,8 +444,8 @@ function executeCommand(cmdArgs) {
     case "studio": {
       console.log(BANNER);
       console.log("\x1B[36m\u25B6 Launching Crewloom Studio Web Dashboard...\x1B[0m");
-      const studioServerPath = process.env.CREWLOOM_STUDIO_PATH || path3.join(rootDir, "agent/apps/crewloom-studio/server.mjs");
-      if (fs3.existsSync(studioServerPath)) {
+      const studioServerPath = process.env.CREWLOOM_STUDIO_PATH || path4.join(rootDir, "agent/apps/crewloom-studio/server.mjs");
+      if (fs4.existsSync(studioServerPath)) {
         const shouldOpen = cmdArgs.includes("--open");
         const child = spawn("node", [studioServerPath], { stdio: "inherit" });
         if (shouldOpen) {
@@ -428,13 +465,23 @@ function executeCommand(cmdArgs) {
     }
     case "bridge": {
       console.log(BANNER);
-      const bridgePath = process.env.CREWLOOM_BRIDGE_PATH || path3.join(rootDir, "bridge/dist/index.js");
-      if (fs3.existsSync(bridgePath)) {
+      const bridgePath = process.env.CREWLOOM_BRIDGE_PATH || path4.join(rootDir, "bridge/dist/index.js");
+      if (fs4.existsSync(bridgePath)) {
         const child = spawn("node", [bridgePath, ...cmdArgs.slice(1)], { stdio: "inherit" });
         child.on("exit", (code) => process.exit(code || 0));
       } else {
         console.log("\x1B[33m\u2022 Bridge build not found. Run `npm run build` in bridge/ first.\x1B[0m");
       }
+      break;
+    }
+    case "agent":
+    case "dsh": {
+      const result = runAgentCli(rootDir, cmdArgs.slice(1));
+      if (!result.ok) {
+        const detail = result.reason === "signal" ? result.signal : result.error?.message;
+        console.error(`${translate(`agent:${result.reason}`)} ${result.path}${detail ? ` (${detail})` : ""}`);
+      }
+      process.exitCode = result.status;
       break;
     }
     case "verify":

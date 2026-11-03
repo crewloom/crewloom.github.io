@@ -21,6 +21,7 @@ The website installer downloads a self-contained launcher from `https://crewloom
 | `verify`, `demo` | Runs both the core repository checker and desktop Node tests, independently. Missing suites, launch errors, signals and failed checks produce nonzero exit status. |
 | `roles`, `list` | Reads the real catalog from an available source workspace. |
 | `studio`, `bridge` | Launches the existing source-workspace service when available. |
+| `agent`, `dsh` | Runs the agent repository's upstream `dsh` CLI (profiles, `dsh plugin`, MCP and hooks bundles) with the same entry as `pnpm dsh`, in the current directory. Arguments pass through unchanged and dsh's exit status is returned. A missing `agent/apps/cli` entry or uninstalled agent dependencies fail with a nonzero status and the path to fix. |
 | `audit` | Inspects Git state and scans diffs for a fixed set of dangerous text patterns; this is not a general safety proof. |
 | `status`, `version` | Shows detected tools or the launcher version. |
 
@@ -42,7 +43,7 @@ The source and download suites cover exclusive initialization, preservation, rea
 
 ## العربية
 
-المصدر المعتمد للمشغّل هو `cli/` داخل مستودع الموقع. الإصدار 1.0.1 مرفق بإصدار الموقع v1.0.7 على GitHub؛ نشر npm منفصل. `init` لا يستبدل ملف إعدادات موجودًا. `verify` و`demo` يحتاجان مجلدات المصدر، ويخرجان بفشل عند غياب أي فحص مطلوب أو فشله. المسارات القديمة في مساحة العمل تحيل إلى هذا المصدر. اختبارات التنزيل تعمل في مجلدات مؤقتة دون مفاتيح أو مزوّد حي.
+المصدر المعتمد للمشغّل هو `cli/` داخل مستودع الموقع. الإصدار 1.0.1 مرفق بإصدار الموقع v1.0.7 على GitHub؛ نشر npm منفصل. `init` لا يستبدل ملف إعدادات موجودًا. `verify` و`demo` يحتاجان مجلدات المصدر، ويخرجان بفشل عند غياب أي فحص مطلوب أو فشله. `agent` و`dsh` يشغّلان واجهة `dsh` من مستودع agent بنفس مدخل `pnpm dsh` في المجلد الحالي، ويعيدان حالة خروجها؛ غياب المدخل أو الاعتماديات يفشل مع ذكر المسار. المسارات القديمة في مساحة العمل تحيل إلى هذا المصدر. اختبارات التنزيل تعمل في مجلدات مؤقتة دون مفاتيح أو مزوّد حي.
 
 ## License
 

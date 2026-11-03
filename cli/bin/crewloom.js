@@ -11,6 +11,7 @@ import fs from 'fs';
 import readline from 'readline';
 import { resolveWorkspaceRoot } from './workspace-root.js';
 import { initializeWorkspace, verifyWorkspace } from './workspace-commands.js';
+import { runAgentCli } from './agent-command.js';
 import { translate } from './messages.js';
 import { renderBanner } from './banner.js';
 
@@ -65,6 +66,7 @@ Commands:
   status               Display real system status & detected local CLI models
   studio [--open]      Launch Crewloom Studio web dashboard (browser interface)
   bridge [options]     Launch Omni-Channel Mediator (Telegram/WhatsApp/Terminal)
+  agent, dsh [args]    Run the agent's dsh CLI (MCP, hooks, plugins) in this directory
   verify               Run core automated verification test suite
   audit [--preflight]  Verify repository integrity, worktree and security guards
   init                 Initialize sovereign .crewloom configuration in workspace
@@ -197,6 +199,17 @@ function executeCommand(cmdArgs) {
       } else {
         console.log('\x1b[33m• Bridge build not found. Run `npm run build` in bridge/ first.\x1b[0m');
       }
+      break;
+    }
+
+    case 'agent':
+    case 'dsh': {
+      const result = runAgentCli(rootDir, cmdArgs.slice(1));
+      if (!result.ok) {
+        const detail = result.reason === 'signal' ? result.signal : result.error?.message;
+        console.error(`${translate(`agent:${result.reason}`)} ${result.path}${detail ? ` (${detail})` : ''}`);
+      }
+      process.exitCode = result.status;
       break;
     }
 
