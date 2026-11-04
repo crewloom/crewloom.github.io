@@ -22,7 +22,7 @@ The website installer downloads a self-contained launcher from `https://crewloom
 | `roles`, `list` | Reads the real catalog from an available source workspace. |
 | `studio`, `bridge` | Launches the existing source-workspace service when available. |
 | `agent`, `dsh` | Runs the agent repository's upstream `dsh` CLI (profiles, `dsh plugin`, MCP and hooks bundles) with the same entry as `pnpm dsh`, in the current directory. Arguments pass through unchanged and dsh's exit status is returned. A missing `agent/apps/cli` entry or uninstalled agent dependencies fail with a nonzero status and the path to fix. |
-| `audit` | Inspects Git state and scans diffs for a fixed set of dangerous text patterns; this is not a general safety proof. |
+| `audit` | Inspects Git state and scans diffs for a fixed set of dangerous text patterns; this is not a general safety proof. Git inspection failures, including running outside a Git repository, return a nonzero status without claiming a clean audit. |
 | `status`, `version` | Shows detected tools or the launcher version. |
 
 Source lookup checks the current directory and ancestors, then the launcher's location and ancestors. Run verification inside a Crewloom source workspace. Download-only installations cannot verify repositories they do not contain. The launcher strips inherited `NODE_TEST_CONTEXT` before starting its independent test subprocess so a parent Node test runner cannot silently suppress that suite.
@@ -48,3 +48,5 @@ The source and download suites cover exclusive initialization, preservation, rea
 ## License
 
 Apache-2.0; see `LICENSE`.
+
+يفشل `audit` بحالة خروج غير صفرية عند تعذر فحص Git، بما في ذلك تشغيله خارج مستودع، ولا يعلن نجاح التدقيق دون دليل.

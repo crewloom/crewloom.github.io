@@ -132,7 +132,9 @@ function executeCommand(cmdArgs) {
           modifiedFiles = gitOut.split('\n').map(l => l.trim());
         }
       } catch {
-        console.log('  Notice: Current directory is not a git repository.');
+        console.error(translate('auditGitFailed'));
+        process.exitCode = 1;
+        break;
       }
 
       const DANGEROUS_PATTERNS = [
@@ -152,7 +154,11 @@ function executeCommand(cmdArgs) {
             console.log(`\x1b[31m⚠ Warning: Dangerous command pattern detected: ${pattern}\x1b[0m`);
           }
         }
-      } catch {}
+      } catch {
+        console.error(translate('auditGitFailed'));
+        process.exitCode = 1;
+        break;
+      }
 
       if (gitDirty) {
         console.log(`\x1b[33m• ${modifiedFiles.length} modified/untracked files in working directory.\x1b[0m`);

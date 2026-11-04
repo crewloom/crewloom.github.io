@@ -31,6 +31,21 @@ export function detectAssetPlatform(fileName: string): PlatformKey {
   return 'curl';
 }
 
+/** GitHub resolves a synchronized latest URL to a versioned URL in the same repository. */
+function matchesKnownDownload(knownUrl: string, actual: URL): boolean {
+  if (knownUrl === actual.href) return true;
+  const known = new URL(knownUrl);
+  if (known.origin !== 'https://github.com' || actual.origin !== known.origin) return false;
+  const source = known.pathname.split('/');
+  const target = actual.pathname.split('/');
+  return source.length === 7 && target.length === 7
+    && source[1] === target[1] && source[2] === target[2]
+    && source[3] === 'releases' && target[3] === 'releases'
+    && source[4] === 'latest' && source[5] === 'download'
+    && target[4] === 'download' && Boolean(target[5])
+    && source[6] === target[6] && !actual.search && !actual.hash;
+}
+
 /** Validates GitHub asset responses once for both client and server consumers. */
 export function parseReleaseAssets(raw: unknown, knownAssets: readonly ReleaseAsset[] = []): ReleaseAsset[] {
   if (!Array.isArray(raw)) throw new Error('Invalid release assets');
@@ -45,7 +60,7 @@ export function parseReleaseAssets(raw: unknown, knownAssets: readonly ReleaseAs
     }
     const url = new URL(asset.browser_download_url);
     if (url.protocol !== 'https:' || url.username || url.password) throw new Error('Invalid release download URL');
-    const known = knownAssets.find(item => item.name === asset.name && item.downloadUrl === url.href);
+    const known = knownAssets.find(item => item.name === asset.name && matchesKnownDownload(item.downloadUrl, url));
     const platform = known?.platform ?? detectAssetPlatform(asset.name);
     const universal = /universal/i.test(asset.name) && /\.dmg$/i.test(asset.name);
     return {

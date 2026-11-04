@@ -1,6 +1,7 @@
 /** Copy for workspace operations; existing CLI diagnostics elsewhere remain English. */
 const dictionaries = {
   en: {
+    auditGitFailed: 'Git inspection failed; audit could not verify this directory.',
     initOk: 'Initialized .crewloom/config.json.',
     initFailed: 'Initialization failed; existing configuration has been preserved:',
     verifyOk: 'Verification passed.',
@@ -22,6 +23,7 @@ const dictionaries = {
     bannerEvidenceAlt: 'دليلًا',
   },
   ar: {
+    auditGitFailed: 'تعذر فحص Git؛ لم يتمكن التدقيق من التحقق من هذا المجلد.',
     initOk: 'تم إنشاء .crewloom/config.json.',
     initFailed: 'تعذر الإعداد؛ تم الحفاظ على ملف الإعدادات الموجود:',
     verifyOk: 'نجحت جميع فحوص التحقق.',

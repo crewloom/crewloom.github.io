@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.14 — 2026-11-04
+
+- Resolve synchronized macOS asset architecture for versioned GitHub download URLs while preserving repository and CPU isolation.
+- Propagate both workspace verification suite failures through the launcher and portable distribution.
+- Document release asset selection and CLI verification behavior.
+
 ## 1.0.8 — 2026-10-27
 
 - Make Vercel install the npm lockfile and verify the CLI before the complete build, matching the validated GitHub pipeline.

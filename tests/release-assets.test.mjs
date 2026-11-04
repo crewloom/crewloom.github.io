@@ -29,3 +29,19 @@ test('untrusted assets reject malformed fields and unsafe URLs', () => {
   assert.throws(() => parseReleaseAssets([{ ...asset('a.dmg'), size: NaN }]));
   assert.throws(() => parseReleaseAssets([{ ...asset('a.dmg'), browser_download_url: 'javascript:alert(1)' }]));
 });
+
+
+test('synchronized latest asset metadata recognizes versioned GitHub download URLs only in the same repository', () => {
+  const name = 'Crewloom.dmg';
+  const known = [{ name, platform: 'macos-arm64', downloadUrl: `https://github.com/crewloom/site/releases/latest/download/${name}` }];
+  const versioned = { ...asset(name), browser_download_url: `https://github.com/crewloom/site/releases/download/v0.10.3/${name}` };
+  assert.equal(selectReleaseAsset(parseReleaseAssets([versioned], known), 'macos-arm64')?.name, name);
+  for (const url of [
+    `https://github.com/other/site/releases/download/v0.10.3/${name}`,
+    `https://example.com/crewloom/site/releases/download/v0.10.3/${name}`,
+    `https://github.com/crewloom/site/blob/v0.10.3/${name}`,
+  ]) {
+    assert.equal(selectReleaseAsset(parseReleaseAssets([{ ...versioned, browser_download_url: url }], known), 'macos-arm64'), undefined);
+  }
+  assert.equal(selectReleaseAsset(parseReleaseAssets([versioned], known), 'macos-x64'), undefined);
+});
