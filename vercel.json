@@ -65,6 +65,11 @@
       "permanent": false
     },
     {
+      "source": "/Crewloom.apk",
+      "destination": "https://github.com/crewloom/crewloom.github.io/releases/latest/download/Crewloom.apk",
+      "permanent": false
+    },
+    {
       "source": "/docs",
       "destination": "/blog/",
       "permanent": true

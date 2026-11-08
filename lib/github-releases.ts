@@ -21,6 +21,7 @@ export interface LatestReleaseData {
   assets: ReleaseAsset[];
   primaryMacAsset?: ReleaseAsset;
   primaryWindowsAsset?: ReleaseAsset;
+  primaryAndroidAsset?: ReleaseAsset;
   primaryLinuxAsset?: ReleaseAsset;
   isLive: boolean;
 }
@@ -98,6 +99,16 @@ export const FALLBACK_RELEASE: LatestReleaseData = {
       platform: 'windows',
       isInstaller: false,
     },
+    {
+      id: 5,
+      name: downloadContract.assets.android,
+      size: 25034354,
+      sizeFormatted: '23.9 MB',
+      downloadUrl: `https://github.com/${downloadContract.repo}/releases/download/${currentAgent.tagName}/${downloadContract.assets.android}`,
+      contentType: 'application/vnd.android.package-archive',
+      platform: 'android',
+      isInstaller: true,
+    },
   ],
   primaryMacAsset: {
     id: 1,
@@ -117,6 +128,16 @@ export const FALLBACK_RELEASE: LatestReleaseData = {
     downloadUrl: `https://github.com/${downloadContract.repo}/releases/download/${currentAgent.tagName}/${downloadContract.assets.windowsInstaller}`,
     contentType: 'application/x-msdownload',
     platform: 'windows',
+    isInstaller: true,
+  },
+  primaryAndroidAsset: {
+    id: 5,
+    name: downloadContract.assets.android,
+    size: 25034354,
+    sizeFormatted: '23.9 MB',
+    downloadUrl: `https://github.com/${downloadContract.repo}/releases/download/${currentAgent.tagName}/${downloadContract.assets.android}`,
+    contentType: 'application/vnd.android.package-archive',
+    platform: 'android',
     isInstaller: true,
   },
 };
@@ -179,6 +200,7 @@ export async function fetchLatestReleaseFromGitHub(): Promise<LatestReleaseData>
 
       const primaryMac = selectReleaseAsset(parsedAssets, 'macos-arm64');
       const primaryWin = parsedAssets.find((a) => a.platform === 'windows');
+      const primaryAndroid = parsedAssets.find((a) => a.platform === 'android');
       const primaryLinux = parsedAssets.find((a) => a.platform === 'linux');
 
       const rawTagName = selectedRelease.tag_name || agentInfo.tagName;
@@ -199,6 +221,7 @@ export async function fetchLatestReleaseFromGitHub(): Promise<LatestReleaseData>
         assets: parsedAssets,
         primaryMacAsset: primaryMac,
         primaryWindowsAsset: primaryWin,
+        primaryAndroidAsset: primaryAndroid,
         primaryLinuxAsset: primaryLinux,
         isLive: true,
       };

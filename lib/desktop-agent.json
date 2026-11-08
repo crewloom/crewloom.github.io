@@ -1,7 +1,7 @@
 {
-  "version": "0.19.6",
-  "tagName": "v0.19.6",
-  "name": "Crewloom Desktop Agent v0.19.6",
+  "version": "0.19.7",
+  "tagName": "v0.19.7",
+  "name": "Crewloom Desktop Agent v0.19.7",
   "productName": "Crewloom Agent",
   "description": "Crewloom Agent desktop application (macOS, Windows, Linux)",
   "dmgName": "Crewloom.dmg",
@@ -9,5 +9,5 @@
   "dmgSizeFormatted": "19.1 MB",
   "downloadUrl": "https://github.com/crewloom/crewloom.github.io/releases/latest/download/Crewloom.dmg",
   "sourcePath": "../agent/apps/crewloom-desktop/package.json",
-  "syncedAt": "2026-11-08T00:39:34.526Z"
+  "syncedAt": "2026-11-08T08:41:09.569Z"
 }

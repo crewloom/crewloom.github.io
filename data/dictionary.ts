@@ -46,6 +46,9 @@ export const DICTIONARY = {
       windowsPowershellPrompt: 'Windows PowerShell (1-Line Install):',
       wslPrompt: 'WSL2 / Linux Terminal Preview:',
       windowsTargetDetails: 'Target: Windows 10 / 11 (64-bit x64/ARM)',
+      downloadAndroid: 'Download for Android (.apk)',
+      androidApkPackage: 'Signed Universal APK Package',
+      androidTargetDetails: 'Android 8.0+ (API 26+) · ARM64 & x86_64',
       recommendedForSystem: 'Recommended for Your System',
       downloadNow: 'Download Now',
       viewInstructions: 'View Instructions',
@@ -73,6 +76,11 @@ export const DICTIONARY = {
         label: 'Windows',
         fullName: 'Crewloom Studio for Windows 10/11',
         compatibilityNote: 'Verified NSIS installer (.exe) for Windows 10/11 with zero-drift local headroom and PowerShell support.',
+      },
+      'android': {
+        label: 'Android (APK)',
+        fullName: 'Crewloom Studio for Android (Universal APK)',
+        compatibilityNote: 'Standalone native Android app (.apk) powered by Tauri with responsive mobile control room and zero telemetry.',
       },
       'linux': {
         label: 'Linux',
@@ -227,6 +235,9 @@ export const DICTIONARY = {
       windowsPowershellPrompt: 'أمر ويندوز PowerShell المباشر:',
       wslPrompt: 'أمر بيئة WSL2 / لينكس:',
       windowsTargetDetails: 'النظام المستهدف: ويندوز 10 / 11 (نواة 64-بت)',
+      downloadAndroid: 'تحميل للأندرويد (.apk)',
+      androidApkPackage: 'حزمة APK موحدة وموقعة رقمياً',
+      androidTargetDetails: 'نظام أندرويد 8.0 فما فوق (API 26+) · يدعم ARM64 وx86_64',
       recommendedForSystem: 'النسخة الموصى بها لجهازك',
       downloadNow: 'تحميل فوري مباشر',
       viewInstructions: 'عرض تعليمات النظام',
@@ -254,6 +265,11 @@ export const DICTIONARY = {
         label: 'ويندوز',
         fullName: 'تطبيق كرو لوم لويندوز 10/11',
         compatibilityNote: 'مثبت NSIS معتمد (.exe) لويندوز 10/11 مع قياس دقيق للموارد ودعم كامل للطرفية وPowerShell.',
+      },
+      'android': {
+        label: 'أندرويد (APK)',
+        fullName: 'تطبيق كرو لوم للأندرويد (حزمة APK الكاملة)',
+        compatibilityNote: 'تطبيق أندرويد أصلي متكامل (.apk) بواجهة تحكم كاملة ومتجاوبة وبدون أي تسريب للبيانات.',
       },
       'linux': {
         label: 'لينكس',

@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import { SITE_CONFIG } from '@/lib/constants';
 import desktopAgentMeta from '@/lib/desktop-agent.json';
 
-export type PlatformKey = 'macos-arm64' | 'macos-x64' | 'windows' | 'linux' | 'curl';
+export type PlatformKey = 'macos-arm64' | 'macos-x64' | 'windows' | 'linux' | 'android' | 'curl';
 
 export interface DeviceInfo {
   platformKey: PlatformKey;
@@ -41,6 +41,12 @@ export function useDeviceOS() {
     // Check Windows
     if (/Win/i.test(platform) || /Windows/i.test(ua)) {
       setDetectedPlatform('windows');
+      return;
+    }
+
+    // Check Android
+    if (/Android/i.test(platform) || /Android/i.test(ua)) {
+      setDetectedPlatform('android');
       return;
     }
 
@@ -140,6 +146,26 @@ export function useDeviceOS() {
           isRecommendedForDevice: detectedPlatform === 'windows',
           compatibilityNoteEn: 'Verified native installer (.exe) for Windows 10/11 with zero-drift local headroom and PowerShell support.',
           compatibilityNoteAr: 'مثبت تنفيذي معتمد (.exe) لويندوز 10/11 مع قياس دقيق للموارد ودعم كامل للطرفية وPowerShell.',
+        };
+
+      case 'android':
+        return {
+          platformKey: 'android',
+          osNameEn: 'Android',
+          osNameAr: 'أندرويد Android',
+          archNameEn: 'ARM64 & x86_64 APK',
+          archNameAr: 'حزمة APK موحدة للأندرويد',
+          fullNameEn: 'Crewloom Studio for Android',
+          fullNameAr: 'تطبيق كرو لوم المكتبي للأندرويد (APK)',
+          isDirectDownload: true,
+          downloadUrl: SITE_CONFIG.androidDownloadUrl,
+          fileName: downloadContract.assets.android,
+          fileSize: '23.9 MB',
+          statusBadgeEn: 'Verified Release (.apk) v' + (desktopAgentMeta.version || '0.19.6'),
+          statusBadgeAr: 'حزمة تثبيت معتمدة (.apk) v' + (desktopAgentMeta.version || '0.19.6'),
+          isRecommendedForDevice: detectedPlatform === 'android',
+          compatibilityNoteEn: 'Verified native Android APK with complete offline control room and responsive UI.',
+          compatibilityNoteAr: 'حزمة أندرويد أصلية معتمدة (.apk) بواجهة تحكم كاملة واستقلالية تامة.',
         };
 
       case 'linux':

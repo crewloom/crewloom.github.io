@@ -22,6 +22,8 @@ export const SITE_CONFIG = {
   macosGithubUrl: latestDownloadUrl('macos'),
   windowsDownloadUrl: `/${downloadContract.assets.windowsInstaller}`,
   windowsGithubUrl: latestDownloadUrl('windowsInstaller'),
+  androidDownloadUrl: `/${downloadContract.assets.android}`,
+  androidGithubUrl: latestDownloadUrl('android'),
   version: `v${desktopAgentMeta.version || '0.19.6'} (Beta Preview)`,
   latencyTargetMs: 0.8,
   license: 'Apache-2.0',

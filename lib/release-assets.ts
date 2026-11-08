@@ -26,6 +26,7 @@ export function detectAssetPlatform(fileName: string): PlatformKey {
     if (/arm64|aarch64|universal/.test(name)) return 'macos-arm64';
     return 'curl';
   }
+  if (/\.apk$|android/.test(name)) return 'android';
   if (/\.(exe|msi)$|windows/.test(name)) return 'windows';
   if (/\.(deb|rpm|appimage|tar\.gz)$|linux/.test(name)) return 'linux';
   return 'curl';
@@ -68,7 +69,7 @@ export function parseReleaseAssets(raw: unknown, knownAssets: readonly ReleaseAs
       sizeFormatted: formatBytes(asset.size), downloadUrl: url.href,
       contentType: asset.content_type, platform,
       ...(universal ? { supportedPlatforms: ['macos-arm64', 'macos-x64'] as const } : {}),
-      isInstaller: /\.(dmg|exe|msi|deb|rpm|appimage|tar\.gz)$/i.test(asset.name),
+      isInstaller: /\.(dmg|exe|msi|deb|rpm|appimage|tar\.gz|apk)$/i.test(asset.name),
     };
   });
 }

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Apple, Download, Terminal, Check, Laptop, Monitor, Sparkles, ExternalLink, Box } from 'lucide-react';
+import { Apple, Download, Terminal, Check, Laptop, Monitor, Sparkles, ExternalLink, Box, Smartphone } from 'lucide-react';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useClipboard } from '@/hooks/useClipboard';
 import { useDeviceOS, PlatformKey } from '@/hooks/useDeviceOS';
@@ -43,6 +43,7 @@ export function MagneticInstallDock() {
     { key: 'macos-arm64', icon: <Apple className="w-3.5 h-3.5" />, isHot: true },
     { key: 'macos-x64', icon: <Apple className="w-3.5 h-3.5" /> },
     { key: 'windows', icon: <Monitor className="w-3.5 h-3.5" /> },
+    { key: 'android', icon: <Smartphone className="w-3.5 h-3.5" /> },
     { key: 'linux', icon: <Laptop className="w-3.5 h-3.5" /> },
     { key: 'curl', icon: <Terminal className="w-3.5 h-3.5" /> },
   ];
@@ -62,6 +63,8 @@ export function MagneticInstallDock() {
                   <Apple className="w-5 h-5" />
                 ) : currentDevice.osNameEn === 'Windows' ? (
                   <Monitor className="w-5 h-5" />
+                ) : currentDevice.osNameEn === 'Android' ? (
+                  <Smartphone className="w-5 h-5" />
                 ) : (
                   <Laptop className="w-5 h-5" />
                 )}
@@ -92,7 +95,22 @@ export function MagneticInstallDock() {
 
             {/* Quick 1-Click Recommended Action */}
             <div className="w-full sm:w-auto shrink-0 flex items-center gap-2">
-              {currentDevice.platformKey === 'windows' ? (
+              {currentDevice.platformKey === 'android' ? (
+                <a
+                  href={currentDevice.downloadUrl || SITE_CONFIG.androidDownloadUrl}
+                  download={currentDevice.fileName}
+                  className="w-full sm:w-auto"
+                >
+                  <Button
+                    variant="primary"
+                    size="sm"
+                    leftIcon={<Download className="w-3.5 h-3.5 stroke-[2.5]" />}
+                    className="w-full sm:w-auto font-bold text-xs shadow-lg shadow-cyan-500/25 px-4 py-2"
+                  >
+                    {`${t.install.downloadAndroid} (${currentDevice.fileSize || '23.9 MB'})`}
+                  </Button>
+                </a>
+              ) : currentDevice.platformKey === 'windows' ? (
                 <a
                   href={currentDevice.downloadUrl || SITE_CONFIG.windowsDownloadUrl}
                   download={currentDevice.fileName}
@@ -309,6 +327,60 @@ export function MagneticInstallDock() {
               <div className="p-2.5 sm:p-3 rounded-lg bg-space-900/60 border border-white/5 text-xs text-gray-400 font-mono flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                 <span>{t.install.wslPrompt}</span>
                 <code className="text-cyan-300/90 text-[11px]">{curlCmd}</code>
+              </div>
+            </div>
+          ) : activeInfo.platformKey === 'android' ? (
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div className="flex items-start gap-3">
+                <div className="w-10 h-10 rounded-xl bg-cyan-950 border border-cyan-800/80 flex items-center justify-center text-cyan-400 shrink-0 mt-0.5">
+                  <Smartphone className="w-5 h-5" />
+                </div>
+                <div>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <h4 className="text-xs sm:text-sm font-bold text-white font-mono">
+                      {t.platforms[activeInfo.platformKey]?.fullName || activeInfo.fullNameEn}
+                    </h4>
+                    <Badge variant="cyan" className="text-[10px] py-0 px-1.5 font-mono">
+                      {`${t.install.officialRelease} ${versionTag}`}
+                    </Badge>
+                  </div>
+                  <p className="text-[11px] sm:text-xs text-gray-400 mt-1 leading-relaxed">
+                    {t.platforms[activeInfo.platformKey]?.compatibilityNote || activeInfo.compatibilityNoteEn}
+                  </p>
+                  <div className="flex flex-wrap items-center gap-2.5 text-[10px] sm:text-[11px] font-mono text-gray-500 mt-1.5">
+                    <span><strong className="text-gray-300">{t.install.androidApkPackage}</strong></span>
+                    <span>•</span>
+                    <span>{t.install.sizeLabel}: <strong className="text-cyan-400">{activeInfo.fileSize || '23.9 MB'}</strong></span>
+                    <span>•</span>
+                    <span><strong className="text-gray-300">{t.install.androidTargetDetails}</strong></span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex flex-col sm:flex-row items-center gap-2 w-full sm:w-auto shrink-0">
+                <a
+                  href={activeInfo.downloadUrl || SITE_CONFIG.androidDownloadUrl}
+                  download={activeInfo.fileName || 'Crewloom.apk'}
+                  className="w-full sm:w-auto"
+                >
+                  <Button
+                    variant="primary"
+                    size="sm"
+                    leftIcon={<Download className="w-3.5 h-3.5 stroke-[2.5]" />}
+                    className="w-full sm:w-auto whitespace-nowrap text-xs font-bold px-4 py-2"
+                  >
+                    {t.install.downloadAndroid}
+                  </Button>
+                </a>
+                <a
+                  href={release.htmlUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[10px] sm:text-[11px] text-gray-400 hover:text-cyan-300 font-mono underline text-center flex items-center justify-center gap-1"
+                >
+                  <span>GitHub Release</span>
+                  <ExternalLink className="w-3 h-3" />
+                </a>
               </div>
             </div>
           ) : activeInfo.platformKey === 'linux' ? (

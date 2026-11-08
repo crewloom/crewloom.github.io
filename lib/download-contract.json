@@ -4,6 +4,7 @@
     "macos": "Crewloom.dmg",
     "windowsInstaller": "Crewloom-Agent-Setup.exe",
     "windowsPortable": "Crewloom-Desktop-Windows-x64.zip",
+    "android": "Crewloom.apk",
     "installBat": "install.bat",
     "installPs1": "install.ps1"
   }
