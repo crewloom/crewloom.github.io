@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.1.0 — 2026-11-08
+
+- **VoiceStudio integration preview:** Custom client API alignment and microphone UI are being verified; original engine and model weights require separate installation. No completed engine integration or comparative quality is certified.
+- **Studio-Grade In-App Microphone Recording:** Lossless 16-bit linear PCM mono WAV recording directly from the desktop webview, featuring real-time VU meter / waveform visualizer, 5-30s duration safety, and instant preview playback.
+- **Reference reading prompts:** Bilingual sample text is available. No measured fidelity or phoneme-alignment improvement has been established.
+- **Voice fallback:** Local browser voices only; failure is visible when no permitted engine is available. Cloud playback is not configured in the desktop preview.
+- **Voice tool definitions:** Definitions exist; production host registration and original-engine execution remain unverified.
+- **Strict Internationalization:** Zero inline ternary localizations (`isAr ?`) enforced with 100% Arabic and English dictionary key parity.
+
 ## 1.0.14 — 2026-11-04
 
 - Resolve synchronized macOS asset architecture for versioned GitHub download URLs while preserving repository and CPU isolation.

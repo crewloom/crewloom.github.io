@@ -26,7 +26,7 @@ export interface FeatureItem {
   titleAr: string;
   descEn: string;
   descAr: string;
-  colorScheme: 'cyan' | 'emerald' | 'teal';
+  colorScheme: 'cyan' | 'emerald' | 'teal' | 'purple';
 }
 
 export interface ArchitectureLayer {

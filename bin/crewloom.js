@@ -107,6 +107,7 @@ function runAgentCli(root, args2, run = spawnSync2) {
 // cli/bin/messages.js
 var dictionaries = {
   en: {
+    auditGitFailed: "Git inspection failed; audit could not verify this directory.",
     initOk: "Initialized .crewloom/config.json.",
     initFailed: "Initialization failed; existing configuration has been preserved:",
     verifyOk: "Verification passed.",
@@ -129,6 +130,7 @@ var dictionaries = {
     bannerEvidenceAlt: "\u062F\u0644\u064A\u0644\u064B\u0627"
   },
   ar: {
+    auditGitFailed: "\u062A\u0639\u0630\u0631 \u0641\u062D\u0635 Git\u061B \u0644\u0645 \u064A\u062A\u0645\u0643\u0646 \u0627\u0644\u062A\u062F\u0642\u064A\u0642 \u0645\u0646 \u0627\u0644\u062A\u062D\u0642\u0642 \u0645\u0646 \u0647\u0630\u0627 \u0627\u0644\u0645\u062C\u0644\u062F.",
     initOk: "\u062A\u0645 \u0625\u0646\u0634\u0627\u0621 .crewloom/config.json.",
     initFailed: "\u062A\u0639\u0630\u0631 \u0627\u0644\u0625\u0639\u062F\u0627\u062F\u061B \u062A\u0645 \u0627\u0644\u062D\u0641\u0627\u0638 \u0639\u0644\u0649 \u0645\u0644\u0641 \u0627\u0644\u0625\u0639\u062F\u0627\u062F\u0627\u062A \u0627\u0644\u0645\u0648\u062C\u0648\u062F:",
     verifyOk: "\u0646\u062C\u062D\u062A \u062C\u0645\u064A\u0639 \u0641\u062D\u0648\u0635 \u0627\u0644\u062A\u062D\u0642\u0642.",
@@ -406,7 +408,9 @@ function executeCommand(cmdArgs) {
           modifiedFiles = gitOut.split("\n").map((l) => l.trim());
         }
       } catch {
-        console.log("  Notice: Current directory is not a git repository.");
+        console.error(translate("auditGitFailed"));
+        process.exitCode = 1;
+        break;
       }
       const DANGEROUS_PATTERNS = [
         /rm\s+-rf\s+[/~]/i,
@@ -425,6 +429,9 @@ function executeCommand(cmdArgs) {
           }
         }
       } catch {
+        console.error(translate("auditGitFailed"));
+        process.exitCode = 1;
+        break;
       }
       if (gitDirty) {
         console.log(`\x1B[33m\u2022 ${modifiedFiles.length} modified/untracked files in working directory.\x1B[0m`);

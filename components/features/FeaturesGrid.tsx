@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { ShieldAlert, Globe, Radio } from 'lucide-react';
+import { ShieldAlert, Globe, Radio, Mic } from 'lucide-react';
 import { FEATURES } from '@/data/dictionary';
 import { useLanguage } from '@/hooks/useLanguage';
 import { Card, Container, SectionHeading } from '@/components/ui';
@@ -13,6 +13,7 @@ export function FeaturesGrid() {
     ShieldAlert: <ShieldAlert className="w-6 h-6 stroke-[2]" />,
     Globe: <Globe className="w-6 h-6 stroke-[2]" />,
     Radio: <Radio className="w-6 h-6 stroke-[2]" />,
+    Mic: <Mic className="w-6 h-6 stroke-[2]" />,
   };
 
   const colorStyles: Record<string, { bg: string; border: string; text: string }> = {
@@ -31,6 +32,11 @@ export function FeaturesGrid() {
       border: 'border-teal-800/80',
       text: 'text-teal-400',
     },
+    purple: {
+      bg: 'bg-purple-950/80',
+      border: 'border-purple-800/80',
+      text: 'text-purple-400',
+    },
   };
 
   return (
@@ -42,7 +48,7 @@ export function FeaturesGrid() {
           align="center"
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {FEATURES.map((feature, idx) => {
             const colors = colorStyles[feature.colorScheme];
             return (

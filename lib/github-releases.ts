@@ -30,7 +30,7 @@ export interface LatestReleaseData {
  * (Synchronized automatically from agent/apps/crewloom-desktop/package.json via scripts/sync-desktop-agent.mjs)
  */
 export function getDesktopAgentVersion() {
-  const version = desktopAgentMeta.version || '0.5.10';
+  const version = desktopAgentMeta.version || '0.19.6';
   const tagName = desktopAgentMeta.tagName || `v${version}`;
   return {
     version,

@@ -2,7 +2,7 @@ import { ArchitectureLayer, FeatureItem, MetricItem } from '@/types';
 
 export const DICTIONARY = {
   en: {
-    announcement: 'Sovereign AI Coding Agent — Desktop Beta (v0.5.10) Now Available for macOS & Windows',
+    announcement: 'Sovereign AI Coding Agent — Desktop Beta (v0.19.6) Now Available for macOS & Windows',
     exploreGithub: 'Explore GitHub',
     brandSubtitle: 'Sovereign AI Coding Engine',
     common: {
@@ -183,7 +183,7 @@ export const DICTIONARY = {
     },
   },
   ar: {
-    announcement: 'كرو لوم: النسخة التجريبية (Beta v0.5.10) متاحة الآن للتحميل المباشر للماك والويندوز',
+    announcement: 'كرو لوم: النسخة التجريبية (Beta v0.19.6) متاحة الآن للتحميل المباشر للماك والويندوز',
     exploreGithub: 'استكشف المستودعات',
     brandSubtitle: 'كرو لوم · الذكاء البرمجي السيادي',
     common: {
@@ -416,6 +416,14 @@ export const FEATURES: FeatureItem[] = [
     descEn: 'Complete mediation through Telegram, WhatsApp, web, or native macOS app with live telemetry and asynchronous remote dispatch.',
     descAr: 'تحكم كامل في جهازك وأدواتك البرمجية عن بعد عبر تليجرام، واتساب، أو المتصفح مع مراقبة حية لتنفيذ الأوامر وسلامة النظام.',
     colorScheme: 'teal',
+  },
+  {
+    icon: 'Mic',
+    titleEn: 'Sovereign Voice Studio',
+    titleAr: 'استوديو الصوت واستنساخ النبرات',
+    descEn: 'In development: microphone sample recording and a connector to an independently installed VoiceStudio server. Cloning requires a supported engine and model weights.',
+    descAr: 'قيد التطوير: تسجيل عينات من الميكروفون وربط بخادم VoiceStudio مستقل. يحتاج الاستنساخ إلى محرك مدعوم وأوزان نماذج مثبتة.',
+    colorScheme: 'purple',
   },
 ];
 
