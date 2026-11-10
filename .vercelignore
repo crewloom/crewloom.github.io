@@ -2,6 +2,9 @@ scripts/windows-installer/
 *.zip
 *.exe
 *.dmg
+*.apk
+Crewloom.apk
+public/Crewloom.apk
 .git
 .github
 tests
