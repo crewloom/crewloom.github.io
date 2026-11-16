@@ -5,7 +5,7 @@
     <link>https://crewloom.org/blog/</link>
     <description>Official architectural benchmarks, zero-destruction guides, and announcements for the Crewloom sovereign AI coding agent.</description>
     <language>en</language>
-    <lastBuildDate>Sun, 08 Nov 2026 14:04:42 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 16 Nov 2026 11:13:28 GMT</lastBuildDate>
     <atom:link href="https://crewloom.org/feed.xml" rel="self" type="application/rss+xml" />
     <item>
       <title><![CDATA[Introducing Crewloom: The Sovereign Autonomous AI Coding Agent]]></title>
@@ -78,6 +78,33 @@
       <description><![CDATA[Discover how Crewloom Bridge daemon connects your terminal workstation to Telegram and WhatsApp for remote mission control, PR reviews, and mobile deployment authorization.]]></description>
       <author>core@crewloom.org (Crewloom Core Architecture Team)</author>
       <category>Guides & Tutorials</category>
+    </item>
+    <item>
+      <title><![CDATA[The Model Proposes, Deterministic Code Decides: Control Philosophy & Artifact Taxonomy]]></title>
+      <link>https://crewloom.org/blog/the-model-proposes-deterministic-code-decides/</link>
+      <guid isPermaLink="true">https://crewloom.org/blog/the-model-proposes-deterministic-code-decides/</guid>
+      <pubDate>Mon, 16 Nov 2026 12:00:00 GMT</pubDate>
+      <description><![CDATA[Why prompt engineering alone fails at production scale, and how Crewloom enforces deterministic safety via the CPS-1 Protocol Standard and a 9-tier Artifact Taxonomy.]]></description>
+      <author>core@crewloom.org (Crewloom Systems Architecture & Governance Council)</author>
+      <category>Engineering Architecture</category>
+    </item>
+    <item>
+      <title><![CDATA[The Science of Agent Verification: Sandboxed Execution, Double-Blind Evals, & RLVR]]></title>
+      <link>https://crewloom.org/blog/the-science-of-agent-verification-and-evals/</link>
+      <guid isPermaLink="true">https://crewloom.org/blog/the-science-of-agent-verification-and-evals/</guid>
+      <pubDate>Mon, 16 Nov 2026 12:00:00 GMT</pubDate>
+      <description><![CDATA[Why LLM-as-a-judge is fundamentally broken, and how Crewloom implements ground-truth sandbox execution, double-blind taste vs. correctness decoupling, and Wilson 95% confidence intervals.]]></description>
+      <author>core@crewloom.org (Crewloom AI Evaluation & Systems Research Group)</author>
+      <category>AI Research & Benchmarks</category>
+    </item>
+    <item>
+      <title><![CDATA[Inside Crewloom: Trinity Architecture, IPC Control Plane, & Zero-Destruction Autonomy]]></title>
+      <link>https://crewloom.org/blog/inside-crewloom-trinity-architecture-and-zero-destruction-engineering/</link>
+      <guid isPermaLink="true">https://crewloom.org/blog/inside-crewloom-trinity-architecture-and-zero-destruction-engineering/</guid>
+      <pubDate>Mon, 16 Nov 2026 12:00:00 GMT</pubDate>
+      <description><![CDATA[A technical overview of Crewloom’s software architecture: sovereign pillar separation (Core, Bridge, Agent), AST-level verification contracts, and enterprise multi-agent coordination.]]></description>
+      <author>core@crewloom.org (Crewloom Core Systems & Software Architecture Group)</author>
+      <category>Systems Engineering</category>
     </item>
   </channel>
 </rss>

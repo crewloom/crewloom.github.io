@@ -346,6 +346,7 @@ Commands:
   studio [--open]      Launch Crewloom Studio web dashboard (browser interface)
   bridge [options]     Launch Omni-Channel Mediator (Telegram/WhatsApp/Terminal)
   agent, dsh [args]    Run the agent's dsh CLI (MCP, hooks, plugins) in this directory
+  computer-use, cu     Universal Computer Use (Cyber-Ghost Cursor, Window Glow, Live OS)
   verify               Run core automated verification test suite
   audit [--preflight]  Verify repository integrity, worktree and security guards
   init                 Initialize sovereign .crewloom configuration in workspace
@@ -489,6 +490,18 @@ function executeCommand(cmdArgs) {
         console.error(`${translate(`agent:${result.reason}`)} ${result.path}${detail ? ` (${detail})` : ""}`);
       }
       process.exitCode = result.status;
+      break;
+    }
+    case "computer-use":
+    case "cu": {
+      console.log(BANNER);
+      const subArgs = cmdArgs.slice(1);
+      const scriptPath = subArgs.includes("--demo") ? path4.join(rootDir, "core/scripts/live_cursor_demo.py") : path4.join(rootDir, "core/scripts/computer_use.py");
+      const filteredArgs = subArgs.filter((a) => a !== "--demo");
+      const child = spawn("python3", [scriptPath, ...filteredArgs], { stdio: "inherit" });
+      child.on("exit", (code) => {
+        process.exitCode = code || 0;
+      });
       break;
     }
     case "verify":

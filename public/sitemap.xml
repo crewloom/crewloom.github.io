@@ -73,4 +73,22 @@
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
+  <url>
+    <loc>https://crewloom.org/blog/the-model-proposes-deterministic-code-decides/</loc>
+    <lastmod>2026-11-16T12:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://crewloom.org/blog/the-science-of-agent-verification-and-evals/</loc>
+    <lastmod>2026-11-16T12:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://crewloom.org/blog/inside-crewloom-trinity-architecture-and-zero-destruction-engineering/</loc>
+    <lastmod>2026-11-16T12:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
 </urlset>

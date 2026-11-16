@@ -26,6 +26,9 @@ const requiredFiles = [
   'blog/crewloom-vs-aider-and-cline-local-coding-agents/index.html',
   'blog/running-crewloom-offline-with-ollama-and-deepseek/index.html',
   'blog/remote-ai-coding-via-telegram-and-whatsapp/index.html',
+  'blog/the-model-proposes-deterministic-code-decides/index.html',
+  'blog/the-science-of-agent-verification-and-evals/index.html',
+  'blog/inside-crewloom-trinity-architecture-and-zero-destruction-engineering/index.html',
   'robots.txt',
   'sitemap.xml',
   'feed.xml',
@@ -99,19 +102,22 @@ assert(feed.includes('<rss version="2.0"'), 'feed.xml has valid RSS 2.0 root');
 assert(feed.includes('<title>Crewloom Engineering Insights &amp; Research</title>'), 'feed.xml has channel title');
 assert(feed.includes('<link>https://crewloom.org/blog/running-crewloom-offline-with-ollama-and-deepseek/</link>'), 'feed.xml contains Article 7');
 assert(feed.includes('<link>https://crewloom.org/blog/remote-ai-coding-via-telegram-and-whatsapp/</link>'), 'feed.xml contains Article 8');
+assert(feed.includes('<link>https://crewloom.org/blog/the-model-proposes-deterministic-code-decides/</link>'), 'feed.xml contains Article 9');
+assert(feed.includes('<link>https://crewloom.org/blog/the-science-of-agent-verification-and-evals/</link>'), 'feed.xml contains Article 10');
+assert(feed.includes('<link>https://crewloom.org/blog/inside-crewloom-trinity-architecture-and-zero-destruction-engineering/</link>'), 'feed.xml contains Article 11');
 const itemCount = (feed.match(/<item>/g) || []).length;
-assert(itemCount === 8, `feed.xml contains all 8 published articles (found: ${itemCount})`);
+assert(itemCount === 11, `feed.xml contains all 11 published articles (found: ${itemCount})`);
 
 // 8. Verify Sitemap & Multi-language alternates
 const sitemap = fs.readFileSync(path.join(OUT_DIR, 'sitemap.xml'), 'utf8');
 assert(sitemap.includes('<loc>https://crewloom.org/</loc>'), 'Sitemap contains homepage');
 assert(sitemap.includes('<loc>https://crewloom.org/ar/</loc>'), 'Sitemap contains dedicated Arabic page');
 assert(sitemap.includes('<loc>https://crewloom.org/blog/</loc>'), 'Sitemap contains blog index');
-assert(sitemap.includes('<loc>https://crewloom.org/blog/crewloom-vs-aider-and-cline-local-coding-agents/</loc>'), 'Sitemap contains Article 6');
-assert(sitemap.includes('<loc>https://crewloom.org/blog/running-crewloom-offline-with-ollama-and-deepseek/</loc>'), 'Sitemap contains Article 7');
-assert(sitemap.includes('<loc>https://crewloom.org/blog/remote-ai-coding-via-telegram-and-whatsapp/</loc>'), 'Sitemap contains Article 8');
+assert(sitemap.includes('<loc>https://crewloom.org/blog/the-model-proposes-deterministic-code-decides/</loc>'), 'Sitemap contains Article 9');
+assert(sitemap.includes('<loc>https://crewloom.org/blog/the-science-of-agent-verification-and-evals/</loc>'), 'Sitemap contains Article 10');
+assert(sitemap.includes('<loc>https://crewloom.org/blog/inside-crewloom-trinity-architecture-and-zero-destruction-engineering/</loc>'), 'Sitemap contains Article 11');
 const sitemapUrlCount = (sitemap.match(/<loc>/g) || []).length;
-assert(sitemapUrlCount === 11, `Sitemap contains all 11 verified URLs (found: ${sitemapUrlCount})`);
+assert(sitemapUrlCount === 14, `Sitemap contains all 14 verified URLs (found: ${sitemapUrlCount})`);
 
 // 9. Verify Robots.txt & AI Crawler directives
 const robots = fs.readFileSync(path.join(OUT_DIR, 'robots.txt'), 'utf8');

@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import fs from 'node:fs';
 import path from 'node:path';
+import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -17,7 +18,22 @@ const candidateDesktopPkgPaths = [
 let desktopPkg = null;
 let foundPath = null;
 
-for (const p of candidateDesktopPkgPaths) {
+// A local checkout can be stale (it once reported 0.26.3 while 0.29.x was released), so the
+// published branch is the source of truth. Local candidates remain the offline fallback.
+const remoteRef = process.env.CREWLOOM_AGENT_REF || 'crewloom-main';
+try {
+  const raw = execFileSync(
+    'gh',
+    ['api', `repos/crewloom/agent/contents/apps/crewloom-desktop/package.json?ref=${remoteRef}`, '-H', 'Accept: application/vnd.github.raw+json'],
+    { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], timeout: 20000 },
+  );
+  desktopPkg = JSON.parse(raw);
+  foundPath = `github:crewloom/agent@${remoteRef}`;
+} catch (error) {
+  console.warn(`[sync-desktop-agent] remote read failed (${error.message.split('\n')[0]}); using local checkout.`);
+}
+
+for (const p of desktopPkg ? [] : candidateDesktopPkgPaths) {
   if (fs.existsSync(p)) {
     try {
       desktopPkg = JSON.parse(fs.readFileSync(p, 'utf8'));
@@ -83,7 +99,7 @@ const meta = {
   dmgSize,
   dmgSizeFormatted: formatBytes(dmgSize),
   downloadUrl: `https://github.com/crewloom/crewloom.github.io/releases/latest/download/Crewloom.dmg`,
-  sourcePath: foundPath ? path.relative(websiteRoot, foundPath) : 'embedded',
+  sourcePath: foundPath ? (foundPath.startsWith('github:') ? foundPath : path.relative(websiteRoot, foundPath)) : 'embedded',
   syncedAt: new Date().toISOString(),
 };
 

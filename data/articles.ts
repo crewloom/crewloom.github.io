@@ -571,4 +571,400 @@ crewloom bridge telegram --token "YOUR_TELEGRAM_BOT_TOKEN" --owner "@YourUsernam
 يرسل لك كرو لوم تقارير لحظية ونتائج الفحص مع زر مباشر لاعتماد التعديلات بنقرة واحدة من هاتفك.
     `,
   },
+  {
+    slug: 'the-model-proposes-deterministic-code-decides',
+    titleEn: 'The Model Proposes, Deterministic Code Decides: Control Philosophy & Artifact Taxonomy',
+    titleAr: 'النموذج يقترح والكود الحتمي يُقرر: فلسفة التحكم وهرمية عناصر السلوك في كرو لوم',
+    descriptionEn: 'Why prompt engineering alone fails at production scale, and how Crewloom enforces deterministic safety via the CPS-1 Protocol Standard and a 9-tier Artifact Taxonomy.',
+    descriptionAr: 'لماذا تفشل هندسة الأوامر وحدها في بيئات الإنتاج الكبرى، وكيف تفرض كرو لوم الحتمية والأمان البرمجي عبر معيار CPS-1 وتصنيف العناصر التساعي.',
+    date: '2026-11-16',
+    readTimeEn: '9 min read',
+    readTimeAr: '٩ دقائق قراءة',
+    author: 'Crewloom Systems Architecture & Governance Council',
+    categoryEn: 'Engineering Architecture',
+    categoryAr: 'معمارية النظم وهندسة البرمجيات',
+    tags: ['Agent Architecture', 'Deterministic AI', 'Artifact Taxonomy', 'CPS-1', 'Prompt Engineering', 'AI Safety'],
+    contentEn: `
+## The Crisis of Probabilistic Autonomy in Modern AI Agents
+
+In conventional autonomous coding frameworks, developers rely on sprawling system prompts, hoping an LLM will consistently obey complex rules like *"never drop tables"*, *"keep files under 800 lines"*, or *"always write tests before code"*. At enterprise scale, this prompt-only paradigm routinely collapses under stochastic drift, adversarial edge cases, and attention decay across extended context windows.
+
+At **Crewloom (https://crewloom.org)**, we operate under a foundational axiom inspired by aerospace avionics and fault-tolerant distributed systems:
+
+> **"The Model Proposes, Deterministic Code Decides."**  
+> *"Prompt instructions are stochastic requests—not architectural guarantees."*
+
+True software reliability requires hard boundary isolation where probabilistic neural networks generate hypotheses and candidate diffs, but zero mutations occur without deterministic code enforcement (compilers, AST linters, typecheckers, and sandboxes).
+
+---
+
+### The 9-Tier Artifact Taxonomy
+
+To prevent architectural entropy, every element governing AI agent behavior in Crewloom is strictly classified into exactly one of nine invariant categories:
+
+| Artifact Type | Governing Concern | Enforcement Level | Loading Lifecycle | Concrete Example |
+|---|---|---|---|---|
+| **1. Constitution** | Immutable operational laws & sovereignty | Deterministic + Human Review | Permanent in every session | \`CONSTITUTION.md\` (Arts. I-VII) |
+| **2. Rule** | Stateless invariant on any output | Advisory + Guard detection | Always-on, ultra-dense (<2k tokens) | No \`any\`, No inline ternaries |
+| **3. Contract** | Deterministic interface between boundaries | 100% Typed (TypeScript / Rust / JSON Schema) | In source code contracts | \`Result<T, E>\`, \`ProtocolContract\` |
+| **4. Protocol** | Stateful, multi-step pipeline with gates | Advisory + Deterministic Gates | Triggered on-demand | Feature Engineering Protocol (FEP) |
+| **5. Skill** | Domain procedure & procedural expertise | Advisory (Selective Knowledge) | Loaded on-demand per task (<20k budget) | \`tdd\`, \`distributed-systems\` |
+| **6. Role** | Agent identity & explicit tool/skill allowlist | Deterministic (Kernel Allowlist) | Bound at agent instantiation | Lead Architect, Verifier, Builder |
+| **7. Memory** | Tiered factual knowledge (Data, not instructions) | Retrieval-only via Vectors/Holograms | Query-time injection | \`core/Brain/\`, Active HRPE $H$ |
+| **8. Guard / Hook** | Silent mechanical barrier outside the LLM | Deterministic (Fail-Closed) | Pre/Post-execution hooks | \`check-architecture.mjs\`, DLP |
+| **9. Eval** | Empirical ground-truth measurement suite | Objective computation | CI / Pre-merge gates | Sandbox pass/fail, Wilson 95% CI |
+
+---
+
+### Crewloom Protocol Standard (CPS-1): Zero "Written-Not-Wired"
+
+A common anti-pattern in modern AI infrastructure is the proliferation of markdown "protocols" that exist solely as wishful documentation. In Crewloom, the **CPS-1 Standard** (\`agent/packages/crewloom/contracts/src/protocol.ts\`) defines a protocol as a formal finite-state machine requiring five mandatory fields:
+
+1. **Trigger (\`trigger\`):** The exact, unambiguous event that activates the pipeline.
+2. **Ordered Pipeline (\`pipeline\`):** Sequential stages where every intermediate step must pass an automated, non-LLM verification gate before proceeding.
+3. **Deterministic Exit Condition (\`exit_condition\`):** A boolean assertion verifiable by terminal exit codes, AST checks, or cryptographic manifests.
+4. **Failure Remediation (\`on_failure\`):** Explicit fail-closed routing and halt codes.
+5. **Sovereign Owner (\`owner\`):** Exactly one source file designated as the single source of truth.
+
+\`\`\`typescript
+export interface ProtocolContract {
+  readonly id: string;
+  readonly name: string;
+  readonly anchor: {
+    readonly pillar: 'core' | 'bridge' | 'agent' | 'pulse';
+    readonly constitution_ref: string;
+    readonly memory_tier: 1 | 2 | 3 | 4;
+  };
+  readonly governance: {
+    readonly status: 'draft' | 'active' | 'deprecated';
+    readonly enforcement: 'advisory' | 'hybrid' | 'deterministic';
+    readonly guard?: string;
+  };
+  readonly contract: {
+    readonly trigger: ProtocolTrigger;
+    readonly pipeline: readonly ProtocolPipelineStep[];
+    readonly exit_condition: ProtocolExitCondition;
+    readonly on_failure: ProtocolOnFailure;
+  };
+}
+\`\`\`
+
+### Context Economy: The 20k Token Working Budget
+
+Injecting dozens of skills into a system prompt degrades reasoning accuracy and inflates API costs exponentially. Crewloom enforces strict **Context Economy**:
+- Only the **Constitution** and active **Rules** reside permanently in the context (< 15k tokens).
+- Domain **Skills** are dynamically activated and unloaded per mission.
+- Long-term state is offloaded to the **HRPE Holographic Memory Bank** ($O(1)$ memory envelope) rather than bloating the LLM prompt window.
+
+By combining deterministic code guards with structured protocols, Crewloom transforms probabilistic language models into FAANG-grade autonomous engineering partners.
+    `,
+    contentAr: `
+## أزمة الاعتماد على الأوامر النصية وحدها في وكلاء الذكاء الاصطناعي
+
+في أطر عمل الوكلاء البرمجيين التقليدية، يعتمد المهندسون على كتابة نصوص توجيه ضخمة (System Prompts) على أمل أن يلتزم النموذج بقواعد حرجة مثل: *"إياك ومسح الجداول"*، أو *"حافظ على الملفات أقل من 800 سطر"*، أو *"اكتب الاختبارات أولاً"*. في بيئات الإنتاج الحقيقية، ينهار هذا الأسلوب تماماً نتيجة التشتت الإحصائي وتآكل الانتباه في السياقات الطويلة.
+
+في **كرو لوم Crewloom (https://crewloom.org)**، ننطلق من قاعدة ذهبية مستلهمة من أنظمة الطيران وهندسة النظم الموزعة عالية الموثوقية:
+
+> **«النموذج يقترح، والكود الحتمي يُقرر» (The Model Proposes, Deterministic Code Decides)**  
+> *«نصوص الـ Prompt طلبات إحصائية وليست ضمانات معمارية هندسية.»*
+
+تتطلب الموثوقية الهندسية الحقيقية فصلاً قاطعاً للحدود: يقترح النموذج الفرضيات والتعديلات البرمجية، لكن **لا يُعتمد أي تعديل دون مصادقة كود حتمي خارجي** (مترجمات اللغات، فحص شجرة الصرف والنحو AST، واختبارات الصناديق المعزولة).
+
+---
+
+### هرمية عناصر التحكم التساعية (Artifact Taxonomy)
+
+لمنع الفوضى الهندسية، يُصنف كل عنصر يوجه سلوك الوكلاء في Crewloom بدقة متناهية ضمن تسعة عناصر حصرية:
+
+| نوع العنصر | مسؤوليته الجوهرية | طبيعة الإنفاذ | دورة التحميل في الذاكرة | مثال حي من المستودع |
+|---|---|---|---|---|
+| **1. الدستور (Constitution)** | القوانين العليا وميثاق عدم الهدم | حتمي + مراجعة بشرية | دائم في كافة الجلسات | \`CONSTITUTION.md\` (المواد 1-7) |
+| **2. القاعدة (Rule)** | قيد ثابت بلا حالة على أي مخرج | استرشادي + فحص حارس | دائم ومكثف (<2k توكن) | منع \`any\`، منع الشرطيات المضمنة |
+| **3. العقد (Contract)** | واجهة برمجية نمطية بين المكونات | حتمي 100% عبر Types | داخل كود المصدر | \`Result<T, E>\`، \`ProtocolContract\` |
+| **4. البروتوكول (Protocol)** | مسار عمل تسلسلي ذو حالة وبوابات | استرشادي مدعوم ببوابات حتمية | يُستدعى بحدث محدد | بروتوكول هندسة الميزات (FEP) |
+| **5. المهارة (Skill)** | دليل إجرائي ومعرفة تخصصية | استرشادي (معرفة انتقائية) | عند الطلب (<20k ميزانية) | مهارة \`tdd\`، النظم الموزعة |
+| **6. الدور (Role)** | هوية الوكيل وقائمة الأدوات المسموحة | حتمي عبر Allowlist | يُقفل عند تشغيل الوكيل | المعماري، المحقق، الباني |
+| **7. الذاكرة (Memory)** | وقائع وحقائق متراكمة (بيانات لا تعليمات) | استرجاعي عبر المتجهات | يُسترجع عند الحاجة | العقل المركزي \`core/Brain/\` |
+| **8. الحارس (Guard / Hook)** | كود برمجي خارجي صامت يحظر الخطأ | حتمي ميكانيكي (Fail-Closed) | قبل وبعد تنفيذ الأوامر | أداة \`check-architecture.mjs\` |
+| **9. التقييم (Eval)** | بوابات قياس موضوعية خارجية | حساب رياضي واختبارات | بوابات ما قبل الدمج والـ CI | اختبارات النجاح/الفشل، مجال 95% |
+
+---
+
+### معيار بروتوكول كرو لوم (CPS-1): حظر "المكتوب غير المربوط"
+
+إحدى الآفات الشائعة في هندسة الذكاء الاصطناعي هي كثرة وثائق البروتوكولات النظرية التي لا يدعمها كود فعلي. يفرض معيار **CPS-1** في كرو لوم (\`protocol.ts\`) خمسة أركان حتمية لأي بروتوكول معتمد:
+1. **المحفز (Trigger):** الحدث الدقيق الذي يطلق البروتوكول آلياً.
+2. **خط الأنابيب المتسلسل (Pipeline):** مراحل مرتبة تفصل بينها بوابات فحص حتمية ترفض التقدم دون نجاح خطي.
+3. **بوابة الخروج الحتمية (Exit Condition):** شرط برهاني يُفحص بأمر تيرمينال أو مخطط Schema.
+4. **معالجة الفشل (On-Failure):** خطة محددة مسبقاً للتعامل مع الانهيار وتفعيل كود التوقف الحتمي.
+5. **الملف المالك (Owner):** ملف مرجعي وحيد يمثل مصدر الحقيقة المطلق.
+
+### اقتصاد السياق: ميزانية الـ 20 ألف توكن
+يؤدي حشو عشرات المهارات في الـ System Prompt إلى تدهور تركيز النموذج ورفع تكلفة الاستدعاء. تطبق كرو لوم **ميزانية اقتصاد السياق**:
+- الدستور والقواعد الأساسية فقط تبقى دائمة في السياق (< 15 ألف توكن).
+- المهارات التخصصية تُستدعى وتُفرغ ديناميكياً بحسب المهمة المطروحة.
+- المعرفة التراكمية تُرحل إلى بنك الذاكرة الهولوغرافية HRPE ذي الحجم الثابت الحتمي (524 KiB) بدلاً من ملء سياق النموذج بالنصوص المتكررة.
+    `,
+  },
+  {
+    slug: 'the-science-of-agent-verification-and-evals',
+    titleEn: 'The Science of Agent Verification: Sandboxed Execution, Double-Blind Evals, & RLVR',
+    titleAr: 'علم تقييم والتحقق من الوكلاء: التنفيذ في الصندوق المعزول، المقارنة العمياء، والتعزيز بالمكافأة الحتمية',
+    descriptionEn: 'Why LLM-as-a-judge is fundamentally broken, and how Crewloom implements ground-truth sandbox execution, double-blind taste vs. correctness decoupling, and Wilson 95% confidence intervals.',
+    descriptionAr: 'لماذا يُعد تقييم النماذج لنفسها معيباً جذرياً، وكيف تطبق كرو لوم التنفيذ الحقيقي في الصندوق المعزول، والمقارنة العمياء، وفواصل الثقة الإحصائية 95%.',
+    date: '2026-11-16',
+    readTimeEn: '11 min read',
+    readTimeAr: '١١ دقيقة قراءة',
+    author: 'Crewloom AI Evaluation & Systems Research Group',
+    categoryEn: 'AI Research & Benchmarks',
+    categoryAr: 'أبحاث وتقييمات الذكاء الاصطناعي',
+    tags: ['AI Evaluation', 'RLVR', 'Double Blind Evals', 'Sandbox Execution', 'Wilson Score', 'GRPO', 'Benchmarks'],
+    contentEn: `
+## The Fallacy of Subjective Evaluation in Autonomous Agents
+
+The AI industry has largely normalized **LLM-as-a-Judge**: using one large language model to score the output of another. While convenient, empirical studies demonstrate that LLM judges suffer from severe systemic pathologies:
+- **Sycophancy & Tone Bias:** Favoring verbose, authoritative-sounding responses over concise, functionally correct code.
+- **Self-Preference Contamination:** Favoring generations from their own model family.
+- **Hallucinated Verification:** Marking faulty code as "correct" because the syntax superficially resembles standard library implementations.
+
+At **Crewloom (https://crewloom.org)**, evaluation is treated as an empirical physical science rather than a debate. Our verification philosophy rests on three non-negotiable pillars: **Closed-Loop Sandbox Execution**, **Double-Blind A/B Decoupling**, and **Statistically Grounded Confidence Intervals**.
+
+---
+
+### Pillar 1: Ground-Truth Execution in Sandboxed Environments
+
+Code is never verified by asking an LLM if it works. In Crewloom's benchmark suite (\`pulse/scripts/lm_eval/sandbox.py\`), candidate solutions are executed inside isolated sandboxes with strict deterministic gates:
+
+\`\`\`python
+# Deterministic Sandbox Execution Protocol
+result = sandbox.run_candidate_detailed(
+    code=candidate_solution,
+    tests=task_unit_tests,
+    timeout_sec=5.0,
+    memory_limit_mb=512
+)
+
+# Truth is derived strictly from machine exit status
+assert result.exit_code == 0, f"Compilation/Runtime failure: {result.stderr}"
+assert result.passed_tests == result.total_tests, "Test suite regression detected"
+\`\`\`
+
+#### Closed-Loop Self-Repair Loop
+When a candidate fails, the compiler diagnostics and stack traces are captured mechanically and injected into the surgical repair loop:
+$$\\text{Candidate Solution} \\xrightarrow{\\text{Sandbox}} \\text{Runtime Traceback} \\xrightarrow{\\text{Surgical Critic}} \\text{Refined Patch} \\xrightarrow{\\text{Pass Gate}}$$
+
+---
+
+### Pillar 2: The Double-Blind Taste vs. Correctness Decoupling
+
+When evaluating model personalization, user preferences, or skill effectiveness, Crewloom implements strict double-blind trial isolation (\`agent/packages/crewloom/contracts/src/evaluation.ts\`):
+
+> **"Liking an answer never counts as it being right."**
+
+1. **Randomized Order (\`PairOrder\`):** Replies are presented as Option A and Option B with randomized order (\`chooseOrder\`), completely masking which response used personalized skills.
+2. **Orthogonal Scoring Dimensions:**
+   - **Preference / Taste:** Tone, brevity, language phrasing, and option order.
+   - **Correctness:** Evaluated strictly against automated test suites and compiler verification (\`both-ok\`, \`default-better\`, \`custom-better\`, \`both-wrong\`).
+
+\`\`\`typescript
+export interface TrialVerdict {
+  readonly preference: 'default' | 'custom' | 'tie';
+  readonly criteria: Readonly<Partial<Record<EvaluationCriterion, CriterionResult>>>;
+  readonly correctness: 'not-checked' | 'both-ok' | 'default-better' | 'custom-better' | 'both-wrong';
+  readonly note: string;
+  readonly ratedAt: number;
+}
+\`\`\`
+
+---
+
+### Pillar 3: Statistical Rigor & Wilson Score 95% Confidence Intervals
+
+Point estimates like *"our model has 84% accuracy"* are scientifically invalid without sample size context. In our held-out benchmark suite (\`eval_hrpe_v2_gate.py\`), every benchmark report computes **Wilson Score 95% Confidence Intervals**:
+
+$$w = \\frac{\\hat{p} + \\frac{z^2}{2n} \\pm z \\sqrt{\\frac{\\hat{p}(1-\\hat{p})}{n} + \\frac{z^2}{4n^2}}}{1 + \\frac{z^2}{n}}$$
+
+- **Held-Out Isolation (\`heldOut: true\`):** Evaluation tasks are strictly segregated from training data and few-shot prompts to eliminate data contamination.
+- **Sample Thresholds:** No benchmark claim is recognized without a minimum sample size ($N \\ge 200$) across bilingual test pairs (Arabic & English).
+
+---
+
+### Pillar 4: Local RLVR & GRPO Training Loops
+
+For our local reasoning models, Crewloom replaces subjective Human Feedback (RLHF) with **Reinforcement Learning with Verifiable Rewards (RLVR)** via Group Relative Policy Optimization (GRPO):
+- The model generates a group of $G=4$ or $G=8$ rollouts for an algorithmic or architectural task.
+- The reward $R \\in \\{0.0, 1.0\\}$ is calculated directly by running the sandbox test suite.
+- Advantages are normalized across the group, optimizing mathematical reasoning and architectural compliance without reward model tampering.
+
+By anchoring evaluation in automated execution and statistical rigor, Crewloom delivers verifiable software engineering autonomy.
+    `,
+    contentAr: `
+## وهم التقييم الذاتي بالنماذج في وكلاء الذكاء الاصطناعي
+
+اعتادت صناعة الذكاء الاصطناعي على استخدام تقنية **LLM-as-a-Judge**: أي استدعاء نموذج لغوي كبير لتقييم مخرجات نموذج آخر. ورغم سهولة هذا الأسلوب، إلا أن الدراسات التجريبية تثبت إصابته بعيوب منهجية خطيرة:
+- **المحاباة للنبرة البلاغية:** تفضيل الإجابات الطويلة والمعقدة على الكود المختصر والصحيح وظيفياً.
+- **انحياز العائلة البرمجية:** تفضيل النموذج للمخرجات القادمة من نفس الشركة أو المعمارية.
+- **التصديق الوهمي (Hallucinated Verification):** وسم الكود الخاطئ بأنه "صحيح" لمجرد أن صياغته تشبه كود المكتبات القياسية ظاهرياً.
+
+في **كرو لوم Crewloom (https://crewloom.org)**، نعتبر التقييم والتحقق علماً تجريبياً صارماً لا يقبل التخمين. ترتكز فلسفتنا في التحقق على ثلاثة أركان غير قابلة للتفاوض: **التنفيذ في الصناديق المعزولة**، **المقارنة العمياء المزدوجة**، و**فواصل الثقة الإحصائية المثبتة**.
+
+---
+
+### الركن الأول: الحقيقة التنفيذية في الصناديق المعزولة (Sandboxed Execution)
+
+لا يتم تقييم الكود بسؤال نموذج لغوي عما إذا كان يعمل؛ بل يُحقن الكود المقترح مباشرة داخل بيئة تنفيذ معزولة بالكامل (\`sandbox.py\`):
+- رصد كود الخروج الحتمي للنظام (\`exit_code == 0\`).
+- فحص مخرجات قنوات الخطأ (\`stderr\`) وتتبع استهلاك الذاكرة والمعالج.
+- تشغيل حزمة الاختبارات الوظيفية الحتمية (\`assert == expected\`).
+
+#### حلقة التصحيح الذاتي الجراحية
+عندما يفشل كود في اجتياز الاختبار، يتم استخلاص الخطأ بدقة متناهية وإعادته لموجه التصحيح لإصلاح العطل جراحياً دون إعادة كتابة المنظومة بأكملها:
+$$\\text{الكود المقترح} \\xrightarrow{\\text{تشغيل في الصندوق}} \\text{استخلاص الخطأ والـ Traceback} \\xrightarrow{\\text{التصحيح الجراحي}} \\text{إعادة الفحص الحتمي}$$
+
+---
+
+### الركن الثاني: المقارنة العمياء وفصل التفضيل عن الصحة (Double-Blind A/B)
+
+عند تقييم جودة التخصيص أو المهارات الجديدة (\`contracts/src/evaluation.ts\`)، تفرض كرو لوم بروتوكول المقارنة العمياء:
+
+> **«إعجاب المستخدم أو المقيم بأسلوب الإجابة لا يعني إطلاقاً أنها صحيحة هندسياً.»**
+
+1. **الترتيب العشوائي المخفي (\`PairOrder\`):** تُعرض الإجابات كخيارين (أ و ب) بترتيب عشوائي دون إفصاح عما إذا كان الخيار معتمداً على التخصيص أو الإعدادات الافتراضية لمنع الانحياز التأكيدي.
+2. **فصل الأسلوب عن الدقة البرمجية:**
+   - **التفضيل الشخصي (Taste):** يقيس النبرة، لغة الشرح، الاختصار، وترتيب البدائل.
+   - **الصحة والموثوقية (Correctness):** تُقاس حصراً بالبراهين البرمجية واجتياز الاختبارات (\`both-ok\`, \`custom-better\`, \`both-wrong\`).
+
+---
+
+### الركن الثالث: الصرامة الإحصائية ومجال الثقة 95% (Wilson Score)
+
+إن إطلاق أرقام دعائية مثل *"حققت الميزة نسبة نجاح 85%"* دون سياق إحصائي هو تضليل علمي. في منظومة القياس المعتمدة بكرو لوم (\`eval_hrpe_v2_gate.py\`)، يُحسب **مجال ثقة ويلسون 95% (Wilson Score 95% CI)** لكل اختبار:
+- **عزل مجموعات الحجب (\`heldOut: true\`):** تُحجب أسئلة الاختبار تماماً عن سياق التدريب والأمثلة لضمان عدم تسريب البيانات.
+- **حد العينة الحرج ($N \\ge 200$):** لا يُعتد بأي تفوق تقني ما لم يُختبر على عينة موسعة ثنائية اللغة (العربية والإنجليزية).
+
+---
+
+### الركن الرابع: تدريب نماذج التفكير بالمكافآت الحتمية (RLVR / GRPO)
+في تدريب النماذج البرمجية الداخلية، تستبدل كرو لوم نماذج المكافأة البشرية غير المنضبطة بنظام **التعلم المعزز بمكافآت قابلة للتحقق آلياً (RLVR)**:
+- يولد النموذج 4 إلى 8 مسارات حلول للمسألة الهندسية.
+- تُحسب المكافأة ($R=1.0$ أو $R=0.0$) بناءً على تشغيل المترجم واجتياز اختبارات الصندوق المعزول.
+- يؤدي هذا إلى صقل قدرات الاستدلال الرياضي والبرمجي دون إمكانية "خداع" نموذج التقييم.
+    `,
+  },
+  {
+    slug: 'inside-crewloom-trinity-architecture-and-zero-destruction-engineering',
+    titleEn: 'Inside Crewloom: Trinity Architecture, IPC Control Plane, & Zero-Destruction Autonomy',
+    titleAr: 'داخل معمارية كرو لوم: ثالوث المنظومة، غرفة العمليات اللحظية، والأتمتة غير التدميرية',
+    descriptionEn: 'A technical overview of Crewloom’s software architecture: sovereign pillar separation (Core, Bridge, Agent), AST-level verification contracts, and enterprise multi-agent coordination.',
+    descriptionAr: 'نظرة معمارية شاملة على هندسة كرو لوم البرمجية: الفصل السيادي للمسؤوليات بين النواة والجسر والوكيل، بوابات فحص الكود الحتمية، وتنسيق الفرق البرمجية.',
+    date: '2026-11-16',
+    readTimeEn: '10 min read',
+    readTimeAr: '١٠ دقائق قراءة',
+    author: 'Crewloom Core Systems & Software Architecture Group',
+    categoryEn: 'Systems Engineering',
+    categoryAr: 'هندسة النظم والبنية التحتية',
+    tags: ['Trinity Architecture', 'Zero Destruction', 'AST Verification', 'Event-Driven Bridge', 'Systems Engineering', 'Multi-Agent Coordination'],
+    contentEn: `
+## The Engineering Anatomy of Sovereign AI Autonomy
+
+Building enterprise-grade autonomous coding agents requires solving two massive challenges that plague modern developer tooling:
+1. **The Architectural Contamination Problem:** Monolithic frameworks mix UI logic, terminal execution, and knowledge representation into brittle, unmaintainable single points of failure.
+2. **The Unverified Mutation Hazard:** Autonomous agents operating directly on live codebases often introduce catastrophic regressions, delete database tables, or silently break backward compatibility.
+
+At **Crewloom (https://crewloom.org)**, we engineered a ground-up systems architecture designed for extreme reliability: the **Trinity Architecture** for sovereign systems separation, coupled with **AST-Level Zero-Destruction Verification**.
+
+---
+
+### 1. The Trinity Architecture: Sovereign Separation of Powers
+
+Crewloom enforces strict physical and operational boundaries across three independent pillars:
+
+\`\`\`
+┌────────────────────────────────────────────────────────────────────────┐
+│                      THE CREWLOOM TRINITY ENGINE                       │
+├───────────────────┬─────────────────────┬──────────────────────────────┤
+│ 1. Core (Brain)   │ 2. Bridge (Gateway) │ 3. Agent (Runtime)           │
+│   Knowledge enclaves│  Event-driven IPC  │   Sandboxed tool execution   │
+│   Tier-4 cognition │  Zero-leak proxy    │   AST mutation engine        │
+│   Python Domain   │  TypeScript / Node  │   DeepSeek / Cordis harness  │
+└───────────────────┴─────────────────────┴──────────────────────────────┘
+\`\`\`
+
+- **The Cognitive Core (\`core/\`):** Houses the Master Brain, 43 specialist roles, constitutional invariants, and domain contracts. It exports clean interfaces and has zero direct coupling to terminal UIs or chat platforms.
+- **The Operational Bridge (\`bridge/\`):** A high-throughput, event-driven gateway facilitating bidirectional communication across terminal daemons, desktop apps, and encrypted remote channels (Telegram / WhatsApp) with sub-millisecond IPC latency.
+- **The Execution Agent (\`agent/\`):** The field-grade execution runtime designed for precise code mutations, test runners, and multi-agent coordination under strict safety contracts.
+
+---
+
+### 2. Multi-Tier Memory Governance & Context Economy
+
+Rather than stuffing entire repositories into a single context window, Crewloom partitions memory into four distinct operational tiers:
+1. **Tier 1 — Working Memory:** Transient prompt context strictly capped under 20k tokens to preserve model reasoning focus.
+2. **Tier 2 — Episodic Memory:** Session interaction logs and structured task histories.
+3. **Tier 3 — Associative Domain Knowledge:** Modular, on-demand skill packages loaded dynamically based on mission intent.
+4. **Tier 4 — Master Brain:** Persistent architectural decisions, verified schemas, and constitutional invariants stored in \`core/Brain/\`.
+
+---
+
+### 3. Zero-Destruction Engineering & The 800-Line Invariant
+
+To ensure production codebases never suffer catastrophic mutations, Crewloom enforces:
+- **AST Pre-Flight Verification:** Rejecting destructive SQL queries (\`DROP\`, \`TRUNCATE\`) and non-additive schema modifications prior to execution.
+- **Additive Migrations Only (Expand & Contract):** Database changes must maintain backward-compatible views during phased rollouts.
+- **The 800-Line Modularity Limit:** Any source file exceeding 800 lines is flagged as an architecture violation by automated guards (\`scripts/check-architecture.mjs\`), ensuring codebase depth, testability, and AI navigability.
+- **Mandatory Official CLI CI Verification:** Post-push protocols strictly prohibit browser web scraping; remote GitHub Actions workflows are verified exclusively via official GitHub CLI (\`gh run list\`, \`gh run view\`).
+
+By marrying physical architectural boundaries with strict constitutional engineering, Crewloom defines the standard for enterprise-grade autonomous software engineering.
+    `,
+    contentAr: `
+## التشريح الهندسي للأتمتة البرمجية السيادية الفائقة
+
+يتطلب بناء وكلاء برمجيين مستقلين قادرين على العمل في مشروعات الشركات الكبرى حل تحديين أساسيين تعاني منهما أدوات الذكاء الاصطناعي الحالية:
+1. **أزمة التلوث المعماري:** خلط واجهات المستخدم مع تشغيل الأوامر في التيرمينال وتمثيل المعرفة في كود واحد متداخل وسهل الانهيار.
+2. **مخاطر التعديل العشوائي (Unverified Mutations):** قيام الوكلاء المستقلين بتعديل الكود المباشر دون فحص، مما يتسبب في كسر التوافقية العكسية أو مسح جداول قواعد البيانات الحساسة.
+
+في **كرو لوم Crewloom (https://crewloom.org)**، صممنا معمارية متكاملة تضمن أعلى درجات الموثوقية الهندسية: **معمارية الثالوث** للفصل السيادي التام، مقترنة بـ **ميثاق عدم الهدم البرمجي وفحص شجرة الصرف والنحو (AST)**.
+
+---
+
+### 1. معمارية الثالوث الهندسي: الفصل السيادي للمسؤوليات
+
+تفرض كرو لوم حدوداً برمجية صارمة تفصل المنظومة إلى ثلاثة أركان مستقلة تماماً:
+
+\`\`\`
+┌────────────────────────────────────────────────────────────────────────┐
+│                        محرك ثالوث كرو لوم السيادي                      │
+├───────────────────┬─────────────────────┬──────────────────────────────┤
+│ 1. النواة (Core)  │ 2. الجسر (Bridge)   │ 3. الوكيل (Agent)            │
+│   العقل المركزي     │  بوابة أحداث لحظية  │   تشغيل الأدوات في التيرمينال │
+│   الذاكرة والمعرفة │  تشفير وحظر التسريب │   تعديل الكود بفحص الـ AST   │
+│   بايثون / عقود نقية│  تايب سكريبت / Node │   محرك مستقل فائق التخصيص     │
+└───────────────────┴─────────────────────┴──────────────────────────────┘
+\`\`\`
+
+- **الركن المعرفي (\`core/\`):** يضم العقل الموجه، وتوصيفات الـ 43 خبيراً، والثوابت الدستورية، وعقود الدومين النمطية. وهو معزول تماماً عن تفاصيل واجهات المستخدم ومنصات المحادثة.
+- **الركن التشغيلي (\`bridge/\`):** بوابة أحداث فائقة السرعة تتيح التحكم ثنائي الاتجاه بين جهاز المطور وتطبيقات الماك والتليجرام والواتساب بزمن استجابة داخلي فائق الصغر.
+- **الركن التنفيذي (\`agent/\`):** العقل الميداني المنفذ للأوامر في التيرمينال والمعدل للأكواد وفق فحص شجرة الصرف والنحو (AST) وقواعد الوحدات العميقة.
+
+---
+
+### 2. حوكمة الذاكرة واقتصاد السياق
+
+بدلاً من حشو المستودع بأكمله داخل نافذة السياق، تقسم كرو لوم الذاكرة إلى أربعة مستويات تشغيلية دقيقة:
+1. **المستوى الأول — الذاكرة العاملة (Working Memory):** سياق فوري مؤقت، مقيد بأقل من 20 ألف توكن للحفاظ على تركيز النموذج وتفادي الهلوسة.
+2. **المستوى الثاني — الذاكرة العارضة (Episodic Memory):** سجل تفاعلات الجلسة وتتبع خطوات المهام المنجزة.
+3. **المستوى الثالث — المعرفة الترابطية (Associative Knowledge):** مهارات تخصصية قابلة للتحميل عند الطلب بحسب مجال المهمة.
+4. **المستوى الرابع — العقل المركزي (Master Brain):** القرارات المعمارية المعتمدة، والسجلات التاريخية، والقوانين الدستورية في \`core/Brain/\`.
+
+---
+
+### 3. ميثاق عدم الهدم وقاعدة الـ 800 سطر
+
+لحماية مشروعات المستخدمين من التخريب، تفرض كرو لوم:
+- **فحص الـ AST المسبق:** منع أوامر قواعد البيانات التدميرية (\`DROP\`, \`TRUNCATE\`) وحظر التعديلات غير التراكمية تلقائياً.
+- **التهجير التزايدي (Additive Migrations):** إلزام تطبيق استراتيجية التوسع والانكماش (Expand & Contract) في قواعد البيانات لتفادي توقف الخدمة.
+- **حد الـ 800 سطر للوحدات العميقة:** يُحظر تجاوز أي ملف مصدري لـ 800 سطر لضمان بقاء الكود عميقاً، مركّزاً، وسهل التدقيق الآلي.
+- **التحقق الصارم من الـ CI عبر الـ CLI الرسمي:** حظر كشط صفحات الويب، وإلزام فحص خطوط أنابيب GitHub Actions حصراً عبر أداة \`gh\` الرسمية.
+    `,
+  },
 ];
