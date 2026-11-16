@@ -6,6 +6,7 @@ import { useLanguage } from '@/hooks/useLanguage';
 import { useLatestRelease } from '@/hooks/useLatestRelease';
 import { Card, Container, SectionHeading, CodeSnippet, Button } from '@/components/ui';
 import { SITE_CONFIG } from '@/lib/constants';
+import METRICS_DATA from '@/data/project-metrics.json';
 
 export function QuickstartSection() {
   const { t, isAr } = useLanguage();
@@ -73,7 +74,7 @@ export function QuickstartSection() {
           {/* Step 3 */}
           <div>
             <label className="block text-xs font-mono text-gray-400 mb-2 font-semibold">
-              Step 3: List & Activate 47 Autonomous Specialist Skills
+              {t.quickstart.step3RolesCmd}
             </label>
             <CodeSnippet
               code={rolesCmd}

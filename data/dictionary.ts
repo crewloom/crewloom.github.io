@@ -1,8 +1,9 @@
 import { ArchitectureLayer, FeatureItem, MetricItem } from '@/types';
+import METRICS_DATA from './project-metrics.json';
 
 export const DICTIONARY = {
   en: {
-    announcement: 'Sovereign AI Coding Agent — Desktop Beta (v0.19.6) Now Available for macOS & Windows',
+    announcement: `Sovereign AI Coding Agent — Desktop ${METRICS_DATA.appTagName} Now Available for macOS, Windows & Android`,
     exploreGithub: 'Explore GitHub',
     brandSubtitle: 'Sovereign AI Coding Engine',
     common: {
@@ -23,11 +24,11 @@ export const DICTIONARY = {
       download: 'Download',
     },
     hero: {
-      badge: 'Dual-Core Sovereign Architecture: Codex Precision · Uncompromising Autonomy',
+      badge: 'Sovereign Multi-Agent Architecture: Deterministic Safety · Zero-Destruction Autonomy',
       titleLine1: 'Crewloom: Sovereign AI Coding Agent',
-      titleLine2: 'Engineered for Zero-Destruction Autonomy',
+      titleLine2: 'Engineered for Zero-Destruction Enterprise Autonomy',
       subtitle:
-        'The premier autonomous development engine uniting 47 open-source specialist skills with a disciplined proprietary core, strict non-destructive verification, and an omni-channel bridge control room.',
+        `The premier autonomous development engine uniting ${METRICS_DATA.skillsDisplay} specialist skills with deterministic AST verification, CPS-1 stateful protocols, and an omni-channel bridge control room.`,
       trustNote: '⚡ Sub-second boot · Zero configuration · Strict AST non-destructive guard',
     },
     install: {
@@ -131,7 +132,7 @@ export const DICTIONARY = {
     },
     skills: {
       badge: 'SPECIALIST SKILLS',
-      heading: '47 Sovereign Specialist Skills',
+      heading: `${METRICS_DATA.skillsDisplay} Sovereign Specialist Skills`,
       searchPlaceholder: 'Search specialist roles...',
     },
     quickstart: {
@@ -140,6 +141,7 @@ export const DICTIONARY = {
       step1Label: '1. Universal Terminal Install (Recommended):',
       step2Label: '2. Launch Studio & Desktop App:',
       step3Label: '3. Native macOS Desktop App:',
+      step3RolesCmd: `Step 3: List & Activate ${METRICS_DATA.skillsDisplay} Autonomous Specialist Skills`,
       step3Desc: 'Hyper-optimized native macOS application (5.2 MB bundle) powered by Tauri with zero background telemetry. Installed at:',
       macDesktopStudio: 'macOS Desktop Studio',
       nativeBundleNote: 'Native {size} bundle ready for immediate local execution',
@@ -152,7 +154,7 @@ export const DICTIONARY = {
       items: [
         {
           q: 'What is Crewloom?',
-          a: 'Crewloom (https://crewloom.org) is an enterprise-grade sovereign autonomous AI coding agent. It combines 47 open-source specialist skills with a dual English/Arabic core, rigorous non-destructive contract verification, and an omni-channel bridge control room.',
+          a: `Crewloom (https://crewloom.org) is an enterprise-grade sovereign autonomous AI coding agent. It combines ${METRICS_DATA.skillsDisplay} open-source specialist skills with a dual English/Arabic core, rigorous non-destructive contract verification, and an omni-channel bridge control room.`,
         },
         {
           q: 'How does Crewloom guarantee Zero-Destruction coding?',
@@ -173,7 +175,7 @@ export const DICTIONARY = {
       ],
     },
     floating: {
-      version: 'Crewloom Desktop Agent v0.3.5',
+      version: `Crewloom Desktop Agent ${METRICS_DATA.appTagName}`,
       status: '● Ready to install',
       curlBtn: 'curl install',
       appBtn: 'Get App',
@@ -191,7 +193,7 @@ export const DICTIONARY = {
     },
   },
   ar: {
-    announcement: 'كرو لوم: النسخة التجريبية (Beta v0.19.6) متاحة الآن للتحميل المباشر للماك والويندوز',
+    announcement: `كرو لوم: الإصدار المعتمد (${METRICS_DATA.appTagName}) متاح الآن للتحميل المباشر للماك والويندوز والأندرويد`,
     exploreGithub: 'استكشف المستودعات',
     brandSubtitle: 'كرو لوم · الذكاء البرمجي السيادي',
     common: {
@@ -202,7 +204,7 @@ export const DICTIONARY = {
       capabilities: 'المزايا السيادية',
       architecture: 'المعمارية',
       simulator: 'المحاكي الحي',
-      skills: 'الـ 47 خبيراً',
+      skills: 'المهارات والخبراء',
       quickstart: 'التثبيت السريع',
       getStarted: 'تثبيت فوري',
       articles: 'المقالات والأبحاث',
@@ -212,11 +214,11 @@ export const DICTIONARY = {
       download: 'تحميل',
     },
     hero: {
-      badge: 'المعمارية ثنائية النواة: كوديكس في الدقة ومستقلة في السيادة',
+      badge: 'المعمارية السيادية للوكلاء الأذكياء: أمان حتمي · أتمتة برمجية بدون هدم',
       titleLine1: 'كرو لوم Crewloom — الوكيل البرمجي السيادي',
-      titleLine2: 'بدقة كوديكس وحرية الأنظمة المستقلة',
+      titleLine2: 'أتمتة برمجية فائقة بميثاق عدم الهدم المطلق',
       subtitle:
-        'أول بيئة عمل برمجية تجمع بين 47 خبيراً تخصصياً مفتوح المصدر ومحرك مغلق فائق الانضباط، مع ميثاق عدم الهدم المطلق وغرفة عمليات شاملة تتحكم بها من التليجرام أو التطبيق المكتبي أو الطرفية.',
+        `أول بيئة عمل برمجية مستقلة تجمع بين ${METRICS_DATA.skillsDisplay} مهارة تخصصية مع بوابات فحص الكود الحتمية (AST)، ومحرك بروتوكولات CPS-1، وميثاق عدم الهدم المطلق وغرفة عمليات شاملة.`,
       trustNote: '⚡ إقلاع فوري · صفر إعدادات · تدقيق AST صارم لحماية قواعد البيانات',
     },
     install: {
@@ -319,8 +321,8 @@ export const DICTIONARY = {
       heading: 'ثلاث طبقات مستقلة تحقق السيادة المطلقة',
     },
     skills: {
-      badge: 'كتيبة الخبراء',
-      heading: '47 خبيراً برمجياً في خدمتك',
+      badge: 'كتيبة الخبراء والمهارات',
+      heading: `${METRICS_DATA.skillsDisplay} خبيراً ومهارة برمجية تخصصية`,
       searchPlaceholder: 'بحث في المهارات التخصصية...',
     },
     quickstart: {
@@ -329,6 +331,7 @@ export const DICTIONARY = {
       step1Label: '1. أمر التثبيت الشامل عبر الطرفية (مستحسن):',
       step2Label: '2. تشغيل استوديو الوكيل والتطبيق المكتبي:',
       step3Label: '3. تطبيق الماك المكتبي (macOS Native Studio):',
+      step3RolesCmd: `الخطوة 3: استعراض وتفعيل ${METRICS_DATA.skillsDisplay} مهارة تخصصية`,
       step3Desc: 'حزمة أصلية فائقة الخفة (5.2 ميجابايت) مبنية بنواة Tauri السريعة مع حماية كاملة للنظام وعدم استهلاك الموارد. متاح تحت:',
       macDesktopStudio: 'تطبيق الماك المكتبي',
       nativeBundleNote: 'حزمة أصلية جاهزة للعمل فوراً بحجم {size}',
@@ -341,7 +344,7 @@ export const DICTIONARY = {
       items: [
         {
           q: 'ما هو Crewloom (كرو لوم)؟',
-          a: 'كرو لوم (https://crewloom.org) هو وكيل برمجي ذكي ومستقل يتميز بالسيادة والأمان الفائق. يدمج ٤٧ مهارة تخصصية مفتوحة المصدر مع نواة ذكاء ثنائية عربية/إنجليزية، ونظام فحص عقود صارم يمنع الهدم، وغرفة تحكم شاملة عبر التليجرام والواتساب وتطبيقات سطح المكتب والطرفية.',
+          a: `كرو لوم (https://crewloom.org) هو وكيل برمجي ذكي ومستقل يتميز بالسيادة والأمان الفائق. يدمج ${METRICS_DATA.skillsDisplay} مهارة تخصصية مفتوحة المصدر مع نواة ذكاء ثنائية عربية/إنجليزية، ونظام فحص عقود صارم يمنع الهدم، وغرفة تحكم شاملة عبر التليجرام والواتساب وتطبيقات سطح المكتب والطرفية.`,
         },
         {
           q: 'كيف يضمن Crewloom عدم الهدم أو التدمير البرمجي؟',
@@ -362,7 +365,7 @@ export const DICTIONARY = {
       ],
     },
     floating: {
-      version: 'عميل كرو لوم لسطح المكتب v0.3.5',
+      version: `عميل كرو لوم لسطح المكتب ${METRICS_DATA.appTagName}`,
       status: '● جاهز للتثبيت الفوري',
       curlBtn: 'تثبيت الطرفية',
       appBtn: 'تحميل التطبيق',
@@ -383,25 +386,25 @@ export const DICTIONARY = {
 
 export const METRICS: MetricItem[] = [
   {
-    value: '47',
+    value: METRICS_DATA.skillsDisplay,
     labelEn: 'Specialist Skills',
-    labelAr: 'خبير برمجي تخصصي',
+    labelAr: 'مهارة تخصصية مثبتة',
     colorClass: 'text-cyan-400',
   },
   {
-    value: '0%',
+    value: METRICS_DATA.destructiveRegressions,
     labelEn: 'Destructive Regressions',
     labelAr: 'نسبة هدم الكود المستقر',
     colorClass: 'text-emerald-400',
   },
   {
-    value: '< 5ms',
+    value: METRICS_DATA.ipcLatency,
     labelEn: 'IPC Latency',
     labelAr: 'زمن اتصال المعمارية البينية',
     colorClass: 'text-cyan-300',
   },
   {
-    value: '100%',
+    value: METRICS_DATA.biculturalSovereignty,
     labelEn: 'Bicultural Sovereignty',
     labelAr: 'سيادة لغوية ثنائية كاملة',
     colorClass: 'text-amber-300',
@@ -451,8 +454,8 @@ export const ARCHITECTURE_LAYERS: ArchitectureLayer[] = [
     badge: 'OPEN-SOURCE',
     badgeColor: 'bg-cyan-950 text-cyan-300 border-cyan-800/60',
     borderColor: 'border-l-cyan-500',
-    descEn: 'Open-source repository holding 47 expert skill definitions, persistent working memory, and upstream-friendly toolchains.',
-    descAr: 'مكتبة المهارات التخصصية (47 خبيراً)، والذاكرة العاملة المشتركة، مع بنية مدمجة للتطوير والتوسيع من مجتمع المطورين.',
+    descEn: `Open-source repository holding ${METRICS_DATA.skillsDisplay} expert skill definitions, persistent working memory, and upstream-friendly toolchains.`,
+    descAr: `مكتبة المهارات التخصصية (${METRICS_DATA.skillsDisplay} مهارة وخبيراً)، والذاكرة العاملة المشتركة، مع بنية مدمجة للتطوير والتوسيع من مجتمع المطورين.`,
     repo: 'github.com/crewloom/crewloom',
     isPrivate: false,
   },
