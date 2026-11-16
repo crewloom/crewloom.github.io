@@ -18,11 +18,12 @@ import { createPageMetadata } from "@/lib/seo/metadata";
 import { FAQS_AR } from "@/data/faq";
 import { generateSoftwareApplicationSchema, generateFaqSchema } from "@/lib/seo/schema";
 import { JsonLd } from "@/components/seo/JsonLd";
+import METRICS_DATA from "@/data/project-metrics.json";
 
 export const metadata: Metadata = createPageMetadata({
   title: "كرو لوم Crewloom — الوكيل البرمجي السيادي الفائق | أتمتة برمجية بدون هدم",
   description:
-    "كرو لوم (https://crewloom.org) هو أول وكيل برمجي سيادي مستقل يدمج ٤٧ مهارة تخصصية مع ميثاق عدم الهدم البرمجي ونظام حماية قواعد البيانات عبر التليجرام والطرفية.",
+    `كرو لوم (https://crewloom.org) هو أول وكيل برمجي سيادي مستقل يدمج ${METRICS_DATA.skillsDisplayAr} مهارة تخصصية مع ميثاق عدم الهدم البرمجي ونظام حماية قواعد البيانات عبر التليجرام والطرفية.`,
   pathname: "/ar/",
   locale: "ar",
   keywords: [
@@ -70,7 +71,7 @@ export default function ArabicHome() {
         {/* Interactive 3-Layer Topology */}
         <ArchitectureTopology />
 
-        {/* 47 Specialist Skills Directory */}
+        {/* 68+ Specialist Skills Directory */}
         <SpecialistRolesDirectory />
 
         {/* Deployment & CLI Quickstart */}

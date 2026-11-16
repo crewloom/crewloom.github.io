@@ -1,5 +1,6 @@
 import desktopAgentMeta from './desktop-agent.json';
 import downloadContract from './download-contract.json';
+import METRICS_DATA from '../data/project-metrics.json';
 
 /** Stable download URL: only the release behind "latest" changes, never the file name. */
 export const latestDownloadUrl = (asset: keyof typeof downloadContract.assets) =>
@@ -24,7 +25,7 @@ export const SITE_CONFIG = {
   windowsGithubUrl: latestDownloadUrl('windowsInstaller'),
   androidDownloadUrl: `/${downloadContract.assets.android}`,
   androidGithubUrl: latestDownloadUrl('android'),
-  version: `v${desktopAgentMeta.version || '0.19.6'} (Beta Preview)`,
+  version: `v${desktopAgentMeta.version || METRICS_DATA.appVersion}`,
   latencyTargetMs: 0.8,
   license: 'Apache-2.0',
 } as const;
@@ -33,5 +34,5 @@ export const NAV_LINKS = [
   { href: '#install', labelEn: 'Install', labelAr: 'التثبيت' },
   { href: '#simulator', labelEn: 'Benchmark', labelAr: 'المحاكاة' },
   { href: '#features', labelEn: 'Architecture', labelAr: 'المعمارية' },
-  { href: '#roles', labelEn: '47 Specialist Skills', labelAr: '٤٧ مهارة تخصصية' },
+  { href: '#roles', labelEn: `${METRICS_DATA.skillsDisplay} Specialist Skills`, labelAr: `${METRICS_DATA.skillsDisplayAr} مهارة تخصصية` },
 ] as const;

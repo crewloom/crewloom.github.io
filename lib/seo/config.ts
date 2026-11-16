@@ -1,4 +1,5 @@
 import { SeoConfig } from '@/types/seo';
+import METRICS_DATA from '../../data/project-metrics.json';
 
 export const SEO_CONFIG: SeoConfig = {
   siteName: 'Crewloom',
@@ -6,7 +7,7 @@ export const SEO_CONFIG: SeoConfig = {
   titleTemplate: '%s | Crewloom',
   defaultTitle: 'Crewloom — Sovereign Autonomous AI Coding Agent | كرو لوم',
   defaultDescription:
-    'Crewloom is the premier sovereign autonomous AI coding agent uniting 47 specialist skills with dual English/Arabic intelligence, strict Zero-Destruction contract verification, and omni-channel bridge control.',
+    `Crewloom is the premier sovereign autonomous AI coding agent uniting ${METRICS_DATA.skillsDisplay} specialist skills with dual English/Arabic intelligence, strict Zero-Destruction contract verification, and omni-channel bridge control.`,
   defaultKeywords: [
     // Brand Core
     'Crewloom',

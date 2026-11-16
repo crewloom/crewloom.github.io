@@ -71,11 +71,15 @@ if (fs.existsSync(versionJsonPath)) {
   } catch {}
 }
 
+const toArDigits = (str) => String(str).replace(/\d/g, (d) => '٠١٢٣٤٥٦٧٨٩'[d]);
+
 const metrics = {
   skillsCount,
   skillsDisplay: `${skillsCount}+`,
+  skillsDisplayAr: `${toArDigits(skillsCount)}+`,
   contractsCount,
   contractsDisplay: `${contractsCount}+`,
+  contractsDisplayAr: `${toArDigits(contractsCount)}+`,
   appVersion,
   appTagName,
   destructiveRegressions: '0%',

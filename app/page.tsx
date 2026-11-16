@@ -48,7 +48,7 @@ export default function Home() {
         {/* Interactive 3-Layer Topology */}
         <ArchitectureTopology />
 
-        {/* 47 Specialist Skills Directory */}
+        {/* 68+ Specialist Skills Directory */}
         <SpecialistRolesDirectory />
 
         {/* Deployment & CLI Quickstart */}

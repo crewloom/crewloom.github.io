@@ -303,7 +303,7 @@ function printHelp() {
   console.log(`Usage: crewloom <command> [options]
 
 Commands:
-  roles, list          List and inspect 47 specialist agent roles from catalog
+  roles, list          List and inspect 68+ specialist agent roles from catalog
   status               Display real system status & detected local CLI models
   studio [--open]      Launch Crewloom Studio web dashboard (browser interface)
   bridge [options]     Launch Omni-Channel Mediator (Telegram/WhatsApp/Terminal)
