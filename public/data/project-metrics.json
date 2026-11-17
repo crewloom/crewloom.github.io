@@ -1,14 +1,14 @@
 {
-  "skillsCount": 68,
-  "skillsDisplay": "68+",
-  "skillsDisplayAr": "٦٨+",
+  "skillsCount": 69,
+  "skillsDisplay": "69+",
+  "skillsDisplayAr": "٦٩+",
   "contractsCount": 24,
   "contractsDisplay": "24+",
   "contractsDisplayAr": "٢٤+",
-  "appVersion": "0.30.1",
-  "appTagName": "v0.30.1",
+  "appVersion": "0.30.5",
+  "appTagName": "v0.30.5",
   "destructiveRegressions": "0%",
   "ipcLatency": "< 0.8ms",
   "biculturalSovereignty": "100%",
-  "lastSynced": "2026-11-16T11:53:11.310Z"
+  "lastSynced": "2026-11-17T02:36:04.232Z"
 }

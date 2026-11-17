@@ -87,9 +87,9 @@ export function MagneticInstallDock() {
                   </Badge>
                 </div>
 
-                <h3 className="text-xs sm:text-sm font-bold text-white font-mono">
+                <div className="text-xs sm:text-sm font-bold text-white font-mono">
                   {t.platforms[currentDevice.platformKey]?.fullName || currentDevice.fullNameEn}
-                </h3>
+                </div>
               </div>
             </div>
 
@@ -198,9 +198,9 @@ export function MagneticInstallDock() {
                 </div>
                 <div>
                   <div className="flex flex-wrap items-center gap-2">
-                    <h4 className="text-xs sm:text-sm font-bold text-white font-mono">
+                    <div className="text-xs sm:text-sm font-bold text-white font-mono">
                       {t.platforms[activeInfo.platformKey]?.fullName || activeInfo.fullNameEn}
-                    </h4>
+                    </div>
                     <Badge variant="cyan" className="text-[10px] py-0 px-1.5 font-mono">
                       {`${t.install.officialRelease} ${versionTag}`}
                     </Badge>
@@ -253,9 +253,9 @@ export function MagneticInstallDock() {
                   </div>
                   <div>
                     <div className="flex flex-wrap items-center gap-2">
-                      <h4 className="text-xs sm:text-sm font-bold text-white font-mono">
+                      <div className="text-xs sm:text-sm font-bold text-white font-mono">
                         {t.platforms[activeInfo.platformKey]?.fullName || activeInfo.fullNameEn}
-                      </h4>
+                      </div>
                       <Badge variant="cyan" className="text-[10px] py-0 px-1.5 font-mono">
                         {`${t.install.officialRelease} ${versionTag}`}
                       </Badge>
@@ -337,9 +337,9 @@ export function MagneticInstallDock() {
                 </div>
                 <div>
                   <div className="flex flex-wrap items-center gap-2">
-                    <h4 className="text-xs sm:text-sm font-bold text-white font-mono">
+                    <div className="text-xs sm:text-sm font-bold text-white font-mono">
                       {t.platforms[activeInfo.platformKey]?.fullName || activeInfo.fullNameEn}
-                    </h4>
+                    </div>
                     <Badge variant="cyan" className="text-[10px] py-0 px-1.5 font-mono">
                       {`${t.install.officialRelease} ${versionTag}`}
                     </Badge>
@@ -391,9 +391,9 @@ export function MagneticInstallDock() {
                 </div>
                 <div>
                   <div className="flex flex-wrap items-center gap-2">
-                    <h4 className="text-xs sm:text-sm font-bold text-white font-mono">
+                    <div className="text-xs sm:text-sm font-bold text-white font-mono">
                       {t.platforms[activeInfo.platformKey]?.fullName || activeInfo.fullNameEn}
-                    </h4>
+                    </div>
                     <Badge variant="cyan" className="text-[10px] py-0 px-1.5 font-mono">
                       CLI Live
                     </Badge>

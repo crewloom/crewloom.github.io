@@ -11,7 +11,22 @@ export function generateOrganizationSchema(): SchemaOrgEntity {
     '@type': 'Organization',
     '@id': `${SEO_CONFIG.siteUrl}/#organization`,
     name: SEO_CONFIG.siteName,
+    legalName: 'Crewloom Autonomous Systems',
     url: SEO_CONFIG.siteUrl,
+    disambiguatingDescription:
+      'Crewloom is an open-source sovereign autonomous AI coding agent framework and developer runtime (crewloom.org). It is distinct from and unaffiliated with CrewBloom, the staffing agency.',
+    foundingDate: '2026-10-22',
+    founder: {
+      '@type': 'Person',
+      name: 'Mohamed Ashraf',
+      url: 'https://github.com/mohamedashraf',
+    },
+    brand: {
+      '@type': 'Brand',
+      name: 'Crewloom',
+      logo: `${SEO_CONFIG.siteUrl}/logo.png`,
+      slogan: 'Sovereign Autonomous AI Coding Agent',
+    },
     logo: {
       '@type': 'ImageObject',
       '@id': `${SEO_CONFIG.siteUrl}/#logo`,
@@ -20,7 +35,16 @@ export function generateOrganizationSchema(): SchemaOrgEntity {
     },
     sameAs: [
       SEO_CONFIG.social.githubRepo,
+      'https://github.com/crewloom/crewloom',
       `https://twitter.com/${SEO_CONFIG.social.twitterHandle.replace('@', '')}`,
+      `https://x.com/${SEO_CONFIG.social.twitterHandle.replace('@', '')}`,
+    ],
+    knowsAbout: [
+      'Artificial Intelligence',
+      'Autonomous Coding Agents',
+      'Software Engineering',
+      'Zero-Destruction AST Verification',
+      'LLM Speculative Orchestration',
     ],
     contactPoint: {
       '@type': 'ContactPoint',
@@ -89,6 +113,9 @@ export function generateSoftwareApplicationSchema(locale: 'en' | 'ar' = 'en'): S
     keywords: isArabic
       ? 'اوبن كود, كلود كود, ايجنت ذكي, ايجنت زكي, ايجنت يمات, وكيل برمجي ذكي, بديل كلود كود, برمجة سيادية, أتمتة برمجية'
       : 'open code, claude code, claude code alternative, smart agent, intelligent coding agent, ai coding agents, zero-destruction coding',
+    disambiguatingDescription: isArabic
+      ? 'نظام برمجي ووكيل ذكاء اصطناعي مستقل (crewloom.org) غير مرتبط بأي شركات توظيف أو وساطة تجارية.'
+      : 'Sovereign autonomous AI coding agent and developer runtime (crewloom.org), distinct from recruiting or staffing agencies.',
     operatingSystem: 'macOS, Windows, Linux',
     offers: {
       '@type': 'Offer',

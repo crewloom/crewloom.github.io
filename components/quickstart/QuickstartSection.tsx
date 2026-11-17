@@ -33,9 +33,9 @@ export function QuickstartSection() {
                 <Apple className="w-4 h-4" />
               </div>
               <div>
-                <h4 className="text-xs sm:text-sm font-bold text-white font-mono flex items-center gap-2">
+                <h3 className="text-xs sm:text-sm font-bold text-white font-mono flex items-center gap-2">
                   <span>{`${t.quickstart.macDesktopStudio} (${versionTag})`}</span>
-                </h4>
+                </h3>
                 <p className="text-[11px] sm:text-xs text-gray-400 mt-0.5">
                   {macDownloadAvailable ? t.quickstart.nativeBundleNote.replace('{size}', macFileSize) : t.install.noInstaller}
                 </p>

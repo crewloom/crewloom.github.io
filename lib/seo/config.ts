@@ -7,7 +7,7 @@ export const SEO_CONFIG: SeoConfig = {
   titleTemplate: '%s | Crewloom',
   defaultTitle: 'Crewloom — Sovereign Autonomous AI Coding Agent | كرو لوم',
   defaultDescription:
-    `Crewloom is the premier sovereign autonomous AI coding agent uniting ${METRICS_DATA.skillsDisplay} specialist skills with dual English/Arabic intelligence, strict Zero-Destruction contract verification, and omni-channel bridge control.`,
+    `Crewloom is the sovereign autonomous AI coding agent uniting ${METRICS_DATA.skillsDisplay} specialist skills with dual English/Arabic intelligence and Zero-Destruction verification.`,
   defaultKeywords: [
     // Brand Core
     'Crewloom',
