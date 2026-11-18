@@ -120,6 +120,7 @@ const agentManifest = {
 };
 fs.writeFileSync(path.join(updatesDir, 'crewloom-agent.json'), JSON.stringify(agentManifest, null, 2) + '\n', 'utf8');
 
-// 3. Write public/version.json
-const versionJsonPath = path.join(websiteRoot, 'public', 'version.json');
-fs.writeFileSync(versionJsonPath, JSON.stringify({ version, tagName, name: releaseName }, null, 2) + '\n', 'utf8');
+// 3. Write public/version.json and root version.json
+const versionPayload = JSON.stringify({ version, tagName, name: releaseName }, null, 2) + '\n';
+fs.writeFileSync(path.join(websiteRoot, 'public', 'version.json'), versionPayload, 'utf8');
+fs.writeFileSync(path.join(websiteRoot, 'version.json'), versionPayload, 'utf8');
