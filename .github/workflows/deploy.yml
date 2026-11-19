@@ -36,6 +36,11 @@ jobs:
       - name: Build and test CLI distribution
         run: npm run test:cli
 
+      - name: Verify public download contract
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: npm run test:contract
+
       - name: Build Next.js Static Export
         run: npm run build
 

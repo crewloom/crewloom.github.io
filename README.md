@@ -23,3 +23,5 @@ The exported `/api/releases/latest/` response is generated at build time, not a 
 المصدر المعتمد للمشغّل هو `cli/` داخل هذا المستودع. يُبنى منه التنزيل للأنظمة المدعومة؛ المسار القديم في مساحة العمل يحيل إليه. التحقق يحتاج مجلدات المصدر الفعلية ولا يعلن النجاح عند غيابها.
 
 The production `crewloom.org` domain is hosted on Vercel. `vercel.json` selects `npm ci` and runs CLI verification before the full build, so deployment does not select the unrelated legacy pnpm lockfile. GitHub Pages uses the custom Actions workflow as a separate deployment target. Verify the actual HTTPS download bytes after publication; a successful GitHub workflow alone does not establish the production-domain version.
+
+Desktop updater metadata is synchronized from the published download release by `npm run sync:agent`. Its version, timestamp and DMG URL belong to one pinned release. If GitHub is unavailable, the build uses the last pinned metadata snapshot. Run `npm run test:contract` to check the complete public download set before deploying.

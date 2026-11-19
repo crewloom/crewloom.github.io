@@ -20,7 +20,7 @@ test('every contract asset exists in the site root and public/', () => {
   }
 });
 
-test('Vercel redirects and desktop-agent.json point at latest/download with contract names', () => {
+test('legacy redirects retain stable URLs and updater metadata pins its release', () => {
   const redirects = JSON.parse(read('vercel.json')).redirects.filter((r) => r.destination.includes('/releases/'));
   assert.ok(redirects.length >= 3);
   for (const { source, destination } of redirects) {
@@ -28,7 +28,7 @@ test('Vercel redirects and desktop-agent.json point at latest/download with cont
     assert.ok(names.includes(destination.slice(latestPrefix.length)), `${destination} is not a contract asset`);
   }
   const meta = JSON.parse(read('lib/desktop-agent.json'));
-  assert.equal(meta.downloadUrl, latestPrefix + contract.assets.macos);
+  assert.equal(meta.downloadUrl, `https://github.com/${contract.repo}/releases/download/${meta.tagName}/${contract.assets.macos}`);
   assert.equal(meta.dmgName, contract.assets.macos);
 });
 

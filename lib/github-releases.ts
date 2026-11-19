@@ -28,7 +28,7 @@ export interface LatestReleaseData {
 
 /**
  * Resolves the desktop agent version from the pre-synced desktop-agent.json metadata.
- * (Synchronized automatically from agent/apps/crewloom-desktop/package.json via scripts/sync-desktop-agent.mjs)
+ * (Synchronized from the published GitHub Desktop release via scripts/sync-desktop-agent.mjs)
  */
 export function getDesktopAgentVersion() {
   const version = desktopAgentMeta.version || '0.19.6';
@@ -46,100 +46,30 @@ export function getDesktopAgentVersion() {
 
 const currentAgent = getDesktopAgentVersion();
 
+const fallbackMacAsset: ReleaseAsset = {
+  id: 1,
+  name: downloadContract.assets.macos,
+  size: currentAgent.dmgSize,
+  sizeFormatted: currentAgent.dmgSizeFormatted,
+  downloadUrl: currentAgent.downloadUrl,
+  contentType: 'application/x-apple-diskimage',
+  platform: 'macos-arm64',
+  isInstaller: true,
+};
+
 export const FALLBACK_RELEASE: LatestReleaseData = {
   tagName: currentAgent.tagName,
   version: currentAgent.version,
   name: currentAgent.name,
   publishedAt: desktopAgentMeta.syncedAt || new Date().toISOString(),
   htmlUrl: `https://github.com/crewloom/crewloom.github.io/releases/tag/${currentAgent.tagName}`,
-  body: 'Official production bundle for macOS Apple Silicon with verified zero-destruction guarantees.',
   repoUrl: 'https://github.com/crewloom/crewloom',
   sourceUrl: 'https://github.com/crewloom/crewloom',
   tarballUrl: `https://github.com/crewloom/crewloom.github.io/archive/refs/tags/${currentAgent.tagName}.tar.gz`,
   zipballUrl: `https://github.com/crewloom/crewloom.github.io/archive/refs/tags/${currentAgent.tagName}.zip`,
   isLive: false,
-  assets: [
-    {
-      id: 1,
-      name: downloadContract.assets.macos,
-      size: currentAgent.dmgSize,
-      sizeFormatted: currentAgent.dmgSizeFormatted,
-      downloadUrl: currentAgent.downloadUrl,
-      contentType: 'application/x-apple-diskimage',
-      platform: 'macos-arm64',
-      isInstaller: true,
-    },
-    {
-      id: 2,
-      name: downloadContract.assets.windowsInstaller,
-      size: 6260000,
-      sizeFormatted: '6.0 MB',
-      downloadUrl: `https://github.com/${downloadContract.repo}/releases/download/${currentAgent.tagName}/${downloadContract.assets.windowsInstaller}`,
-      contentType: 'application/x-msdownload',
-      platform: 'windows',
-      isInstaller: true,
-    },
-    {
-      id: 3,
-      name: 'install.bat',
-      size: 616,
-      sizeFormatted: '1.0 KB',
-      downloadUrl: `https://github.com/${downloadContract.repo}/releases/download/${currentAgent.tagName}/${downloadContract.assets.installBat}`,
-      contentType: 'application/x-bat',
-      platform: 'windows',
-      isInstaller: false,
-    },
-    {
-      id: 4,
-      name: 'install.ps1',
-      size: 4000,
-      sizeFormatted: '4.0 KB',
-      downloadUrl: `https://github.com/${downloadContract.repo}/releases/download/${currentAgent.tagName}/${downloadContract.assets.installPs1}`,
-      contentType: 'application/octet-stream',
-      platform: 'windows',
-      isInstaller: false,
-    },
-    {
-      id: 5,
-      name: downloadContract.assets.android,
-      size: 25034354,
-      sizeFormatted: '23.9 MB',
-      downloadUrl: `https://github.com/${downloadContract.repo}/releases/download/${currentAgent.tagName}/${downloadContract.assets.android}`,
-      contentType: 'application/vnd.android.package-archive',
-      platform: 'android',
-      isInstaller: true,
-    },
-  ],
-  primaryMacAsset: {
-    id: 1,
-    name: downloadContract.assets.macos,
-    size: currentAgent.dmgSize,
-    sizeFormatted: currentAgent.dmgSizeFormatted,
-    downloadUrl: currentAgent.downloadUrl,
-    contentType: 'application/x-apple-diskimage',
-    platform: 'macos-arm64',
-    isInstaller: true,
-  },
-  primaryWindowsAsset: {
-    id: 2,
-    name: downloadContract.assets.windowsInstaller,
-    size: 12397568,
-    sizeFormatted: '12.4 MB',
-    downloadUrl: `https://github.com/${downloadContract.repo}/releases/download/${currentAgent.tagName}/${downloadContract.assets.windowsInstaller}`,
-    contentType: 'application/x-msdownload',
-    platform: 'windows',
-    isInstaller: true,
-  },
-  primaryAndroidAsset: {
-    id: 5,
-    name: downloadContract.assets.android,
-    size: 25034354,
-    sizeFormatted: '23.9 MB',
-    downloadUrl: `https://github.com/${downloadContract.repo}/releases/download/${currentAgent.tagName}/${downloadContract.assets.android}`,
-    contentType: 'application/vnd.android.package-archive',
-    platform: 'android',
-    isInstaller: true,
-  },
+  assets: [fallbackMacAsset],
+  primaryMacAsset: fallbackMacAsset,
 };
 
 export async function fetchLatestReleaseFromGitHub(): Promise<LatestReleaseData> {
