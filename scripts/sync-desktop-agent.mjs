@@ -1,126 +1,74 @@
 #!/usr/bin/env node
 import fs from 'node:fs';
-import path from 'node:path';
-import { execFileSync } from 'node:child_process';
-import { fileURLToPath } from 'node:url';
+import { pathToFileURL } from 'node:url';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// Candidate paths to the desktop agent package.json
-const candidateDesktopPkgPaths = [
-  path.resolve(__dirname, '../../agent/apps/crewloom-desktop/package.json'),
-  path.resolve(process.cwd(), '../agent/apps/crewloom-desktop/package.json'),
-  path.resolve(process.cwd(), 'agent/apps/crewloom-desktop/package.json'),
-  '/Volumes/data/projects/crewloom/agent/apps/crewloom-desktop/package.json',
-];
-
-let desktopPkg = null;
-let foundPath = null;
-
-// A local checkout can be stale (it once reported 0.26.3 while 0.29.x was released), so the
-// published branch is the source of truth. Local candidates remain the offline fallback.
-const remoteRef = process.env.CREWLOOM_AGENT_REF || 'crewloom-main';
-try {
-  const raw = execFileSync(
-    'gh',
-    ['api', `repos/crewloom/agent/contents/apps/crewloom-desktop/package.json?ref=${remoteRef}`, '-H', 'Accept: application/vnd.github.raw+json'],
-    { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], timeout: 20000 },
-  );
-  desktopPkg = JSON.parse(raw);
-  foundPath = `github:crewloom/agent@${remoteRef}`;
-} catch (error) {
-  console.warn(`[sync-desktop-agent] remote read failed (${error.message.split('\n')[0]}); using local checkout.`);
-}
-
-for (const p of desktopPkg ? [] : candidateDesktopPkgPaths) {
-  if (fs.existsSync(p)) {
-    try {
-      desktopPkg = JSON.parse(fs.readFileSync(p, 'utf8'));
-      foundPath = p;
-      break;
-    } catch {
-      // ignore
-    }
-  }
-}
-
-const websiteRoot = path.resolve(__dirname, '..');
-const desktopAgentJsonPath = path.join(websiteRoot, 'lib', 'desktop-agent.json');
-
-let existingMeta = {};
-if (fs.existsSync(desktopAgentJsonPath)) {
-  try {
-    existingMeta = JSON.parse(fs.readFileSync(desktopAgentJsonPath, 'utf8'));
-  } catch {
-    // ignore
-  }
-}
-
-const version = desktopPkg?.version || existingMeta.version || '0.3.5';
+const root = new URL('../', import.meta.url);
+const contract = JSON.parse(fs.readFileSync(new URL('lib/download-contract.json', root), 'utf8'));
 const productName = 'Crewloom Agent';
-const tagName = `v${version}`;
-const releaseName = `Crewloom Desktop Agent ${tagName}`;
 
-// Check DMG size
-const dmgCandidates = [
-  path.join(websiteRoot, 'Crewloom.dmg'),
-  path.join(websiteRoot, 'public', 'Crewloom.dmg'),
-];
-
-let dmgSize = existingMeta.dmgSize || 5269425;
-for (const dmg of dmgCandidates) {
-  if (fs.existsSync(dmg)) {
-    try {
-      const stats = fs.statSync(dmg);
-      dmgSize = stats.size;
-      break;
-    } catch {
-      // ignore
-    }
+/** Read the version and updater payload from the same published GitHub release. */
+export function metadataFromRelease(release, { repo, assets }) {
+  const tagName = release?.tag_name;
+  if (!/^v\d+\.\d+\.\d+$/.test(tagName ?? '') || release.draft || release.prerelease ||
+      !Number.isFinite(Date.parse(release.published_at))) {
+    throw new Error('Expected a published desktop release');
   }
+  const dmgName = assets.macos;
+  const downloadUrl = `https://github.com/${repo}/releases/download/${tagName}/${dmgName}`;
+  const dmg = Array.isArray(release.assets) && release.assets.find(asset =>
+    asset?.name === dmgName && asset.browser_download_url === downloadUrl &&
+    Number.isSafeInteger(asset.size) && asset.size > 0);
+  if (!dmg) throw new Error(`No valid macOS asset on ${tagName}`);
+
+  const dmgSize = dmg.size;
+  const mb = dmgSize / (1024 * 1024);
+  return {
+    version: tagName.slice(1),
+    tagName,
+    name: release.name || `Crewloom Desktop Agent ${tagName}`,
+    productName,
+    description: 'Crewloom Agent desktop application',
+    dmgName,
+    dmgSize,
+    dmgSizeFormatted: mb >= 1 ? `${mb.toFixed(1)} MB` : `${Math.round(dmgSize / 1024)} KB`,
+    downloadUrl,
+    sourcePath: `github:${repo}@${tagName}`,
+    syncedAt: release.published_at,
+  };
 }
 
-function formatBytes(bytes) {
-  if (bytes === 0) return '0 B';
-  const k = 1024;
-  const sizes = ['B', 'KB', 'MB', 'GB'];
-  const i = Math.floor(Math.log(bytes) / Math.log(k));
-  return `${(bytes / Math.pow(k, i)).toFixed(1)} ${sizes[i]}`;
+async function sync() {
+  const metaPath = new URL('lib/desktop-agent.json', root);
+  let meta;
+  try {
+    const response = await fetch(`https://api.github.com/repos/${contract.repo}/releases/latest`, {
+      headers: { Accept: 'application/vnd.github+json' },
+      signal: AbortSignal.timeout(15_000),
+    });
+    if (!response.ok) throw new Error(`GitHub returned HTTP ${response.status}`);
+    meta = metadataFromRelease(await response.json(), contract);
+  } catch (error) {
+    const saved = JSON.parse(fs.readFileSync(metaPath, 'utf8'));
+    const expected = `https://github.com/${contract.repo}/releases/download/${saved.tagName}/${contract.assets.macos}`;
+    if (!/^v\d+\.\d+\.\d+$/.test(saved.tagName) || saved.tagName !== `v${saved.version}` ||
+        saved.downloadUrl !== expected || saved.dmgName !== contract.assets.macos ||
+        !Number.isSafeInteger(saved.dmgSize) || saved.dmgSize <= 0 || !Number.isFinite(Date.parse(saved.syncedAt))) {
+      throw new Error('No valid pinned desktop release snapshot available', { cause: error });
+    }
+    console.warn(`[sync-desktop-agent] Using pinned ${saved.tagName} snapshot: ${error.message}`);
+    meta = saved;
+  }
+
+  const write = (file, value) => fs.writeFileSync(new URL(file, root), JSON.stringify(value, null, 2) + '\n', 'utf8');
+  write('lib/desktop-agent.json', meta);
+  fs.mkdirSync(new URL('public/updates/', root), { recursive: true });
+  write('public/updates/crewloom-agent.json', {
+    version: meta.version, notes: meta.name, url: meta.downloadUrl, pub_date: meta.syncedAt,
+  });
+  const version = { version: meta.version, tagName: meta.tagName, name: meta.name };
+  write('public/version.json', version);
+  write('version.json', version);
+  console.log(`[sync-desktop-agent] Synced ${meta.tagName} from ${meta.sourcePath}`);
 }
 
-const meta = {
-  version,
-  tagName,
-  name: releaseName,
-  productName,
-  description: desktopPkg?.description || 'Crewloom Agent desktop application (macOS, Windows, Linux)',
-  dmgName: 'Crewloom.dmg',
-  dmgSize,
-  dmgSizeFormatted: formatBytes(dmgSize),
-  downloadUrl: `https://github.com/crewloom/crewloom.github.io/releases/latest/download/Crewloom.dmg`,
-  sourcePath: foundPath ? (foundPath.startsWith('github:') ? foundPath : path.relative(websiteRoot, foundPath)) : 'embedded',
-  syncedAt: new Date().toISOString(),
-};
-
-// 1. Write lib/desktop-agent.json
-fs.writeFileSync(desktopAgentJsonPath, JSON.stringify(meta, null, 2) + '\n', 'utf8');
-console.log(`[sync-desktop-agent] Synced version ${version} from ${foundPath || 'fallback'} -> ${desktopAgentJsonPath}`);
-
-// 2. Ensure public/updates exists and write update manifest for the desktop agent updater
-const updatesDir = path.join(websiteRoot, 'public', 'updates');
-if (!fs.existsSync(updatesDir)) {
-  fs.mkdirSync(updatesDir, { recursive: true });
-}
-const agentManifest = {
-  version,
-  notes: `Official Crewloom Desktop Agent ${tagName} for macOS Apple Silicon with verified zero-destruction guarantees.`,
-  url: meta.downloadUrl,
-  pub_date: meta.syncedAt,
-};
-fs.writeFileSync(path.join(updatesDir, 'crewloom-agent.json'), JSON.stringify(agentManifest, null, 2) + '\n', 'utf8');
-
-// 3. Write public/version.json and root version.json
-const versionPayload = JSON.stringify({ version, tagName, name: releaseName }, null, 2) + '\n';
-fs.writeFileSync(path.join(websiteRoot, 'public', 'version.json'), versionPayload, 'utf8');
-fs.writeFileSync(path.join(websiteRoot, 'version.json'), versionPayload, 'utf8');
+if (process.argv[1] && pathToFileURL(process.argv[1]).href === import.meta.url) await sync();

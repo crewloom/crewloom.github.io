@@ -5,6 +5,7 @@
   "assets": {
     "directory": "./out"
   },
+  "previews": {},
   "build": {
     "command": "npm run build"
   }
