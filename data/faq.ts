@@ -1,78 +1,63 @@
 import { FaqItem } from '@/types/seo';
-import METRICS_DATA from './project-metrics.json';
 
 export const FAQS_EN: FaqItem[] = [
   {
-    question: 'What is Crewloom?',
-    answer:
-      `Crewloom (https://crewloom.org) is an enterprise-grade sovereign autonomous AI coding agent. It combines ${METRICS_DATA.skillsDisplay} open-source specialist skills with a dual English/Arabic core, rigorous non-destructive contract verification, and an omni-channel bridge control room.`,
+    "question": "What is Crewloom?",
+    "answer": "Crewloom is a developer-tool ecosystem with role guides, project memory, managed workflow checks, Desktop work and a separate Bridge. Core has 47 role guides. External skills and reference documents are separate inventories."
   },
   {
-    question: 'Is Crewloom an open code alternative to Claude Code and cloud agents?',
-    answer:
-      `Yes. Crewloom is engineered as a sovereign, open-code development ecosystem and the premier local-first alternative to closed tools like Claude Code, Devin, and GitHub Copilot. It unites ${METRICS_DATA.skillsDisplay} open-source specialist skills with local AST verification firewalls, zero telemetry leaks, and dual English/Arabic autonomous workflows.`,
+    "question": "Is Crewloom an alternative to other coding tools?",
+    "answer": "It offers a different combination of repository-local guides and managed workflows. Compare the exact version, provider and integration you need. This site does not establish universal superiority or vendor accreditation."
   },
   {
-    question: 'Why is Crewloom considered the smartest autonomous AI coding agent?',
-    answer:
-      'Crewloom functions as a smart, disciplined agent by avoiding catastrophic full-file rewrites. Instead of unpredictable diffs, it uses multi-agent specialization, AST contract verification, additive schema migrations, and omni-channel bridge orchestration across Terminal CLI, native macOS desktop app, Telegram, and WhatsApp.',
+    "question": "Which remote channels are included?",
+    "answer": "Bridge includes Telegram and Console adapters. Slack, Discord, WhatsApp and Webhooks are not bundled channel adapters in the audited Bridge checkout. Extra adapters require separate implementation and testing."
   },
   {
-    question: 'How does Crewloom guarantee Zero-Destruction coding?',
-    answer:
-      'Crewloom integrates pre-execution AST syntax audits, contract verification, and strict additive migration constraints. Any destructive drop operations, unversioned regressions, or unauthorized file deletions are automatically caught and blocked before execution.',
+    "question": "Does Crewloom guarantee prevention of destructive actions?",
+    "answer": "No. Contract checks and policy checks cover specific managed paths. They do not prevent every destructive operation, regression or prompt injection. Keep backups, inspect changes and apply the permissions appropriate for your deployment."
   },
   {
-    question: 'How does Crewloom compare to Devin, Cursor, and Windsurf?',
-    answer:
-      'Unlike cloud-bound code generators, Crewloom is sovereign-first: it runs as a native lightweight background daemon (<0.8ms latency), supports 100% offline air-gapped local models (Ollama/llama.cpp), features full English and Arabic linguistic parity, and connects to remote control bridges like Telegram and WhatsApp.',
+    "question": "How should I compare performance and language support?",
+    "answer": "Measure the selected version and workflow on your hardware and review the results. The site does not substantiate a universal latency, accuracy or Arabic/English parity percentage."
   },
   {
-    question: 'How do I install Crewloom on macOS or Linux?',
-    answer:
-      'You can install Crewloom directly via the macOS Desktop DMG from the website, or via the universal terminal command: curl -fsSL https://crewloom.org/install.sh | bash. Windows installers and portable packages are also provided.',
+    "question": "How do I install Crewloom?",
+    "answer": "Use the release page and verify that the version, architecture and artifact match your system. Website source and deployed release metadata may differ. No official Homebrew package, fixed download size or universal installer is established by this FAQ."
   },
   {
-    question: 'Can Crewloom run completely offline with local LLMs?',
-    answer:
-      'Yes. Crewloom was designed for complete data privacy and air-gapped sovereignty. You can point it directly to your local Ollama or llama.cpp socket with zero external telemetry or cloud dependencies.',
-  },
+    "question": "Can Crewloom run offline?",
+    "answer": "Local model configurations are available, but offline operation depends on the entire deployment. Disable remote providers and integrations and verify network behavior. Do not assume zero telemetry, retention or external traffic without testing."
+  }
 ];
 
 export const FAQS_AR: FaqItem[] = [
   {
-    question: 'ما هو Crewloom (كرو لوم)؟',
-    answer:
-      `كرو لوم (https://crewloom.org) هو وكيل برمجي ذكي ومستقل يتميز بالسيادة والأمان الفائق. يدمج ${METRICS_DATA.skillsDisplay} مهارة تخصصية مفتوحة المصدر مع نواة ذكاء ثنائية عربية/إنجليزية، ونظام فحص عقود صارم يمنع الهدم، وغرفة تحكم شاملة عبر التليجرام والواتساب وتطبيقات سطح المكتب والطرفية.`,
+    "question": "ما هو كرو لوم؟",
+    "answer": "كرو لوم منظومة أدوات للمطورين تضم أدلة أدوار وذاكرة للمشروع وفحوصاً لمسارات تشغيل مُدارة، مع عمل مستقل لتطبيق سطح المكتب وBridge. يحتوي Core على 47 دليل دور؛ المهارات الخارجية والمراجع مقاييس منفصلة."
   },
   {
-    question: 'هل يعتبر Crewloom بديلاً لأداة كلود كود (Claude Code) ومشاريع الأوبن كود (Open Code)؟',
-    answer:
-      `نعم وبشكل قاطع. كرو لوم هو بيئة تطوير مفتوحة المصدر (أوبن كود - Open Code) تم تصميمها كبديل سيادي متكامل لأدوات الحوسبة السحابية مثل كلود كود (Claude Code) وديفين وكورسر. يدمج ${METRICS_DATA.skillsDisplay} مهارة تخصصية، ويدعم العمل المحلي الكامل بدون إرسال أي أسرار، مع ميثاق عدم الهدم البرمجي AST.`,
+    "question": "هل هو بديل لأدوات البرمجة الأخرى؟",
+    "answer": "يقدم مزيجاً مختلفاً من الأدلة المحلية ومسارات العمل المُدارة. قارن الإصدار والمزوّد والتكامل الذي تحتاجه. لا يثبت الموقع تفوقاً عاماً أو اعتماداً من الشركات."
   },
   {
-    question: 'كيف يعمل Crewloom كـ إيجنت ذكي (Smart Agent) للأتمتة البرمجية؟',
-    answer:
-      `يعمل Crewloom كـ إيجنت ذكي فائق الانضباط عبر تقسيم المهام المعقدة على ${METRICS_DATA.skillsDisplay} مهارة تخصصية، وفحص شجرة الصرف والنحو البرمجية (AST) قبل تنفيذ أي سطر؛ مما يمنع نهائياً مسح قواعد البيانات أو كسر المشروعات، مع إمكانية توجيهه صوتياً أو كتابياً عبر تليجرام وواتساب والطرفية وتطبيق ماك الأصلي.`,
+    "question": "ما قنوات التحكم الموجودة؟",
+    "answer": "يتضمن Bridge محولي Telegram وConsole. لا يحتوي المستودع الذي تمت مراجعته على محولات مدمجة لـSlack أوDiscord أوWhatsApp أوWebhooks؛ تحتاج هذه القنوات تنفيذاً واختبارات منفصلة."
   },
   {
-    question: 'كيف يضمن Crewloom عدم الهدم أو التدمير البرمجي؟',
-    answer:
-      'يطبق Crewloom تدقيقاً صارماً على مستوى شجرة الصرف والنحو البرمجية (AST) وعقود الأمان قبل تنفيذ أي أمر؛ مما يمنع نهائياً مسح قواعد البيانات (DROP) أو كسر التوافقية العكسية أو التعديلات العشوائية في بيئات الإنتاج الحية.',
+    "question": "هل يضمن منع التعديلات المدمرة؟",
+    "answer": "لا. تغطي فحوص العقود والسياسات مسارات مُدارة محددة، ولا تمنع كل عملية مدمرة أو تراجع أو حقن تعليمات. احتفظ بنسخ احتياطية وراجع التغييرات واضبط الصلاحيات حسب بيئتك."
   },
   {
-    question: 'ما الفرق بين Crewloom وبين Devin و Cursor و Copilot؟',
-    answer:
-      'كرو لوم مبني لمبدأ السيادة الكاملة: لا يجبرك على رفع أسرار مشروعك إلى سحابة خارجية، ويعمل كخادم خفيف فوري (أقل من 0.8 ملي ثانية)، ويدعم النماذج المحلية بنسبة 100% (مثل Ollama)، ويتعامل بالعربية والإنجليزية بنفس القوة، فضلاً عن تحكمه السحابي عبر التليجرام.',
+    "question": "كيف أقارن الأداء ودعم اللغات؟",
+    "answer": "قس الإصدار ومسار العمل على جهازك وراجع النتائج. لا توجد هنا أدلة تثبت زمناً موحداً للاستجابة أو نسبة دقة أو تكافؤاً كاملاً بين العربية والإنجليزية."
   },
   {
-    question: 'كيف أقوم بتثبيت واستخدام Crewloom؟',
-    answer:
-      'يمكن التثبيت عبر أمر مباشر في الطرفية: curl -fsSL https://crewloom.org/install.sh | bash، كما يتوفر تطبيق ماك أصلي فائق السرعة وخفيف الحجم (58 كيلوبايت) وحزمة Homebrew الرسمية.',
+    "question": "كيف أثبّت كرو لوم؟",
+    "answer": "استخدم صفحة الإصدارات وتحقق من الإصدار والمعمارية والملف المناسب لجهازك. قد تختلف بيانات الموقع المنشور عن المصدر. لا تثبت هذه الصفحة وجود حزمة Homebrew رسمية أو حجم تنزيل ثابت أو مثبت عام."
   },
   {
-    question: 'هل يدعم Crewloom العمل في البيئات المعزولة عن الإنترنت (Air-gapped)؟',
-    answer:
-      'نعم، صُمم كرو لوم ليكون سيادياً وخالياً من أي تسريبات للمعلومات. يمكنك تشغيله بالكامل على معالجات جهازك المحلية عبر مقبس Ollama دون الحاجة لأي اتصال بالإنترنت.',
-  },
+    "question": "هل يعمل بدون إنترنت؟",
+    "answer": "تتوفر إعدادات للنماذج المحلية، لكن العزل يعتمد على بيئة التشغيل كاملة. عطّل المزوّدات والتكاملات البعيدة واختبر حركة الشبكة. لا تفترض انعدام التتبع أو الاحتفاظ أو الاتصالات الخارجية دون تحقق."
+  }
 ];
