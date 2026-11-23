@@ -23,3 +23,15 @@ The exported `/api/releases/latest/` response is generated at build time, not a 
 المصدر المعتمد للمشغّل هو `cli/` داخل هذا المستودع. يُبنى منه التنزيل للأنظمة المدعومة؛ المسار القديم في مساحة العمل يحيل إليه. التحقق يحتاج مجلدات المصدر الفعلية ولا يعلن النجاح عند غيابها.
 
 The production `crewloom.org` domain is hosted on Vercel. `vercel.json` selects `npm ci` and runs CLI verification before the full build, so deployment does not select the unrelated legacy pnpm lockfile. GitHub Pages uses the custom Actions workflow as a separate deployment target. Verify the actual HTTPS download bytes after publication; a successful GitHub workflow alone does not establish the production-domain version.
+
+## Presentation evidence and release identity (2026-11-23)
+
+Website source version, deployed metadata, Desktop source and Desktop releases have separate identities. During this review, published Desktop was 0.39.11, private Desktop source was 0.41.0, website package metadata was 1.1.0, checked-in display metadata was 0.33.0, deployed `/version.json` was 0.30.1, and the exported release API was 0.29.2. These are dated observations, not interchangeable current-version claims.
+
+This PR changes documentation and FAQ copy only. It does not replace installers, rewrite release endpoints, regenerate compiled pages or deploy the site. Release metadata needs an artifact-backed synchronization and publication step outside this patch.
+
+`data/project-metrics.json` still contains unverified claims: 69+ skills, 24+ contracts, 0% destructive regressions, <0.8ms IPC and 100% bicultural sovereignty. Core's 47 role guides, 24 registered commands and 169 reference Markdown files are distinct inventories. Do not equate these measures or publish the benchmark percentages without scope, denominator, hardware, source commit and reproducible evidence. Review all consumers of these fields before a separate metadata migration.
+
+The FAQ source now uses bounded claims in both languages. Other marketing copy and generated artifacts may still contain older claims. Canonical Rumuze attribution URL remains an owner decision; do not infer it from a similar domain.
+
+بالعربية: تعديل الأسئلة الشائعة نصي فقط، ولا ينشر نسخة جديدة. بيانات الإصدارات والمؤشرات القديمة تحتاج مزامنة مستقلة بأدلة للملفات المنشورة. عدد الأدوار والأوامر والمراجع مقاييس مختلفة وليست عدداً واحداً للمهارات المعتمدة.
