@@ -32,6 +32,6 @@ This PR changes documentation and FAQ copy only. It does not replace installers,
 
 `data/project-metrics.json` still contains unverified claims: 69+ skills, 24+ contracts, 0% destructive regressions, <0.8ms IPC and 100% bicultural sovereignty. Core's 47 role guides, 24 registered commands and 169 reference Markdown files are distinct inventories. Do not equate these measures or publish the benchmark percentages without scope, denominator, hardware, source commit and reproducible evidence. Review all consumers of these fields before a separate metadata migration.
 
-The FAQ source now uses bounded claims in both languages. Other marketing copy and generated artifacts may still contain older claims. Canonical Rumuze attribution URL remains an owner decision; do not infer it from a similar domain.
+The FAQ source now uses bounded claims in both languages. Other marketing copy and generated artifacts may still contain older claims.
 
 بالعربية: تعديل الأسئلة الشائعة نصي فقط، ولا ينشر نسخة جديدة. بيانات الإصدارات والمؤشرات القديمة تحتاج مزامنة مستقلة بأدلة للملفات المنشورة. عدد الأدوار والأوامر والمراجع مقاييس مختلفة وليست عدداً واحداً للمهارات المعتمدة.
