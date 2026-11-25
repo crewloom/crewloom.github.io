@@ -537,9 +537,9 @@ function executeCommand(cmdArgs) {
     }
     case "studio": {
       console.log(BANNER);
-      console.log("\x1B[36m\u25B6 Launching Crewloom Studio Web Dashboard...\x1B[0m");
       const studioServerPath = process.env.CREWLOOM_STUDIO_PATH || path4.join(rootDir, "agent/apps/crewloom-studio/server.mjs");
       if (fs4.existsSync(studioServerPath)) {
+        console.log("\x1B[36m\u25B6 Launching Crewloom Studio Web Dashboard...\x1B[0m");
         const shouldOpen = cmdArgs.includes("--open");
         const child = spawn("node", [studioServerPath], { stdio: "inherit" });
         if (shouldOpen) {
@@ -553,7 +553,8 @@ function executeCommand(cmdArgs) {
         }
         child.on("exit", (code) => process.exit(code || 0));
       } else {
-        console.log("\x1B[33m\u2022 Studio server script not found at expected path.\x1B[0m");
+        console.error(`\x1B[33m\u2022 Studio server script not found at ${studioServerPath}. Run from a Crewloom workspace checkout or set CREWLOOM_STUDIO_PATH.\x1B[0m`);
+        process.exitCode = 1;
       }
       break;
     }
