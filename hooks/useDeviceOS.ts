@@ -69,16 +69,29 @@ export function useDeviceOS() {
             const renderer = (gl as WebGLRenderingContext).getParameter(debugInfo.UNMASKED_RENDERER_WEBGL) || '';
             if (/Intel|AMD|Radeon|NVIDIA/i.test(renderer)) {
               isAppleSilicon = false;
-            } else if (/Apple M[1-9]/i.test(renderer)) {
+            } else if (/Apple (M[1-9]|GPU)/i.test(renderer)) {
               isAppleSilicon = true;
             }
           }
         }
       } catch {
-        // Unknown architecture requires an explicit platform selection.
+        // Fall through to Apple Silicon default on macOS.
       }
 
-      setDetectedPlatform(isAppleSilicon === null ? 'curl' : isAppleSilicon ? 'macos-arm64' : 'macos-x64');
+      const uaData = (navigator as unknown as {
+        userAgentData?: { getHighEntropyValues?: (hints: string[]) => Promise<{ architecture?: string }> };
+      }).userAgentData;
+      if (isAppleSilicon === null && uaData?.getHighEntropyValues) {
+        uaData.getHighEntropyValues(['architecture']).then(({ architecture }) => {
+          if (architecture === 'x86') {
+            setDetectedPlatform('macos-x64');
+          } else if (architecture === 'arm') {
+            setDetectedPlatform('macos-arm64');
+          }
+        }).catch(() => {});
+      }
+
+      setDetectedPlatform(isAppleSilicon === false ? 'macos-x64' : 'macos-arm64');
       return;
     }
 

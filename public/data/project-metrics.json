@@ -5,10 +5,10 @@
   "contractsCount": 31,
   "contractsDisplay": "31+",
   "contractsDisplayAr": "٣١+",
-  "appVersion": "0.41.0",
-  "appTagName": "v0.41.0",
+  "appVersion": "0.42.2",
+  "appTagName": "v0.42.2",
   "destructiveRegressions": "0%",
   "ipcLatency": "< 0.8ms",
   "biculturalSovereignty": "100%",
-  "lastSynced": "2026-11-25T22:36:39.128Z"
+  "lastSynced": "2026-11-25T23:39:42.847Z"
 }
