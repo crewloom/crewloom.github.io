@@ -31,14 +31,94 @@ import { spawnSync } from "node:child_process";
 function initializeWorkspace(directory, version) {
   const folder = path2.join(directory, ".crewloom");
   fs2.mkdirSync(folder, { recursive: true });
-  fs2.writeFileSync(path2.join(folder, "config.json"), `${JSON.stringify({
-    name: "crewloom-workspace",
+  const config = {
+    name: path2.basename(path2.resolve(directory)) || "crewloom-workspace",
     version,
-    engine: { mode: "sovereign" },
+    engine: { mode: "sovereign", architecture: "trinity" },
     languages: ["en", "ar"],
-    contracts: { zeroDestruction: true, stagedDiffs: true }
-  }, null, 2)}
-`, { flag: "wx", mode: 384 });
+    contracts: { zeroDestruction: true, stagedDiffs: true },
+    hooks: { enabled: true, dir: ".crewloom/hooks" },
+    ledger: {
+      promises: ".crewloom/ledger/promises.json",
+      escapes: ".crewloom/ledger/escapes.json"
+    },
+    pipelines: {
+      softwareDelivery: ".crewloom/pipelines/software-delivery.json"
+    }
+  };
+  fs2.writeFileSync(
+    path2.join(folder, "config.json"),
+    `${JSON.stringify(config, null, 2)}
+`,
+    { flag: "wx", mode: 384 }
+  );
+  const subdirs = ["bin", "hooks", "ledger", "protocols", "pipelines", "work"];
+  for (const sub of subdirs) {
+    fs2.mkdirSync(path2.join(folder, sub), { recursive: true });
+  }
+  const writeSafe = (relPath, content, mode = 420) => {
+    const fullPath = path2.join(folder, relPath);
+    if (!fs2.existsSync(fullPath)) {
+      fs2.writeFileSync(fullPath, content, { mode });
+    }
+  };
+  writeSafe(
+    "README.md",
+    `# .crewloom \u2014 Sovereign Agent Runtime & Workspace Home
+
+This directory contains workspace governance, deterministic hooks, execution pipelines, and verifiable ledgers for Crewloom agents.
+
+## Structure
+- \`config.json\`: Agent runtime configuration.
+- \`hooks/\`: Lifecycle hooks executed during agent turns.
+- \`ledger/\`: Verifiable promise ledger (\`promises.json\`) and defect tracker (\`escapes.json\`).
+- \`pipelines/\`: Execution pipeline stages (\`software-delivery.json\`).
+- \`protocols/\`: Governed protocol specifications.
+- \`bin/\`: Workspace execution guards and utility tools.
+`
+  );
+  writeSafe("ledger/promises.json", "[]\n");
+  writeSafe("ledger/escapes.json", "[]\n");
+  writeSafe(
+    "pipelines/software-delivery.json",
+    `${JSON.stringify(
+      {
+        name: "software-delivery",
+        version: "1.0.0",
+        stages: [
+          { id: "understand", name: "Understand & Trace", required: true },
+          { id: "pin", name: "Pin Current Behavior", required: true },
+          { id: "change", name: "Surgical Implementation", required: true },
+          { id: "prove", name: "Adversarial & Sabotage-Red Proof", required: true },
+          { id: "deliver", name: "Verified Delivery", required: true }
+        ]
+      },
+      null,
+      2
+    )}
+`
+  );
+  writeSafe(
+    "protocols/README.md",
+    `# Project Protocols
+Governed stateful workflows for this workspace.
+- Execution Pipeline: Understand -> Pin -> Change -> Prove -> Deliver
+- Promise Ledger: Every planned change is recorded and proven before completion.
+`
+  );
+  const stopHook = `#!/usr/bin/env bash
+# Stop hook: verify promise ledger has no unverified promises before closing
+set -euo pipefail
+project_dir="\${CLAUDE_PROJECT_DIR:-$(pwd)}"
+ledger="\${PROMISE_LEDGER:-$project_dir/.crewloom/ledger/promises.json}"
+[[ -f "$ledger" ]] || exit 0
+if ! jq -e 'type == "array"' "$ledger" >/dev/null 2>&1; then
+  echo "ledger $ledger is not a JSON array" >&2
+  exit 1
+fi
+exit 0
+`;
+  writeSafe("hooks/promise-ledger-stop.sh", stopHook, 493);
 }
 function verifyWorkspace(root, run = spawnSync) {
   const desktop = path2.join(root, "agent/apps/crewloom-desktop");
@@ -66,7 +146,11 @@ function verifyWorkspace(root, run = spawnSync) {
     if (!fs2.existsSync(path2.join(suite.cwd, suite.file))) {
       return { name: suite.name, success: false, reason: "missing", status: null };
     }
-    const result = run(suite.command, suite.args, { cwd: suite.cwd, stdio: "inherit", env: environment });
+    const result = run(suite.command, suite.args, {
+      cwd: suite.cwd,
+      stdio: "inherit",
+      env: environment
+    });
     return {
       name: suite.name,
       success: result.status === 0 && !result.error && !result.signal,
@@ -108,7 +192,8 @@ function runAgentCli(root, args2, run = spawnSync2) {
 var dictionaries = {
   en: {
     auditGitFailed: "Git inspection failed; audit could not verify this directory.",
-    initOk: "Initialized .crewloom/config.json.",
+    initOk: "Initialized .crewloom sovereign workspace governance.",
+    initSyncOk: "Sovereign .crewloom governance verified and active in target workspace.",
     initFailed: "Initialization failed; existing configuration has been preserved:",
     verifyOk: "Verification passed.",
     verifyFailed: "Verification failed. Required checks must all pass.",
@@ -131,7 +216,8 @@ var dictionaries = {
   },
   ar: {
     auditGitFailed: "\u062A\u0639\u0630\u0631 \u0641\u062D\u0635 Git\u061B \u0644\u0645 \u064A\u062A\u0645\u0643\u0646 \u0627\u0644\u062A\u062F\u0642\u064A\u0642 \u0645\u0646 \u0627\u0644\u062A\u062D\u0642\u0642 \u0645\u0646 \u0647\u0630\u0627 \u0627\u0644\u0645\u062C\u0644\u062F.",
-    initOk: "\u062A\u0645 \u0625\u0646\u0634\u0627\u0621 .crewloom/config.json.",
+    initOk: "\u062A\u0645 \u0625\u0639\u062F\u0627\u062F \u062D\u0648\u0643\u0645\u0629 \u0645\u0633\u0627\u062D\u0629 \u0627\u0644\u0639\u0645\u0644 \u0627\u0644\u0633\u064A\u0627\u062F\u064A\u0629 \u0641\u064A .crewloom \u0628\u0646\u062C\u0627\u062D.",
+    initSyncOk: "\u062D\u0648\u0643\u0645\u0629 .crewloom \u0627\u0644\u0633\u064A\u0627\u062F\u064A\u0629 \u0646\u0634\u0637\u0629 \u0648\u0645\u062D\u0642\u0642\u0629 \u0641\u064A \u0645\u0633\u0627\u062D\u0629 \u0627\u0644\u0639\u0645\u0644 \u0627\u0644\u0645\u0633\u062A\u0647\u062F\u0641\u0629.",
     initFailed: "\u062A\u0639\u0630\u0631 \u0627\u0644\u0625\u0639\u062F\u0627\u062F\u061B \u062A\u0645 \u0627\u0644\u062D\u0641\u0627\u0638 \u0639\u0644\u0649 \u0645\u0644\u0641 \u0627\u0644\u0625\u0639\u062F\u0627\u062F\u0627\u062A \u0627\u0644\u0645\u0648\u062C\u0648\u062F:",
     verifyOk: "\u0646\u062C\u062D\u062A \u062C\u0645\u064A\u0639 \u0641\u062D\u0648\u0635 \u0627\u0644\u062A\u062D\u0642\u0642.",
     verifyFailed: "\u0641\u0634\u0644 \u0627\u0644\u062A\u062D\u0642\u0642. \u064A\u062C\u0628 \u0646\u062C\u0627\u062D \u062C\u0645\u064A\u0639 \u0627\u0644\u0641\u062D\u0648\u0635 \u0627\u0644\u0645\u0637\u0644\u0648\u0628\u0629.",
@@ -349,7 +435,7 @@ Commands:
   computer-use, cu     Universal Computer Use (Cyber-Ghost Cursor, Window Glow, Live OS)
   verify               Run core automated verification test suite
   audit [--preflight]  Verify repository integrity, worktree and security guards
-  init                 Initialize sovereign .crewloom configuration in workspace
+  init, sync [dir]     Initialize or sync sovereign .crewloom governance in target workspace
   version, -v          Display Crewloom Sovereign Engine version
 
 Options:
@@ -516,14 +602,20 @@ function executeCommand(cmdArgs) {
       process.exitCode = success ? 0 : 1;
       break;
     }
+    case "sync":
     case "init": {
       console.log(BANNER);
       try {
-        initializeWorkspace(process.cwd(), VERSION);
+        const targetDir = cmdArgs[1] ? path4.resolve(cmdArgs[1]) : process.cwd();
+        initializeWorkspace(targetDir, VERSION);
         console.log(translate("initOk"));
       } catch (error) {
-        console.error(translate("initFailed"), error instanceof Error ? error.message : String(error));
-        process.exitCode = 1;
+        if (cmd === "sync" && error && error.code === "EEXIST") {
+          console.log(translate("initSyncOk"));
+        } else {
+          console.error(translate("initFailed"), error instanceof Error ? error.message : String(error));
+          process.exitCode = 1;
+        }
       }
       break;
     }

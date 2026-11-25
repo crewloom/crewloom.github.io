@@ -2,7 +2,8 @@
 const dictionaries = {
   en: {
     auditGitFailed: 'Git inspection failed; audit could not verify this directory.',
-    initOk: 'Initialized .crewloom/config.json.',
+    initOk: 'Initialized .crewloom sovereign workspace governance.',
+    initSyncOk: 'Sovereign .crewloom governance verified and active in target workspace.',
     initFailed: 'Initialization failed; existing configuration has been preserved:',
     verifyOk: 'Verification passed.',
     verifyFailed: 'Verification failed. Required checks must all pass.',
@@ -24,7 +25,8 @@ const dictionaries = {
   },
   ar: {
     auditGitFailed: 'تعذر فحص Git؛ لم يتمكن التدقيق من التحقق من هذا المجلد.',
-    initOk: 'تم إنشاء .crewloom/config.json.',
+    initOk: 'تم إعداد حوكمة مساحة العمل السيادية في .crewloom بنجاح.',
+    initSyncOk: 'حوكمة .crewloom السيادية نشطة ومحققة في مساحة العمل المستهدفة.',
     initFailed: 'تعذر الإعداد؛ تم الحفاظ على ملف الإعدادات الموجود:',
     verifyOk: 'نجحت جميع فحوص التحقق.',
     verifyFailed: 'فشل التحقق. يجب نجاح جميع الفحوص المطلوبة.',

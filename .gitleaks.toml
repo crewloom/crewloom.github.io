@@ -1,0 +1,18 @@
+title = "crewloom website"
+
+[extend]
+useDefault = true
+
+# Triaged 2026-11-22 (11 findings, all generic-api-key, none private secrets):
+#  - .next/ is gitignored Next.js build output (per-build local preview keys).
+#  - The IndexNow key is public by design: the protocol requires it to be served at the site
+#    root as <key>.txt (public/<key>.txt, whose content equals its filename).
+[[allowlists]]
+description = "Generated Next.js build output (gitignored)"
+targetRules = ["generic-api-key"]
+paths = ['''\.next/''']
+
+[[allowlists]]
+description = "IndexNow verification key, published at the site root by design"
+targetRules = ["generic-api-key"]
+paths = ['''lib/seo/config\.ts$''', '''scripts/ping-indexnow\.mjs$''']

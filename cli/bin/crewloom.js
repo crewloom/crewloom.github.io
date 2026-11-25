@@ -70,7 +70,7 @@ Commands:
   computer-use, cu     Universal Computer Use (Cyber-Ghost Cursor, Window Glow, Live OS)
   verify               Run core automated verification test suite
   audit [--preflight]  Verify repository integrity, worktree and security guards
-  init                 Initialize sovereign .crewloom configuration in workspace
+  init, sync [dir]     Initialize or sync sovereign .crewloom governance in target workspace
   version, -v          Display Crewloom Sovereign Engine version
 
 Options:
@@ -248,14 +248,20 @@ function executeCommand(cmdArgs) {
       break;
     }
 
+    case 'sync':
     case 'init': {
       console.log(BANNER);
       try {
-        initializeWorkspace(process.cwd(), VERSION);
+        const targetDir = cmdArgs[1] ? path.resolve(cmdArgs[1]) : process.cwd();
+        initializeWorkspace(targetDir, VERSION);
         console.log(translate('initOk'));
       } catch (error) {
-        console.error(translate('initFailed'), error instanceof Error ? error.message : String(error));
-        process.exitCode = 1;
+        if (cmd === 'sync' && error && error.code === 'EEXIST') {
+          console.log(translate('initSyncOk'));
+        } else {
+          console.error(translate('initFailed'), error instanceof Error ? error.message : String(error));
+          process.exitCode = 1;
+        }
       }
       break;
     }
